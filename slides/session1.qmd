@@ -1,0 +1,633 @@
+---
+title: "Session 1: Circuits Basics"
+subtitle: "From Water Pipes to Computer Logic"
+date: today
+format:
+  revealjs:
+    theme: [default, ../slides_template/assets/sdaia.scss]
+    transition: slide
+    background-transition: fade
+    slide-number: true
+    controls: true
+    progress: true
+    center-title-slide: true
+    title-slide-attributes:
+      data-background-image: "../slides_template/assets/anim.svg"
+      data-background-opacity: "0.08"
+      data-background-size: "cover"
+---
+
+# Session 1 {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+Circuits Basics — From Water Pipes to Computer Logic
+
+## Agenda
+
+- **Part 1** — The Water World
+- **Part 2** — Zooming In
+- **Part 3** — The Bridge (Water ↔ Electrons)
+- **Part 4** — But They Don't Touch
+- **Part 5** — Ohm's Law: V = I × R
+- **Part 6** — Components: Bulb, Motor, Switch
+- **Part 7** — Variable Resistance & The Transistor
+- **Part 8** — 0s, 1s, and Python
+- **Part 9** — Summary, Homework & AI Onboarding
+
+
+# Part 1 — The Water World {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Closed Loop
+
+:::: {.columns}
+
+::: {.column width="55%"}
+- **The pump** creates **pressure** — it pushes the water
+- **The water moving** is the **flow**
+- **The narrow part of the pipe** is **resistance** — it fights the flow
+
+These three are always connected.
+You cannot change one without affecting the others.
+:::
+
+::: {.column width="45%"}
+```
+PRESSURE ──────→ FLOW
+                   ↑
+           RESISTANCE fights it
+```
+
+- ↑ Pressure + same resistance → ↑ Flow
+- ↑ Resistance + same pressure → ↓ Flow
+:::
+
+::::
+
+## Macro Circuit Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/index.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Toggle the pump. Watch the Pressure (Voltage) and Flow (Current) gauges.*
+
+## Exercise 1 & 2 — Build the Intuition {background-color="#00C9A7" .sdaia-dark}
+
+**Exercise 1 — What do you already know?**
+
+1. If I make the pipe narrower at one point, what happens to the water flow?
+2. If I add a second pump, what happens?
+3. If I cut the pipe somewhere, what happens?
+4. If the pump gets stronger, what happens?
+
+**Exercise 2 — With a partner:**
+
+1. You narrow the pipe *a lot*. What must the pump do to keep the same flow rate?
+2. Someone opens ALL the taps at once. What happens to the flow at each tap?
+3. What happens to the pressure just *before* a sudden narrowing in the pipe?
+
+
+# Part 2 — Zooming In {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Domino Effect
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Zoom into the pipe itself.
+
+- **Molecules** move **slowly** — shuffling, bumping into each other
+- The ***push*** (Pressure wave) travels near the **speed of light**
+
+Like dominoes: each one barely moves, but the *effect* races down the line instantly.
+:::
+
+::: {.column width="50%"}
+> "The electrons themselves shuffle slowly.
+> The *push* races around the circuit at close to the speed of light."
+:::
+
+::::
+
+## Micro Pump Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/micro/pump.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Zoom into the pump impeller. Watch individual particles collide and push each other.*
+
+## Exercise 3 — Molecule Thinking {background-color="#00C9A7" .sdaia-dark}
+
+1. If you squeeze the pipe (add resistance), which molecules get squeezed first — the ones just after the pump, or the ones far away?
+
+2. If you completely block the pipe, the pump is still running. What happens to the pressure just before the block? What happens to the flow *everywhere*?
+
+3. What if the molecules were going so fast through a narrow section that the friction made them heat up? What do you think would happen to the pipe material?
+
+*(Question 3 is the seed for "why components break" and "why LEDs need resistors.")*
+
+
+
+# Part 3 — The Bridge {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Water World ↔ Electron World
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Water World**
+
+| | |
+|---|---|
+| Water molecules | → |
+| Pump | → |
+| Pressure | → |
+| Flow rate | → |
+| Narrow pipe | → |
+:::
+
+::: {.column width="50%"}
+**Electron World**
+
+| | |
+|---|---|
+| | **Electrons** |
+| | **Battery / power supply** |
+| | **Voltage** (V) |
+| | **Current** (A) |
+| | **Resistance** (Ω) |
+:::
+
+::::
+
+::: {.callout-tip}
+## Same physics. Different scale. Different particles.
+The battery doesn't *create* electrons — they're already there. It just creates *pressure*.
+:::
+
+## See the Translation Live {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/index.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Use the Voltage and Resistance sliders. Watch Current change — exactly as in the water world.*
+
+## Exercise 4 — Translate the Water World {background-color="#00C9A7" .sdaia-dark}
+
+Go back to your answers from **Exercises 1 & 2**.
+Translate each answer into the electron world using the table.
+
+**Example:**
+- "If I make the pipe narrower" → "If I add resistance to the circuit"
+- "The flow decreases" → "The current decreases"
+
+Do all your original answers. Write them in **both** languages.
+
+---
+
+# Part 4 — But They Don't Touch {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Electron Sea
+
+:::: {.columns}
+
+::: {.column width="55%"}
+Electrons don't physically collide —
+they push each other via **electromagnetic repulsion**.
+
+- **Metals** = electrons free to roam
+- **Insulators** = electrons locked tight
+
+Current flows not because electrons touch,
+but because they **push** the ones ahead of them —
+like the domino wave, but invisible.
+:::
+
+::: {.column width="45%"}
+::: {.callout-note}
+## Why metals conduct
+Metallic bonds leave outer electrons free to drift.
+Apply voltage → they drift in one direction = current.
+:::
+:::
+
+::::
+
+## Electromagnetic Repulsion Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/micro/repulsion.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Watch electrons repel each other before ever touching. Connect the battery — see the drift begin.*
+
+## Exercise 5 — Quick Discussion {background-color="#00C9A7" .sdaia-dark}
+
+1. If electrons push each other without touching, why does a wire *feel* like it has resistance? Where is the "friction" really coming from?
+
+2. An insulator has its electrons locked tight. What would happen if you applied an extremely high voltage — high enough to rip those electrons free?
+   *(Think: lightning through air.)*
+
+
+
+# Part 5 — The Math {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Ohm's Law {.sdaia-dark background-color="#1C355E"}
+
+::: {.r-fit-text}
+**V = I × R**
+:::
+
+## Three Forms of the Same Truth
+
+You only need one formula — rearrange for what you don't know:
+
+| Find | Formula | Units |
+|------|---------|-------|
+| **Voltage** | V = I × R | Volts (V) |
+| **Current** | I = V / R | Amperes (A) |
+| **Resistance** | R = V / I | Ohms (Ω) |
+
+> If pressure goes up and resistance stays the same, flow increases.
+> Same physics. Same formula.
+
+## Ohm's Law Sandbox {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/index.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Calculate a target Current first. Then adjust the Voltage and Resistance sliders — does the gauge match your math?*
+
+## Exercise 6 — Ohm's Law Practice {background-color="#00C9A7" .sdaia-dark}
+
+Show your calculation — don't just write the answer.
+
+1. A battery provides **5V**. A resistor of **100Ω** is connected. How much current flows?
+
+2. A circuit has **12V** and the current is **0.1A**. What is the resistance?
+
+3. **Challenge:** If you *halve* the resistance in a circuit with fixed voltage, what happens to the current? If you *double* the resistance — what happens?
+
+
+
+# Part 6 — Components {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Light Bulb
+
+:::: {.columns}
+
+::: {.column width="55%"}
+Inside a bulb: a **filament** — a very thin, very resistive wire (tungsten).
+
+- Electrons squeeze through the narrow filament
+- Constant collisions with tungsten atoms → **friction** → **heat**
+- Filament reaches ~**2,500°C** → glows → **light**
+
+::: {.callout-important}
+## The weakest, most resistive part always heats the most.
+This is why LEDs need resistors. Without one: low resistance + fixed voltage = enormous current → burnout in milliseconds.
+:::
+:::
+
+::: {.column width="45%"}
+Narrow pipe → friction → heat → glow
+
+Same physics as the water world.
+:::
+
+::::
+
+## Micro Light Bulb Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/micro/lightbulb.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Watch particles squeeze through the jagged filament. As they collide they turn orange/red. At high pressure, the whole area glows.*
+
+## Exercise 7 — The Broken Circuit Scenario {background-color="#00C9A7" .sdaia-dark}
+
+A student wires an LED directly to **3.3V** with no resistor. The LED has a resistance of ~**10Ω** when lit.
+
+1. Using I = V/R, calculate how much current flows. *(The answer will shock you.)*
+2. The LED is rated for a maximum of **30mA**. What happens?
+3. Why does a tungsten filament survive high temperatures but an LED doesn't?
+4. Design the safe version: what resistor limits current to **20mA**?
+   *(V = 3.3V, LED voltage drop = 2V)*
+
+## The Motor
+
+:::: {.columns}
+
+::: {.column width="55%"}
+- Moving electrons create a **magnetic field**
+- Inside the motor: permanent magnets on the outside, electromagnets (coils) on the inside
+- Current through coils → magnetic field → **interacts with permanent magnets**
+- Opposite poles attract → like poles repel → **rotation**
+- Current flips direction at the right moment → poles flip → constant push-pull → continuous spin
+:::
+
+::: {.column width="45%"}
+**Flow → Magnetic Force → Motion**
+
+```
+Electrons moving
+     ↓
+Magnetic field created
+     ↓
+EM force on magnets
+     ↓
+Rotation
+```
+:::
+
+::::
+
+## Micro Motor Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/micro/motor.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Watch electrons (particles) interact with the magnetic armature. North (Red) and South (Blue) poles are pushed and pulled by the moving charge.*
+
+## The Switch
+
+:::: {.columns}
+
+::: {.column width="55%"}
+A switch is a **gap in the circuit** that can be opened or closed.
+
+- **Closed** (switch on): complete path → current flows
+- **Open** (switch off): broken loop → current = zero
+
+::: {.callout-note}
+## Voltage without current
+When a switch is open, **voltage still exists** across the gap.
+That is why you can measure it with a multimeter.
+Current requires a **complete path** — voltage does not.
+:::
+:::
+
+::: {.column width="45%"}
+```
+Pump running   → Voltage exists
+Loop complete  → Current flows
+Loop broken    → Current = 0
+```
+:::
+
+::::
+
+## Exercise 8 — Component Translation {background-color="#00C9A7" .sdaia-dark}
+
+Complete the table:
+
+| Situation | Water world | Electron world |
+|-----------|-------------|----------------|
+| Water flows fast through thin pipe, pipe gets warm | Friction between molecules and pipe wall | ? |
+| Open valve stops all flow | ? | Switch in open position |
+| Paddle wheel converts flow to rotation | Water pressure turns the paddle | ? |
+| A section so narrow it melts | ? | LED with no resistor |
+
+
+
+# Part 7 — The Valve {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Variable Resistance: The Potentiometer
+
+- A **tap** in cross-section: a disc with a hole — rotate it to partially block flow
+- In electronics: a **potentiometer** has a resistive strip + sliding wiper
+- Move the wiper → change the resistance → change the current
+
+**Where you see this:**
+Volume knobs · Brightness dimmers · Steering sensitivity controls
+
+| Position | Resistance | Current |
+|----------|-----------|---------|
+| Fully open | 0 Ω | Maximum |
+| Midpoint | ~250 Ω | Medium |
+| Fully closed | ∞ Ω | Zero |
+
+## The Valve Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/micro/valve.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Manually rotate the valve. Watch the current change in real time.*
+
+## The Automatic Valve: The Transistor
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Manual Tap (Potentiometer)**
+
+- You turn it by hand
+- Analog: smooth range of values
+- Input: your hand
+
+:::
+
+::: {.column width="50%"}
+**Transistor**
+
+- *Electricity* turns it — automatically
+- A tiny **Base** current controls a huge **Collector** current
+- **1 mA Base → 100 mA Collector** (gain = 100×)
+- Input: another electron signal
+:::
+
+::::
+
+> "A tiny trickle opens the main floodgate."
+> This is **amplification** — and it is also **logic**.
+
+## Transistors Make Logic
+
+- Transistor **fully ON** → effectively zero resistance → current flows → **"1"**
+- Transistor **fully OFF** → enormous resistance → no current → **"0"**
+
+Chain two transistors together:
+
+| Input A | Input B | Output |
+|---------|---------|--------|
+| OFF (0) | OFF (0) | 0 |
+| ON (1) | OFF (0) | 0 |
+| OFF (0) | ON (1) | 0 |
+| ON (1) | ON (1) | 1 |
+
+You just built an **AND gate**. A billion of these = a CPU.
+
+## Exercise 9 — Design a Circuit {background-color="#00C9A7" .sdaia-dark}
+
+You have: **5V** supply · LED (20mA, 2V drop) · Potentiometer (0–500Ω) · Fixed 150Ω resistor
+
+1. Potentiometer at **0Ω**: what current flows through the LED? *(Use V = 3V, deducting the LED's 2V)*
+2. Potentiometer at **500Ω**: what current flows?
+3. What does the LED *do* as you slowly rotate from 0 to 500Ω?
+4. At what potentiometer value does current drop below the LED's minimum threshold (**5mA**)?
+
+## Exercise 10 — Transistor Thinking {background-color="#00C9A7" .sdaia-dark}
+
+1. A transistor has a **gain of 200**. You apply **0.5mA** to the Base. How much current flows through the Collector?
+
+2. You want to control a **500mA motor** using a Raspberry Pi GPIO pin (**max 16mA**). Is this possible? What is the transistor's role?
+
+3. A transistor is either fully ON (0.1Ω) or fully OFF (1,000,000Ω). Which state is "1" and which is "0"?
+
+4. **Thought experiment:** You chain two transistors so the output of the first controls the Base of the second. What are the four input combinations? What logical operation have you built?
+
+
+# Part 8 — 0s, 1s, and Python {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Ladder of Abstraction
+
+From transistors to Python — five rungs:
+
+1. **Voltage** — above ~2V = HIGH (1), below ~0.8V = LOW (0)
+2. **Binary** — 1 bit = on/off · 8 bits = 1 byte = 256 values
+3. **Machine Code** — patterns of 0s and 1s the processor reads directly
+4. **Assembly / C** — human-readable commands, *compiled* to machine code
+5. **Python** — one line = hundreds of machine instructions, *interpreted* in real time
+
+::: {.callout-tip}
+## Python is not what the computer runs
+Python is translated — layer by layer — into the 0s and 1s that transistors actually process.
+:::
+
+## Machines Need Everything Defined
+
+The machine has no common sense. You define everything:
+
+```python
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BCM)      # tell it how we're naming pins
+GPIO.setup(17, GPIO.OUT)    # "pin 17 is an output"
+GPIO.output(17, GPIO.HIGH)  # "set pin 17 to HIGH (3.3V)"
+```
+
+- Forget to define a pin as output? It does nothing — or throws an error.
+- "Of course I'm using BCM mode" means nothing to a machine.
+
+> **Precision is the machine's strength. Common sense is yours.**
+
+## Exercise 11 — Reading Code Like a Machine {background-color="#00C9A7" .sdaia-dark}
+
+Read this script exactly as the processor does — line by line, top to bottom, no skipping:
+
+```python
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
+
+GPIO.output(17, GPIO.HIGH)
+time.sleep(1)
+GPIO.output(17, GPIO.LOW)
+GPIO.output(18, GPIO.HIGH)
+time.sleep(0.5)
+GPIO.output(18, GPIO.LOW)
+
+GPIO.cleanup()
+```
+
+1. How many GPIO pins does this script use?
+2. Are they inputs or outputs?
+3. Describe in plain language what this script does, step by step.
+4. What does `GPIO.cleanup()` do? Why does it matter?
+5. **Modify it:** How would you make pin 17's LED blink **3 times** before pin 18 turns on?
+
+## Exercise 12 — Write Your First Intentional Script {background-color="#00C9A7" .sdaia-dark}
+
+**Without a Raspberry Pi — just paper.**
+Write a Python script that:
+
+1. Sets up **three pins** as outputs — Red, Yellow, Green LEDs
+2. Turns them on in sequence:
+   Red for **2s** → Yellow for **0.5s** → Green for **2s**
+3. Turns them all **off**
+4. Cleans up
+
+You don't need to run it. You need to *think* it through.
+Every step. Define everything before you use it.
+
+*Swap with a partner — can they predict exactly what your script does?*
+
+
+
+# Part 9 — Bringing It All Back {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## What We Built Today
+
+We started with a pump and a pipe.
+From that, we built the entire conceptual foundation of electronics:
+
+- **Voltage** is pressure — the force pushing electrons
+- **Current** is flow — electrons moving through the loop
+- **Resistance** is the narrow pipe — fighting the flow
+- **V = IR** — describes exactly how these three relate
+- **Components** transform electron energy: heat, rotation, blocking, controlling
+- **Transistors** let electrons control electrons — that is how a billion-transistor computer runs your Python script
+
+## The Master Translation Table
+
+| Concept | Water Analogy | Electronics Reality |
+|---------|--------------|---------------------|
+| Voltage (V) | Pump pressure | Force pushing electrons |
+| Current (I) | Flow rate | Electrons per second (Amperes) |
+| Resistance (R) | Narrow pipe | Opposition to electron flow (Ohms) |
+| Ohm's Law | P ∝ F / R | V = I × R |
+| Open circuit | Cut pipe | No complete path, no current |
+| Short circuit | Removed all pipes | Near-zero resistance, huge current |
+| LED / Bulb | Friction heating pipe | Resistance → heat → light |
+| Motor | Paddle wheel | EM force drives magnets → rotation |
+| Switch | Gate valve | Opens / closes the electron path |
+| Variable resistor | Tap | Adjustable resistance, adjustable current |
+| Transistor | Electron-controlled tap | Small current controls large current |
+| Binary | Open / closed valve | HIGH / LOW voltage states |
+| Python | Instructions to the pump operator | High-level language the interpreter translates |
+
+## Homework {background-color="#1C355E" .sdaia-dark}
+
+**Part A — Calculations**
+
+1. A 9V battery + 270Ω resistor. What current flows?
+2. A circuit draws 50mA from 5V. What is the total resistance?
+3. Dim an LED to 10mA using a 3.3V GPIO pin (LED drops 2V). What resistor do you need?
+4. A motor needs 500mA. Can a GPIO pin (max 16mA) drive it directly? Use AI to explain the transistor solution.
+
+**Part B — Observation**
+
+Find **3 places** in your home where a reactive system turns on/off based on a sensor. For each: What is the sensor? What is the action? Write 3-line Python pseudo-code for how it might work.
+
+::: {.callout-tip}
+## Part C — AI Curiosity
+Ask Claude or ChatGPT: *"What is the difference between a BJT transistor and a MOSFET? Explain it using the tap analogy from class."*
+:::
+
+
+# AI Onboarding — Your Lab Partner {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## 4 Ways to Use AI in This Course
+
+In this course, AI is a **senior engineer sitting next to you** — not a replacement for thinking.
+
+1. **Explain** — *"What does `GPIO.setmode(GPIO.BCM)` actually do? Use the water analogy."*
+2. **Debug** — *"I'm getting `RuntimeError: Blue LED not found`. Here is my code and wiring description. What did I miss?"*
+3. **Extend** — *"My traffic light works. How do I make the yellow light pulse slowly like a heartbeat?"*
+4. **Generate** — *"Write the boilerplate to set up 3 output pins on a Raspberry Pi."*
+
+**Setup:** Open Cursor IDE · Log in to your assigned account · First prompt: introduce yourself and ask it to help verify your Ohm's Law calculations.
+
+## Questions? {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+::: {.r-fit-text}
+🙋
+:::

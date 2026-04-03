@@ -30,7 +30,6 @@ function initMicro() {
     const valveValue = document.getElementById('valveValue');
     const flowFill = document.getElementById('flowFill');
     const flowReadout = document.getElementById('flowReadout');
-    const backBtn = document.getElementById('btnBack');
 
     function resize() {
         canvas.width = window.innerWidth;
@@ -98,12 +97,6 @@ function initMicro() {
         valveSlider.addEventListener('input', (e) => {
             window.State.valveOpenness = parseInt(e.target.value);
             calculatePhysics();
-        });
-    }
-    if (backBtn) {
-        backBtn.addEventListener('click', () => {
-            // Pass state back to main page if needed, or just return
-            window.location.href = `../index.html?p=${window.State.pumpPressure}&v=${window.State.valveOpenness}`;
         });
     }
 

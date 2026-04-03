@@ -174,29 +174,42 @@
             ctx.rect(visLeft, innerTop, this.VISIBLE_WIDTH, innerBottom - innerTop);
             ctx.clip();
 
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
             for (let p of this.particles) {
                 const heat = Math.min(1, p.heat || 0);
+                const radius = p.circleRadius || this.PARTICLE_RADIUS;
                 
-                // Base blue-white
-                let r = 180, g = 220, b = 255;
+                // Base colors for shifting (starting from Amber-400: #fbbf24)
+                let r = 251, g = 191, b = 36; 
                 
                 if (heat > 0) {
-                    // Shift to yellow/white-hot
-                    r = Math.floor(180 + (255 - 180) * heat);
-                    g = Math.floor(220 + (255 - 220) * heat);
-                    b = Math.floor(255 + (200 - 255) * heat);
+                    // Shift to white-hot
+                    r = Math.floor(251 + (255 - 251) * heat);
+                    g = Math.floor(191 + (255 - 191) * heat);
+                    b = Math.floor(36 + (200 - 36) * heat);
                 }
 
+                ctx.save();
+                // Glow
+                const glowLevel = 0.4 + heat * 0.6;
+                ctx.shadowBlur = radius * 1.5;
+                ctx.shadowColor = heat > 0.3 ? `rgba(255, 200, 0, ${glowLevel})` : 'rgba(255, 215, 0, 0.4)';
+                
+                // Body
                 ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-                if (heat > 0.3) {
-                    ctx.shadowBlur = 8 * heat;
-                    ctx.shadowColor = `rgba(255, 200, 0, ${heat})`;
-                }
-
                 ctx.beginPath();
-                ctx.arc(p.position.x, p.position.y, p.circleRadius, 0, 2 * Math.PI);
+                ctx.arc(p.position.x, p.position.y, radius, 0, 2 * Math.PI);
                 ctx.fill();
+
+                // Minus sign
                 ctx.shadowBlur = 0;
+                ctx.fillStyle = '#0f172a'; // Deep slate
+                ctx.font = `bold ${Math.max(8, radius * 1.4)}px Inter`;
+                ctx.fillText('-', p.position.x, p.position.y);
+                
+                ctx.restore();
             }
             ctx.restore();
         }
