@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="session1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="session1_files/libs/quarto-html/tabby.min.js"></script>
+<script src="session1_files/libs/quarto-html/popper.min.js"></script>
+<script src="session1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="session1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="session1_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="session1_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.26">
+
+  <meta name="dcterms.date" content="2026-04-04">
+  <title>Session 1: Circuits Basics</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="session1_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="session1_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="session1_files/libs/revealjs/dist/theme/quarto-11fb225df25554060309039e467d350a.css">
+  <link href="session1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="session1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="session1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="session1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA4MCI+DQogIDxkZWZzPg0KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9Ii0xLjkxMSIgeDI9IjIuOTg1IiB5MT0iLS44NDEiIHkyPSIxLjQxNCIgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjOTlkNjMzIi8+DQogICAgICA8c3RvcCBvZmZzZXQ9Ii41IiBzdG9wLWNvbG9yPSIjM2M5Ii8+DQogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyNzM0NzAiLz4NCiAgICA8L2xpbmVhckdyYWRpZW50Pg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYSIgaWQ9ImQiIHgxPSItMy41NjkiIHgyPSIxLjMyOCIgeTE9Ii0xLjYwNSIgeTI9Ii42NTEiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2EiIGlkPSJlIiB4MT0iLTMuMDQ3IiB4Mj0iMS44NDkiIHkxPSItLjkwNCIgeTI9IjEuMzUyIi8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNhIiBpZD0iZiIgeDE9Ii0yLjg5IiB4Mj0iMi4wMDciIHkxPSItMS4yOTIiIHkyPSIuOTY0Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNhIiBpZD0iZyIgeDE9Ii0yLjQiIHgyPSIyLjQ5NyIgeTE9Ii0xLjA2NiIgeTI9IjEuMTg5Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNhIiBpZD0iaCIgeDE9Ii0uOTkyIiB4Mj0iMi42NzkiIHkxPSItLjQxOCIgeTI9IjEuMjczIi8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNhIiBpZD0iaSIgeDE9Ii0xLjUxMiIgeDI9IjIuMTU5IiB5MT0iLS4xOTciIHkyPSIxLjQ5NSIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYSIgaWQ9ImoiIHgxPSItLjkxNCIgeDI9IjIuNzU4IiB5MT0iLjA3OSIgeTI9IjEuNzcxIi8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNhIiBpZD0iayIgeDE9Ii0zLjQwNSIgeDI9IjEuNDkzIiB5MT0iLTEuMDY4IiB5Mj0iMS4xODciLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2EiIGlkPSJsIiB4MT0iLjM0NyIgeDI9IjMuMjg1IiB5MT0iLjE5OSIgeTI9IjEuNTUyIi8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNhIiBpZD0ibSIgeDE9Ii0uOTA1IiB4Mj0iMi43NjciIHkxPSIuMDgzIiB5Mj0iMS43NzUiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2EiIGlkPSJuIiB4MT0iLTIuMTE5IiB4Mj0iMi43NzgiIHkxPSItLjQ3NiIgeTI9IjEuNzc5Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNhIiBpZD0ibyIgeDE9Ii01LjY0NCIgeDI9Ii40ODYiIHkxPSItMi45OTgiIHkyPSIuNzQxIi8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNhIiBpZD0icCIgeDE9Ii0zLjQ5NSIgeDI9IjIuNjM2IiB5MT0iLTEuNjg3IiB5Mj0iMi4wNTMiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2EiIGlkPSJxIiB4MT0iLTEuNDIyIiB4Mj0iMy4xNzUiIHkxPSItLjkyMyIgeTI9IjEuODgyIi8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNhIiBpZD0iciIgeDE9Ii0zLjMwNiIgeDI9IjIuODI1IiB5MT0iLTIuMDcyIiB5Mj0iMS42NjgiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2EiIGlkPSJzIiB4MT0iLTEuNjgzIiB4Mj0iMi45MTQiIHkxPSItMS4wODEiIHkyPSIxLjcyMyIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYSIgaWQ9InQiIHgxPSItMS4xNTgiIHgyPSIyLjUyMSIgeTE9Ii0uMjYxIiB5Mj0iMS45ODMiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImIiIHgxPSIuMjYxIiB4Mj0iLjYyNCIgeTE9IjMuNTYiIHkyPSItMS40NjkiIGdyYWRpZW50VW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij4NCiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzZjZiIvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIuNSIgc3RvcC1jb2xvcj0iIzYyNThhNiIvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjczNDcwIi8+DQogICAgPC9saW5lYXJHcmFkaWVudD4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2IiIGlkPSJ1IiB4MT0iLjE2MyIgeDI9Ii41MjYiIHkxPSI0LjkyNCIgeTI9Ii0uMTAzIi8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNiIiBpZD0idiIgeDE9Ii4zODYiIHgyPSIuNjU4IiB5MT0iMS44MjUiIHkyPSItMS45NDUiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2IiIGlkPSJ3IiB4MT0iLjI1MiIgeDI9Ii42MTUiIHkxPSI0LjE4MiIgeTI9Ii0uODQ1Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNiIiBpZD0ieCIgeDE9Ii40MTciIHgyPSIuNjg5IiB5MT0iMS45IiB5Mj0iLTEuODciLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2IiIGlkPSJ5IiB4MT0iLjQ4NSIgeDI9Ii43MDMiIHkxPSIuOTU2IiB5Mj0iLTIuMDYiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2IiIGlkPSJ6IiB4MT0iLjM3NyIgeDI9Ii42NDkiIHkxPSIyLjQ1NSIgeTI9Ii0xLjMxNCIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYiIgaWQ9IkEiIHgxPSIuMTk5IiB4Mj0iLjU2MiIgeTE9IjQuOTIyIiB5Mj0iLS4xMDUiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2IiIGlkPSJCIiB4MT0iLjQzNyIgeDI9Ii43MDkiIHkxPSIxLjYyNSIgeTI9Ii0yLjE0NSIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYiIgaWQ9IkMiIHgxPSIuMjYxIiB4Mj0iLjYyNCIgeTE9IjQuMDU1IiB5Mj0iLS45NzIiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2IiIGlkPSJEIiB4MT0iLjUiIHgyPSIuNSIgeTE9IjMuMDQ1IiB5Mj0iLTEuOTI3Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNiIiBpZD0iRSIgeDE9Ii41IiB4Mj0iLjUiIHkxPSI0LjkwMSIgeTI9Ii0uMDcyIi8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNiIiBpZD0iRiIgeDE9Ii41IiB4Mj0iLjUiIHkxPSIyLjQzNSIgeTI9Ii0xLjI5NiIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYiIgaWQ9IkciIHgxPSIuNSIgeDI9Ii41IiB5MT0iLjkzNCIgeTI9Ii0yLjA1Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNiIiBpZD0iSCIgeDE9Ii41IiB4Mj0iLjUiIHkxPSIzLjc4NSIgeTI9Ii0xLjE4NyIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYiIgaWQ9IkkiIHgxPSIuNSIgeDI9Ii41IiB5MT0iMS44MDkiIHkyPSItMS45MjEiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2IiIGlkPSJKIiB4MT0iLjUiIHgyPSIuNSIgeTE9IjMuMDQ2IiB5Mj0iLTEuOTI4Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNiIiBpZD0iSyIgeDE9Ii41IiB4Mj0iLjUiIHkxPSIyLjc5NCIgeTI9Ii0yLjE3NyIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYyIgeDE9IjUuMDEiIHgyPSItMi4yNzciIHkxPSItMS4zODMiIHkyPSIyLjAzOSIgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmRiZDRkIi8+DQogICAgICA8c3RvcCBvZmZzZXQ9Ii41IiBzdG9wLWNvbG9yPSIjZjYzIi8+DQogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyNzM0NzAiLz4NCiAgICA8L2xpbmVhckdyYWRpZW50Pg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYyIgaWQ9IkwiIHgxPSIyLjIzOSIgeDI9Ii0yLjEzNCIgeTE9Ii0uMDgyIiB5Mj0iMS45NzEiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2MiIGlkPSJNIiB4MT0iNi4wOTgiIHgyPSItMS4xOTEiIHkxPSItMS44OTMiIHkyPSIxLjUyOCIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYyIgaWQ9Ik4iIHgxPSIzLjM4NCIgeDI9Ii0yLjA4MSIgeTE9Ii0xLjA4OCIgeTI9IjEuNDc3Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNjIiBpZD0iTyIgeDE9IjIuNzgiIHgyPSItMi42ODYiIHkxPSItLjgwNSIgeTI9IjEuNzYxIi8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNjIiBpZD0iUCIgeDE9IjcuMDc0IiB4Mj0iLS4yMTIiIHkxPSItMi4zNTMiIHkyPSIxLjA2OSIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYyIgaWQ9IlEiIHgxPSI1LjA3NSIgeDI9Ii0yLjIxMSIgeTE9Ii0xLjQxNCIgeTI9IjIuMDA4Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNjIiBpZD0iUiIgeDE9IjUuNzM2IiB4Mj0iLTEuNTUiIHkxPSItMi4xOTQiIHkyPSIxLjIyOCIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYyIgaWQ9IlMiIHgxPSIyLjA4MSIgeDI9Ii0xLjc4MSIgeTE9Ii0uMDQ3IiB5Mj0iMS45Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNjIiBpZD0iVCIgeDE9Ii43MjkiIHgyPSItMi4zNjEiIHkxPSIuMTM1IiB5Mj0iMS42OTIiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2MiIGlkPSJVIiB4MT0iMi43MTciIHgyPSItMi40MzMiIHkxPSItLjg2OCIgeTI9IjEuNzI4Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNjIiBpZD0iViIgeDE9IjEuNTE3IiB4Mj0iLTIuMzQ3IiB5MT0iLS4yNjIiIHkyPSIxLjY4NCIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYyIgaWQ9IlciIHgxPSIzLjU0NCIgeDI9Ii0xLjYwNiIgeTE9Ii0xLjI4NCIgeTI9IjEuMzEyIi8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNjIiBpZD0iWCIgeDE9IjIuNjMxIiB4Mj0iLTEuMjMzIiB5MT0iLS4zMjQiIHkyPSIxLjYyMyIvPg0KICAgIDxsaW5lYXJHcmFkaWVudCBocmVmPSIjYyIgaWQ9IlkiIHgxPSIyLjAwMyIgeDI9Ii0xLjg2IiB5MT0iLS4wMDciIHkyPSIxLjk0Ii8+DQogICAgPGxpbmVhckdyYWRpZW50IGhyZWY9IiNjIiBpZD0iWiIgeDE9IjQuMTI1IiB4Mj0iLTEuMDI1IiB5MT0iLTEuMDc3IiB5Mj0iMS41MTgiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2MiIGlkPSJhYSIgeDE9IjMuMDIyIiB4Mj0iLTIuMTI3IiB5MT0iLTEuMDIxIiB5Mj0iMS41NzQiLz4NCiAgICA8bGluZWFyR3JhZGllbnQgaHJlZj0iI2MiIGlkPSJhYiIgeDE9IjQuNjgxIiB4Mj0iLS40NjkiIHkxPSItMS44NTciIHkyPSIuNzM4Ii8+DQogIDwvZGVmcz4NCiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMy44IDEpIj4NCiAgPHBhdGggZmlsbD0iIzNjOSIgZD0ibTM2LjA0MSAyNi41My0xMS40NDggNi42MTF2MTMuMjJsMTEuNDQ4IDYuNjEyIDExLjQ0Ni02LjYwOFYzMy4xNDFaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjYSkiIGQ9Ik03MS40NjQgMjAuOTF2Ny45MzJsLTYuODctMy45NjVaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjZCkiIGQ9Ik02NC4yNDkgNTIuOTdsNi44NjkgMy45NjV2LTcuOTNaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjZSkiIGQ9Im02OC4xIDQ2LjM1OSAtNi44NjkgMy45Njd2LTcuOTMyWiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI2YpIiBkPSJNNzIuMzkyIDM1LjM3djcuOTMybC02Ljg2OSAtMy45NjVaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjZykiIGQ9Ik01Ni42NTEgNTYuODQ3djcuOTMybC02Ljg2OSAtMy45NjVaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjaCkiIGQ9Im01Ny43OTQgNTEuNjQzIC05LjE2IC01LjI4NiA5LjE2IC01LjI5WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI2kpIiBkPSJtNTcuNzk1IDUyLjk3IC05LjE2IDUuMjlWNDcuNjg0WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI2opIiBkPSJtNTcuNzkyIDM5Ljc0OSAtOS4xNTggNS4yODZ2LTEwLjU3MloiLz4NCiAgPHBhdGggZmlsbD0idXJsKCNrKSIgZD0ibTU4LjUgNzAuMzE4IC02Ljg2OCAzLjk2N3YtNy45MzJaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjbCkiIGQ9Im00Ny40ODcgNDYuMzYxIC0xMS40NDYgLTYuNjEyIDExLjQ0NiAtNi42MTFaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjbSkiIGQ9Im00Ni4zNDQgNjEuMDc3IC05LjE1OCA1LjI4NnYtMTAuNTcyWiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI24pIiBkPSJtNDUuMTk5IDc0LjAzNSAtNi44NjggMy45NjV2LTcuOTMyWiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI28pIiBkPSJtNzAuMDIxIDYxLjc3NSAtNi44NjkgMy45Njd2LTcuOTMyWiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI3ApIiBkPSJtNjguMSAzMy4xNDIgLTYuODY5IDMuOTY3di03LjkzMloiLz4NCiAgPHBhdGggZmlsbD0idXJsKCNxKSIgZD0iTTU3Ljc5NCAyNy44NTJ2MTAuNTc2bC05LjE2IC01LjI5WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI3IpIiBkPSJNNDUuMjAyIDYyLjg5MXY3LjkzMmwtNi44NjkgLTMuOTY3WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI3MpIiBkPSJtNDYuMzQzIDU5Ljc1NiAtOS4xNTcgLTUuMjg2IDkuMTU3IC01LjI5WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI3QpIiBkPSJtMzYuMDQxIDM5Ljc1IDExLjQ0NiA2LjYxMiAtMTEuNDQ2IDYuNjA4WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI2IpIiBkPSJtNjkuMzM0IDE3LjAzMSAtNi44NjkgMy45NjV2LTcuOTNaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjdSkiIGQ9Im01OC4wODIgNS40NiAtNi44NzEgMy45Njd2LTcuOTMyWiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI3YpIiBkPSJtNTcuNzk2IDI2LjUyOSAtOS4xNjIgNS4yODZWMjEuMjQxWiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI3cpIiBkPSJtNDUuMiAxNC41NDUgLTYuODY5IC0zLjk2NSA2Ljg2OSAtMy45NjdaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjeCkiIGQ9Ik00Ni4zNDQgMTkuNzQ0VjMwLjMxOWwtOS4xNTggLTUuMjg2WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI3kpIiBkPSJNMzYuMDQxIDI2LjUzdjEzLjIyTDI0LjU5MyAzMy4xNDFaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjeikiIGQ9Im0zNC44OTcgMjMuNzA5IC05LjE1OCAtNS4yODYgOS4xNTggLTUuMjlaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjQSkiIGQ9Im0zMy43NSA3LjkzMiAtNi44NyAtMy45NjUgNi44NyAtMy45NjdaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjQikiIGQ9Im0yMy40NDkgMzEuODE2IC05LjE1OCAtNS4yOSA5LjE1OCAtNS4yODVaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjQykiIGQ9Ik0xOS43NiA2LjAzOXY3LjkzMmwtNi44NjkgLTMuOTY1WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI0QpIiBkPSJtNTYuNjQ3IDIyLjY1MSAtNi44NzEgLTMuOTY3IDYuODcxIC0zLjk2N1oiLz4NCiAgPHBhdGggZmlsbD0idXJsKCNFKSIgZD0ibTQ1LjIgMy45NjcgLTYuODY5IDMuOTY1di03LjkzMloiLz4NCiAgPHBhdGggZmlsbD0idXJsKCNGKSIgZD0ibTQ2LjM0NCAxOC40MTcgLTkuMTU4IDUuMjg2di0xMC41NjhaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjRykiIGQ9Im00Ny40ODcgMzMuMTQxIC0xMS40NDYgNi42MTF2LTEzLjIyWiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI0gpIiBkPSJtMzMuNzUzIDEyLjgxNCAtNi44NzEgMy45Njd2LTcuOTMyWiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI0kpIiBkPSJtMzQuODk2IDI1LjAzMyAtOS4xNTggNS4yODZ2LTEwLjU3NVoiLz4NCiAgPHBhdGggZmlsbD0idXJsKCNKKSIgZD0ibTIyLjMgMTguNjg0IC02Ljg3IDMuOTY1di03LjkzWiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI0spIiBkPSJtNy41NTYgMjQuNjM3IC02Ljg3IC0zLjk2NSA2Ljg3IC0zLjk2N1oiLz4NCiAgPHBhdGggZmlsbD0idXJsKCNjKSIgZD0ibTMzLjc1MSA3OC4wMDEgLTYuODcxIC0zLjk2NSA2Ljg3MSAtMy45NjdaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjTCkiIGQ9Ik0zNi4wNDEgMzkuNzV2MTMuMjJsLTExLjQ0OCAtNi42MTJaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjTSkiIGQ9Ik0yMi4zIDY2Ljc2M3Y3LjkzMmwtNi44NyAtMy45NjZaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjTikiIGQ9Im0yMy40NDkgNDYuMzYyIC05LjE1OCA1LjI4NnYtMTAuNTc2WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI08pIiBkPSJtMjMuNDQ5IDMzLjE0MiAtOS4xNTggNS4yOXYtMTAuNThaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjUCkiIGQ9Ik05LjYxNiA1OS40MDF2Ny45M2wtNi44NzEgLTMuOTY1WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI1EpIiBkPSJNMTAuODUxIDI4Ljg5OXY3LjkzMmwtNi44NzEgLTMuOTY1WiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI1IpIiBkPSJtNi44NzEgNDAuMDkzIC02Ljg3MSAzLjk2NXYtNy45M1oiLz4NCiAgPHBhdGggZmlsbD0idXJsKCNTKSIgZD0ibTM0Ljg5NCA2Ni4zNjcgLTkuMTYgLTUuMjg2IDkuMTYgLTUuMjlaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjVCkiIGQ9Im0zNi4wNDEgMzkuNzUgLTExLjQ0OCA2LjYwOHYtMTMuMjJaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjVSkiIGQ9Im0zMy43NSA2Ny40MjUgLTYuODcxIDMuOTY3di03LjkzMloiLz4NCiAgPHBhdGggZmlsbD0idXJsKCNWKSIgZD0ibTM0Ljg5MiA1NC40NjcgLTkuMTU3IDUuMjl2LTEwLjU4MloiLz4NCiAgPHBhdGggZmlsbD0idXJsKCNXKSIgZD0ibTIyLjI5OSA2MC44MTQgLTYuODY5IDMuOTY1di03LjkzWiIvPg0KICA8cGF0aCBmaWxsPSJ1cmwoI1gpIiBkPSJNMjMuNDQ5IDQ3LjY4M3YxMC41NzNsLTkuMTU4IC01LjI4NloiLz4NCiAgPHBhdGggZmlsbD0idXJsKCNZKSIgZD0iTTIzLjQ0OSAzNC40NTl2MTAuNTczbC05LjE1OCAtNS4yODNaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjWikiIGQ9Im0xMC44NSA1MC4zMjYgLTYuODcxIC0zLjk2NyA2Ljg3MSAtMy45NjVaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjYWEpIiBkPSJtNy4xNDUgMjYuNTMxIC02Ljg2OSAzLjk2NXYtNy45MzJaIi8+DQogIDxwYXRoIGZpbGw9InVybCgjYWIpIiBkPSJtNy41NTYgNTMuNDUyIC02Ljg3MSAzLjk2NXYtNy45MzVaIi8+DQogIDwvZz4NCjwvc3ZnPg0K">
+
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="../slides_template/assets/anim.svg" data-background-opacity="0.08" data-background-size="cover" class="quarto-title-block center">
+  <h1 class="title">Session 1: Circuits Basics</h1>
+  <p class="subtitle">From Water Pipes to Computer Logic</p>
+
+<div class="quarto-title-authors">
+</div>
+
+  <p class="date">2026-04-04</p>
+</section>
+<section>
+<section id="session-1" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Session 1</h1>
+<p>Circuits Basics — From Water Pipes to Computer Logic</p>
+</section>
+<section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li><strong>Part 1</strong> — The Water World</li>
+<li><strong>Part 2</strong> — Zooming In</li>
+<li><strong>Part 3</strong> — The Bridge (Water ↔︎ Electrons)</li>
+<li><strong>Part 4</strong> — But They Don’t Touch</li>
+<li><strong>Part 5</strong> — Ohm’s Law: V = I × R</li>
+<li><strong>Part 6</strong> — Components: Bulb, Motor, Switch</li>
+<li><strong>Part 7</strong> — Variable Resistance &amp; The Transistor</li>
+<li><strong>Part 8</strong> — 0s, 1s, and MicroPython</li>
+<li><strong>Part 9</strong> — The Lab: Traffic Light &amp; Automatic Light</li>
+<li><strong>Part 10</strong> — Summary, Homework &amp; AI Onboarding</li>
+</ul>
+</section></section>
+<section>
+<section id="part-1-the-water-world" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 1 — The Water World</h1>
+
+</section>
+<section id="macro-circuit-simulation" class="slide level2" data-background-color="#f7f9fc">
+<h2>Macro Circuit Simulation</h2>
+<iframe src="../simulations/water_circuit/index.html" width="100%" height="520px" style="border:none; border-radius:12px;">
+</iframe>
+<p><em>Toggle the pump. Watch the Pressure (Voltage) and Flow (Current) gauges.</em></p>
+</section>
+<section id="the-closed-loop" class="slide level2">
+<h2>The Closed Loop</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><br></p>
+<div class="fragment">
+<ul>
+<li><strong>The pump</strong> creates <strong>pressure</strong> — it pushes the water</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>The water moving</strong> is the <strong>flow</strong></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>The narrow part of the pipe</strong> is <strong>resistance</strong> — it fights the flow</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>These three are always connected.</strong></p>
+</div>
+<div class="callout-content">
+<p>You cannot change one without affecting the others.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="fragment">
+<p><img data-src="assets/water_circuit_concept.png" style="width:100.0%"></p>
+</div>
+<div class="fragment">
+<ul>
+<li>↑ Pressure → ↑ Flow</li>
+<li>↑ Resistance → ↓ Flow</li>
+</ul>
+</div>
+</div></div>
+</section>
+<section id="series-vs.-parallel-pipes" class="slide level2">
+<h2>Series vs.&nbsp;Parallel Pipes</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="fragment">
+<ul>
+<li><strong>Series</strong>: Pipes connected in a <strong>single line</strong>.
+<ul>
+<li>All water must pass through <em>every</em> pipe.</li>
+<li><strong>Same Flow</strong> throughout the line.</li>
+<li>Pressure is shared between them.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Parallel</strong>: Pipes connected in a <strong>branch</strong>.
+<ul>
+<li>Water chooses a path.</li>
+<li><strong>Flow splits</strong> between branches.</li>
+<li><strong>Same Pressure</strong> at the start of each path.</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="width:45%;">
+<p><img data-src="assets/series_parallel.png" style="width:100.0%"></p>
+</div></div>
+</section>
+<section id="exercise-1-q1-narrow-pipe" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 1 — Q1: Narrow Pipe</h2>
+<p><em>(recall)</em> If I make the pipe narrower at one point, what happens to the water flow?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> Flow decreases — the narrowing increases resistance, so less water passes through for the same pump pressure.</p>
+</div>
+</section>
+<section id="exercise-1-q2-second-pump" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 1 — Q2: Second Pump</h2>
+<p><em>(recall)</em> If I add a second pump, what happens?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> It depends on how you connect them:</p>
+<ul>
+<li><strong>In Series</strong> (one after the other): <strong>Pressure increases</strong> → flow increases. (Like batteries in a flashlight).</li>
+<li><strong>In Parallel</strong> (side-by-side): <strong>Pressure stays the same</strong>, but you have more <strong>total flow capacity</strong>. (The pumps share the work).</li>
+</ul>
+</div>
+</section>
+<section id="exercise-1-q3-cut-pipe" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 1 — Q3: Cut Pipe</h2>
+<p><em>(recall)</em> If I cut the pipe somewhere, what happens?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> Flow stops completely — the loop is broken and water has nowhere to go.</p>
+</div>
+</section>
+<section id="exercise-1-q4-stronger-pump" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 1 — Q4: Stronger Pump</h2>
+<p><em>(recall)</em> If the pump gets stronger, what happens?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> More pressure → more flow. With the same resistance, higher pressure drives more water through the pipe.</p>
+</div>
+</section>
+<section id="exercise-2-q1-compensate-for-narrowing" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 2 — Q1: Compensate for Narrowing</h2>
+<p><em>(apply)</em> You narrow the pipe <em>a lot</em>. What must the pump do to keep the same flow rate?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> The pump must increase its pressure proportionally — to maintain the same flow against higher resistance, you need more force (higher voltage in the electron world).</p>
+</div>
+</section>
+<section id="exercise-2-q2-all-valves-open" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 2 — Q2: All Valves Open</h2>
+<p><em>(apply)</em> Someone opens ALL the valves at once. What happens to the flow at each valve?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> The total flow increases but splits between all open paths. Each valve gets less flow than it would alone — parallel paths share the total.</p>
+</div>
+</section>
+<section id="exercise-2-q3-pressure-before-a-narrowing" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 2 — Q3: Pressure Before a Narrowing</h2>
+<p><em>(design)</em> What happens to the pressure just <em>before</em> a sudden narrowing in the pipe?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> Pressure backs up just before the narrowing — molecules pile up waiting to squeeze through. Analogous to the high voltage level that exists on the upstream side of a resistor before it drops across it.</p>
+</div>
+</section></section>
+<section>
+<section id="part-2-zooming-in" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 2 — Zooming In</h1>
+
+</section>
+<section id="micro-pump-simulation" class="slide level2" data-background-color="#f7f9fc">
+<h2>Micro Pump Simulation</h2>
+<iframe src="../simulations/water_circuit/micro/pump.html" width="100%" height="520px" style="border:none; border-radius:12px;">
+</iframe>
+<p><em>Zoom into the pump impeller. Watch individual particles collide and push each other.</em></p>
+</section>
+<section id="what-the-molecules-are-telling-you" class="slide level2">
+<h2>What the Molecules Are Telling You</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="fragment">
+<ul>
+<li>Water is not a smooth fluid — it is <strong>discrete molecules</strong> crowding and pushing</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Pressure</strong> is the density of those collisions piling up behind a blockage</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Flow</strong> is the net drift direction of all those tiny pushes</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Resistance</strong> is energy lost to collisions with the pipe wall — the narrower the pipe, the more collisions per metre</li>
+</ul>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why this matters for electrons</strong></p>
+</div>
+<div class="callout-content">
+<p>Current is not a fluid either. It is a <strong>wave of pushes</strong> through particles already packed into the wire. The pump doesn’t create them — it just gives them a direction.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="exercise-3-q1-blocked-pipe" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 3 — Q1: Blocked Pipe</h2>
+<p><em>(apply)</em> If you completely block the pipe, the pump is still running. What happens to the pressure just before the block? What happens to the flow <em>everywhere</em>?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> Pressure reaches <strong>maximum</strong> just before the block (all pump force with nowhere to go). Flow everywhere = <strong>0</strong> — no complete loop means no movement anywhere in the circuit.</p>
+</div>
+</section>
+<section id="exercise-3-q2-friction-and-heat" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 3 — Q2: Friction and Heat</h2>
+<p><em>(design)</em> What if the molecules were going so fast through a narrow section that the friction made them heat up? What do you think would happen to the pipe material?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> The pipe wall at the narrow section heats up and could melt or deform — exactly what happens to a wire or LED with too much current. This is how a fuse works: the narrow link melts to break the circuit safely.</p>
+</div>
+</section></section>
+<section>
+<section id="part-3-the-bridge" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 3 — The Bridge</h1>
+
+</section>
+<section id="water-world-electron-world" class="slide level2">
+<h2>Water World ↔︎ Electron World</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Water World</th>
+<th style="text-align: center;"></th>
+<th>Electronics</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Water molecules</td>
+<td style="text-align: center;">→</td>
+<td><strong>Electrons</strong></td>
+</tr>
+<tr class="even">
+<td>Pump</td>
+<td style="text-align: center;">→</td>
+<td><strong>Battery / power supply</strong></td>
+</tr>
+<tr class="odd">
+<td>Pressure</td>
+<td style="text-align: center;">→</td>
+<td><strong>Voltage</strong> (V)</td>
+</tr>
+<tr class="even">
+<td>Flow rate</td>
+<td style="text-align: center;">→</td>
+<td><strong>Current</strong> (A)</td>
+</tr>
+<tr class="odd">
+<td>Narrow pipe</td>
+<td style="text-align: center;">→</td>
+<td><strong>Resistance</strong> (Ω)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Same physics. Different scale. Different particles.</strong></p>
+</div>
+<div class="callout-content">
+<p>The battery doesn’t <em>create</em> electrons — they’re already there. It just creates <em>pressure</em>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="see-the-translation-live" class="slide level2" data-background-color="#f7f9fc">
+<h2>See the Translation Live</h2>
+<iframe src="../simulations/water_circuit/index.html" width="100%" height="520px" style="border:none; border-radius:12px;">
+</iframe>
+<p><em>Use the Voltage and Resistance sliders. Watch Current change — exactly as in the water world.</em></p>
+</section></section>
+<section>
+<section id="part-4-but-they-dont-touch" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 4 — But They Don’t Touch</h1>
+
+</section>
+<section id="electromagnetic-repulsion-simulation" class="slide level2" data-background-color="#f7f9fc">
+<h2>Electromagnetic Repulsion Simulation</h2>
+<iframe src="../simulations/water_circuit/micro/repulsion.html" width="100%" height="520px" style="border:none; border-radius:12px;">
+</iframe>
+<p><em>Watch electrons repel each other before ever touching. Connect the battery — see the drift begin.</em></p>
+</section>
+<section id="conductors-vs-insulators" class="slide level2">
+<h2>Conductors vs Insulators</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Conductors (e.g.&nbsp;copper)</strong></p>
+<ul>
+<li>Outer electrons are loosely bound</li>
+<li>They roam freely through the material</li>
+<li>Apply voltage → they drift together → <strong>current flows</strong></li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why metals conduct</strong></p>
+</div>
+<div class="callout-content">
+<p>Metallic bonds leave outer electrons free to drift. That freedom is exactly what makes a wire a wire.</p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><strong>Insulators (e.g.&nbsp;rubber, glass)</strong></p>
+<ul>
+<li>Electrons are locked tightly to their atoms</li>
+<li>No free electrons → no drift → <strong>no current</strong></li>
+</ul>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>High enough voltage breaks insulators</strong></p>
+</div>
+<div class="callout-content">
+<p>Rip the electrons free and even air conducts. That is lightning.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="exercise-5-q1-where-is-the-friction" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 5 — Q1: Where is the Friction?</h2>
+<p><em>(apply)</em> If electrons push each other without touching, why does a wire <em>feel</em> like it has resistance? Where is the “friction” really coming from?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> Electrons collide with the metal’s lattice of positive ions (atoms). Each collision transfers kinetic energy to the lattice as heat — that <em>is</em> resistance. The friction is not between electrons; it is between electrons and the stationary atomic structure.</p>
+</div>
+</section>
+<section id="exercise-5-q2-breaking-an-insulator" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 5 — Q2: Breaking an Insulator</h2>
+<p><em>(design)</em> An insulator has its electrons locked tight. What would happen if you applied an extremely high voltage — high enough to rip those electrons free? <em>(Think: lightning through air.)</em></p>
+<div class="fragment">
+<p><strong>Answer:</strong> The insulator breaks down — electrons are violently stripped from their atoms and a sudden rush of current flows. Air does exactly this during lightning: enormous voltage rips electrons free and the air briefly becomes a conductor.</p>
+</div>
+</section></section>
+<section>
+<section id="part-5-the-math" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 5 — The Math</h1>
+
+</section>
+<section id="ohms-law" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>Ohm’s Law</h2>
+<div class="r-fit-text">
+<p><strong>V = I × R</strong></p>
+</div>
+</section>
+<section id="three-forms-of-the-same-truth" class="slide level2">
+<h2>Three Forms of the Same Truth</h2>
+<p>You only need one formula — rearrange for what you don’t know:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Find</th>
+<th>Formula</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Voltage</strong></td>
+<td>V = I × R</td>
+<td>Volts (V)</td>
+</tr>
+<tr class="even">
+<td><strong>Current</strong></td>
+<td>I = V / R</td>
+<td>Amperes (A)</td>
+</tr>
+<tr class="odd">
+<td><strong>Resistance</strong></td>
+<td>R = V / I</td>
+<td>Ohms (Ω)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>If pressure goes up and resistance stays the same, flow increases. Same physics. Same formula.</p>
+</blockquote>
+</section>
+<section id="ohms-law-sandbox" class="slide level2" data-background-color="#f7f9fc">
+<h2>Ohm’s Law Sandbox</h2>
+<iframe src="../simulations/water_circuit/index.html" width="100%" height="520px" style="border:none; border-radius:12px;">
+</iframe>
+<p><em>Calculate a target Current first. Then adjust the Voltage and Resistance sliders — does the gauge match your math?</em></p>
+</section>
+<section id="exercise-6-q1-calculate-current" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 6 — Q1: Calculate Current</h2>
+<p><em>(recall)</em> A battery provides <strong>5 V</strong>. A resistor of <strong>100 Ω</strong> is connected. How much current flows?</p>
+<p>Show your calculation.</p>
+<div class="fragment">
+<p><strong>Answer:</strong> I = V / R = 5 / 100 = <strong>0.05 A (50 mA)</strong></p>
+</div>
+</section>
+<section id="exercise-6-q2-calculate-resistance" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 6 — Q2: Calculate Resistance</h2>
+<p><em>(apply)</em> A circuit has <strong>12 V</strong> and the current is <strong>0.1 A</strong>. What is the resistance?</p>
+<p>Show your calculation.</p>
+<div class="fragment">
+<p><strong>Answer:</strong> R = V / I = 12 / 0.1 = <strong>120 Ω</strong></p>
+</div>
+</section>
+<section id="exercise-6-q3-halve-or-double-resistance" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 6 — Q3: Halve or Double Resistance</h2>
+<p><em>(design)</em> <strong>Challenge:</strong> If you <em>halve</em> the resistance in a circuit with fixed voltage, what happens to the current? If you <em>double</em> the resistance — what happens?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> Since I = V / R and V is fixed:</p>
+<ul>
+<li><strong>Halve R</strong> → current <strong>doubles</strong></li>
+<li><strong>Double R</strong> → current <strong>halves</strong></li>
+</ul>
+<p>Current and resistance are inversely proportional.</p>
+</div>
+</section></section>
+<section>
+<section id="part-6-components" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 6 — Components</h1>
+
+</section>
+<section id="micro-light-bulb-simulation" class="slide level2" data-background-color="#f7f9fc">
+<h2>Micro Light Bulb Simulation</h2>
+<iframe src="../simulations/water_circuit/micro/lightbulb.html" width="100%" height="520px" style="border:none; border-radius:12px;">
+</iframe>
+<p><em>Watch particles squeeze through the jagged filament. As they collide they turn orange/red. At high pressure, the whole area glows.</em></p>
+</section>
+<section id="the-light-bulb" class="slide level2">
+<h2>The Light Bulb</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p>Inside a bulb: a <strong>filament</strong> — a very thin, very resistive wire (tungsten).</p>
+<ul>
+<li>Electrons squeeze through the narrow filament</li>
+<li>Constant collisions with tungsten atoms → <strong>friction</strong> → <strong>heat</strong></li>
+<li>Filament reaches ~<strong>2,500°C</strong> → glows → <strong>light</strong></li>
+</ul>
+</div><div class="column" style="width:45%;">
+<p>Narrow pipe → friction → heat → glow</p>
+<p>Same physics as the water world.</p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The weakest, most resistive part always heats the most.</strong></p>
+</div>
+<div class="callout-content">
+<p>This is why LEDs need resistors. Without one: low resistance + fixed voltage = enormous current → burnout in milliseconds.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="the-led-light-emitting-diode" class="slide level2">
+<h2>The LED (Light Emitting Diode)</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="fragment">
+<ul>
+<li>An LED is a <strong>One-Way Check Valve</strong>.</li>
+<li>It only allows current to flow in <strong>one direction</strong>.</li>
+<li>If connected backward, the “valve” shuts tight → <strong>Zero Flow</strong>.</li>
+</ul>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Identification</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><strong>Long Leg</strong> = Positive (+)</li>
+<li><strong>Short Leg</strong> (and flat side of plastic) = Negative (−)</li>
+<li>Current must flow from <strong>+ to −</strong>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<p><img data-src="assets/led_polarity.png" style="width:100.0%"></p>
+</div></div>
+</section>
+<section id="exercise-7-q1-calculate-current-no-resistor" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 7 — Q1: Calculate Current (No Resistor)</h2>
+<p>A student wires an LED directly to <strong>3.3 V</strong> with no resistor. The LED has a resistance of ~<strong>10 Ω</strong> when lit.</p>
+<p><em>(recall)</em> Using I = V / R, calculate how much current flows.</p>
+<div class="fragment">
+<p><strong>Answer:</strong> I = 3.3 / 10 = <strong>0.33 A = 330 mA</strong></p>
+<p><em>(That is 11× the maximum rated current!)</em></p>
+</div>
+</section>
+<section id="exercise-7-q2-what-happens-to-the-led" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 7 — Q2: What Happens to the LED?</h2>
+<p>Current without a resistor = <strong>330 mA</strong>. The LED is rated for a maximum of <strong>30 mA</strong>.</p>
+<p><em>(recall)</em> What happens?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> The LED <strong>burns out instantly</strong> — 330 mA is 11× the maximum. The semiconductor junction overheats in milliseconds and is permanently destroyed.</p>
+</div>
+</section>
+<section id="exercise-7-q3-filament-vs-led" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 7 — Q3: Filament vs LED</h2>
+<p><em>(apply)</em> Why does a tungsten filament survive high temperatures but an LED doesn’t?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> Tungsten has the <strong>highest melting point of any metal (~3 422 °C)</strong> and is designed to glow. An LED is a <strong>semiconductor junction</strong> — it converts current to light very efficiently but is destroyed by excess heat. It was never built to survive white-hot temperatures.</p>
+</div>
+</section>
+<section id="exercise-7-q4-design-a-safe-circuit" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 7 — Q4: Design a Safe Circuit</h2>
+<p><em>(design)</em> Design the safe version: what resistor limits current to <strong>20 mA</strong>? <em>(V = 3.3 V, LED voltage drop = 2 V)</em></p>
+<div class="fragment">
+<p><strong>Answer:</strong></p>
+<p>Voltage across resistor = 3.3 − 2.0 = <strong>1.3 V</strong></p>
+<p>R = V / I = 1.3 / 0.02 = <strong>65 Ω</strong></p>
+<p>Nearest standard value: <strong>68 Ω</strong> (or 100 Ω for extra safety — slightly less current, LED lives longer).</p>
+</div>
+</section>
+<section id="micro-motor-simulation" class="slide level2" data-background-color="#f7f9fc">
+<h2>Micro Motor Simulation</h2>
+<iframe src="../simulations/water_circuit/micro/motor.html" width="100%" height="520px" style="border:none; border-radius:12px;">
+</iframe>
+<p><em>Watch electrons (particles) interact with the magnetic armature. North (Red) and South (Blue) poles are pushed and pulled by the moving charge.</em></p>
+</section>
+<section id="the-motor" class="slide level2">
+<h2>The Motor</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li>Moving electrons create a <strong>magnetic field</strong></li>
+<li>Inside the motor: permanent magnets on the outside, electromagnets (coils) on the inside</li>
+<li>Current through coils → magnetic field → <strong>interacts with permanent magnets</strong></li>
+<li>Opposite poles attract → like poles repel → <strong>rotation</strong></li>
+<li>Current flips direction at the right moment → poles flip → constant push-pull → continuous spin</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<p><strong>Flow → Magnetic Force → Motion</strong></p>
+<pre><code>Electrons moving
+     ↓
+Magnetic field created
+     ↓
+EM force on magnets
+     ↓
+Rotation</code></pre>
+</div></div>
+</section>
+<section id="the-switch" class="slide level2">
+<h2>The Switch</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p>A switch is a <strong>gap in the circuit</strong> that can be opened or closed.</p>
+<ul>
+<li><strong>Closed</strong> (switch on): complete path → current flows</li>
+<li><strong>Open</strong> (switch off): broken loop → current = zero</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Voltage without current</strong></p>
+</div>
+<div class="callout-content">
+<p>When a switch is open, <strong>voltage still exists</strong> across the gap. That is why you can measure it with a multimeter. Current requires a <strong>complete path</strong> — voltage does not.</p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<pre><code>Pump running   → Voltage exists
+Loop complete  → Current flows
+Loop broken    → Current = 0</code></pre>
+</div></div>
+</section>
+<section id="exercise-8-q1-resistive-heating" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 8 — Q1: Resistive Heating</h2>
+<p><em>(apply)</em> What is the electron-world equivalent?</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 32%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Water world</th>
+<th>Electron world</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Water flows fast through thin pipe, pipe gets warm</td>
+<td>Friction between molecules and pipe wall</td>
+<td><strong>?</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Answer:</strong> Electrons collide with atoms in the resistive wire — kinetic energy converts to heat. This is <strong>resistive (Joule) heating</strong>: the basis of how a resistor or filament gets hot.</p>
+</div>
+</section>
+<section id="exercise-8-q2-open-valve" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 8 — Q2: Open Valve</h2>
+<p><em>(apply)</em> What is the water-world equivalent?</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Water world</th>
+<th>Electron world</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Flow is completely stopped</td>
+<td><strong>?</strong></td>
+<td>Switch in open position</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Answer:</strong> A <strong>closed gate valve</strong> — the valve is physically shut, breaking the loop so water (current) cannot flow.</p>
+</div>
+</section>
+<section id="exercise-8-q3-paddle-wheel" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 8 — Q3: Paddle Wheel</h2>
+<p><em>(apply)</em> What is the electron-world equivalent?</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 32%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Water world</th>
+<th>Electron world</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Paddle wheel converts flow to rotation</td>
+<td>Water pressure turns the paddle</td>
+<td><strong>?</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Answer:</strong> Current through a coil creates a magnetic field → force on permanent magnets → rotation. This is an <strong>electric motor</strong>.</p>
+</div>
+</section>
+<section id="exercise-8-q4-melting-section" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 8 — Q4: Melting Section</h2>
+<p><em>(apply)</em> What is the water-world equivalent?</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Water world</th>
+<th>Electron world</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A section so narrow it melts</td>
+<td><strong>?</strong></td>
+<td>LED with no resistor</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Answer:</strong> A pipe section so narrow that friction heats the material until it <strong>melts</strong> — equivalent to a fuse blowing, or an LED junction destroyed by overcurrent.</p>
+</div>
+</section></section>
+<section>
+<section id="part-7-the-valve" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 7 — The Valve</h1>
+
+</section>
+<section id="variable-resistance-the-potentiometer" class="slide level2">
+<h2>Variable Resistance: The Potentiometer</h2>
+<ul>
+<li>A <strong>valve</strong> in cross-section: a disc with a hole — rotate it to partially block flow</li>
+<li>In electronics: a <strong>potentiometer</strong> has a resistive strip + sliding wiper</li>
+<li>Move the wiper → change the resistance → change the current</li>
+</ul>
+<p><strong>Where you see this:</strong> Volume knobs · Brightness dimmers · Steering sensitivity controls</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Position</th>
+<th>Resistance</th>
+<th>Current</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fully open</td>
+<td>0 Ω</td>
+<td>Maximum</td>
+</tr>
+<tr class="even">
+<td>Midpoint</td>
+<td>~250 Ω</td>
+<td>Medium</td>
+</tr>
+<tr class="odd">
+<td>Fully closed</td>
+<td>Max (e.g.&nbsp;10 kΩ)</td>
+<td>Zero</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-valve-simulation" class="slide level2" data-background-color="#f7f9fc">
+<h2>The Valve Simulation</h2>
+<iframe src="../simulations/water_circuit/micro/valve.html" width="100%" height="520px" style="border:none; border-radius:12px;">
+</iframe>
+<p><em>Manually rotate the valve. Watch the current change in real time.</em></p>
+</section>
+<section id="the-automatic-valve-the-transistor" class="slide level2">
+<h2>The Automatic Valve: The Transistor</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Manual Valve (Potentiometer)</strong></p>
+<ul>
+<li>You turn it by hand</li>
+<li>Analog: smooth range of values</li>
+<li>Input: your hand</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Transistor</strong></p>
+<ul>
+<li><em>Electricity</em> turns it — automatically</li>
+<li>A tiny <strong>Base</strong> current controls a huge <strong>Collector</strong> current</li>
+<li><strong>1 mA Base → 200 mA Collector</strong> (gain = 200×)</li>
+<li>Input: another electron signal</li>
+</ul>
+</div></div>
+<blockquote>
+<p>“A tiny trickle opens the main floodgate.” This is <strong>amplification</strong> — and it is also <strong>logic</strong>.</p>
+</blockquote>
+</section>
+<section id="transistors-make-logic" class="slide level2">
+<h2>Transistors Make Logic</h2>
+<ul>
+<li>Transistor <strong>fully ON</strong> → effectively zero resistance → current flows → <strong>“1”</strong></li>
+<li>Transistor <strong>fully OFF</strong> → enormous resistance → no current → <strong>“0”</strong></li>
+</ul>
+<p>A billion of these = a CPU.</p>
+</section>
+<section id="exercise-9-q1-potentiometer-at-0-ω" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 9 — Q1: Potentiometer at 0 Ω</h2>
+<p>You have: <strong>5 V</strong> supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor</p>
+<p><em>(recall)</em> Potentiometer at <strong>0 Ω</strong>: what current flows through the LED? <em>(Use V = 3 V; derived from 5 V supply − 2 V LED drop)</em></p>
+<div class="fragment">
+<p><strong>Answer:</strong> I = V / R = 3 / (0 + 150) = <strong>0.02 A = 20 mA</strong> — LED at rated maximum brightness.</p>
+</div>
+</section>
+<section id="exercise-9-q2-potentiometer-at-500-ω" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 9 — Q2: Potentiometer at 500 Ω</h2>
+<p>You have: <strong>5 V</strong> supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor</p>
+<p><em>(apply)</em> Potentiometer at <strong>500 Ω</strong>: what current flows?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> I = 3 / (500 + 150) = 3 / 650 ≈ <strong>4.6 mA</strong> — LED is very dim, just below usable threshold.</p>
+</div>
+</section>
+<section id="exercise-9-q3-rotating-from-0-to-500-ω" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 9 — Q3: Rotating from 0 to 500 Ω</h2>
+<p>You have: <strong>5 V</strong> supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor</p>
+<p><em>(apply)</em> What does the LED <em>do</em> as you slowly rotate from 0 to 500 Ω?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> The LED <strong>dims gradually</strong> — from 20 mA (full brightness) down to ~4.6 mA (barely visible). The potentiometer acts as a variable brightness (dimmer) control.</p>
+</div>
+</section>
+<section id="exercise-9-q4-find-the-cut-off" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 9 — Q4: Find the Cut-off</h2>
+<p>You have: <strong>5 V</strong> supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor</p>
+<p><em>(design)</em> At what potentiometer value does current drop below the LED’s minimum threshold (<strong>5 mA</strong>)?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> I = 3 / (R + 150) &lt; 0.005 → R + 150 &gt; 600 → <strong>R &gt; 450 Ω</strong></p>
+<p>At 450 Ω the LED falls below 5 mA and effectively goes out.</p>
+</div>
+</section>
+<section id="exercise-10-q1-transistor-gain" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 10 — Q1: Transistor Gain</h2>
+<p><em>(recall)</em> A transistor has a <strong>gain of 200</strong>. You apply <strong>0.5 mA</strong> to the Base. How much current flows through the Collector?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> I_C = Gain × I_B = 200 × 0.5 mA = <strong>100 mA</strong></p>
+<p>A tiny 0.5 mA signal controls a 100 mA load — that is amplification.</p>
+</div>
+</section>
+<section id="exercise-10-q2-controlling-a-motor" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 10 — Q2: Controlling a Motor</h2>
+<p><em>(apply)</em> You want to control a <strong>500 mA motor</strong> using a Raspberry Pi GPIO pin (<strong>max 16 mA</strong>). Is this possible? What is the transistor’s role?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> <strong>Yes</strong> — but not directly. The GPIO cannot source 500 mA safely. A transistor with gain ≥ 32 driven by the GPIO switches the 500 mA motor current from a separate supply. The GPIO controls the <em>gate</em>; the transistor carries the <em>load</em>.</p>
+</div>
+</section>
+<section id="exercise-10-q3-on-vs-off-1-vs-0" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 10 — Q3: ON vs OFF = 1 vs 0</h2>
+<p><em>(apply)</em> A transistor is either fully ON (0.1 Ω) or fully OFF (1 000 000 Ω). Which state is “1” and which is “0”?</p>
+<div class="fragment">
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Fully <strong>ON</strong> (0.1 Ω) → near-zero resistance → current flows → <strong>“1”</strong></li>
+<li>Fully <strong>OFF</strong> (1 MΩ) → near-infinite resistance → no current → <strong>“0”</strong></li>
+</ul>
+</div>
+</section>
+<section id="two-worlds-analog-vs.-digital" class="slide level2">
+<h2>Two Worlds: Analog vs.&nbsp;Digital</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Analog — Infinite Steps</strong></p>
+<div class="fragment">
+<ul>
+<li>A <strong>dimmer switch</strong>: any brightness, 0% to 100%</li>
+<li>A <strong>thermometer</strong>: any temperature in a continuous range</li>
+<li>An <strong>LDR sensor</strong>: resistance anywhere from 1 kΩ to 100 kΩ</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Analog = continuous</strong></p>
+</div>
+<div class="callout-content">
+<p>There are infinite possible values between any two points.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><strong>Digital — Two States Only</strong></p>
+<div class="fragment">
+<ul>
+<li>A <strong>light switch</strong>: ON or OFF</li>
+<li>A <strong>transistor</strong>: fully ON or fully OFF</li>
+<li>A <strong>GPIO pin</strong>: HIGH (3.3 V) or LOW (0 V)</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Digital = discrete</strong></p>
+</div>
+<div class="callout-content">
+<p>Only two possible states. No in-between.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<div class="fragment">
+<blockquote>
+<p><strong>The bridge:</strong> A transistor <em>collapses</em> an analog input voltage into a digital decision — above a threshold → <strong>1</strong>, below it → <strong>0</strong>. A billion of these decisions per second = a CPU.</p>
+</blockquote>
+</div>
+</section></section>
+<section>
+<section id="part-8-0s-1s-and-micropython" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 8 — 0s, 1s, and MicroPython</h1>
+
+</section>
+<section id="the-ladder-of-abstraction" class="slide level2">
+<h2>The Ladder of Abstraction</h2>
+<p>From transistors to Python — five rungs:</p>
+<ol type="1">
+<li><strong>Voltage</strong> — above ~2V = HIGH (1), below ~0.8V = LOW (0)</li>
+<li><strong>Binary</strong> — 1 bit = on/off · 8 bits = 1 byte = 256 values</li>
+<li><strong>Machine Code</strong> — patterns of 0s and 1s the processor reads directly</li>
+<li><strong>Assembly / C</strong> — human-readable commands, <em>compiled</em> to machine code</li>
+<li><strong>Python</strong> — one line = hundreds of machine instructions, <em>interpreted</em> in real time</li>
+</ol>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Python is not what the computer runs</strong></p>
+</div>
+<div class="callout-content">
+<p>Python is translated — layer by layer — into the 0s and 1s that transistors actually process.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="meet-the-picos-pins" class="slide level2">
+<h2>Meet the Pico’s Pins</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><strong>GPIO = General Purpose Input / Output</strong></p>
+<p>Every numbered pin on the Pico is a <strong>software-defined switch</strong>. You decide its job.</p>
+<h3 id="output-the-driver">Output — The Driver</h3>
+<p>The Pico <em>forces</em> the pin to a specific voltage.</p>
+<ul>
+<li><strong>HIGH</strong> (3.3V) or <strong>LOW</strong> (0V)</li>
+<li><strong>Role:</strong> Drives LEDs, motors, or buzzers.</li>
+</ul>
+<h3 id="input-the-listener">Input — The Listener</h3>
+<p>The Pico <em>measures</em> the voltage at the pin.</p>
+<ul>
+<li><strong>HIGH</strong> (Signal) or <strong>LOW</strong> (Silence)</li>
+<li><strong>Role:</strong> Reads buttons and sensors.</li>
+</ul>
+</div><div class="column" style="width:40%;">
+<p><img data-src="assets/pico_pins_glow.png" style="border-radius: 12px;;width:100.0%"></p>
+</div></div>
+</section>
+<section id="programming-the-pins" class="slide level2">
+<h2>Programming the Pins</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Direction is Mandatory</strong></p>
+</div>
+<div class="callout-content">
+<p>A pin defaults to <strong>Input</strong> for safety. If you forget <code>Pin.OUT</code>, your LED will never light because the pin is “listening,” not “pushing.”</p>
+</div>
+</div>
+</div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Code Pattern</th>
+<th>Physical Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Pin(17, Pin.OUT)</code></td>
+<td>GP17 configured to <strong>drive</strong> voltage</td>
+</tr>
+<tr class="even">
+<td><code>Pin(15, Pin.IN)</code></td>
+<td>GP15 configured to <strong>listen</strong> for voltage</td>
+</tr>
+<tr class="odd">
+<td><code>.value(1)</code></td>
+<td>Switch GP17 <strong>ON</strong> (3.3 V)</td>
+</tr>
+<tr class="even">
+<td><code>.value(0)</code></td>
+<td>Switch GP17 <strong>OFF</strong> (0 V)</td>
+</tr>
+<tr class="odd">
+<td><code>ADC(26)</code></td>
+<td>Read <strong>fractional</strong> voltage (Analog)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="machines-need-everything-defined" class="slide level2">
+<h2>Machines Need Everything Defined</h2>
+<p>The machine has no common sense. You define everything:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="im">from</span> machine <span class="im">import</span> Pin</span>
+<span id="cb3-2"><a href=""></a></span>
+<span id="cb3-3"><a href=""></a>led <span class="op">=</span> Pin(<span class="dv">17</span>, Pin.OUT)  <span class="co"># "GP17 is an output — give it a name"</span></span>
+<span id="cb3-4"><a href=""></a>led.value(<span class="dv">1</span>)            <span class="co"># "set GP17 HIGH (3.3V)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Forget <code>Pin.OUT</code>? The pin defaults to input — your LED won’t light.</li>
+</ul>
+<blockquote>
+<p><strong>Precision is the machine’s strength. Common sense is yours.</strong></p>
+</blockquote>
+</section>
+<section id="exercise-11-q1-how-many-pins" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 11 — Q1: How Many Pins?</h2>
+<p>Read this script line by line, top to bottom:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">from</span> machine <span class="im">import</span> Pin</span>
+<span id="cb4-2"><a href=""></a><span class="im">import</span> time</span>
+<span id="cb4-3"><a href=""></a></span>
+<span id="cb4-4"><a href=""></a>led_a <span class="op">=</span> Pin(<span class="dv">17</span>, Pin.OUT)   <span class="co"># GP17 is an output</span></span>
+<span id="cb4-5"><a href=""></a>led_b <span class="op">=</span> Pin(<span class="dv">18</span>, Pin.OUT)   <span class="co"># GP18 is an output</span></span>
+<span id="cb4-6"><a href=""></a></span>
+<span id="cb4-7"><a href=""></a>led_a.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="dv">1</span>)</span>
+<span id="cb4-8"><a href=""></a>led_a.value(<span class="dv">0</span>)</span>
+<span id="cb4-9"><a href=""></a>led_b.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb4-10"><a href=""></a>led_b.value(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>(recall)</em> How many GP pins does this script use?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> <strong>2</strong> — GP17 (<code>led_a</code>) and GP18 (<code>led_b</code>).</p>
+</div>
+</section>
+<section id="exercise-11-q2-input-or-output" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 11 — Q2: Input or Output?</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>led_a <span class="op">=</span> Pin(<span class="dv">17</span>, Pin.OUT)</span>
+<span id="cb5-2"><a href=""></a>led_b <span class="op">=</span> Pin(<span class="dv">18</span>, Pin.OUT)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>(recall)</em> Are the pins inputs or outputs?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> Both are <strong>outputs</strong> (<code>Pin.OUT</code>). The Pico drives these pins HIGH or LOW.</p>
+</div>
+</section>
+<section id="exercise-11-q3-describe-the-script" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 11 — Q3: Describe the Script</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>led_a.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="dv">1</span>)</span>
+<span id="cb6-2"><a href=""></a>led_a.value(<span class="dv">0</span>)</span>
+<span id="cb6-3"><a href=""></a>led_b.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb6-4"><a href=""></a>led_b.value(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>(apply)</em> Describe in plain language what this script does, step by step.</p>
+<div class="fragment">
+<p><strong>Answer:</strong> GP17 turns <strong>ON</strong> → waits 1 second → turns <strong>OFF</strong>. Then GP18 turns <strong>ON</strong> → waits 0.5 seconds → turns <strong>OFF</strong>. The script ends.</p>
+</div>
+</section>
+<section id="exercise-11-q4-pin.out-vs-pin.in" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 11 — Q4: Pin.OUT vs Pin.IN</h2>
+<p><em>(apply)</em> What is the difference between <code>Pin.OUT</code> and <code>Pin.IN</code>? What would happen if you forgot <code>Pin.OUT</code>?</p>
+<div class="fragment">
+<p><strong>Answer:</strong></p>
+<ul>
+<li><strong><code>Pin.OUT</code></strong> — the Pico <em>drives</em> the pin to 3.3 V or 0 V</li>
+<li><strong><code>Pin.IN</code></strong> — the Pico <em>reads</em> the voltage on the pin; it drives nothing</li>
+</ul>
+<p>Forgetting <code>Pin.OUT</code> → pin defaults to input mode → outputs no voltage → LED stays off.</p>
+</div>
+</section>
+<section id="exercise-11-q5-blink-3-times" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 11 — Q5: Blink 3 Times</h2>
+<p><em>(design)</em> <strong>Modify it:</strong> How would you make GP17’s LED blink <strong>3 times</strong> before GP18 turns on?</p>
+<div class="fragment">
+<p><strong>Answer:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb7-2"><a href=""></a>    led_a.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb7-3"><a href=""></a>    led_a.value(<span class="dv">0</span>)<span class="op">;</span> time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb7-4"><a href=""></a></span>
+<span id="cb7-5"><a href=""></a>led_b.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb7-6"><a href=""></a>led_b.value(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section></section>
+<section>
+<section id="part-9-the-lab" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 9 — The Lab</h1>
+
+</section>
+<section id="meet-the-breadboard" class="slide level2">
+<h2>Meet the Breadboard</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>A breadboard lets you build circuits <strong>without soldering</strong> — perfect for experimenting safely.</p>
+<div class="fragment">
+<ul>
+<li><strong>Terminal rows</strong> (short rows, A–E / F–J) — each row of 5 holes is <strong>one wire</strong></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Centre divider</strong> — separates left and right; designed to straddle chips</li>
+</ul>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="assets/breadboard_diagram.png" style="width:100.0%"></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The golden rule</strong></p>
+</div>
+<div class="callout-content">
+<p>Same row = same wire. Different row = different wire.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="powering-the-board-the-rails" class="slide level2">
+<h2>Powering the Board: The Rails</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li><strong>Power rails</strong> (long side columns, + and −) — connect to <strong>3.3V</strong> and <strong>GND</strong></li>
+<li>Usually marked with red (+) and blue (−) lines.</li>
+<li>Power flows the entire length of the rail.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>What is GND?</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>GND (Ground)</strong> = the − terminal = <strong>0 V reference point</strong>. All voltages are measured <em>relative to GND</em> — it is the drain at the bottom of the water tank. Every circuit needs a complete loop: current must be able to flow <strong>from + to GND</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<p><img data-src="assets/breadboard_diagram.png" style="width:100.0%"></p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Pro tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Connect one rail to <strong>3.3V</strong> and the other to <strong>GND</strong> first — then you can pull power from anywhere on the board.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="build-1-calculate-before-you-wire" class="slide level2">
+<h2>Build #1 — Calculate Before You Wire</h2>
+<p>Before connecting anything, calculate the <strong>safe resistor</strong> for each LED.</p>
+<div class="fragment">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pico supply voltage</td>
+<td><strong>3.3 V</strong></td>
+</tr>
+<tr class="even">
+<td>LED forward voltage</td>
+<td><strong>2.0 V</strong></td>
+</tr>
+<tr class="odd">
+<td>Voltage across resistor</td>
+<td><strong>3.3 − 2.0 = 1.3 V</strong></td>
+</tr>
+<tr class="even">
+<td>Target current</td>
+<td><strong>10 mA = 0.01 A</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Resistor needed</strong></td>
+<td><strong>R = 1.3 / 0.01 = 130 Ω</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Closest standard value: <strong>150 Ω</strong> ✓</strong></p>
+</div>
+<div class="callout-content">
+<p>Slightly higher = slightly less current = LED lives longer. Never go lower.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="build-1-traffic-light-on-wokwi" class="slide level2" data-background-color="#f7f9fc">
+<h2>Build #1 — Traffic Light on Wokwi</h2>
+<iframe src="https://wokwi.com/projects/460324970731475969/embed" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen="">
+</iframe>
+<p><em>Build this circuit in Wokwi. Run it. Does the sequence match your code?</em></p>
+</section>
+<section id="build-1-micropython-code" class="slide level2">
+<h2>Build #1 — MicroPython Code</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="im">from</span> machine <span class="im">import</span> Pin</span>
+<span id="cb8-2"><a href=""></a><span class="im">import</span> time</span>
+<span id="cb8-3"><a href=""></a></span>
+<span id="cb8-4"><a href=""></a><span class="co"># Define each LED</span></span>
+<span id="cb8-5"><a href=""></a>red    <span class="op">=</span> Pin(<span class="dv">1</span>, Pin.OUT)   <span class="co"># GP1 = Red</span></span>
+<span id="cb8-6"><a href=""></a>yellow <span class="op">=</span> Pin(<span class="dv">2</span>, Pin.OUT)   <span class="co"># GP2 = Yellow</span></span>
+<span id="cb8-7"><a href=""></a>green  <span class="op">=</span> Pin(<span class="dv">3</span>, Pin.OUT)   <span class="co"># GP3 = Green</span></span>
+<span id="cb8-8"><a href=""></a></span>
+<span id="cb8-9"><a href=""></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb8-10"><a href=""></a>    red.value(<span class="dv">1</span>)<span class="op">;</span>    time.sleep(<span class="dv">5</span>)   <span class="co"># Red ON for 5 s</span></span>
+<span id="cb8-11"><a href=""></a>    red.value(<span class="dv">0</span>)</span>
+<span id="cb8-12"><a href=""></a>    yellow.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="dv">2</span>)   <span class="co"># Yellow ON for 2 s</span></span>
+<span id="cb8-13"><a href=""></a>    yellow.value(<span class="dv">0</span>)</span>
+<span id="cb8-14"><a href=""></a>    green.value(<span class="dv">1</span>)<span class="op">;</span>  time.sleep(<span class="dv">5</span>)   <span class="co"># Green ON for 5 s</span></span>
+<span id="cb8-15"><a href=""></a>    green.value(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="extend-it-with-ai" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Extend It with AI</h2>
+<p>Your traffic light works. Now <strong>ask AI to extend it.</strong></p>
+<blockquote>
+<p><em>“I have a MicroPython script cycling Red → Yellow → Green on a Raspberry Pi Pico.<em> </em>I want to add a button on GP15 that, when held, keeps the green light on for 10 s instead of 5 s.<em> </em>Show me the updated code and explain what changed.”</em></p>
+</blockquote>
+</section>
+<section id="build-2-the-voltage-divider" class="slide level2">
+<h2>Build #2 — The Voltage Divider</h2>
+<p>How does a <strong>light sensor</strong> become a number the Pico can read?</p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="fragment">
+<pre><code>3.3V ── 10 kΩ ──●── LDR ── GND
+                ↑
+           ADC reads here
+              (GP26)</code></pre>
+</div>
+<div class="fragment">
+<ul>
+<li>LDR resistance <strong>drops</strong> in bright light</li>
+<li>Fixed 10 kΩ stays <strong>constant</strong></li>
+<li>Midpoint voltage <strong>rises</strong> as LDR gets smaller</li>
+</ul>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Water analogy</strong></p>
+</div>
+<div class="callout-content">
+<p>Two resistors in series = two narrow pipes. The pressure tap <em>between</em> them reads a fraction of total — depending on which section is narrower.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Light level</th>
+<th>LDR R</th>
+<th>Midpoint V</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bright</td>
+<td>~1 kΩ</td>
+<td>~0.3 V</td>
+</tr>
+<tr class="even">
+<td>Dark</td>
+<td>~100 kΩ</td>
+<td>~3.0 V</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></div>
+</section>
+<section id="the-adc-bridging-analog-and-digital" class="slide level2">
+<h2>The ADC — Bridging Analog and Digital</h2>
+<p>The Pico thinks in <strong>digital</strong> (0s and 1s). The LDR gives us <strong>analog</strong> (a continuous voltage). The <strong>ADC (Analog-to-Digital Converter)</strong> is the translator.</p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="fragment">
+<ul>
+<li>The ADC samples the <strong>midpoint voltage</strong> thousands of times per second</li>
+<li>It maps that voltage to a <strong>16-bit number</strong>: 0 → 65535</li>
+</ul>
+</div>
+<div class="fragment">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Voltage</th>
+<th><code>read_u16()</code> value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0 V (max bright)</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1.65 V (half)</td>
+<td>~32768</td>
+</tr>
+<tr class="odd">
+<td>3.3 V (max dark)</td>
+<td>65535</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why 65535?</strong></p>
+</div>
+<div class="callout-content">
+<p>16 bits can hold 2¹⁶ = <strong>65,536</strong> values (0 to 65535). More bits = finer resolution = subtler light changes are detectable.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>In code</strong></p>
+</div>
+<div class="callout-content">
+<p><code>ldr = ADC(26)</code> — tell the Pico that GP26 is an analog input. <code>ldr.read_u16()</code> — take one sample and return the number.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="build-2-automatic-light-on-wokwi" class="slide level2" data-background-color="#f7f9fc">
+<h2>Build #2 — Automatic Light on Wokwi</h2>
+<iframe src="https://wokwi.com/projects/460329358708727809/embed" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen="">
+</iframe>
+<p><em>Click the LDR slider to change light level. Watch the LED respond in real time.</em></p>
+</section>
+<section id="build-2-micropython-code" class="slide level2">
+<h2>Build #2 — MicroPython Code</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="im">from</span> machine <span class="im">import</span> Pin, ADC</span>
+<span id="cb10-2"><a href=""></a><span class="im">import</span> time</span>
+<span id="cb10-3"><a href=""></a></span>
+<span id="cb10-4"><a href=""></a>ldr <span class="op">=</span> ADC(<span class="dv">26</span>)           <span class="co"># GP26 = ADC0</span></span>
+<span id="cb10-5"><a href=""></a>led <span class="op">=</span> Pin(<span class="dv">15</span>, Pin.OUT)  <span class="co"># output LED on GP15</span></span>
+<span id="cb10-6"><a href=""></a></span>
+<span id="cb10-7"><a href=""></a>DARK_THRESHOLD <span class="op">=</span> <span class="dv">40000</span>  <span class="co"># 0–65535; tune this in class</span></span>
+<span id="cb10-8"><a href=""></a></span>
+<span id="cb10-9"><a href=""></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb10-10"><a href=""></a>    brightness <span class="op">=</span> ldr.read_u16()      <span class="co"># 0 (bright) → 65535 (dark)</span></span>
+<span id="cb10-11"><a href=""></a>    <span class="cf">if</span> brightness <span class="op">&gt;</span> DARK_THRESHOLD:</span>
+<span id="cb10-12"><a href=""></a>        led.value(<span class="dv">1</span>)                 <span class="co"># dark (high value) → LED ON</span></span>
+<span id="cb10-13"><a href=""></a>    <span class="cf">else</span>:</span>
+<span id="cb10-14"><a href=""></a>        led.value(<span class="dv">0</span>)                 <span class="co"># bright (low value) → LED OFF</span></span>
+<span id="cb10-15"><a href=""></a>    time.sleep(<span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-13-q1-adc-voltage" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 13 — Q1: ADC Voltage</h2>
+<p><em>(recall)</em> What voltage does <code>read_u16() = 32768</code> represent? <em>(Hint: it is half the full 3.3 V range)</em></p>
+<div class="fragment">
+<p><strong>Answer:</strong> 32768 is half of 65535 ≈ half-scale → <strong>1.65 V</strong> (half of 3.3 V).</p>
+</div>
+</section>
+<section id="exercise-13-q2-change-the-threshold" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 13 — Q2: Change the Threshold</h2>
+<p><em>(apply)</em> <code>DARK_THRESHOLD</code> is changed to <strong>40000</strong>. Does the LED now switch on in dimmer or brighter conditions? Why?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> <strong>Dimmer</strong> — the sensor must return a <em>higher</em> value (40000) before the LED switches on. Higher ADC values mean less light, so the room must be darker than before to trigger the LED.</p>
+</div>
+</section>
+<section id="exercise-13-q3-add-a-second-led" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 13 — Q3: Add a Second LED</h2>
+<p><em>(apply)</em> Add a <strong>second green LED</strong> on GP16 that turns ON when the room is bright. Write the extra two lines of code.</p>
+<div class="fragment">
+<p><strong>Answer:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>green_led <span class="op">=</span> Pin(<span class="dv">16</span>, Pin.OUT)        <span class="co"># add after existing pin setup</span></span>
+<span id="cb11-2"><a href=""></a></span>
+<span id="cb11-3"><a href=""></a><span class="co"># inside the while loop, add:</span></span>
+<span id="cb11-4"><a href=""></a>green_led.value(<span class="dv">0</span> <span class="cf">if</span> brightness <span class="op">&gt;</span> DARK_THRESHOLD <span class="cf">else</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When bright, <code>brightness &gt; DARK_THRESHOLD</code> is False → <code>green_led.value(1)</code>.</p>
+</div>
+</section>
+<section id="exercise-13-q4-stabilising-noisy-readings" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 13 — Q4: Stabilising Noisy Readings</h2>
+<p><em>(design)</em> The sensor reading can bounce slightly (noise). How could you use multiple readings or <code>time.sleep()</code> to make the response more stable?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> Average several readings before deciding:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a>readings <span class="op">=</span> [ldr.read_u16() <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb12-2"><a href=""></a>brightness <span class="op">=</span> <span class="bu">sum</span>(readings) <span class="op">//</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Or only switch the LED if the condition holds for two consecutive loops — prevents flickering from brief spikes.</p>
+</div>
+</section></section>
+<section>
+<section id="part-10-bringing-it-all-back" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 10 — Bringing It All Back</h1>
+
+</section>
+<section id="the-master-translation-table" class="slide level2 smaller">
+<h2>The Master Translation Table</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 31%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concept</th>
+<th>Water Analogy</th>
+<th>Electronics Reality</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Voltage (V)</td>
+<td>Pump pressure</td>
+<td>Force pushing electrons</td>
+</tr>
+<tr class="even">
+<td>Current (I)</td>
+<td>Flow rate</td>
+<td>Electrons per second (Amperes)</td>
+</tr>
+<tr class="odd">
+<td>Resistance (R)</td>
+<td>Narrow pipe</td>
+<td>Opposition to electron flow (Ohms)</td>
+</tr>
+<tr class="even">
+<td>Ohm’s Law</td>
+<td>P ∝ F / R</td>
+<td>V = I × R</td>
+</tr>
+<tr class="odd">
+<td>Open circuit</td>
+<td>Cut pipe</td>
+<td>No complete path, no current</td>
+</tr>
+<tr class="even">
+<td>Short circuit</td>
+<td>Removed all pipes</td>
+<td>Near-zero resistance, huge current</td>
+</tr>
+<tr class="odd">
+<td>LED / Bulb</td>
+<td>Friction heating pipe</td>
+<td>Resistance → heat → light</td>
+</tr>
+<tr class="even">
+<td>LED Polarity</td>
+<td>One-way check valve</td>
+<td>Current only flows one way (+ to −)</td>
+</tr>
+<tr class="odd">
+<td>Series</td>
+<td>Pipes in a single line</td>
+<td>Components in a single path (Same Current)</td>
+</tr>
+<tr class="even">
+<td>Parallel</td>
+<td>Branching pipes</td>
+<td>Components side-by-side (Same Voltage)</td>
+</tr>
+<tr class="odd">
+<td>Motor</td>
+<td>Paddle wheel</td>
+<td>EM force drives magnets → rotation</td>
+</tr>
+<tr class="even">
+<td>Switch</td>
+<td>Gate valve</td>
+<td>Opens / closes the electron path</td>
+</tr>
+<tr class="odd">
+<td>Variable resistor</td>
+<td>Valve</td>
+<td>Adjustable resistance, adjustable current</td>
+</tr>
+<tr class="even">
+<td>Transistor</td>
+<td>Electron-controlled valve</td>
+<td>Small current controls large current</td>
+</tr>
+<tr class="odd">
+<td>Binary</td>
+<td>Open / closed valve</td>
+<td>HIGH / LOW voltage states</td>
+</tr>
+<tr class="even">
+<td>Python</td>
+<td>Instructions to the pump operator</td>
+<td>High-level language the interpreter translates</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="homework" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>Homework</h2>
+<p><strong>Part A — Calculations</strong></p>
+<ol type="1">
+<li>A 9V battery + 270Ω resistor. What current flows?</li>
+<li>A circuit draws 50mA from 5V. What is the total resistance?</li>
+<li>Dim an LED to 10mA using a 3.3V GPIO pin (LED drops 2V). What resistor do you need?</li>
+<li>A motor needs 500mA. Can a Pico GP pin (max 16mA) drive it directly? Use AI to explain the transistor solution.</li>
+</ol>
+<p><strong>Part B — Observation</strong></p>
+<p>Find <strong>3 places</strong> in your home where a reactive system turns on/off based on a sensor. For each: What is the sensor? What is the action? Write 3-line Python pseudo-code for how it might work.</p>
+</section></section>
+<section>
+<section id="ai-onboarding-your-lab-partner" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>AI Onboarding — Your Lab Partner</h1>
+
+</section>
+<section id="ways-to-use-ai-in-this-course" class="slide level2">
+<h2>4 Ways to Use AI in This Course</h2>
+<p>In this course, AI is a <strong>senior engineer sitting next to you</strong> — not a replacement for thinking.</p>
+<ol type="1">
+<li><strong>Explain</strong> — <em>“What does <code>GPIO.setmode(GPIO.BCM)</code> actually do? Use the water analogy.”</em></li>
+<li><strong>Debug</strong> — <em>“I’m getting <code>RuntimeError: Blue LED not found</code>. Here is my code and wiring description. What did I miss?”</em></li>
+<li><strong>Extend</strong> — <em>“My traffic light works. How do I make the yellow light pulse slowly like a heartbeat?”</em></li>
+<li><strong>Generate</strong> — <em>“Write the boilerplate to set up 3 output pins on a Raspberry Pi.”</em></li>
+</ol>
+<p><strong>Setup:</strong> Open Cursor IDE · Log in to your assigned account · First prompt: introduce yourself and ask it to help verify your Ohm’s Law calculations.</p>
+</section>
+<section id="questions" class="slide level2 sdaia-dark" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h2>Questions?</h2>
+<div class="r-fit-text">
+<p>🙋</p>
+</div>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="../slides_template/assets/sdaia.svg" class="slide-logo"></p>
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="session1_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="session1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="session1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="session1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="session1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="session1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="session1_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="session1_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="session1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="session1_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"},{"title":"Index","icon":"<svg width='1.8rem' viewBox='0 0 24 24'><path d='M5 7h14M5 12h14M5 17h7' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>","src":"../../index.html"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

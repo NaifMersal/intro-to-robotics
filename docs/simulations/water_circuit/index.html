@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Circuit Simulation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Main Rendering Contexts -->
+    <canvas id="simulationCanvas"></canvas>
+
+    <!-- Overlay UI -->
+    <div id="ui-layer">
+        
+
+
+        <!-- Controls Panel Placeholder -->
+        <div id="controls-placeholder"></div>
+
+        <!-- Floating Component Inspect Buttons -->
+        <button id="btnPump" class="floating-btn view-btn" data-view="micro-pump">View Pump</button>
+        <button id="btnValve" class="floating-btn view-btn" data-view="micro-valve">View Valve</button>
+        <button id="btnWheel" class="floating-btn view-btn" data-view="micro-wheel">View Wheel</button>
+
+    </div>
+
+
+    <script src="js/ui_components.js?v=2"></script>
+    <script src="js/renderer_macro.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
+</body>
+</html>
