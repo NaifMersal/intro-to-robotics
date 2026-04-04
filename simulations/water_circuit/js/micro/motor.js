@@ -6,18 +6,26 @@
         
         // Override base constants for "Electrons"
         PARTICLE_RADIUS: 4,
-        PARTICLE_COUNT: 450,
+        PARTICLE_COUNT: 280, // Reduced for better spacing
         
         start: function() {
-            // Apply overrides BEFORE init
             this.initEngine();
             const canvas = document.getElementById('simulationCanvas');
-            this.setupCommonScene(canvas.width, canvas.height);
+            const w = canvas.width;
+            const h = canvas.height;
+            this.setupCommonScene(w, h);
+
+            // Disable particle-particle collisions for "Electrons"
+            for (const p of this.particles) {
+                p.collisionFilter.group = this.PARTICLE_COLLISION_GROUP;
+            }
+
             this.wheelAngle = 0;
             this.wheelAngularVelocity = 0;
             this.activeMode = 'micro-motor';
 
             Matter.Events.on(this.engine, 'beforeUpdate', () => {
+                this.applyElectromagneticRepulsion(this.particles, this.PARTICLE_RADIUS);
                 this.applyMotorForce(canvas.width, canvas.height / 2);
                 this.wrapParticles(canvas.width, canvas.height / 2);
             });

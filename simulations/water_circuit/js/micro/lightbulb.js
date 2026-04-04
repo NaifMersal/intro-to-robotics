@@ -1,7 +1,7 @@
 // Light Bulb Micro-Simulation
 (function () {
     const LightBulbSim = Object.assign({}, window.MicroRenderer, {
-        PARTICLE_COUNT: 350,
+        PARTICLE_COUNT: 220, // Reduced from 350 for better electron spacing
         PARTICLE_RADIUS: 7.5,
         filamentHeat: 0,
 
@@ -15,7 +15,13 @@
             this.setupFilamentScene(w, h);
             this.activeMode = 'micro-lightbulb';
 
+            // Disable particle-particle collisions for "Electrons"
+            for (const p of this.particles) {
+                p.collisionFilter.group = this.PARTICLE_COLLISION_GROUP;
+            }
+
             Matter.Events.on(this.engine, 'beforeUpdate', () => {
+                this.applyElectromagneticRepulsion(this.particles, this.PARTICLE_RADIUS);
                 this.applyFlowAndFriction(w, pipeY);
                 this.wrapParticles(w, pipeY);
             });
