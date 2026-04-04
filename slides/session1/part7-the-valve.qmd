@@ -142,16 +142,9 @@ A tiny 0.5 mA signal controls a 100 mA load — that is amplification.
 
 ::: {.fragment}
 
-- A **dimmer switch**: any brightness, 0% to 100%
-- A **thermometer**: any temperature in a continuous range
-- An **LDR sensor**: resistance anywhere from 1 kΩ to 100 kΩ
-
-:::
-
-::: {.callout-note .fragment}
-
-## Analog = continuous
-There are infinite possible values between any two points.
+- **Dimmer switch**: 0% to 100% brightness
+- **Thermometer**: any value in a continuous range
+- **LDR sensor**: variable (1 kΩ to 100 kΩ)
 
 :::
 
@@ -169,9 +162,27 @@ There are infinite possible values between any two points.
 
 :::
 
-::: {.callout-tip .fragment}
+::::
 
-## Digital = discrete
+:::::
+::::: {.columns .smaller}
+
+:::: {.column width="50%"}
+
+::: {.callout-note .fragment appearance="simple" icon=false}
+
+**Analog = continuous**  
+Infinite possible values between any two points.
+
+:::
+
+::::
+
+:::: {.column width="50%"}
+
+::: {.callout-tip .fragment appearance="simple" icon=false}
+
+**Digital = discrete**  
 Only two possible states. No in-between.
 
 :::
@@ -179,6 +190,7 @@ Only two possible states. No in-between.
 ::::
 
 :::::
+
 
 ::: {.fragment}
 
