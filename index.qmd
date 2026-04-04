@@ -70,10 +70,10 @@ Explore how transistors act as electronic valves to create digital logic gates.
 
 :::
 
-## 🛠️ Circuit Builds (Wokwi)
-Reference designs for the hands-on lab sessions. Import these into [Wokwi](https://wokwi.com) to test your code.
+## 🛠️ Arduino Uno Builds (Wokwi)
+Reference designs for the hands-on lab sessions. Import these JSON configurations into [Wokwi](https://wokwi.com) to test your C++ code.
 
-- 🚦 [Traffic Light Controller](wokwi/traffic_light.json)
-- 💡 [Automatic Light Sensor](wokwi/auto_light.json)
+- 🚦 [Arduino Traffic Light Controller](wokwi/arduino_traffic_light.json)
+- 💡 [Arduino Automatic Light Sensor](wokwi/arduino_auto_light.json)
 
 :::

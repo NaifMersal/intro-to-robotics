@@ -1,0 +1,167 @@
+# Part 8 — 0s, 1s, and Arduino {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Ladder of Abstraction
+
+From transistors to C++ — five rungs:
+
+1. **Voltage** — above ~3V = HIGH (1), below ~1V = LOW (0)
+2. **Binary** — 1 bit = on/off · 8 bits = 1 byte = 256 values
+3. **Machine Code** — patterns of 0s and 1s the processor reads directly
+4. **Assembly** — human-readable commands, *assembled* to machine code
+5. **C++** — high-level logic, *compiled* into machine code for the Arduino
+
+::: {.callout-tip}
+
+## C++ is not what the computer runs directly
+Your code is compiled — turned into a binary file — containing the 0s and 1s that transistors actually process.
+
+:::
+
+## Meet the Arduino Pins
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+
+**GPIO = General Purpose Input / Output**
+
+Every numbered pin on the Arduino is a **software-defined switch**. You decide its job.
+
+### Output — The Driver
+The Arduino *forces* the pin to a specific voltage.
+
+- **HIGH** (5V) or **LOW** (0V)
+- **Role:** Drives LEDs, motors, or buzzers.
+
+### Input — The Listener
+The Arduino *measures* the voltage at the pin.
+
+- **HIGH** (Signal) or **LOW** (Silence)
+- **Role:** Reads buttons and sensors.
+
+::::
+
+:::: {.column width="40%"}
+
+![](assets/arduino_pins_glow.png){width="100%" style="border-radius: 12px;"}
+
+::::
+
+:::::
+
+## Programming the Pins
+
+::: {.callout-important}
+## Mode is Mandatory
+A pin defaults to **Input** for safety. If you forget `pinMode(pin, OUTPUT)`, your LED will never light because the pin is "listening," not "pushing."
+:::
+
+| Code Pattern | Physical Effect |
+|--------------|-----------------|
+| `pinMode(13, OUTPUT)` | Pin 13 configured to **drive** voltage |
+| `pinMode(12, INPUT)` | Pin 12 configured to **listen** for voltage |
+| `digitalWrite(13, HIGH)` | Switch Pin 13 **ON** (5 V) |
+| `digitalWrite(13, LOW)` | Switch Pin 13 **OFF** (0 V) |
+| `analogRead(A0)` | Read **fractional** voltage (0–1023) |
+
+## Machines Need Everything Defined
+
+The machine has no common sense. You define everything:
+
+```cpp
+void setup() {
+  pinMode(13, OUTPUT);  // "Pin 13 is an output — configure it once"
+}
+
+void loop() {
+  digitalWrite(13, HIGH); // "set Pin 13 HIGH (5V)"
+}
+```
+
+- Forget `pinMode`? The pin defaults to input — your LED won't light.
+
+> **Precision is the machine's strength. Common sense is yours.**
+
+## Exercise 11 — Q1: How Many Pins? {background-color="#00C9A7" .sdaia-dark}
+
+Read this sketch line by line, top to bottom:
+
+```cpp
+void setup() {
+  pinMode(13, OUTPUT);
+  pinMode(12, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(13, HIGH); delay(1000);
+  digitalWrite(13, LOW);
+  digitalWrite(12, HIGH); delay(500);
+  digitalWrite(12, LOW);
+}
+```
+
+*(recall)* How many pins does this script use?
+
+::: {.fragment}
+**Answer:** **2** — Pin 13 and Pin 12.
+:::
+
+## Exercise 11 — Q2: Input or Output? {background-color="#00C9A7" .sdaia-dark}
+
+```cpp
+pinMode(13, OUTPUT);
+pinMode(12, OUTPUT);
+```
+
+*(recall)* Are the pins inputs or outputs?
+
+::: {.fragment}
+**Answer:** Both are **outputs** (`OUTPUT`). The Arduino drives these pins HIGH or LOW.
+:::
+
+## Exercise 11 — Q3: Describe the Script {background-color="#00C9A7" .sdaia-dark}
+
+```cpp
+digitalWrite(13, HIGH); delay(1000);
+digitalWrite(13, LOW);
+digitalWrite(12, HIGH); delay(500);
+digitalWrite(12, LOW);
+```
+
+*(apply)* Describe in plain language what this script does, step by step.
+
+::: {.fragment}
+**Answer:** Pin 13 turns **ON** → waits 1 second → turns **OFF**. Then Pin 12 turns **ON** → waits 0.5 seconds → turns **OFF**. The `loop` repeats this forever.
+:::
+
+## Exercise 11 — Q4: OUTPUT vs INPUT {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* What is the difference between `OUTPUT` and `INPUT`? What would happen if you forgot `pinMode(pin, OUTPUT)`?
+
+::: {.fragment}
+**Answer:**
+
+- **`OUTPUT`** — the Arduino *drives* the pin to 5 V or 0 V
+- **`INPUT`** — the Arduino *reads* the voltage on the pin; it drives nothing
+
+Forgetting `pinMode` → pin defaults to input mode → outputs no voltage → LED stays off.
+:::
+
+## Exercise 11 — Q5: Blink 3 Times {background-color="#00C9A7" .sdaia-dark}
+
+*(design)* **Modify it:** How would you make Pin 13's LED blink **3 times** before Pin 12 turns on?
+
+::: {.fragment}
+**Answer:**
+
+```cpp
+for (int i = 0; i < 3; i++) {
+    digitalWrite(13, HIGH); delay(500);
+    digitalWrite(13, LOW); delay(500);
+}
+
+digitalWrite(12, HIGH); delay(500);
+digitalWrite(12, LOW);
+```
+:::
+

@@ -218,7 +218,7 @@
 <li><strong>Part 5</strong> — Ohm’s Law: V = I × R</li>
 <li><strong>Part 6</strong> — Components: Bulb, Motor, Switch</li>
 <li><strong>Part 7</strong> — Variable Resistance &amp; The Transistor</li>
-<li><strong>Part 8</strong> — 0s, 1s, and MicroPython</li>
+<li><strong>Part 8</strong> — 0s, 1s, and Arduino</li>
 <li><strong>Part 9</strong> — The Lab: Traffic Light &amp; Automatic Light</li>
 <li><strong>Part 10</strong> — Summary, Homework &amp; AI Onboarding</li>
 </ul>
@@ -1095,19 +1095,19 @@ Loop broken    → Current = 0</code></pre>
 </div>
 </section></section>
 <section>
-<section id="part-8-0s-1s-and-micropython" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 8 — 0s, 1s, and MicroPython</h1>
+<section id="part-8-0s-1s-and-arduino" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 8 — 0s, 1s, and Arduino</h1>
 
 </section>
 <section id="the-ladder-of-abstraction" class="slide level2">
 <h2>The Ladder of Abstraction</h2>
-<p>From transistors to Python — five rungs:</p>
+<p>From transistors to C++ — five rungs:</p>
 <ol type="1">
-<li><strong>Voltage</strong> — above ~2V = HIGH (1), below ~0.8V = LOW (0)</li>
+<li><strong>Voltage</strong> — above ~3V = HIGH (1), below ~1V = LOW (0)</li>
 <li><strong>Binary</strong> — 1 bit = on/off · 8 bits = 1 byte = 256 values</li>
 <li><strong>Machine Code</strong> — patterns of 0s and 1s the processor reads directly</li>
-<li><strong>Assembly / C</strong> — human-readable commands, <em>compiled</em> to machine code</li>
-<li><strong>Python</strong> — one line = hundreds of machine instructions, <em>interpreted</em> in real time</li>
+<li><strong>Assembly</strong> — human-readable commands, <em>assembled</em> to machine code</li>
+<li><strong>C++</strong> — high-level logic, <em>compiled</em> into machine code for the Arduino</li>
 </ol>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -1115,34 +1115,34 @@ Loop broken    → Current = 0</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Python is not what the computer runs</strong></p>
+<p><strong>C++ is not what the computer runs directly</strong></p>
 </div>
 <div class="callout-content">
-<p>Python is translated — layer by layer — into the 0s and 1s that transistors actually process.</p>
+<p>Your code is compiled — turned into a binary file — containing the 0s and 1s that transistors actually process.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="meet-the-picos-pins" class="slide level2">
-<h2>Meet the Pico’s Pins</h2>
+<section id="meet-the-arduino-pins" class="slide level2">
+<h2>Meet the Arduino Pins</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <p><strong>GPIO = General Purpose Input / Output</strong></p>
-<p>Every numbered pin on the Pico is a <strong>software-defined switch</strong>. You decide its job.</p>
+<p>Every numbered pin on the Arduino is a <strong>software-defined switch</strong>. You decide its job.</p>
 <h3 id="output-the-driver">Output — The Driver</h3>
-<p>The Pico <em>forces</em> the pin to a specific voltage.</p>
+<p>The Arduino <em>forces</em> the pin to a specific voltage.</p>
 <ul>
-<li><strong>HIGH</strong> (3.3V) or <strong>LOW</strong> (0V)</li>
+<li><strong>HIGH</strong> (5V) or <strong>LOW</strong> (0V)</li>
 <li><strong>Role:</strong> Drives LEDs, motors, or buzzers.</li>
 </ul>
 <h3 id="input-the-listener">Input — The Listener</h3>
-<p>The Pico <em>measures</em> the voltage at the pin.</p>
+<p>The Arduino <em>measures</em> the voltage at the pin.</p>
 <ul>
 <li><strong>HIGH</strong> (Signal) or <strong>LOW</strong> (Silence)</li>
 <li><strong>Role:</strong> Reads buttons and sensors.</li>
 </ul>
 </div><div class="column" style="width:40%;">
-<p><img data-src="assets/pico_pins_glow.png" style="border-radius: 12px;;width:100.0%"></p>
+<p><img data-src="assets/arduino_pins_glow.png" style="border-radius: 12px;;width:100.0%"></p>
 </div></div>
 </section>
 <section id="programming-the-pins" class="slide level2">
@@ -1153,10 +1153,10 @@ Loop broken    → Current = 0</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Direction is Mandatory</strong></p>
+<p><strong>Mode is Mandatory</strong></p>
 </div>
 <div class="callout-content">
-<p>A pin defaults to <strong>Input</strong> for safety. If you forget <code>Pin.OUT</code>, your LED will never light because the pin is “listening,” not “pushing.”</p>
+<p>A pin defaults to <strong>Input</strong> for safety. If you forget <code>pinMode(pin, OUTPUT)</code>, your LED will never light because the pin is “listening,” not “pushing.”</p>
 </div>
 </div>
 </div>
@@ -1169,24 +1169,24 @@ Loop broken    → Current = 0</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>Pin(17, Pin.OUT)</code></td>
-<td>GP17 configured to <strong>drive</strong> voltage</td>
+<td><code>pinMode(13, OUTPUT)</code></td>
+<td>Pin 13 configured to <strong>drive</strong> voltage</td>
 </tr>
 <tr class="even">
-<td><code>Pin(15, Pin.IN)</code></td>
-<td>GP15 configured to <strong>listen</strong> for voltage</td>
+<td><code>pinMode(12, INPUT)</code></td>
+<td>Pin 12 configured to <strong>listen</strong> for voltage</td>
 </tr>
 <tr class="odd">
-<td><code>.value(1)</code></td>
-<td>Switch GP17 <strong>ON</strong> (3.3 V)</td>
+<td><code>digitalWrite(13, HIGH)</code></td>
+<td>Switch Pin 13 <strong>ON</strong> (5 V)</td>
 </tr>
 <tr class="even">
-<td><code>.value(0)</code></td>
-<td>Switch GP17 <strong>OFF</strong> (0 V)</td>
+<td><code>digitalWrite(13, LOW)</code></td>
+<td>Switch Pin 13 <strong>OFF</strong> (0 V)</td>
 </tr>
 <tr class="odd">
-<td><code>ADC(26)</code></td>
-<td>Read <strong>fractional</strong> voltage (Analog)</td>
+<td><code>analogRead(A0)</code></td>
+<td>Read <strong>fractional</strong> voltage (0–1023)</td>
 </tr>
 </tbody>
 </table>
@@ -1194,12 +1194,15 @@ Loop broken    → Current = 0</code></pre>
 <section id="machines-need-everything-defined" class="slide level2">
 <h2>Machines Need Everything Defined</h2>
 <p>The machine has no common sense. You define everything:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="im">from</span> machine <span class="im">import</span> Pin</span>
-<span id="cb3-2"><a href=""></a></span>
-<span id="cb3-3"><a href=""></a>led <span class="op">=</span> Pin(<span class="dv">17</span>, Pin.OUT)  <span class="co"># "GP17 is an output — give it a name"</span></span>
-<span id="cb3-4"><a href=""></a>led.value(<span class="dv">1</span>)            <span class="co"># "set GP17 HIGH (3.3V)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href=""></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href=""></a>  pinMode<span class="op">(</span><span class="dv">13</span><span class="op">,</span> OUTPUT<span class="op">);</span>  <span class="co">// "Pin 13 is an output — configure it once"</span></span>
+<span id="cb3-3"><a href=""></a><span class="op">}</span></span>
+<span id="cb3-4"><a href=""></a></span>
+<span id="cb3-5"><a href=""></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href=""></a>  digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// "set Pin 13 HIGH (5V)"</span></span>
+<span id="cb3-7"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>Forget <code>Pin.OUT</code>? The pin defaults to input — your LED won’t light.</li>
+<li>Forget <code>pinMode</code>? The pin defaults to input — your LED won’t light.</li>
 </ul>
 <blockquote>
 <p><strong>Precision is the machine’s strength. Common sense is yours.</strong></p>
@@ -1207,65 +1210,67 @@ Loop broken    → Current = 0</code></pre>
 </section>
 <section id="exercise-11-q1-how-many-pins" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 11 — Q1: How Many Pins?</h2>
-<p>Read this script line by line, top to bottom:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">from</span> machine <span class="im">import</span> Pin</span>
-<span id="cb4-2"><a href=""></a><span class="im">import</span> time</span>
-<span id="cb4-3"><a href=""></a></span>
-<span id="cb4-4"><a href=""></a>led_a <span class="op">=</span> Pin(<span class="dv">17</span>, Pin.OUT)   <span class="co"># GP17 is an output</span></span>
-<span id="cb4-5"><a href=""></a>led_b <span class="op">=</span> Pin(<span class="dv">18</span>, Pin.OUT)   <span class="co"># GP18 is an output</span></span>
-<span id="cb4-6"><a href=""></a></span>
-<span id="cb4-7"><a href=""></a>led_a.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="dv">1</span>)</span>
-<span id="cb4-8"><a href=""></a>led_a.value(<span class="dv">0</span>)</span>
-<span id="cb4-9"><a href=""></a>led_b.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="fl">0.5</span>)</span>
-<span id="cb4-10"><a href=""></a>led_b.value(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><em>(recall)</em> How many GP pins does this script use?</p>
+<p>Read this sketch line by line, top to bottom:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href=""></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href=""></a>  pinMode<span class="op">(</span><span class="dv">13</span><span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb4-3"><a href=""></a>  pinMode<span class="op">(</span><span class="dv">12</span><span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb4-4"><a href=""></a><span class="op">}</span></span>
+<span id="cb4-5"><a href=""></a></span>
+<span id="cb4-6"><a href=""></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-7"><a href=""></a>  digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb4-8"><a href=""></a>  digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb4-9"><a href=""></a>  digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb4-10"><a href=""></a>  digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb4-11"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>(recall)</em> How many pins does this script use?</p>
 <div class="fragment">
-<p><strong>Answer:</strong> <strong>2</strong> — GP17 (<code>led_a</code>) and GP18 (<code>led_b</code>).</p>
+<p><strong>Answer:</strong> <strong>2</strong> — Pin 13 and Pin 12.</p>
 </div>
 </section>
 <section id="exercise-11-q2-input-or-output" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 11 — Q2: Input or Output?</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>led_a <span class="op">=</span> Pin(<span class="dv">17</span>, Pin.OUT)</span>
-<span id="cb5-2"><a href=""></a>led_b <span class="op">=</span> Pin(<span class="dv">18</span>, Pin.OUT)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href=""></a>pinMode<span class="op">(</span><span class="dv">13</span><span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb5-2"><a href=""></a>pinMode<span class="op">(</span><span class="dv">12</span><span class="op">,</span> OUTPUT<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><em>(recall)</em> Are the pins inputs or outputs?</p>
 <div class="fragment">
-<p><strong>Answer:</strong> Both are <strong>outputs</strong> (<code>Pin.OUT</code>). The Pico drives these pins HIGH or LOW.</p>
+<p><strong>Answer:</strong> Both are <strong>outputs</strong> (<code>OUTPUT</code>). The Arduino drives these pins HIGH or LOW.</p>
 </div>
 </section>
 <section id="exercise-11-q3-describe-the-script" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 11 — Q3: Describe the Script</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>led_a.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="dv">1</span>)</span>
-<span id="cb6-2"><a href=""></a>led_a.value(<span class="dv">0</span>)</span>
-<span id="cb6-3"><a href=""></a>led_b.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="fl">0.5</span>)</span>
-<span id="cb6-4"><a href=""></a>led_b.value(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb6-2"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb6-3"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb6-4"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> LOW<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><em>(apply)</em> Describe in plain language what this script does, step by step.</p>
 <div class="fragment">
-<p><strong>Answer:</strong> GP17 turns <strong>ON</strong> → waits 1 second → turns <strong>OFF</strong>. Then GP18 turns <strong>ON</strong> → waits 0.5 seconds → turns <strong>OFF</strong>. The script ends.</p>
+<p><strong>Answer:</strong> Pin 13 turns <strong>ON</strong> → waits 1 second → turns <strong>OFF</strong>. Then Pin 12 turns <strong>ON</strong> → waits 0.5 seconds → turns <strong>OFF</strong>. The <code>loop</code> repeats this forever.</p>
 </div>
 </section>
-<section id="exercise-11-q4-pin.out-vs-pin.in" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 11 — Q4: Pin.OUT vs Pin.IN</h2>
-<p><em>(apply)</em> What is the difference between <code>Pin.OUT</code> and <code>Pin.IN</code>? What would happen if you forgot <code>Pin.OUT</code>?</p>
+<section id="exercise-11-q4-output-vs-input" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Exercise 11 — Q4: OUTPUT vs INPUT</h2>
+<p><em>(apply)</em> What is the difference between <code>OUTPUT</code> and <code>INPUT</code>? What would happen if you forgot <code>pinMode(pin, OUTPUT)</code>?</p>
 <div class="fragment">
 <p><strong>Answer:</strong></p>
 <ul>
-<li><strong><code>Pin.OUT</code></strong> — the Pico <em>drives</em> the pin to 3.3 V or 0 V</li>
-<li><strong><code>Pin.IN</code></strong> — the Pico <em>reads</em> the voltage on the pin; it drives nothing</li>
+<li><strong><code>OUTPUT</code></strong> — the Arduino <em>drives</em> the pin to 5 V or 0 V</li>
+<li><strong><code>INPUT</code></strong> — the Arduino <em>reads</em> the voltage on the pin; it drives nothing</li>
 </ul>
-<p>Forgetting <code>Pin.OUT</code> → pin defaults to input mode → outputs no voltage → LED stays off.</p>
+<p>Forgetting <code>pinMode</code> → pin defaults to input mode → outputs no voltage → LED stays off.</p>
 </div>
 </section>
 <section id="exercise-11-q5-blink-3-times" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 11 — Q5: Blink 3 Times</h2>
-<p><em>(design)</em> <strong>Modify it:</strong> How would you make GP17’s LED blink <strong>3 times</strong> before GP18 turns on?</p>
+<p><em>(design)</em> <strong>Modify it:</strong> How would you make Pin 13’s LED blink <strong>3 times</strong> before Pin 12 turns on?</p>
 <div class="fragment">
 <p><strong>Answer:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
-<span id="cb7-2"><a href=""></a>    led_a.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="fl">0.5</span>)</span>
-<span id="cb7-3"><a href=""></a>    led_a.value(<span class="dv">0</span>)<span class="op">;</span> time.sleep(<span class="fl">0.5</span>)</span>
-<span id="cb7-4"><a href=""></a></span>
-<span id="cb7-5"><a href=""></a>led_b.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="fl">0.5</span>)</span>
-<span id="cb7-6"><a href=""></a>led_b.value(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href=""></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">3</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href=""></a>    digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb7-3"><a href=""></a>    digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb7-4"><a href=""></a><span class="op">}</span></span>
+<span id="cb7-5"><a href=""></a></span>
+<span id="cb7-6"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb7-7"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> LOW<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section></section>
 <section>
@@ -1340,7 +1345,7 @@ Loop broken    → Current = 0</code></pre>
 <p><strong>Pro tip</strong></p>
 </div>
 <div class="callout-content">
-<p>Connect one rail to <strong>3.3V</strong> and the other to <strong>GND</strong> first — then you can pull power from anywhere on the board.</p>
+<p>Connect one rail to <strong>5V</strong> and the other to <strong>GND</strong> first — then you can pull power from anywhere on the board.</p>
 </div>
 </div>
 </div>
@@ -1359,8 +1364,8 @@ Loop broken    → Current = 0</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Pico supply voltage</td>
-<td><strong>3.3 V</strong></td>
+<td>Arduino supply voltage</td>
+<td><strong>5.0 V</strong></td>
 </tr>
 <tr class="even">
 <td>LED forward voltage</td>
@@ -1368,7 +1373,7 @@ Loop broken    → Current = 0</code></pre>
 </tr>
 <tr class="odd">
 <td>Voltage across resistor</td>
-<td><strong>3.3 − 2.0 = 1.3 V</strong></td>
+<td><strong>5.0 − 2.0 = 3.0 V</strong></td>
 </tr>
 <tr class="even">
 <td>Target current</td>
@@ -1376,7 +1381,7 @@ Loop broken    → Current = 0</code></pre>
 </tr>
 <tr class="odd">
 <td><strong>Resistor needed</strong></td>
-<td><strong>R = 1.3 / 0.01 = 130 Ω</strong></td>
+<td><strong>R = 3.0 / 0.01 = 300 Ω</strong></td>
 </tr>
 </tbody>
 </table>
@@ -1388,7 +1393,7 @@ Loop broken    → Current = 0</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Closest standard value: <strong>150 Ω</strong> ✓</strong></p>
+<p><strong>Closest standard value: <strong>330 Ω</strong> ✓</strong></p>
 </div>
 <div class="callout-content">
 <p>Slightly higher = slightly less current = LED lives longer. Never go lower.</p>
@@ -1399,45 +1404,49 @@ Loop broken    → Current = 0</code></pre>
 </section>
 <section id="build-1-traffic-light-on-wokwi" class="slide level2" data-background-color="#f7f9fc">
 <h2>Build #1 — Traffic Light on Wokwi</h2>
-<iframe src="https://wokwi.com/projects/460324970731475969/embed" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen="">
+<iframe src="https://wokwi.com/projects/427993072230198273/embed" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen="">
 </iframe>
 <p><em>Build this circuit in Wokwi. Run it. Does the sequence match your code?</em></p>
 </section>
-<section id="build-1-micropython-code" class="slide level2">
-<h2>Build #1 — MicroPython Code</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="im">from</span> machine <span class="im">import</span> Pin</span>
-<span id="cb8-2"><a href=""></a><span class="im">import</span> time</span>
-<span id="cb8-3"><a href=""></a></span>
-<span id="cb8-4"><a href=""></a><span class="co"># Define each LED</span></span>
-<span id="cb8-5"><a href=""></a>red    <span class="op">=</span> Pin(<span class="dv">1</span>, Pin.OUT)   <span class="co"># GP1 = Red</span></span>
-<span id="cb8-6"><a href=""></a>yellow <span class="op">=</span> Pin(<span class="dv">2</span>, Pin.OUT)   <span class="co"># GP2 = Yellow</span></span>
-<span id="cb8-7"><a href=""></a>green  <span class="op">=</span> Pin(<span class="dv">3</span>, Pin.OUT)   <span class="co"># GP3 = Green</span></span>
-<span id="cb8-8"><a href=""></a></span>
-<span id="cb8-9"><a href=""></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb8-10"><a href=""></a>    red.value(<span class="dv">1</span>)<span class="op">;</span>    time.sleep(<span class="dv">5</span>)   <span class="co"># Red ON for 5 s</span></span>
-<span id="cb8-11"><a href=""></a>    red.value(<span class="dv">0</span>)</span>
-<span id="cb8-12"><a href=""></a>    yellow.value(<span class="dv">1</span>)<span class="op">;</span> time.sleep(<span class="dv">2</span>)   <span class="co"># Yellow ON for 2 s</span></span>
-<span id="cb8-13"><a href=""></a>    yellow.value(<span class="dv">0</span>)</span>
-<span id="cb8-14"><a href=""></a>    green.value(<span class="dv">1</span>)<span class="op">;</span>  time.sleep(<span class="dv">5</span>)   <span class="co"># Green ON for 5 s</span></span>
-<span id="cb8-15"><a href=""></a>    green.value(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="build-1-arduino-code" class="slide level2">
+<h2>Build #1 — Arduino Code</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href=""></a><span class="co">// Define each LED pin</span></span>
+<span id="cb8-2"><a href=""></a><span class="at">const</span> <span class="dt">int</span> red    <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb8-3"><a href=""></a><span class="at">const</span> <span class="dt">int</span> yellow <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb8-4"><a href=""></a><span class="at">const</span> <span class="dt">int</span> green  <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb8-5"><a href=""></a></span>
+<span id="cb8-6"><a href=""></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-7"><a href=""></a>  pinMode<span class="op">(</span>red<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-8"><a href=""></a>  pinMode<span class="op">(</span>yellow<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-9"><a href=""></a>  pinMode<span class="op">(</span>green<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-10"><a href=""></a><span class="op">}</span></span>
+<span id="cb8-11"><a href=""></a></span>
+<span id="cb8-12"><a href=""></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-13"><a href=""></a>  digitalWrite<span class="op">(</span>red<span class="op">,</span> HIGH<span class="op">);</span>    delay<span class="op">(</span><span class="dv">5000</span><span class="op">);</span>   <span class="co">// Red ON for 5 s</span></span>
+<span id="cb8-14"><a href=""></a>  digitalWrite<span class="op">(</span>red<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-15"><a href=""></a>  digitalWrite<span class="op">(</span>yellow<span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">2000</span><span class="op">);</span>   <span class="co">// Yellow ON for 2 s</span></span>
+<span id="cb8-16"><a href=""></a>  digitalWrite<span class="op">(</span>yellow<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-17"><a href=""></a>  digitalWrite<span class="op">(</span>green<span class="op">,</span> HIGH<span class="op">);</span>  delay<span class="op">(</span><span class="dv">5000</span><span class="op">);</span>   <span class="co">// Green ON for 5 s</span></span>
+<span id="cb8-18"><a href=""></a>  digitalWrite<span class="op">(</span>green<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-19"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="extend-it-with-ai" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Extend It with AI</h2>
 <p>Your traffic light works. Now <strong>ask AI to extend it.</strong></p>
 <blockquote>
-<p><em>“I have a MicroPython script cycling Red → Yellow → Green on a Raspberry Pi Pico.<em> </em>I want to add a button on GP15 that, when held, keeps the green light on for 10 s instead of 5 s.<em> </em>Show me the updated code and explain what changed.”</em></p>
+<p><em>“I have an Arduino sketch cycling Red (Pin 2) → Yellow (Pin 3) → Green (Pin 4).<em> </em>I want to add a button on Pin 12 that, when held, keeps the green light on for 10 s instead of 5 s.<em> </em>Show me the updated code and explain what changed.”</em></p>
 </blockquote>
 </section>
 <section id="build-2-the-voltage-divider" class="slide level2">
 <h2>Build #2 — The Voltage Divider</h2>
-<p>How does a <strong>light sensor</strong> become a number the Pico can read?</p>
+<p>How does a <strong>light sensor</strong> become a number the Arduino can read?</p>
 <div class="columns">
 <div class="column" style="width:55%;">
 <div class="fragment">
-<pre><code>3.3V ── 10 kΩ ──●── LDR ── GND
+<pre><code>  5V ── 10 kΩ ──●── LDR ── GND
                 ↑
            ADC reads here
-              (GP26)</code></pre>
+               (A0)</code></pre>
 </div>
 <div class="fragment">
 <ul>
@@ -1473,12 +1482,12 @@ Loop broken    → Current = 0</code></pre>
 <tr class="odd">
 <td>Bright</td>
 <td>~1 kΩ</td>
-<td>~0.3 V</td>
+<td>~0.5 V</td>
 </tr>
 <tr class="even">
 <td>Dark</td>
 <td>~100 kΩ</td>
-<td>~3.0 V</td>
+<td>~4.5 V</td>
 </tr>
 </tbody>
 </table>
@@ -1487,13 +1496,13 @@ Loop broken    → Current = 0</code></pre>
 </section>
 <section id="the-adc-bridging-analog-and-digital" class="slide level2">
 <h2>The ADC — Bridging Analog and Digital</h2>
-<p>The Pico thinks in <strong>digital</strong> (0s and 1s). The LDR gives us <strong>analog</strong> (a continuous voltage). The <strong>ADC (Analog-to-Digital Converter)</strong> is the translator.</p>
+<p>The Arduino thinks in <strong>digital</strong> (0s and 1s). The LDR gives us <strong>analog</strong> (a continuous voltage). The <strong>ADC (Analog-to-Digital Converter)</strong> is the translator.</p>
 <div class="columns">
 <div class="column" style="width:55%;">
 <div class="fragment">
 <ul>
 <li>The ADC samples the <strong>midpoint voltage</strong> thousands of times per second</li>
-<li>It maps that voltage to a <strong>16-bit number</strong>: 0 → 65535</li>
+<li>It maps that voltage to a <strong>10-bit number</strong>: 0 → 1023</li>
 </ul>
 </div>
 <div class="fragment">
@@ -1501,7 +1510,7 @@ Loop broken    → Current = 0</code></pre>
 <thead>
 <tr class="header">
 <th>Voltage</th>
-<th><code>read_u16()</code> value</th>
+<th><code>analogRead()</code> value</th>
 </tr>
 </thead>
 <tbody>
@@ -1510,12 +1519,12 @@ Loop broken    → Current = 0</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td>1.65 V (half)</td>
-<td>~32768</td>
+<td>2.5 V (half)</td>
+<td>~512</td>
 </tr>
 <tr class="odd">
-<td>3.3 V (max dark)</td>
-<td>65535</td>
+<td>5.0 V (max dark)</td>
+<td>1023</td>
 </tr>
 </tbody>
 </table>
@@ -1528,10 +1537,10 @@ Loop broken    → Current = 0</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Why 65535?</strong></p>
+<p><strong>Why 1023?</strong></p>
 </div>
 <div class="callout-content">
-<p>16 bits can hold 2¹⁶ = <strong>65,536</strong> values (0 to 65535). More bits = finer resolution = subtler light changes are detectable.</p>
+<p>10 bits can hold 2¹⁰ = <strong>1,024</strong> values (0 to 1023). Arduino Uno uses 10-bit resolution for its analog pins.</p>
 </div>
 </div>
 </div>
@@ -1546,7 +1555,7 @@ Loop broken    → Current = 0</code></pre>
 <p><strong>In code</strong></p>
 </div>
 <div class="callout-content">
-<p><code>ldr = ADC(26)</code> — tell the Pico that GP26 is an analog input. <code>ldr.read_u16()</code> — take one sample and return the number.</p>
+<p><code>int val = analogRead(A0);</code> — take one sample from analog pin 0 and return the number.</p>
 </div>
 </div>
 </div>
@@ -1555,63 +1564,68 @@ Loop broken    → Current = 0</code></pre>
 </section>
 <section id="build-2-automatic-light-on-wokwi" class="slide level2" data-background-color="#f7f9fc">
 <h2>Build #2 — Automatic Light on Wokwi</h2>
-<iframe src="https://wokwi.com/projects/460329358708727809/embed" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen="">
+<iframe src="https://wokwi.com/projects/427993202117173249/embed" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen="">
 </iframe>
 <p><em>Click the LDR slider to change light level. Watch the LED respond in real time.</em></p>
 </section>
-<section id="build-2-micropython-code" class="slide level2">
-<h2>Build #2 — MicroPython Code</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="im">from</span> machine <span class="im">import</span> Pin, ADC</span>
-<span id="cb10-2"><a href=""></a><span class="im">import</span> time</span>
+<section id="build-2-arduino-code" class="slide level2">
+<h2>Build #2 — Arduino Code</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href=""></a><span class="at">const</span> <span class="dt">int</span> ldrPin <span class="op">=</span> A0<span class="op">;</span></span>
+<span id="cb10-2"><a href=""></a><span class="at">const</span> <span class="dt">int</span> ledPin <span class="op">=</span> <span class="dv">12</span><span class="op">;</span></span>
 <span id="cb10-3"><a href=""></a></span>
-<span id="cb10-4"><a href=""></a>ldr <span class="op">=</span> ADC(<span class="dv">26</span>)           <span class="co"># GP26 = ADC0</span></span>
-<span id="cb10-5"><a href=""></a>led <span class="op">=</span> Pin(<span class="dv">15</span>, Pin.OUT)  <span class="co"># output LED on GP15</span></span>
-<span id="cb10-6"><a href=""></a></span>
-<span id="cb10-7"><a href=""></a>DARK_THRESHOLD <span class="op">=</span> <span class="dv">40000</span>  <span class="co"># 0–65535; tune this in class</span></span>
-<span id="cb10-8"><a href=""></a></span>
-<span id="cb10-9"><a href=""></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb10-10"><a href=""></a>    brightness <span class="op">=</span> ldr.read_u16()      <span class="co"># 0 (bright) → 65535 (dark)</span></span>
-<span id="cb10-11"><a href=""></a>    <span class="cf">if</span> brightness <span class="op">&gt;</span> DARK_THRESHOLD:</span>
-<span id="cb10-12"><a href=""></a>        led.value(<span class="dv">1</span>)                 <span class="co"># dark (high value) → LED ON</span></span>
-<span id="cb10-13"><a href=""></a>    <span class="cf">else</span>:</span>
-<span id="cb10-14"><a href=""></a>        led.value(<span class="dv">0</span>)                 <span class="co"># bright (low value) → LED OFF</span></span>
-<span id="cb10-15"><a href=""></a>    time.sleep(<span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-4"><a href=""></a><span class="dt">int</span> DARK_THRESHOLD <span class="op">=</span> <span class="dv">600</span><span class="op">;</span>  <span class="co">// 0–1023; tune this in class</span></span>
+<span id="cb10-5"><a href=""></a></span>
+<span id="cb10-6"><a href=""></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-7"><a href=""></a>  pinMode<span class="op">(</span>ledPin<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb10-8"><a href=""></a><span class="op">}</span></span>
+<span id="cb10-9"><a href=""></a></span>
+<span id="cb10-10"><a href=""></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-11"><a href=""></a>  <span class="dt">int</span> brightness <span class="op">=</span> analogRead<span class="op">(</span>ldrPin<span class="op">);</span>      <span class="co">// 0 (bright) → 1023 (dark)</span></span>
+<span id="cb10-12"><a href=""></a>  <span class="cf">if</span> <span class="op">(</span>brightness <span class="op">&gt;</span> DARK_THRESHOLD<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-13"><a href=""></a>    digitalWrite<span class="op">(</span>ledPin<span class="op">,</span> HIGH<span class="op">);</span>             <span class="co">// dark (high value) → LED ON</span></span>
+<span id="cb10-14"><a href=""></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb10-15"><a href=""></a>    digitalWrite<span class="op">(</span>ledPin<span class="op">,</span> LOW<span class="op">);</span>              <span class="co">// bright (low value) → LED OFF</span></span>
+<span id="cb10-16"><a href=""></a>  <span class="op">}</span></span>
+<span id="cb10-17"><a href=""></a>  delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
+<span id="cb10-18"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="exercise-13-q1-adc-voltage" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 13 — Q1: ADC Voltage</h2>
-<p><em>(recall)</em> What voltage does <code>read_u16() = 32768</code> represent? <em>(Hint: it is half the full 3.3 V range)</em></p>
+<p><em>(recall)</em> What voltage does <code>analogRead() = 512</code> represent? <em>(Hint: it is half the full 5.0 V range)</em></p>
 <div class="fragment">
-<p><strong>Answer:</strong> 32768 is half of 65535 ≈ half-scale → <strong>1.65 V</strong> (half of 3.3 V).</p>
+<p><strong>Answer:</strong> 512 is half of 1023 ≈ half-scale → <strong>2.5 V</strong> (half of 5.0 V).</p>
 </div>
 </section>
 <section id="exercise-13-q2-change-the-threshold" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 13 — Q2: Change the Threshold</h2>
-<p><em>(apply)</em> <code>DARK_THRESHOLD</code> is changed to <strong>40000</strong>. Does the LED now switch on in dimmer or brighter conditions? Why?</p>
+<p><em>(apply)</em> <code>DARK_THRESHOLD</code> is changed to <strong>800</strong>. Does the LED now switch on in dimmer or brighter conditions? Why?</p>
 <div class="fragment">
-<p><strong>Answer:</strong> <strong>Dimmer</strong> — the sensor must return a <em>higher</em> value (40000) before the LED switches on. Higher ADC values mean less light, so the room must be darker than before to trigger the LED.</p>
+<p><strong>Answer:</strong> <strong>Dimmer</strong> — the sensor must return a <em>higher</em> value (800) before the LED switches on. Higher ADC values mean less light, so the room must be darker than before to trigger the LED.</p>
 </div>
 </section>
 <section id="exercise-13-q3-add-a-second-led" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 13 — Q3: Add a Second LED</h2>
-<p><em>(apply)</em> Add a <strong>second green LED</strong> on GP16 that turns ON when the room is bright. Write the extra two lines of code.</p>
+<p><em>(apply)</em> Add a <strong>second green LED</strong> on Pin 11 that turns ON when the room is bright. Write the extra two lines of code.</p>
 <div class="fragment">
 <p><strong>Answer:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>green_led <span class="op">=</span> Pin(<span class="dv">16</span>, Pin.OUT)        <span class="co"># add after existing pin setup</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb11-1"><a href=""></a>pinMode<span class="op">(</span><span class="dv">11</span><span class="op">,</span> OUTPUT<span class="op">);</span>        <span class="co">// add in setup()</span></span>
 <span id="cb11-2"><a href=""></a></span>
-<span id="cb11-3"><a href=""></a><span class="co"># inside the while loop, add:</span></span>
-<span id="cb11-4"><a href=""></a>green_led.value(<span class="dv">0</span> <span class="cf">if</span> brightness <span class="op">&gt;</span> DARK_THRESHOLD <span class="cf">else</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>When bright, <code>brightness &gt; DARK_THRESHOLD</code> is False → <code>green_led.value(1)</code>.</p>
+<span id="cb11-3"><a href=""></a><span class="co">// inside loop(), add:</span></span>
+<span id="cb11-4"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">11</span><span class="op">,</span> brightness <span class="op">&gt;</span> DARK_THRESHOLD <span class="op">?</span> LOW <span class="op">:</span> HIGH<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When bright, <code>brightness &gt; DARK_THRESHOLD</code> is false → <code>LOW</code> is replaced by <code>HIGH</code>.</p>
 </div>
 </section>
 <section id="exercise-13-q4-stabilising-noisy-readings" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 13 — Q4: Stabilising Noisy Readings</h2>
-<p><em>(design)</em> The sensor reading can bounce slightly (noise). How could you use multiple readings or <code>time.sleep()</code> to make the response more stable?</p>
+<p><em>(design)</em> The sensor reading can bounce slightly (noise). How could you use multiple readings or <code>delay()</code> to make the response more stable?</p>
 <div class="fragment">
 <p><strong>Answer:</strong> Average several readings before deciding:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a>readings <span class="op">=</span> [ldr.read_u16() <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
-<span id="cb12-2"><a href=""></a>brightness <span class="op">=</span> <span class="bu">sum</span>(readings) <span class="op">//</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Or only switch the LED if the condition holds for two consecutive loops — prevents flickering from brief spikes.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb12-1"><a href=""></a><span class="dt">long</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb12-2"><a href=""></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++)</span> sum <span class="op">+=</span> analogRead<span class="op">(</span>A0<span class="op">);</span></span>
+<span id="cb12-3"><a href=""></a><span class="dt">int</span> brightness <span class="op">=</span> sum <span class="op">/</span> <span class="dv">5</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Or only switch the LED if the condition holds for several consecutive loops — prevents flickering from brief spikes.</p>
 </div>
+<p>witch the LED if the condition holds for two consecutive loops — prevents flickering from brief spikes. :::</p>
 </section></section>
 <section>
 <section id="part-10-bringing-it-all-back" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">

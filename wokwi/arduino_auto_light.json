@@ -4,13 +4,11 @@
   "editor": "wokwi",
   "parts": [
     {
-      "type": "wokwi-pi-pico",
-      "id": "pico",
+      "type": "wokwi-arduino-uno",
+      "id": "uno",
       "top": 0,
       "left": 0,
-      "attrs": {
-        "env": "micropython-20241129-v1.24.1"
-      }
+      "attrs": {}
     },
     {
       "type": "wokwi-led",
@@ -28,7 +26,7 @@
       "left": 134.4,
       "rotate": 180,
       "attrs": {
-        "value": "220"
+        "value": "330"
       }
     },
     {
@@ -41,7 +39,7 @@
   ],
   "connections": [
     [
-      "pico:GP15",
+      "uno:12",
       "r1:1",
       "green",
       [
@@ -58,7 +56,7 @@
     ],
     [
       "led1:C",
-      "pico:GND.1",
+      "uno:GND.1",
       "black",
       [
         "v0"
@@ -66,7 +64,7 @@
     ],
     [
       "ldr1:VCC",
-      "pico:3V3",
+      "uno:5V",
       "red",
       [
         "h0"
@@ -74,7 +72,7 @@
     ],
     [
       "ldr1:GND",
-      "pico:GND.2",
+      "uno:GND.2",
       "black",
       [
         "v0"
@@ -82,7 +80,7 @@
     ],
     [
       "ldr1:AO",
-      "pico:GP26",
+      "uno:A0",
       "blue",
       [
         "h0"
