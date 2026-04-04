@@ -1,0 +1,583 @@
+[
+  {
+    "objectID": "slides/session1.html#agenda",
+    "href": "slides/session1.html#agenda",
+    "title": "Session 1: Circuits Basics",
+    "section": "Agenda",
+    "text": "Agenda\n\nPart 1 — The Water World\nPart 2 — Zooming In\nPart 3 — The Bridge (Water ↔︎ Electrons)\nPart 4 — But They Don’t Touch\nPart 5 — Ohm’s Law: V = I × R\nPart 6 — Components: Bulb, Motor, Switch\nPart 7 — Variable Resistance & The Transistor\nPart 8 — 0s, 1s, and Arduino\nPart 9 — The Lab: Traffic Light & Automatic Light\nPart 10 — Summary, Homework & AI Onboarding"
+  },
+  {
+    "objectID": "slides/session1.html#macro-circuit-simulation",
+    "href": "slides/session1.html#macro-circuit-simulation",
+    "title": "Session 1: Circuits Basics",
+    "section": "Macro Circuit Simulation",
+    "text": "Macro Circuit Simulation\n\n\nToggle the pump. Watch the Pressure (Voltage) and Flow (Current) gauges."
+  },
+  {
+    "objectID": "slides/session1.html#the-closed-loop",
+    "href": "slides/session1.html#the-closed-loop",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Closed Loop",
+    "text": "The Closed Loop\n\n\n\n\n\nThe pump creates pressure — it pushes the water\n\n\n\n\nThe water moving is the flow\n\n\n\n\nThe narrow part of the pipe is resistance — it fights the flow\n\n\n\n\n\n\n\n\n\nThese three are always connected.\n\n\nYou cannot change one without affecting the others.\n\n\n\n\n\n\n\n\n\n\n↑ Pressure → ↑ Flow\n↑ Resistance → ↓ Flow"
+  },
+  {
+    "objectID": "slides/session1.html#series-vs.-parallel-pipes",
+    "href": "slides/session1.html#series-vs.-parallel-pipes",
+    "title": "Session 1: Circuits Basics",
+    "section": "Series vs. Parallel Pipes",
+    "text": "Series vs. Parallel Pipes\n\n\n\n\nSeries: Pipes connected in a single line.\n\nAll water must pass through every pipe.\nSame Flow throughout the line.\nPressure is shared between them.\n\n\n\n\n\nParallel: Pipes connected in a branch.\n\nWater chooses a path.\nFlow splits between branches.\nSame Pressure at the start of each path."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-1-q1-narrow-pipe",
+    "href": "slides/session1.html#exercise-1-q1-narrow-pipe",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 1 — Q1: Narrow Pipe",
+    "text": "Exercise 1 — Q1: Narrow Pipe\n(recall) If I make the pipe narrower at one point, what happens to the water flow?\n\nAnswer: Flow decreases — the narrowing increases resistance, so less water passes through for the same pump pressure."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-1-q2-second-pump",
+    "href": "slides/session1.html#exercise-1-q2-second-pump",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 1 — Q2: Second Pump",
+    "text": "Exercise 1 — Q2: Second Pump\n(recall) If I add a second pump, what happens?\n\nAnswer: It depends on how you connect them:\n\nIn Series (one after the other): Pressure increases → flow increases. (Like batteries in a flashlight).\nIn Parallel (side-by-side): Pressure stays the same, but you have more total flow capacity. (The pumps share the work)."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-1-q3-cut-pipe",
+    "href": "slides/session1.html#exercise-1-q3-cut-pipe",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 1 — Q3: Cut Pipe",
+    "text": "Exercise 1 — Q3: Cut Pipe\n(recall) If I cut the pipe somewhere, what happens?\n\nAnswer: Flow stops completely — the loop is broken and water has nowhere to go."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-1-q4-stronger-pump",
+    "href": "slides/session1.html#exercise-1-q4-stronger-pump",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 1 — Q4: Stronger Pump",
+    "text": "Exercise 1 — Q4: Stronger Pump\n(recall) If the pump gets stronger, what happens?\n\nAnswer: More pressure → more flow. With the same resistance, higher pressure drives more water through the pipe."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-2-q1-compensate-for-narrowing",
+    "href": "slides/session1.html#exercise-2-q1-compensate-for-narrowing",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 2 — Q1: Compensate for Narrowing",
+    "text": "Exercise 2 — Q1: Compensate for Narrowing\n(apply) You narrow the pipe a lot. What must the pump do to keep the same flow rate?\n\nAnswer: The pump must increase its pressure proportionally — to maintain the same flow against higher resistance, you need more force (higher voltage in the electron world)."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-2-q2-all-valves-open",
+    "href": "slides/session1.html#exercise-2-q2-all-valves-open",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 2 — Q2: All Valves Open",
+    "text": "Exercise 2 — Q2: All Valves Open\n(apply) Someone opens ALL the valves at once. What happens to the flow at each valve?\n\nAnswer: The total flow increases but splits between all open paths. Each valve gets less flow than it would alone — parallel paths share the total."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-2-q3-pressure-before-a-narrowing",
+    "href": "slides/session1.html#exercise-2-q3-pressure-before-a-narrowing",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 2 — Q3: Pressure Before a Narrowing",
+    "text": "Exercise 2 — Q3: Pressure Before a Narrowing\n(design) What happens to the pressure just before a sudden narrowing in the pipe?\n\nAnswer: Pressure backs up just before the narrowing — molecules pile up waiting to squeeze through. Analogous to the high voltage level that exists on the upstream side of a resistor before it drops across it."
+  },
+  {
+    "objectID": "slides/session1.html#micro-pump-simulation",
+    "href": "slides/session1.html#micro-pump-simulation",
+    "title": "Session 1: Circuits Basics",
+    "section": "Micro Pump Simulation",
+    "text": "Micro Pump Simulation\n\n\nZoom into the pump impeller. Watch individual particles collide and push each other."
+  },
+  {
+    "objectID": "slides/session1.html#what-the-molecules-are-telling-you",
+    "href": "slides/session1.html#what-the-molecules-are-telling-you",
+    "title": "Session 1: Circuits Basics",
+    "section": "What the Molecules Are Telling You",
+    "text": "What the Molecules Are Telling You\n\n\n\n\nWater is not a smooth fluid — it is discrete molecules crowding and pushing\n\n\n\n\nPressure is the density of those collisions piling up behind a blockage\n\n\n\n\nFlow is the net drift direction of all those tiny pushes\n\n\n\n\nResistance is energy lost to collisions with the pipe wall — the narrower the pipe, the more collisions per metre\n\n\n\n\n\n\n\n\n\nWhy this matters for electrons\n\n\nCurrent is not a fluid either. It is a wave of pushes through particles already packed into the wire. The pump doesn’t create them — it just gives them a direction."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-3-q1-blocked-pipe",
+    "href": "slides/session1.html#exercise-3-q1-blocked-pipe",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 3 — Q1: Blocked Pipe",
+    "text": "Exercise 3 — Q1: Blocked Pipe\n(apply) If you completely block the pipe, the pump is still running. What happens to the pressure just before the block? What happens to the flow everywhere?\n\nAnswer: Pressure reaches maximum just before the block (all pump force with nowhere to go). Flow everywhere = 0 — no complete loop means no movement anywhere in the circuit."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-3-q2-friction-and-heat",
+    "href": "slides/session1.html#exercise-3-q2-friction-and-heat",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 3 — Q2: Friction and Heat",
+    "text": "Exercise 3 — Q2: Friction and Heat\n(design) What if the molecules were going so fast through a narrow section that the friction made them heat up? What do you think would happen to the pipe material?\n\nAnswer: The pipe wall at the narrow section heats up and could melt or deform — exactly what happens to a wire or LED with too much current. This is how a fuse works: the narrow link melts to break the circuit safely."
+  },
+  {
+    "objectID": "slides/session1.html#water-world-electron-world",
+    "href": "slides/session1.html#water-world-electron-world",
+    "title": "Session 1: Circuits Basics",
+    "section": "Water World ↔︎ Electron World",
+    "text": "Water World ↔︎ Electron World\n\n\n\nWater World\n\nElectronics\n\n\n\n\nWater molecules\n→\nElectrons\n\n\nPump\n→\nBattery / power supply\n\n\nPressure\n→\nVoltage (V)\n\n\nFlow rate\n→\nCurrent (A)\n\n\nNarrow pipe\n→\nResistance (Ω)\n\n\n\n\n\n\n\n\n\nSame physics. Different scale. Different particles.\n\n\nThe battery doesn’t create electrons — they’re already there. It just creates pressure."
+  },
+  {
+    "objectID": "slides/session1.html#see-the-translation-live",
+    "href": "slides/session1.html#see-the-translation-live",
+    "title": "Session 1: Circuits Basics",
+    "section": "See the Translation Live",
+    "text": "See the Translation Live\n\n\nUse the Voltage and Resistance sliders. Watch Current change — exactly as in the water world."
+  },
+  {
+    "objectID": "slides/session1.html#electromagnetic-repulsion-simulation",
+    "href": "slides/session1.html#electromagnetic-repulsion-simulation",
+    "title": "Session 1: Circuits Basics",
+    "section": "Electromagnetic Repulsion Simulation",
+    "text": "Electromagnetic Repulsion Simulation\n\n\nWatch electrons repel each other before ever touching. Connect the battery — see the drift begin."
+  },
+  {
+    "objectID": "slides/session1.html#conductors-vs-insulators",
+    "href": "slides/session1.html#conductors-vs-insulators",
+    "title": "Session 1: Circuits Basics",
+    "section": "Conductors vs Insulators",
+    "text": "Conductors vs Insulators\n\n\nConductors (e.g. copper)\n\nOuter electrons are loosely bound\nThey roam freely through the material\nApply voltage → they drift together → current flows\n\n\n\n\n\n\n\nWhy metals conduct\n\n\nMetallic bonds leave outer electrons free to drift. That freedom is exactly what makes a wire a wire.\n\n\n\n\nInsulators (e.g. rubber, glass)\n\nElectrons are locked tightly to their atoms\nNo free electrons → no drift → no current\n\n\n\n\n\n\n\nHigh enough voltage breaks insulators\n\n\nRip the electrons free and even air conducts. That is lightning."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-5-q1-where-is-the-friction",
+    "href": "slides/session1.html#exercise-5-q1-where-is-the-friction",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 5 — Q1: Where is the Friction?",
+    "text": "Exercise 5 — Q1: Where is the Friction?\n(apply) If electrons push each other without touching, why does a wire feel like it has resistance? Where is the “friction” really coming from?\n\nAnswer: Electrons collide with the metal’s lattice of positive ions (atoms). Each collision transfers kinetic energy to the lattice as heat — that is resistance. The friction is not between electrons; it is between electrons and the stationary atomic structure."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-5-q2-breaking-an-insulator",
+    "href": "slides/session1.html#exercise-5-q2-breaking-an-insulator",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 5 — Q2: Breaking an Insulator",
+    "text": "Exercise 5 — Q2: Breaking an Insulator\n(design) An insulator has its electrons locked tight. What would happen if you applied an extremely high voltage — high enough to rip those electrons free? (Think: lightning through air.)\n\nAnswer: The insulator breaks down — electrons are violently stripped from their atoms and a sudden rush of current flows. Air does exactly this during lightning: enormous voltage rips electrons free and the air briefly becomes a conductor."
+  },
+  {
+    "objectID": "slides/session1.html#ohms-law",
+    "href": "slides/session1.html#ohms-law",
+    "title": "Session 1: Circuits Basics",
+    "section": "Ohm’s Law",
+    "text": "Ohm’s Law\n\nV = I × R"
+  },
+  {
+    "objectID": "slides/session1.html#three-forms-of-the-same-truth",
+    "href": "slides/session1.html#three-forms-of-the-same-truth",
+    "title": "Session 1: Circuits Basics",
+    "section": "Three Forms of the Same Truth",
+    "text": "Three Forms of the Same Truth\nYou only need one formula — rearrange for what you don’t know:\n\n\n\nFind\nFormula\nUnits\n\n\n\n\nVoltage\nV = I × R\nVolts (V)\n\n\nCurrent\nI = V / R\nAmperes (A)\n\n\nResistance\nR = V / I\nOhms (Ω)\n\n\n\n\nIf pressure goes up and resistance stays the same, flow increases. Same physics. Same formula."
+  },
+  {
+    "objectID": "slides/session1.html#ohms-law-sandbox",
+    "href": "slides/session1.html#ohms-law-sandbox",
+    "title": "Session 1: Circuits Basics",
+    "section": "Ohm’s Law Sandbox",
+    "text": "Ohm’s Law Sandbox\n\n\nCalculate a target Current first. Then adjust the Voltage and Resistance sliders — does the gauge match your math?"
+  },
+  {
+    "objectID": "slides/session1.html#exercise-6-q1-calculate-current",
+    "href": "slides/session1.html#exercise-6-q1-calculate-current",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 6 — Q1: Calculate Current",
+    "text": "Exercise 6 — Q1: Calculate Current\n(recall) A battery provides 5 V. A resistor of 100 Ω is connected. How much current flows?\nShow your calculation.\n\nAnswer: I = V / R = 5 / 100 = 0.05 A (50 mA)"
+  },
+  {
+    "objectID": "slides/session1.html#exercise-6-q2-calculate-resistance",
+    "href": "slides/session1.html#exercise-6-q2-calculate-resistance",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 6 — Q2: Calculate Resistance",
+    "text": "Exercise 6 — Q2: Calculate Resistance\n(apply) A circuit has 12 V and the current is 0.1 A. What is the resistance?\nShow your calculation.\n\nAnswer: R = V / I = 12 / 0.1 = 120 Ω"
+  },
+  {
+    "objectID": "slides/session1.html#exercise-6-q3-halve-or-double-resistance",
+    "href": "slides/session1.html#exercise-6-q3-halve-or-double-resistance",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 6 — Q3: Halve or Double Resistance",
+    "text": "Exercise 6 — Q3: Halve or Double Resistance\n(design) Challenge: If you halve the resistance in a circuit with fixed voltage, what happens to the current? If you double the resistance — what happens?\n\nAnswer: Since I = V / R and V is fixed:\n\nHalve R → current doubles\nDouble R → current halves\n\nCurrent and resistance are inversely proportional."
+  },
+  {
+    "objectID": "slides/session1.html#micro-light-bulb-simulation",
+    "href": "slides/session1.html#micro-light-bulb-simulation",
+    "title": "Session 1: Circuits Basics",
+    "section": "Micro Light Bulb Simulation",
+    "text": "Micro Light Bulb Simulation\n\n\nWatch particles squeeze through the jagged filament. As they collide they turn orange/red. At high pressure, the whole area glows."
+  },
+  {
+    "objectID": "slides/session1.html#the-light-bulb",
+    "href": "slides/session1.html#the-light-bulb",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Light Bulb",
+    "text": "The Light Bulb\n\n\nInside a bulb: a filament — a very thin, very resistive wire (tungsten).\n\nElectrons squeeze through the narrow filament\nConstant collisions with tungsten atoms → friction → heat\nFilament reaches ~2,500°C → glows → light\n\n\nNarrow pipe → friction → heat → glow\nSame physics as the water world.\n\n\n\n\n\n\nThe weakest, most resistive part always heats the most.\n\n\nThis is why LEDs need resistors. Without one: low resistance + fixed voltage = enormous current → burnout in milliseconds."
+  },
+  {
+    "objectID": "slides/session1.html#the-led-light-emitting-diode",
+    "href": "slides/session1.html#the-led-light-emitting-diode",
+    "title": "Session 1: Circuits Basics",
+    "section": "The LED (Light Emitting Diode)",
+    "text": "The LED (Light Emitting Diode)\n\n\n\n\nAn LED is a One-Way Check Valve.\nIt only allows current to flow in one direction.\nIf connected backward, the “valve” shuts tight → Zero Flow.\n\n\n\n\n\n\n\n\nIdentification\n\n\n\nLong Leg = Positive (+)\nShort Leg (and flat side of plastic) = Negative (−)\nCurrent must flow from + to −."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-7-q1-calculate-current-no-resistor",
+    "href": "slides/session1.html#exercise-7-q1-calculate-current-no-resistor",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 7 — Q1: Calculate Current (No Resistor)",
+    "text": "Exercise 7 — Q1: Calculate Current (No Resistor)\nA student wires an LED directly to 3.3 V with no resistor. The LED has a resistance of ~10 Ω when lit.\n(recall) Using I = V / R, calculate how much current flows.\n\nAnswer: I = 3.3 / 10 = 0.33 A = 330 mA\n(That is 11× the maximum rated current!)"
+  },
+  {
+    "objectID": "slides/session1.html#exercise-7-q2-what-happens-to-the-led",
+    "href": "slides/session1.html#exercise-7-q2-what-happens-to-the-led",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 7 — Q2: What Happens to the LED?",
+    "text": "Exercise 7 — Q2: What Happens to the LED?\nCurrent without a resistor = 330 mA. The LED is rated for a maximum of 30 mA.\n(recall) What happens?\n\nAnswer: The LED burns out instantly — 330 mA is 11× the maximum. The semiconductor junction overheats in milliseconds and is permanently destroyed."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-7-q3-filament-vs-led",
+    "href": "slides/session1.html#exercise-7-q3-filament-vs-led",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 7 — Q3: Filament vs LED",
+    "text": "Exercise 7 — Q3: Filament vs LED\n(apply) Why does a tungsten filament survive high temperatures but an LED doesn’t?\n\nAnswer: Tungsten has the highest melting point of any metal (~3 422 °C) and is designed to glow. An LED is a semiconductor junction — it converts current to light very efficiently but is destroyed by excess heat. It was never built to survive white-hot temperatures."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-7-q4-design-a-safe-circuit",
+    "href": "slides/session1.html#exercise-7-q4-design-a-safe-circuit",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 7 — Q4: Design a Safe Circuit",
+    "text": "Exercise 7 — Q4: Design a Safe Circuit\n(design) Design the safe version: what resistor limits current to 20 mA? (V = 3.3 V, LED voltage drop = 2 V)\n\nAnswer:\nVoltage across resistor = 3.3 − 2.0 = 1.3 V\nR = V / I = 1.3 / 0.02 = 65 Ω\nNearest standard value: 68 Ω (or 100 Ω for extra safety — slightly less current, LED lives longer)."
+  },
+  {
+    "objectID": "slides/session1.html#micro-motor-simulation",
+    "href": "slides/session1.html#micro-motor-simulation",
+    "title": "Session 1: Circuits Basics",
+    "section": "Micro Motor Simulation",
+    "text": "Micro Motor Simulation\n\n\nWatch electrons (particles) interact with the magnetic armature. North (Red) and South (Blue) poles are pushed and pulled by the moving charge."
+  },
+  {
+    "objectID": "slides/session1.html#the-motor",
+    "href": "slides/session1.html#the-motor",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Motor",
+    "text": "The Motor\n\n\n\nMoving electrons create a magnetic field\nInside the motor: permanent magnets on the outside, electromagnets (coils) on the inside\nCurrent through coils → magnetic field → interacts with permanent magnets\nOpposite poles attract → like poles repel → rotation\nCurrent flips direction at the right moment → poles flip → constant push-pull → continuous spin\n\n\nFlow → Magnetic Force → Motion\nElectrons moving\n     ↓\nMagnetic field created\n     ↓\nEM force on magnets\n     ↓\nRotation"
+  },
+  {
+    "objectID": "slides/session1.html#the-switch",
+    "href": "slides/session1.html#the-switch",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Switch",
+    "text": "The Switch\n\n\nA switch is a gap in the circuit that can be opened or closed.\n\nClosed (switch on): complete path → current flows\nOpen (switch off): broken loop → current = zero\n\n\n\n\n\n\n\nVoltage without current\n\n\nWhen a switch is open, voltage still exists across the gap. That is why you can measure it with a multimeter. Current requires a complete path — voltage does not.\n\n\n\n\nPump running   → Voltage exists\nLoop complete  → Current flows\nLoop broken    → Current = 0"
+  },
+  {
+    "objectID": "slides/session1.html#exercise-8-q1-resistive-heating",
+    "href": "slides/session1.html#exercise-8-q1-resistive-heating",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 8 — Q1: Resistive Heating",
+    "text": "Exercise 8 — Q1: Resistive Heating\n(apply) What is the electron-world equivalent?\n\n\n\n\n\n\n\n\nSituation\nWater world\nElectron world\n\n\n\n\nWater flows fast through thin pipe, pipe gets warm\nFriction between molecules and pipe wall\n?\n\n\n\n\nAnswer: Electrons collide with atoms in the resistive wire — kinetic energy converts to heat. This is resistive (Joule) heating: the basis of how a resistor or filament gets hot."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-8-q2-open-valve",
+    "href": "slides/session1.html#exercise-8-q2-open-valve",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 8 — Q2: Open Valve",
+    "text": "Exercise 8 — Q2: Open Valve\n(apply) What is the water-world equivalent?\n\n\n\nSituation\nWater world\nElectron world\n\n\n\n\nFlow is completely stopped\n?\nSwitch in open position\n\n\n\n\nAnswer: A closed gate valve — the valve is physically shut, breaking the loop so water (current) cannot flow."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-8-q3-paddle-wheel",
+    "href": "slides/session1.html#exercise-8-q3-paddle-wheel",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 8 — Q3: Paddle Wheel",
+    "text": "Exercise 8 — Q3: Paddle Wheel\n(apply) What is the electron-world equivalent?\n\n\n\n\n\n\n\n\nSituation\nWater world\nElectron world\n\n\n\n\nPaddle wheel converts flow to rotation\nWater pressure turns the paddle\n?\n\n\n\n\nAnswer: Current through a coil creates a magnetic field → force on permanent magnets → rotation. This is an electric motor."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-8-q4-melting-section",
+    "href": "slides/session1.html#exercise-8-q4-melting-section",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 8 — Q4: Melting Section",
+    "text": "Exercise 8 — Q4: Melting Section\n(apply) What is the water-world equivalent?\n\n\n\nSituation\nWater world\nElectron world\n\n\n\n\nA section so narrow it melts\n?\nLED with no resistor\n\n\n\n\nAnswer: A pipe section so narrow that friction heats the material until it melts — equivalent to a fuse blowing, or an LED junction destroyed by overcurrent."
+  },
+  {
+    "objectID": "slides/session1.html#variable-resistance-the-potentiometer",
+    "href": "slides/session1.html#variable-resistance-the-potentiometer",
+    "title": "Session 1: Circuits Basics",
+    "section": "Variable Resistance: The Potentiometer",
+    "text": "Variable Resistance: The Potentiometer\n\nA valve in cross-section: a disc with a hole — rotate it to partially block flow\nIn electronics: a potentiometer has a resistive strip + sliding wiper\nMove the wiper → change the resistance → change the current\n\nWhere you see this: Volume knobs · Brightness dimmers · Steering sensitivity controls\n\n\n\nPosition\nResistance\nCurrent\n\n\n\n\nFully open\n0 Ω\nMaximum\n\n\nMidpoint\n~250 Ω\nMedium\n\n\nFully closed\nMax (e.g. 10 kΩ)\nZero"
+  },
+  {
+    "objectID": "slides/session1.html#the-valve-simulation",
+    "href": "slides/session1.html#the-valve-simulation",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Valve Simulation",
+    "text": "The Valve Simulation\n\n\nManually rotate the valve. Watch the current change in real time."
+  },
+  {
+    "objectID": "slides/session1.html#the-automatic-valve-the-transistor",
+    "href": "slides/session1.html#the-automatic-valve-the-transistor",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Automatic Valve: The Transistor",
+    "text": "The Automatic Valve: The Transistor\n\n\nManual Valve (Potentiometer)\n\nYou turn it by hand\nAnalog: smooth range of values\nInput: your hand\n\n\nTransistor\n\nElectricity turns it — automatically\nA tiny Base current controls a huge Collector current\n1 mA Base → 200 mA Collector (gain = 200×)\nInput: another electron signal\n\n\n\n“A tiny trickle opens the main floodgate.” This is amplification — and it is also logic."
+  },
+  {
+    "objectID": "slides/session1.html#transistors-make-logic",
+    "href": "slides/session1.html#transistors-make-logic",
+    "title": "Session 1: Circuits Basics",
+    "section": "Transistors Make Logic",
+    "text": "Transistors Make Logic\n\nTransistor fully ON → effectively zero resistance → current flows → “1”\nTransistor fully OFF → enormous resistance → no current → “0”\n\nA billion of these = a CPU."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-9-q1-potentiometer-at-0-ω",
+    "href": "slides/session1.html#exercise-9-q1-potentiometer-at-0-ω",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 9 — Q1: Potentiometer at 0 Ω",
+    "text": "Exercise 9 — Q1: Potentiometer at 0 Ω\nYou have: 5 V supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor\n(recall) Potentiometer at 0 Ω: what current flows through the LED? (Use V = 3 V; derived from 5 V supply − 2 V LED drop)\n\nAnswer: I = V / R = 3 / (0 + 150) = 0.02 A = 20 mA — LED at rated maximum brightness."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-9-q2-potentiometer-at-500-ω",
+    "href": "slides/session1.html#exercise-9-q2-potentiometer-at-500-ω",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 9 — Q2: Potentiometer at 500 Ω",
+    "text": "Exercise 9 — Q2: Potentiometer at 500 Ω\nYou have: 5 V supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor\n(apply) Potentiometer at 500 Ω: what current flows?\n\nAnswer: I = 3 / (500 + 150) = 3 / 650 ≈ 4.6 mA — LED is very dim, just below usable threshold."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-9-q3-rotating-from-0-to-500-ω",
+    "href": "slides/session1.html#exercise-9-q3-rotating-from-0-to-500-ω",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 9 — Q3: Rotating from 0 to 500 Ω",
+    "text": "Exercise 9 — Q3: Rotating from 0 to 500 Ω\nYou have: 5 V supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor\n(apply) What does the LED do as you slowly rotate from 0 to 500 Ω?\n\nAnswer: The LED dims gradually — from 20 mA (full brightness) down to ~4.6 mA (barely visible). The potentiometer acts as a variable brightness (dimmer) control."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-9-q4-find-the-cut-off",
+    "href": "slides/session1.html#exercise-9-q4-find-the-cut-off",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 9 — Q4: Find the Cut-off",
+    "text": "Exercise 9 — Q4: Find the Cut-off\nYou have: 5 V supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor\n(design) At what potentiometer value does current drop below the LED’s minimum threshold (5 mA)?\n\nAnswer: I = 3 / (R + 150) &lt; 0.005 → R + 150 &gt; 600 → R &gt; 450 Ω\nAt 450 Ω the LED falls below 5 mA and effectively goes out."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-10-q1-transistor-gain",
+    "href": "slides/session1.html#exercise-10-q1-transistor-gain",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 10 — Q1: Transistor Gain",
+    "text": "Exercise 10 — Q1: Transistor Gain\n(recall) A transistor has a gain of 200. You apply 0.5 mA to the Base. How much current flows through the Collector?\n\nAnswer: I_C = Gain × I_B = 200 × 0.5 mA = 100 mA\nA tiny 0.5 mA signal controls a 100 mA load — that is amplification."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-10-q2-controlling-a-motor",
+    "href": "slides/session1.html#exercise-10-q2-controlling-a-motor",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 10 — Q2: Controlling a Motor",
+    "text": "Exercise 10 — Q2: Controlling a Motor\n(apply) You want to control a 500 mA motor using a Raspberry Pi GPIO pin (max 16 mA). Is this possible? What is the transistor’s role?\n\nAnswer: Yes — but not directly. The GPIO cannot source 500 mA safely. A transistor with gain ≥ 32 driven by the GPIO switches the 500 mA motor current from a separate supply. The GPIO controls the gate; the transistor carries the load."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-10-q3-on-vs-off-1-vs-0",
+    "href": "slides/session1.html#exercise-10-q3-on-vs-off-1-vs-0",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 10 — Q3: ON vs OFF = 1 vs 0",
+    "text": "Exercise 10 — Q3: ON vs OFF = 1 vs 0\n(apply) A transistor is either fully ON (0.1 Ω) or fully OFF (1 000 000 Ω). Which state is “1” and which is “0”?\n\nAnswer:\n\nFully ON (0.1 Ω) → near-zero resistance → current flows → “1”\nFully OFF (1 MΩ) → near-infinite resistance → no current → “0”"
+  },
+  {
+    "objectID": "slides/session1.html#two-worlds-analog-vs.-digital",
+    "href": "slides/session1.html#two-worlds-analog-vs.-digital",
+    "title": "Session 1: Circuits Basics",
+    "section": "Two Worlds: Analog vs. Digital",
+    "text": "Two Worlds: Analog vs. Digital\n\n\nAnalog — Infinite Steps\n\n\nA dimmer switch: any brightness, 0% to 100%\nA thermometer: any temperature in a continuous range\nAn LDR sensor: resistance anywhere from 1 kΩ to 100 kΩ\n\n\n\n\n\n\n\n\n\nAnalog = continuous\n\n\nThere are infinite possible values between any two points.\n\n\n\n\n\nDigital — Two States Only\n\n\nA light switch: ON or OFF\nA transistor: fully ON or fully OFF\nA GPIO pin: HIGH (3.3 V) or LOW (0 V)\n\n\n\n\n\n\n\n\n\nDigital = discrete\n\n\nOnly two possible states. No in-between.\n\n\n\n\n\n\n\nThe bridge: A transistor collapses an analog input voltage into a digital decision — above a threshold → 1, below it → 0. A billion of these decisions per second = a CPU."
+  },
+  {
+    "objectID": "slides/session1.html#the-ladder-of-abstraction",
+    "href": "slides/session1.html#the-ladder-of-abstraction",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Ladder of Abstraction",
+    "text": "The Ladder of Abstraction\nFrom transistors to C++ — five rungs:\n\nVoltage — above ~3V = HIGH (1), below ~1V = LOW (0)\nBinary — 1 bit = on/off · 8 bits = 1 byte = 256 values\nMachine Code — patterns of 0s and 1s the processor reads directly\nAssembly — human-readable commands, assembled to machine code\nC++ — high-level logic, compiled into machine code for the Arduino\n\n\n\n\n\n\n\nC++ is not what the computer runs directly\n\n\nYour code is compiled — turned into a binary file — containing the 0s and 1s that transistors actually process."
+  },
+  {
+    "objectID": "slides/session1.html#meet-the-arduino-pins",
+    "href": "slides/session1.html#meet-the-arduino-pins",
+    "title": "Session 1: Circuits Basics",
+    "section": "Meet the Arduino Pins",
+    "text": "Meet the Arduino Pins\n\n\nEvery pin is a software-defined switch.\nOUTPUT — The Driver ⚡\n\nForces 5V (HIGH) or 0V (LOW).\nDrives LEDs, motors, buzzers.\n\nINPUT — The Listener 👂\n\nMeasures voltage signals.\nReads buttons, sensors.\n\n\n\n\n\n\n\nGPIO = General Purpose Input / Output"
+  },
+  {
+    "objectID": "slides/session1.html#programming-the-pins",
+    "href": "slides/session1.html#programming-the-pins",
+    "title": "Session 1: Circuits Basics",
+    "section": "Programming the Pins",
+    "text": "Programming the Pins\n\n\n\n\n\n\nMode is Mandatory\n\n\nA pin defaults to Input for safety. If you forget pinMode(pin, OUTPUT), your LED will never light because the pin is “listening,” not “pushing.”\n\n\n\n\n\n\nCode Pattern\nPhysical Effect\n\n\n\n\npinMode(13, OUTPUT)\nPin 13 configured to drive voltage\n\n\npinMode(12, INPUT)\nPin 12 configured to listen for voltage\n\n\ndigitalWrite(13, HIGH)\nSwitch Pin 13 ON (5 V)\n\n\ndigitalWrite(13, LOW)\nSwitch Pin 13 OFF (0 V)\n\n\nanalogRead(A0)\nRead fractional voltage (0–1023)"
+  },
+  {
+    "objectID": "slides/session1.html#machines-need-everything-defined",
+    "href": "slides/session1.html#machines-need-everything-defined",
+    "title": "Session 1: Circuits Basics",
+    "section": "Machines Need Everything Defined",
+    "text": "Machines Need Everything Defined\nThe machine has no common sense. You define everything:\nvoid setup() {\n  pinMode(13, OUTPUT);  // \"Pin 13 is an output — configure it once\"\n}\n\nvoid loop() {\n  digitalWrite(13, HIGH); // \"set Pin 13 HIGH (5V)\"\n}\n\nForget pinMode? The pin defaults to input — your LED won’t light.\n\n\nPrecision is the machine’s strength. Common sense is yours."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-11-q1-how-many-pins",
+    "href": "slides/session1.html#exercise-11-q1-how-many-pins",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 11 — Q1: How Many Pins?",
+    "text": "Exercise 11 — Q1: How Many Pins?\nRead this sketch line by line, top to bottom:\nvoid setup() {\n  pinMode(13, OUTPUT);\n  pinMode(12, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(13, HIGH); delay(1000);\n  digitalWrite(13, LOW);\n  digitalWrite(12, HIGH); delay(500);\n  digitalWrite(12, LOW);\n}\n(recall) How many pins does this script use?\n\nAnswer: 2 — Pin 13 and Pin 12."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-11-q2-input-or-output",
+    "href": "slides/session1.html#exercise-11-q2-input-or-output",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 11 — Q2: Input or Output?",
+    "text": "Exercise 11 — Q2: Input or Output?\npinMode(13, OUTPUT);\npinMode(12, OUTPUT);\n(recall) Are the pins inputs or outputs?\n\nAnswer: Both are outputs (OUTPUT). The Arduino drives these pins HIGH or LOW."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-11-q3-describe-the-script",
+    "href": "slides/session1.html#exercise-11-q3-describe-the-script",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 11 — Q3: Describe the Script",
+    "text": "Exercise 11 — Q3: Describe the Script\ndigitalWrite(13, HIGH); delay(1000);\ndigitalWrite(13, LOW);\ndigitalWrite(12, HIGH); delay(500);\ndigitalWrite(12, LOW);\n(apply) Describe in plain language what this script does, step by step.\n\nAnswer: Pin 13 turns ON → waits 1 second → turns OFF. Then Pin 12 turns ON → waits 0.5 seconds → turns OFF. The loop repeats this forever."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-11-q4-output-vs-input",
+    "href": "slides/session1.html#exercise-11-q4-output-vs-input",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 11 — Q4: OUTPUT vs INPUT",
+    "text": "Exercise 11 — Q4: OUTPUT vs INPUT\n(apply) What is the difference between OUTPUT and INPUT? What would happen if you forgot pinMode(pin, OUTPUT)?\n\nAnswer:\n\nOUTPUT — the Arduino drives the pin to 5 V or 0 V\nINPUT — the Arduino reads the voltage on the pin; it drives nothing\n\nForgetting pinMode → pin defaults to input mode → outputs no voltage → LED stays off."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-11-q5-blink-3-times",
+    "href": "slides/session1.html#exercise-11-q5-blink-3-times",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 11 — Q5: Blink 3 Times",
+    "text": "Exercise 11 — Q5: Blink 3 Times\n(design) Modify it: How would you make Pin 13’s LED blink 3 times before Pin 12 turns on?\n\nAnswer:\nfor (int i = 0; i &lt; 3; i++) {\n    digitalWrite(13, HIGH); delay(500);\n    digitalWrite(13, LOW); delay(500);\n}\n\ndigitalWrite(12, HIGH); delay(500);\ndigitalWrite(12, LOW);"
+  },
+  {
+    "objectID": "slides/session1.html#meet-the-breadboard",
+    "href": "slides/session1.html#meet-the-breadboard",
+    "title": "Session 1: Circuits Basics",
+    "section": "Meet the Breadboard",
+    "text": "Meet the Breadboard\n\n\nA breadboard lets you build circuits without soldering — perfect for experimenting safely.\n\n\nTerminal rows (short rows, A–E / F–J) — each row of 5 holes is one wire\n\n\n\n\nCentre divider — separates left and right; designed to straddle chips\n\n\n\n\n\n\n\n\n\n\nThe golden rule\n\n\nSame row = same wire. Different row = different wire."
+  },
+  {
+    "objectID": "slides/session1.html#powering-the-board-the-rails",
+    "href": "slides/session1.html#powering-the-board-the-rails",
+    "title": "Session 1: Circuits Basics",
+    "section": "Powering the Board: The Rails",
+    "text": "Powering the Board: The Rails\n\n\n\nPower rails (long side columns, + and −) — connect to 3.3V and GND\nUsually marked with red (+) and blue (−) lines.\nPower flows the entire length of the rail.\n\n\n\n\n\n\n\n\nWhat is GND?\n\n\nGND (Ground) = the − terminal = 0 V reference point. All voltages are measured relative to GND — it is the drain at the bottom of the water tank. Every circuit needs a complete loop: current must be able to flow from + to GND.\n\n\n\n\n\n\n\n\n\n\n\n\nPro tip\n\n\nConnect one rail to 5V and the other to GND first — then you can pull power from anywhere on the board."
+  },
+  {
+    "objectID": "slides/session1.html#build-1-calculate-before-you-wire",
+    "href": "slides/session1.html#build-1-calculate-before-you-wire",
+    "title": "Session 1: Circuits Basics",
+    "section": "Build #1 — Calculate Before You Wire",
+    "text": "Build #1 — Calculate Before You Wire\nBefore connecting anything, calculate the safe resistor for each LED.\n\n\n\n\n\nValue\n\n\n\n\nArduino supply voltage\n5.0 V\n\n\nLED forward voltage\n2.0 V\n\n\nVoltage across resistor\n5.0 − 2.0 = 3.0 V\n\n\nTarget current\n10 mA = 0.01 A\n\n\nResistor needed\nR = 3.0 / 0.01 = 300 Ω\n\n\n\n\n\n\n\n\n\n\n\nClosest standard value: 330 Ω ✓\n\n\nSlightly higher = slightly less current = LED lives longer. Never go lower."
+  },
+  {
+    "objectID": "slides/session1.html#build-1-traffic-light-on-wokwi",
+    "href": "slides/session1.html#build-1-traffic-light-on-wokwi",
+    "title": "Session 1: Circuits Basics",
+    "section": "Build #1 — Traffic Light on Wokwi",
+    "text": "Build #1 — Traffic Light on Wokwi\n&lt;iframe src=“https://wokwi.com/projects/460363431768902657 width=”100%” height=“520px” style=“border:none; border-radius:12px;” allowfullscreen&gt;\nBuild this circuit in Wokwi. Run it. Does the sequence match your code?"
+  },
+  {
+    "objectID": "slides/session1.html#build-1-arduino-code",
+    "href": "slides/session1.html#build-1-arduino-code",
+    "title": "Session 1: Circuits Basics",
+    "section": "Build #1 — Arduino Code",
+    "text": "Build #1 — Arduino Code\n// Define each LED pin\nconst int red    = 2;\nconst int yellow = 3;\nconst int green  = 4;\n\nvoid setup() {\n  pinMode(red, OUTPUT);\n  pinMode(yellow, OUTPUT);\n  pinMode(green, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(red, HIGH);    delay(5000);   // Red ON for 5 s\n  digitalWrite(red, LOW);\n  digitalWrite(yellow, HIGH); delay(2000);   // Yellow ON for 2 s\n  digitalWrite(yellow, LOW);\n  digitalWrite(green, HIGH);  delay(5000);   // Green ON for 5 s\n  digitalWrite(green, LOW);\n}"
+  },
+  {
+    "objectID": "slides/session1.html#extend-it-with-ai",
+    "href": "slides/session1.html#extend-it-with-ai",
+    "title": "Session 1: Circuits Basics",
+    "section": "Extend It with AI",
+    "text": "Extend It with AI\nYour traffic light works. Now ask AI to extend it.\n\n“I have an Arduino sketch cycling Red (Pin 2) → Yellow (Pin 3) → Green (Pin 4). I want to add a button on Pin 12 that, when held, keeps the green light on for 10 s instead of 5 s. Show me the updated code and explain what changed.”"
+  },
+  {
+    "objectID": "slides/session1.html#build-2-the-voltage-divider",
+    "href": "slides/session1.html#build-2-the-voltage-divider",
+    "title": "Session 1: Circuits Basics",
+    "section": "Build #2 — The Voltage Divider",
+    "text": "Build #2 — The Voltage Divider\nHow does a light sensor become a number the Arduino can read?\n\n\n\n  5V ── 10 kΩ ──●── LDR ── GND\n                ↑\n           ADC reads here\n               (A0)\n\n\n\nLDR resistance drops in bright light\nFixed 10 kΩ stays constant\nMidpoint voltage rises as LDR gets smaller\n\n\n\n\n\n\n\n\n\nWater analogy\n\n\nTwo resistors in series = two narrow pipes. The pressure tap between them reads a fraction of total — depending on which section is narrower.\n\n\n\n\n\n\n\nLight level\nLDR R\nMidpoint V\n\n\n\n\nBright\n~1 kΩ\n~0.5 V\n\n\nDark\n~100 kΩ\n~4.5 V"
+  },
+  {
+    "objectID": "slides/session1.html#the-adc-bridging-analog-and-digital",
+    "href": "slides/session1.html#the-adc-bridging-analog-and-digital",
+    "title": "Session 1: Circuits Basics",
+    "section": "The ADC — Bridging Analog and Digital",
+    "text": "The ADC — Bridging Analog and Digital\nThe Arduino thinks in digital (0s and 1s). The LDR gives us analog (a continuous voltage). The ADC (Analog-to-Digital Converter) is the translator.\n\n\n\n\nThe ADC samples the midpoint voltage thousands of times per second\nIt maps that voltage to a 10-bit number: 0 → 1023\n\n\n\n\n\n\nVoltage\nanalogRead() value\n\n\n\n\n0 V (max bright)\n0\n\n\n2.5 V (half)\n~512\n\n\n5.0 V (max dark)\n1023\n\n\n\n\n\n\n\n\n\n\n\n\nWhy 1023?\n\n\n10 bits can hold 2¹⁰ = 1,024 values (0 to 1023). Arduino Uno uses 10-bit resolution for its analog pins.\n\n\n\n\n\n\n\n\n\n\n\nIn code\n\n\nint val = analogRead(A0); — take one sample from analog pin 0 and return the number."
+  },
+  {
+    "objectID": "slides/session1.html#build-2-automatic-light-on-wokwi",
+    "href": "slides/session1.html#build-2-automatic-light-on-wokwi",
+    "title": "Session 1: Circuits Basics",
+    "section": "Build #2 — Automatic Light on Wokwi",
+    "text": "Build #2 — Automatic Light on Wokwi\n\n\nClick the LDR slider to change light level. Watch the LED respond in real time."
+  },
+  {
+    "objectID": "slides/session1.html#build-2-arduino-code",
+    "href": "slides/session1.html#build-2-arduino-code",
+    "title": "Session 1: Circuits Basics",
+    "section": "Build #2 — Arduino Code",
+    "text": "Build #2 — Arduino Code\nconst int ldrPin = A0;\nconst int ledPin = 12;\n\nint DARK_THRESHOLD = 600;  // 0–1023; tune this in class\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  int brightness = analogRead(ldrPin);      // 0 (bright) → 1023 (dark)\n  if (brightness &gt; DARK_THRESHOLD) {\n    digitalWrite(ledPin, HIGH);             // dark (high value) → LED ON\n  } else {\n    digitalWrite(ledPin, LOW);              // bright (low value) → LED OFF\n  }\n  delay(100);\n}"
+  },
+  {
+    "objectID": "slides/session1.html#exercise-13-q1-adc-voltage",
+    "href": "slides/session1.html#exercise-13-q1-adc-voltage",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 13 — Q1: ADC Voltage",
+    "text": "Exercise 13 — Q1: ADC Voltage\n(recall) What voltage does analogRead() = 512 represent? (Hint: it is half the full 5.0 V range)\n\nAnswer: 512 is half of 1023 ≈ half-scale → 2.5 V (half of 5.0 V)."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-13-q2-change-the-threshold",
+    "href": "slides/session1.html#exercise-13-q2-change-the-threshold",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 13 — Q2: Change the Threshold",
+    "text": "Exercise 13 — Q2: Change the Threshold\n(apply) DARK_THRESHOLD is changed to 800. Does the LED now switch on in dimmer or brighter conditions? Why?\n\nAnswer: Dimmer — the sensor must return a higher value (800) before the LED switches on. Higher ADC values mean less light, so the room must be darker than before to trigger the LED."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-13-q3-add-a-second-led",
+    "href": "slides/session1.html#exercise-13-q3-add-a-second-led",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 13 — Q3: Add a Second LED",
+    "text": "Exercise 13 — Q3: Add a Second LED\n(apply) Add a second green LED on Pin 11 that turns ON when the room is bright. Write the extra two lines of code.\n\nAnswer:\npinMode(11, OUTPUT);        // add in setup()\n\n// inside loop(), add:\ndigitalWrite(11, brightness &gt; DARK_THRESHOLD ? LOW : HIGH);\nWhen bright, brightness &gt; DARK_THRESHOLD is false → LOW is replaced by HIGH."
+  },
+  {
+    "objectID": "slides/session1.html#exercise-13-q4-stabilising-noisy-readings",
+    "href": "slides/session1.html#exercise-13-q4-stabilising-noisy-readings",
+    "title": "Session 1: Circuits Basics",
+    "section": "Exercise 13 — Q4: Stabilising Noisy Readings",
+    "text": "Exercise 13 — Q4: Stabilising Noisy Readings\n(design) The sensor reading can bounce slightly (noise). How could you use multiple readings or delay() to make the response more stable?\n\nAnswer: Average several readings before deciding:\nlong sum = 0;\nfor (int i = 0; i &lt; 5; i++) sum += analogRead(A0);\nint brightness = sum / 5;\nOr only switch the LED if the condition holds for several consecutive loops — prevents flickering from brief spikes."
+  },
+  {
+    "objectID": "slides/session1.html#the-master-translation-table",
+    "href": "slides/session1.html#the-master-translation-table",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Master Translation Table",
+    "text": "The Master Translation Table\n\n\n\n\n\n\n\n\nConcept\nWater Analogy\nElectronics Reality\n\n\n\n\nVoltage (V)\nPump pressure\nForce pushing electrons\n\n\nCurrent (I)\nFlow rate\nElectrons per second (Amperes)\n\n\nResistance (R)\nNarrow pipe\nOpposition to electron flow (Ohms)\n\n\nOhm’s Law\nP ∝ F / R\nV = I × R\n\n\nOpen circuit\nCut pipe\nNo complete path, no current\n\n\nShort circuit\nRemoved all pipes\nNear-zero resistance, huge current\n\n\nLED / Bulb\nFriction heating pipe\nResistance → heat → light\n\n\nLED Polarity\nOne-way check valve\nCurrent only flows one way (+ to −)\n\n\nSeries\nPipes in a single line\nComponents in a single path (Same Current)\n\n\nParallel\nBranching pipes\nComponents side-by-side (Same Voltage)\n\n\nMotor\nPaddle wheel\nEM force drives magnets → rotation\n\n\nSwitch\nGate valve\nOpens / closes the electron path\n\n\nVariable resistor\nValve\nAdjustable resistance, adjustable current\n\n\nTransistor\nElectron-controlled valve\nSmall current controls large current\n\n\nBinary\nOpen / closed valve\nHIGH / LOW voltage states\n\n\nPython\nInstructions to the pump operator\nHigh-level language the interpreter translates"
+  },
+  {
+    "objectID": "slides/session1.html#homework",
+    "href": "slides/session1.html#homework",
+    "title": "Session 1: Circuits Basics",
+    "section": "Homework",
+    "text": "Homework\nPart A — Calculations\n\nA 9V battery + 270Ω resistor. What current flows?\nA circuit draws 50mA from 5V. What is the total resistance?\nDim an LED to 10mA using a 3.3V GPIO pin (LED drops 2V). What resistor do you need?\nA motor needs 500mA. Can a Pico GP pin (max 16mA) drive it directly? Use AI to explain the transistor solution.\n\nPart B — Observation\nFind 3 places in your home where a reactive system turns on/off based on a sensor. For each: What is the sensor? What is the action? Write 3-line Python pseudo-code for how it might work."
+  },
+  {
+    "objectID": "slides/session1.html#ways-to-use-ai-in-this-course",
+    "href": "slides/session1.html#ways-to-use-ai-in-this-course",
+    "title": "Session 1: Circuits Basics",
+    "section": "4 Ways to Use AI in This Course",
+    "text": "4 Ways to Use AI in This Course\nIn this course, AI is a senior engineer sitting next to you — not a replacement for thinking.\n\nExplain — “What does GPIO.setmode(GPIO.BCM) actually do? Use the water analogy.”\nDebug — “I’m getting RuntimeError: Blue LED not found. Here is my code and wiring description. What did I miss?”\nExtend — “My traffic light works. How do I make the yellow light pulse slowly like a heartbeat?”\nGenerate — “Write the boilerplate to set up 3 output pins on a Raspberry Pi.”\n\nSetup: Open Cursor IDE · Log in to your assigned account · First prompt: introduce yourself and ask it to help verify your Ohm’s Law calculations."
+  },
+  {
+    "objectID": "slides/session1.html#questions",
+    "href": "slides/session1.html#questions",
+    "title": "Session 1: Circuits Basics",
+    "section": "Questions?",
+    "text": "Questions?\n\n🙋"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Intro to Robotics",
+    "section": "",
+    "text": "Master the fundamentals of electronics, logic, and physical computing."
+  },
+  {
+    "objectID": "index.html#curriculum-slides",
+    "href": "index.html#curriculum-slides",
+    "title": "Intro to Robotics",
+    "section": "📚 Curriculum Slides",
+    "text": "📚 Curriculum Slides\nExplore the core concepts through our interactive slide decks.\n\n\n\n\nSession 1: Circuits Basics\nFrom Water Pipes to Computer Logic. Covering voltage, current, resistance, and the bridge to electronics. View Slides →\n\n\n\n\n\n\nSession 2: Movement + Problem Patterns\nComing Soon — From assembly to locomotion. Mastering the basics of robot movement and problem identification."
+  },
+  {
+    "objectID": "index.html#interactive-simulations",
+    "href": "index.html#interactive-simulations",
+    "title": "Intro to Robotics",
+    "section": "🚀 Interactive Simulations",
+    "text": "🚀 Interactive Simulations\nVisualize complex concepts through real-time web-based simulations.\n\n\n\n\nWater Circuit Sim\nInteractive visualization of voltage (pressure), current (flow), and resistance (valves) using a water pipe analogy. Launch Sim →"
+  }
+]

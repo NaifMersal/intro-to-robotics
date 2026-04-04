@@ -35,8 +35,8 @@ From Water Pipes to Computer Logic. Covering voltage, current, resistance, and t
 ::: {.g-col-12 .g-col-md-6}
 ::: {.card .h-100 .slide-card .muted-card}
 ::: {.card-body}
-### Session 2: Sensors & Actuators
-*Coming Soon* — Bridging the physical and digital world with inputs and outputs.
+### Session 2: Movement + Problem Patterns
+*Coming Soon* — From assembly to locomotion. Mastering the basics of robot movement and problem identification.
 :::
 :::
 :::
@@ -58,22 +58,6 @@ Interactive visualization of voltage (pressure), current (flow), and resistance 
 :::
 :::
 
-::: {.g-col-12 .g-col-md-6}
-::: {.card .h-100 .sim-card}
-::: {.card-body}
-### [Logic Gates & Transistors](slides/session1.qmd#/part-7-variable-resistance-the-transistor)
-Explore how transistors act as electronic valves to create digital logic gates.
-[Explore Logic →](slides/session1.qmd#/part-7-variable-resistance-the-transistor){.btn .btn-outline-teal .btn-sm}
 :::
-:::
-:::
-
-:::
-
-## 🛠️ Arduino Uno Builds (Wokwi)
-Reference designs for the hands-on lab sessions. Import these JSON configurations into [Wokwi](https://wokwi.com) to test your C++ code.
-
-- 🚦 [Arduino Traffic Light Controller](wokwi/arduino_traffic_light.json)
-- 💡 [Arduino Automatic Light Sensor](wokwi/arduino_auto_light.json)
 
 :::

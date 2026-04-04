@@ -1,6 +1,7 @@
 quarto-required: ">= 1.8.26"
 
 project:
+  type: website
   output-dir: docs
   execute-dir: project
   render:

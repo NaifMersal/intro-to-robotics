@@ -237,7 +237,7 @@ Arduino Uno uses 10-bit resolution for its analog pins.
 
 ## Build #2 — Automatic Light on Wokwi {background-color="#f7f9fc"}
 
-<iframe src="https://wokwi.com/projects/427993202117173249/embed"
+<iframe src="https://wokwi.com/projects/460387279699213313/embed"
         width="100%" height="520px"
         style="border:none; border-radius:12px;"
         allowfullscreen></iframe>
@@ -316,6 +316,4 @@ int brightness = sum / 5;
 ```
 
 Or only switch the LED if the condition holds for several consecutive loops — prevents flickering from brief spikes.
-:::
-witch the LED if the condition holds for two consecutive loops — prevents flickering from brief spikes.
 :::

@@ -9,6 +9,7 @@ const MicroBase = {
     particles: [],
     lastTime: null,
     subSteps: 4,
+    PARTICLE_COLLISION_GROUP: -1, // Negative group means no collision between members
 
     // Pipe geometry constants
     SIM_WIDTH: 1200,      // Total physics simulation area (provides a hidden reservoir)
@@ -150,6 +151,50 @@ const MicroBase = {
             } else if (p.position.y > innerBottom) {
                 Matter.Body.setPosition(p, { x: p.position.x, y: innerBottom });
                 Matter.Body.setVelocity(p, { x: p.velocity.x, y: 0 });
+            }
+        }
+    },
+
+    applyElectromagneticRepulsion: function(particles, radius) {
+        if (!particles || particles.length < 2) return;
+
+        // Optimization: Sort by X to limit pair checks (since it's a pipe-based sim)
+        // We use a temporary array to avoid disturbing the original order if needed
+        const sorted = [...particles].sort((a, b) => a.position.x - b.position.x);
+
+        const threshold = radius * 4.0; // Increased range of influence
+        const thresholdSq = threshold * threshold;
+        const diameter = radius * 2;
+
+        for (let i = 0; i < sorted.length; i++) {
+            const p1 = sorted[i];
+            for (let j = i + 1; j < sorted.length; j++) {
+                const p2 = sorted[j];
+                
+                const dx = p2.position.x - p1.position.x;
+                if (dx > threshold) break;
+
+                const dy = p2.position.y - p1.position.y;
+                const distSq = dx * dx + dy * dy;
+
+                if (distSq < thresholdSq && distSq > 1) {
+                    const dist = Math.sqrt(distSq);
+                    
+                    // 1. Long-range "soft" repulsion (electromagnetic-like) - slightly stronger
+                    let forceMag = (radius * 0.00025) / (distSq + 1); 
+                    
+                    // 2. Short-range "hard" buffer - increased to radius * 2.6
+                    if (dist < radius * 2.6) {
+                        const overlap = radius * 2.6 - dist;
+                        forceMag += Math.pow(overlap, 2) * 0.0005; 
+                    }
+
+                    const fx = (dx / dist) * forceMag;
+                    const fy = (dy / dist) * forceMag;
+
+                    Matter.Body.applyForce(p1, p1.position, { x: -fx, y: -fy });
+                    Matter.Body.applyForce(p2, p2.position, { x: fx, y: fy });
+                }
             }
         }
     },

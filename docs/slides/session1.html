@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="session1_files/libs/clipboard/clipboard.min.js"></script>
-<script src="session1_files/libs/quarto-html/tabby.min.js"></script>
-<script src="session1_files/libs/quarto-html/popper.min.js"></script>
-<script src="session1_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="session1_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="session1_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="session1_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
   <meta name="dcterms.date" content="2026-04-04">
@@ -14,8 +14,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="session1_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="session1_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -95,11 +95,11 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="session1_files/libs/revealjs/dist/theme/quarto-11fb225df25554060309039e467d350a.css">
-  <link href="session1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="session1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="session1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="session1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-11fb225df25554060309039e467d350a.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -1126,22 +1126,29 @@ Loop broken    → Current = 0</code></pre>
 <section id="meet-the-arduino-pins" class="slide level2">
 <h2>Meet the Arduino Pins</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
-<p><strong>GPIO = General Purpose Input / Output</strong></p>
-<p>Every numbered pin on the Arduino is a <strong>software-defined switch</strong>. You decide its job.</p>
-<h3 id="output-the-driver">Output — The Driver</h3>
-<p>The Arduino <em>forces</em> the pin to a specific voltage.</p>
+<div class="column" style="width:55%;">
+<p>Every pin is a <strong>software-defined switch</strong>.</p>
+<p><strong>OUTPUT</strong> — <strong>The Driver</strong> ⚡</p>
 <ul>
-<li><strong>HIGH</strong> (5V) or <strong>LOW</strong> (0V)</li>
-<li><strong>Role:</strong> Drives LEDs, motors, or buzzers.</li>
+<li><strong>Forces</strong> 5V (HIGH) or 0V (LOW).</li>
+<li>Drives LEDs, motors, buzzers.</li>
 </ul>
-<h3 id="input-the-listener">Input — The Listener</h3>
-<p>The Arduino <em>measures</em> the voltage at the pin.</p>
+<p><strong>INPUT</strong> — <strong>The Listener</strong> 👂</p>
 <ul>
-<li><strong>HIGH</strong> (Signal) or <strong>LOW</strong> (Silence)</li>
-<li><strong>Role:</strong> Reads buttons and sensors.</li>
+<li><strong>Measures</strong> voltage signals.</li>
+<li>Reads buttons, sensors.</li>
 </ul>
-</div><div class="column" style="width:40%;">
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><strong>GPIO</strong> = General Purpose Input / Output</p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
 <p><img data-src="assets/arduino_pins_glow.png" style="border-radius: 12px;;width:100.0%"></p>
 </div></div>
 </section>
@@ -1194,13 +1201,13 @@ Loop broken    → Current = 0</code></pre>
 <section id="machines-need-everything-defined" class="slide level2">
 <h2>Machines Need Everything Defined</h2>
 <p>The machine has no common sense. You define everything:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href=""></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-2"><a href=""></a>  pinMode<span class="op">(</span><span class="dv">13</span><span class="op">,</span> OUTPUT<span class="op">);</span>  <span class="co">// "Pin 13 is an output — configure it once"</span></span>
-<span id="cb3-3"><a href=""></a><span class="op">}</span></span>
-<span id="cb3-4"><a href=""></a></span>
-<span id="cb3-5"><a href=""></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-6"><a href=""></a>  digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// "set Pin 13 HIGH (5V)"</span></span>
-<span id="cb3-7"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-2"><a></a>  pinMode<span class="op">(</span><span class="dv">13</span><span class="op">,</span> OUTPUT<span class="op">);</span>  <span class="co">// "Pin 13 is an output — configure it once"</span></span>
+<span id="cb3-3"><a></a><span class="op">}</span></span>
+<span id="cb3-4"><a></a></span>
+<span id="cb3-5"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-6"><a></a>  digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// "set Pin 13 HIGH (5V)"</span></span>
+<span id="cb3-7"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Forget <code>pinMode</code>? The pin defaults to input — your LED won’t light.</li>
 </ul>
@@ -1211,17 +1218,17 @@ Loop broken    → Current = 0</code></pre>
 <section id="exercise-11-q1-how-many-pins" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 11 — Q1: How Many Pins?</h2>
 <p>Read this sketch line by line, top to bottom:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href=""></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb4-2"><a href=""></a>  pinMode<span class="op">(</span><span class="dv">13</span><span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb4-3"><a href=""></a>  pinMode<span class="op">(</span><span class="dv">12</span><span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb4-4"><a href=""></a><span class="op">}</span></span>
-<span id="cb4-5"><a href=""></a></span>
-<span id="cb4-6"><a href=""></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb4-7"><a href=""></a>  digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
-<span id="cb4-8"><a href=""></a>  digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb4-9"><a href=""></a>  digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb4-10"><a href=""></a>  digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb4-11"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-2"><a></a>  pinMode<span class="op">(</span><span class="dv">13</span><span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb4-3"><a></a>  pinMode<span class="op">(</span><span class="dv">12</span><span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb4-4"><a></a><span class="op">}</span></span>
+<span id="cb4-5"><a></a></span>
+<span id="cb4-6"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-7"><a></a>  digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb4-8"><a></a>  digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb4-9"><a></a>  digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb4-10"><a></a>  digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb4-11"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><em>(recall)</em> How many pins does this script use?</p>
 <div class="fragment">
 <p><strong>Answer:</strong> <strong>2</strong> — Pin 13 and Pin 12.</p>
@@ -1229,8 +1236,8 @@ Loop broken    → Current = 0</code></pre>
 </section>
 <section id="exercise-11-q2-input-or-output" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 11 — Q2: Input or Output?</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href=""></a>pinMode<span class="op">(</span><span class="dv">13</span><span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb5-2"><a href=""></a>pinMode<span class="op">(</span><span class="dv">12</span><span class="op">,</span> OUTPUT<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a></a>pinMode<span class="op">(</span><span class="dv">13</span><span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb5-2"><a></a>pinMode<span class="op">(</span><span class="dv">12</span><span class="op">,</span> OUTPUT<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><em>(recall)</em> Are the pins inputs or outputs?</p>
 <div class="fragment">
 <p><strong>Answer:</strong> Both are <strong>outputs</strong> (<code>OUTPUT</code>). The Arduino drives these pins HIGH or LOW.</p>
@@ -1238,10 +1245,10 @@ Loop broken    → Current = 0</code></pre>
 </section>
 <section id="exercise-11-q3-describe-the-script" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 11 — Q3: Describe the Script</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
-<span id="cb6-2"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb6-3"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb6-4"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> LOW<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a></a>digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb6-2"><a></a>digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb6-3"><a></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb6-4"><a></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> LOW<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><em>(apply)</em> Describe in plain language what this script does, step by step.</p>
 <div class="fragment">
 <p><strong>Answer:</strong> Pin 13 turns <strong>ON</strong> → waits 1 second → turns <strong>OFF</strong>. Then Pin 12 turns <strong>ON</strong> → waits 0.5 seconds → turns <strong>OFF</strong>. The <code>loop</code> repeats this forever.</p>
@@ -1264,13 +1271,13 @@ Loop broken    → Current = 0</code></pre>
 <p><em>(design)</em> <strong>Modify it:</strong> How would you make Pin 13’s LED blink <strong>3 times</strong> before Pin 12 turns on?</p>
 <div class="fragment">
 <p><strong>Answer:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href=""></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">3</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb7-2"><a href=""></a>    digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb7-3"><a href=""></a>    digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb7-4"><a href=""></a><span class="op">}</span></span>
-<span id="cb7-5"><a href=""></a></span>
-<span id="cb7-6"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb7-7"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> LOW<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">3</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb7-2"><a></a>    digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb7-3"><a></a>    digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb7-4"><a></a><span class="op">}</span></span>
+<span id="cb7-5"><a></a></span>
+<span id="cb7-6"><a></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb7-7"><a></a>digitalWrite<span class="op">(</span><span class="dv">12</span><span class="op">,</span> LOW<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section></section>
 <section>
@@ -1409,25 +1416,25 @@ Loop broken    → Current = 0</code></pre>
 </section>
 <section id="build-1-arduino-code" class="slide level2">
 <h2>Build #1 — Arduino Code</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href=""></a><span class="co">// Define each LED pin</span></span>
-<span id="cb8-2"><a href=""></a><span class="at">const</span> <span class="dt">int</span> red    <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb8-3"><a href=""></a><span class="at">const</span> <span class="dt">int</span> yellow <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
-<span id="cb8-4"><a href=""></a><span class="at">const</span> <span class="dt">int</span> green  <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb8-5"><a href=""></a></span>
-<span id="cb8-6"><a href=""></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb8-7"><a href=""></a>  pinMode<span class="op">(</span>red<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb8-8"><a href=""></a>  pinMode<span class="op">(</span>yellow<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb8-9"><a href=""></a>  pinMode<span class="op">(</span>green<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb8-10"><a href=""></a><span class="op">}</span></span>
-<span id="cb8-11"><a href=""></a></span>
-<span id="cb8-12"><a href=""></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb8-13"><a href=""></a>  digitalWrite<span class="op">(</span>red<span class="op">,</span> HIGH<span class="op">);</span>    delay<span class="op">(</span><span class="dv">5000</span><span class="op">);</span>   <span class="co">// Red ON for 5 s</span></span>
-<span id="cb8-14"><a href=""></a>  digitalWrite<span class="op">(</span>red<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb8-15"><a href=""></a>  digitalWrite<span class="op">(</span>yellow<span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">2000</span><span class="op">);</span>   <span class="co">// Yellow ON for 2 s</span></span>
-<span id="cb8-16"><a href=""></a>  digitalWrite<span class="op">(</span>yellow<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb8-17"><a href=""></a>  digitalWrite<span class="op">(</span>green<span class="op">,</span> HIGH<span class="op">);</span>  delay<span class="op">(</span><span class="dv">5000</span><span class="op">);</span>   <span class="co">// Green ON for 5 s</span></span>
-<span id="cb8-18"><a href=""></a>  digitalWrite<span class="op">(</span>green<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb8-19"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a></a><span class="co">// Define each LED pin</span></span>
+<span id="cb8-2"><a></a><span class="at">const</span> <span class="dt">int</span> red    <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb8-3"><a></a><span class="at">const</span> <span class="dt">int</span> yellow <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb8-4"><a></a><span class="at">const</span> <span class="dt">int</span> green  <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb8-5"><a></a></span>
+<span id="cb8-6"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-7"><a></a>  pinMode<span class="op">(</span>red<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-8"><a></a>  pinMode<span class="op">(</span>yellow<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-9"><a></a>  pinMode<span class="op">(</span>green<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-10"><a></a><span class="op">}</span></span>
+<span id="cb8-11"><a></a></span>
+<span id="cb8-12"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-13"><a></a>  digitalWrite<span class="op">(</span>red<span class="op">,</span> HIGH<span class="op">);</span>    delay<span class="op">(</span><span class="dv">5000</span><span class="op">);</span>   <span class="co">// Red ON for 5 s</span></span>
+<span id="cb8-14"><a></a>  digitalWrite<span class="op">(</span>red<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-15"><a></a>  digitalWrite<span class="op">(</span>yellow<span class="op">,</span> HIGH<span class="op">);</span> delay<span class="op">(</span><span class="dv">2000</span><span class="op">);</span>   <span class="co">// Yellow ON for 2 s</span></span>
+<span id="cb8-16"><a></a>  digitalWrite<span class="op">(</span>yellow<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-17"><a></a>  digitalWrite<span class="op">(</span>green<span class="op">,</span> HIGH<span class="op">);</span>  delay<span class="op">(</span><span class="dv">5000</span><span class="op">);</span>   <span class="co">// Green ON for 5 s</span></span>
+<span id="cb8-18"><a></a>  digitalWrite<span class="op">(</span>green<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="extend-it-with-ai" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Extend It with AI</h2>
@@ -1563,30 +1570,30 @@ Loop broken    → Current = 0</code></pre>
 </section>
 <section id="build-2-automatic-light-on-wokwi" class="slide level2" data-background-color="#f7f9fc">
 <h2>Build #2 — Automatic Light on Wokwi</h2>
-<iframe src="https://wokwi.com/projects/427993202117173249/embed" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen="">
+<iframe src="https://wokwi.com/projects/460387279699213313/embed" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen="">
 </iframe>
 <p><em>Click the LDR slider to change light level. Watch the LED respond in real time.</em></p>
 </section>
 <section id="build-2-arduino-code" class="slide level2">
 <h2>Build #2 — Arduino Code</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href=""></a><span class="at">const</span> <span class="dt">int</span> ldrPin <span class="op">=</span> A0<span class="op">;</span></span>
-<span id="cb10-2"><a href=""></a><span class="at">const</span> <span class="dt">int</span> ledPin <span class="op">=</span> <span class="dv">12</span><span class="op">;</span></span>
-<span id="cb10-3"><a href=""></a></span>
-<span id="cb10-4"><a href=""></a><span class="dt">int</span> DARK_THRESHOLD <span class="op">=</span> <span class="dv">600</span><span class="op">;</span>  <span class="co">// 0–1023; tune this in class</span></span>
-<span id="cb10-5"><a href=""></a></span>
-<span id="cb10-6"><a href=""></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-7"><a href=""></a>  pinMode<span class="op">(</span>ledPin<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb10-8"><a href=""></a><span class="op">}</span></span>
-<span id="cb10-9"><a href=""></a></span>
-<span id="cb10-10"><a href=""></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-11"><a href=""></a>  <span class="dt">int</span> brightness <span class="op">=</span> analogRead<span class="op">(</span>ldrPin<span class="op">);</span>      <span class="co">// 0 (bright) → 1023 (dark)</span></span>
-<span id="cb10-12"><a href=""></a>  <span class="cf">if</span> <span class="op">(</span>brightness <span class="op">&gt;</span> DARK_THRESHOLD<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-13"><a href=""></a>    digitalWrite<span class="op">(</span>ledPin<span class="op">,</span> HIGH<span class="op">);</span>             <span class="co">// dark (high value) → LED ON</span></span>
-<span id="cb10-14"><a href=""></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb10-15"><a href=""></a>    digitalWrite<span class="op">(</span>ledPin<span class="op">,</span> LOW<span class="op">);</span>              <span class="co">// bright (low value) → LED OFF</span></span>
-<span id="cb10-16"><a href=""></a>  <span class="op">}</span></span>
-<span id="cb10-17"><a href=""></a>  delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
-<span id="cb10-18"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a></a><span class="at">const</span> <span class="dt">int</span> ldrPin <span class="op">=</span> A0<span class="op">;</span></span>
+<span id="cb10-2"><a></a><span class="at">const</span> <span class="dt">int</span> ledPin <span class="op">=</span> <span class="dv">12</span><span class="op">;</span></span>
+<span id="cb10-3"><a></a></span>
+<span id="cb10-4"><a></a><span class="dt">int</span> DARK_THRESHOLD <span class="op">=</span> <span class="dv">600</span><span class="op">;</span>  <span class="co">// 0–1023; tune this in class</span></span>
+<span id="cb10-5"><a></a></span>
+<span id="cb10-6"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-7"><a></a>  pinMode<span class="op">(</span>ledPin<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb10-8"><a></a><span class="op">}</span></span>
+<span id="cb10-9"><a></a></span>
+<span id="cb10-10"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-11"><a></a>  <span class="dt">int</span> brightness <span class="op">=</span> analogRead<span class="op">(</span>ldrPin<span class="op">);</span>      <span class="co">// 0 (bright) → 1023 (dark)</span></span>
+<span id="cb10-12"><a></a>  <span class="cf">if</span> <span class="op">(</span>brightness <span class="op">&gt;</span> DARK_THRESHOLD<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-13"><a></a>    digitalWrite<span class="op">(</span>ledPin<span class="op">,</span> HIGH<span class="op">);</span>             <span class="co">// dark (high value) → LED ON</span></span>
+<span id="cb10-14"><a></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb10-15"><a></a>    digitalWrite<span class="op">(</span>ledPin<span class="op">,</span> LOW<span class="op">);</span>              <span class="co">// bright (low value) → LED OFF</span></span>
+<span id="cb10-16"><a></a>  <span class="op">}</span></span>
+<span id="cb10-17"><a></a>  delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
+<span id="cb10-18"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="exercise-13-q1-adc-voltage" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 13 — Q1: ADC Voltage</h2>
@@ -1607,10 +1614,10 @@ Loop broken    → Current = 0</code></pre>
 <p><em>(apply)</em> Add a <strong>second green LED</strong> on Pin 11 that turns ON when the room is bright. Write the extra two lines of code.</p>
 <div class="fragment">
 <p><strong>Answer:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb11-1"><a href=""></a>pinMode<span class="op">(</span><span class="dv">11</span><span class="op">,</span> OUTPUT<span class="op">);</span>        <span class="co">// add in setup()</span></span>
-<span id="cb11-2"><a href=""></a></span>
-<span id="cb11-3"><a href=""></a><span class="co">// inside loop(), add:</span></span>
-<span id="cb11-4"><a href=""></a>digitalWrite<span class="op">(</span><span class="dv">11</span><span class="op">,</span> brightness <span class="op">&gt;</span> DARK_THRESHOLD <span class="op">?</span> LOW <span class="op">:</span> HIGH<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb11-1"><a></a>pinMode<span class="op">(</span><span class="dv">11</span><span class="op">,</span> OUTPUT<span class="op">);</span>        <span class="co">// add in setup()</span></span>
+<span id="cb11-2"><a></a></span>
+<span id="cb11-3"><a></a><span class="co">// inside loop(), add:</span></span>
+<span id="cb11-4"><a></a>digitalWrite<span class="op">(</span><span class="dv">11</span><span class="op">,</span> brightness <span class="op">&gt;</span> DARK_THRESHOLD <span class="op">?</span> LOW <span class="op">:</span> HIGH<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When bright, <code>brightness &gt; DARK_THRESHOLD</code> is false → <code>LOW</code> is replaced by <code>HIGH</code>.</p>
 </div>
 </section>
@@ -1619,12 +1626,11 @@ Loop broken    → Current = 0</code></pre>
 <p><em>(design)</em> The sensor reading can bounce slightly (noise). How could you use multiple readings or <code>delay()</code> to make the response more stable?</p>
 <div class="fragment">
 <p><strong>Answer:</strong> Average several readings before deciding:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb12-1"><a href=""></a><span class="dt">long</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb12-2"><a href=""></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++)</span> sum <span class="op">+=</span> analogRead<span class="op">(</span>A0<span class="op">);</span></span>
-<span id="cb12-3"><a href=""></a><span class="dt">int</span> brightness <span class="op">=</span> sum <span class="op">/</span> <span class="dv">5</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb12-1"><a></a><span class="dt">long</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb12-2"><a></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++)</span> sum <span class="op">+=</span> analogRead<span class="op">(</span>A0<span class="op">);</span></span>
+<span id="cb12-3"><a></a><span class="dt">int</span> brightness <span class="op">=</span> sum <span class="op">/</span> <span class="dv">5</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Or only switch the LED if the condition holds for several consecutive loops — prevents flickering from brief spikes.</p>
 </div>
-<p>witch the LED if the condition holds for two consecutive loops — prevents flickering from brief spikes. :::</p>
 </section></section>
 <section>
 <section id="part-10-bringing-it-all-back" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -1764,6 +1770,7 @@ Loop broken    → Current = 0</code></pre>
 <p>🙋</p>
 </div>
 
+
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
@@ -1774,19 +1781,19 @@ Loop broken    → Current = 0</code></pre>
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="session1_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="session1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="session1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="session1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="session1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="session1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="session1_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="session1_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="session1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="session1_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

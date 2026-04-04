@@ -21,27 +21,27 @@ Your code is compiled — turned into a binary file — containing the 0s and 1s
 
 ::::: {.columns}
 
-:::: {.column width="60%"}
+:::: {.column width="55%"}
 
-**GPIO = General Purpose Input / Output**
+Every pin is a **software-defined switch**.
 
-Every numbered pin on the Arduino is a **software-defined switch**. You decide its job.
+**OUTPUT** — **The Driver** ⚡
 
-### Output — The Driver
-The Arduino *forces* the pin to a specific voltage.
+- **Forces** 5V (HIGH) or 0V (LOW).
+- Drives LEDs, motors, buzzers.
 
-- **HIGH** (5V) or **LOW** (0V)
-- **Role:** Drives LEDs, motors, or buzzers.
+**INPUT** — **The Listener** 👂
 
-### Input — The Listener
-The Arduino *measures* the voltage at the pin.
+- **Measures** voltage signals.
+- Reads buttons, sensors.
 
-- **HIGH** (Signal) or **LOW** (Silence)
-- **Role:** Reads buttons and sensors.
+::: {.callout-note appearance="simple"}
+**GPIO** = General Purpose Input / Output
+:::
 
 ::::
 
-:::: {.column width="40%"}
+:::: {.column width="45%"}
 
 ![](assets/arduino_pins_glow.png){width="100%" style="border-radius: 12px;"}
 
