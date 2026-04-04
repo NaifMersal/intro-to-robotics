@@ -1,0 +1,79 @@
+---
+title: "Intro to Robotics"
+subtitle: "From Water Pipes to Computer Logic"
+description: "Master the fundamentals of electronics, microcontrollers, and logic through interactive simulations and hands-on builds."
+format:
+  html:
+    theme: [cosmo, slides_template/assets/sdaia.scss]
+    css: index_style.css
+    toc: false
+    page-layout: full
+---
+
+::: {.hero-section}
+# Intro to Robotics {.main-title}
+Master the fundamentals of electronics, logic, and physical computing.
+:::
+
+::: {.container}
+
+## 📚 Curriculum Slides
+Explore the core concepts through our interactive slide decks.
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100 .slide-card}
+::: {.card-body}
+### [Session 1: Circuits Basics](slides/session1.qmd)
+From Water Pipes to Computer Logic. Covering voltage, current, resistance, and the bridge to electronics.
+[View Slides →](slides/session1.qmd){.btn .btn-outline-primary .btn-sm}
+:::
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100 .slide-card .muted-card}
+::: {.card-body}
+### Session 2: Sensors & Actuators
+*Coming Soon* — Bridging the physical and digital world with inputs and outputs.
+:::
+:::
+:::
+
+:::
+
+## 🚀 Interactive Simulations
+Visualize complex concepts through real-time web-based simulations.
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100 .sim-card}
+::: {.card-body}
+### [Water Circuit Sim](simulations/water_circuit/index.html)
+Interactive visualization of voltage (pressure), current (flow), and resistance (valves) using a water pipe analogy.
+[Launch Sim →](simulations/water_circuit/index.html){.btn .btn-outline-teal .btn-sm}
+:::
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100 .sim-card}
+::: {.card-body}
+### [Logic Gates & Transistors](slides/session1.qmd#/part-7-variable-resistance-the-transistor)
+Explore how transistors act as electronic valves to create digital logic gates.
+[Explore Logic →](slides/session1.qmd#/part-7-variable-resistance-the-transistor){.btn .btn-outline-teal .btn-sm}
+:::
+:::
+:::
+
+:::
+
+## 🛠️ Circuit Builds (Wokwi)
+Reference designs for the hands-on lab sessions. Import these into [Wokwi](https://wokwi.com) to test your code.
+
+- 🚦 [Traffic Light Controller](wokwi/traffic_light.json)
+- 💡 [Automatic Light Sensor](wokwi/auto_light.json)
+
+:::

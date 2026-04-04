@@ -1,0 +1,57 @@
+# Part 10 — Bringing It All Back {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Master Translation Table {.smaller}
+
+| Concept | Water Analogy | Electronics Reality |
+|---------|--------------|---------------------|
+| Voltage (V) | Pump pressure | Force pushing electrons |
+| Current (I) | Flow rate | Electrons per second (Amperes) |
+| Resistance (R) | Narrow pipe | Opposition to electron flow (Ohms) |
+| Ohm's Law | P ∝ F / R | V = I × R |
+| Open circuit | Cut pipe | No complete path, no current |
+| Short circuit | Removed all pipes | Near-zero resistance, huge current |
+| LED / Bulb | Friction heating pipe | Resistance → heat → light |
+| LED Polarity | One-way check valve | Current only flows one way (+ to −) |
+| Series | Pipes in a single line | Components in a single path (Same Current) |
+| Parallel | Branching pipes | Components side-by-side (Same Voltage) |
+| Motor | Paddle wheel | EM force drives magnets → rotation |
+| Switch | Gate valve | Opens / closes the electron path |
+| Variable resistor | Valve | Adjustable resistance, adjustable current |
+| Transistor | Electron-controlled valve | Small current controls large current |
+| Binary | Open / closed valve | HIGH / LOW voltage states |
+| Python | Instructions to the pump operator | High-level language the interpreter translates |
+
+## Homework {background-color="#1C355E" .sdaia-dark}
+
+**Part A — Calculations**
+
+1. A 9V battery + 270Ω resistor. What current flows?
+2. A circuit draws 50mA from 5V. What is the total resistance?
+3. Dim an LED to 10mA using a 3.3V GPIO pin (LED drops 2V). What resistor do you need?
+4. A motor needs 500mA. Can a Pico GP pin (max 16mA) drive it directly? Use AI to explain the transistor solution.
+
+**Part B — Observation**
+
+Find **3 places** in your home where a reactive system turns on/off based on a sensor. For each: What is the sensor? What is the action? Write 3-line Python pseudo-code for how it might work.
+
+
+# AI Onboarding — Your Lab Partner {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## 4 Ways to Use AI in This Course
+
+In this course, AI is a **senior engineer sitting next to you** — not a replacement for thinking.
+
+1. **Explain** — *"What does `GPIO.setmode(GPIO.BCM)` actually do? Use the water analogy."*
+2. **Debug** — *"I'm getting `RuntimeError: Blue LED not found`. Here is my code and wiring description. What did I miss?"*
+3. **Extend** — *"My traffic light works. How do I make the yellow light pulse slowly like a heartbeat?"*
+4. **Generate** — *"Write the boilerplate to set up 3 output pins on a Raspberry Pi."*
+
+**Setup:** Open Cursor IDE · Log in to your assigned account · First prompt: introduce yourself and ask it to help verify your Ohm's Law calculations.
+
+## Questions? {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+::: {.r-fit-text}
+
+🙋
+
+:::

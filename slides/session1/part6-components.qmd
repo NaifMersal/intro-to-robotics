@@ -1,0 +1,241 @@
+# Part 6 — Components {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Micro Light Bulb Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/micro/lightbulb.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Watch particles squeeze through the jagged filament. As they collide they turn orange/red. At high pressure, the whole area glows.*
+
+## The Light Bulb
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+Inside a bulb: a **filament** — a very thin, very resistive wire (tungsten).
+
+- Electrons squeeze through the narrow filament
+- Constant collisions with tungsten atoms → **friction** → **heat**
+- Filament reaches ~**2,500°C** → glows → **light**
+
+::::
+
+:::: {.column width="45%"}
+
+Narrow pipe → friction → heat → glow
+
+Same physics as the water world.
+
+::: {.callout-important}
+
+## The weakest, most resistive part always heats the most.
+This is why LEDs need resistors. Without one: low resistance + fixed voltage = enormous current → burnout in milliseconds.
+
+:::
+
+::::
+
+:::::
+
+## The LED (Light Emitting Diode)
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+::: {.fragment}
+
+- An LED is a **One-Way Check Valve**.
+- It only allows current to flow in **one direction**.
+- If connected backward, the "valve" shuts tight → **Zero Flow**.
+
+:::
+
+::: {.callout-tip}
+
+## Identification
+- **Long Leg** = Positive (+)
+- **Short Leg** (and flat side of plastic) = Negative (−)
+- Current must flow from **+ to −**.
+
+:::
+
+::::
+
+:::: {.column width="45%"}
+
+![](assets/led_polarity.png){width="100%"}
+
+::::
+
+:::::
+
+
+## Exercise 7 — Q1: Calculate Current (No Resistor) {background-color="#00C9A7" .sdaia-dark}
+
+A student wires an LED directly to **3.3 V** with no resistor. The LED has a resistance of ~**10 Ω** when lit.
+
+*(recall)* Using I = V / R, calculate how much current flows.
+
+::: {.fragment}
+**Answer:** I = 3.3 / 10 = **0.33 A = 330 mA**
+
+*(That is 11× the maximum rated current!)*
+:::
+
+## Exercise 7 — Q2: What Happens to the LED? {background-color="#00C9A7" .sdaia-dark}
+
+Current without a resistor = **330 mA**. The LED is rated for a maximum of **30 mA**.
+
+*(recall)* What happens?
+
+::: {.fragment}
+**Answer:** The LED **burns out instantly** — 330 mA is 11× the maximum. The semiconductor junction overheats in milliseconds and is permanently destroyed.
+:::
+
+## Exercise 7 — Q3: Filament vs LED {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* Why does a tungsten filament survive high temperatures but an LED doesn't?
+
+::: {.fragment}
+**Answer:** Tungsten has the **highest melting point of any metal (~3 422 °C)** and is designed to glow. An LED is a **semiconductor junction** — it converts current to light very efficiently but is destroyed by excess heat. It was never built to survive white-hot temperatures.
+:::
+
+## Exercise 7 — Q4: Design a Safe Circuit {background-color="#00C9A7" .sdaia-dark}
+
+*(design)* Design the safe version: what resistor limits current to **20 mA**?
+*(V = 3.3 V, LED voltage drop = 2 V)*
+
+::: {.fragment}
+**Answer:**
+
+Voltage across resistor = 3.3 − 2.0 = **1.3 V**
+
+R = V / I = 1.3 / 0.02 = **65 Ω**
+
+Nearest standard value: **68 Ω** (or 100 Ω for extra safety — slightly less current, LED lives longer).
+:::
+
+## Micro Motor Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/micro/motor.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Watch electrons (particles) interact with the magnetic armature. North (Red) and South (Blue) poles are pushed and pulled by the moving charge.*
+
+## The Motor
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+- Moving electrons create a **magnetic field**
+- Inside the motor: permanent magnets on the outside, electromagnets (coils) on the inside
+- Current through coils → magnetic field → **interacts with permanent magnets**
+- Opposite poles attract → like poles repel → **rotation**
+- Current flips direction at the right moment → poles flip → constant push-pull → continuous spin
+
+::::
+
+:::: {.column width="45%"}
+
+**Flow → Magnetic Force → Motion**
+
+```
+Electrons moving
+     ↓
+Magnetic field created
+     ↓
+EM force on magnets
+     ↓
+Rotation
+```
+
+::::
+
+:::::
+
+## The Switch
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+A switch is a **gap in the circuit** that can be opened or closed.
+
+- **Closed** (switch on): complete path → current flows
+- **Open** (switch off): broken loop → current = zero
+
+::: {.callout-note}
+
+## Voltage without current
+When a switch is open, **voltage still exists** across the gap.
+That is why you can measure it with a multimeter.
+Current requires a **complete path** — voltage does not.
+
+:::
+
+::::
+
+:::: {.column width="45%"}
+
+```
+Pump running   → Voltage exists
+Loop complete  → Current flows
+Loop broken    → Current = 0
+```
+
+::::
+
+:::::
+
+## Exercise 8 — Q1: Resistive Heating {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* What is the electron-world equivalent?
+
+| Situation | Water world | Electron world |
+|-----------|-------------|----------------|
+| Water flows fast through thin pipe, pipe gets warm | Friction between molecules and pipe wall | **?** |
+
+::: {.fragment}
+**Answer:** Electrons collide with atoms in the resistive wire — kinetic energy converts to heat. This is **resistive (Joule) heating**: the basis of how a resistor or filament gets hot.
+:::
+
+## Exercise 8 — Q2: Open Valve {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* What is the water-world equivalent?
+
+| Situation | Water world | Electron world |
+|-----------|-------------|----------------|
+| Flow is completely stopped | **?** | Switch in open position |
+
+::: {.fragment}
+**Answer:** A **closed gate valve** — the valve is physically shut, breaking the loop so water (current) cannot flow.
+:::
+
+## Exercise 8 — Q3: Paddle Wheel {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* What is the electron-world equivalent?
+
+| Situation | Water world | Electron world |
+|-----------|-------------|----------------|
+| Paddle wheel converts flow to rotation | Water pressure turns the paddle | **?** |
+
+::: {.fragment}
+**Answer:** Current through a coil creates a magnetic field → force on permanent magnets → rotation. This is an **electric motor**.
+:::
+
+## Exercise 8 — Q4: Melting Section {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* What is the water-world equivalent?
+
+| Situation | Water world | Electron world |
+|-----------|-------------|----------------|
+| A section so narrow it melts | **?** | LED with no resistor |
+
+::: {.fragment}
+**Answer:** A pipe section so narrow that friction heats the material until it **melts** — equivalent to a fuse blowing, or an LED junction destroyed by overcurrent.
+:::

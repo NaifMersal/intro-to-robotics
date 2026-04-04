@@ -1,0 +1,70 @@
+# Part 2 — Zooming In {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Micro Pump Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/micro/pump.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Zoom into the pump impeller. Watch individual particles collide and push each other.*
+
+## What the Molecules Are Telling You
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+::: {.fragment}
+
+- Water is not a smooth fluid — it is **discrete molecules** crowding and pushing
+
+:::
+
+::: {.fragment}
+
+- **Pressure** is the density of those collisions piling up behind a blockage
+
+:::
+
+::: {.fragment}
+
+- **Flow** is the net drift direction of all those tiny pushes
+
+:::
+
+::: {.fragment}
+
+- **Resistance** is energy lost to collisions with the pipe wall — the narrower the pipe, the more collisions per metre
+
+:::
+
+::::
+
+:::: {.column width="45%"}
+
+::: {.callout-tip}
+
+## Why this matters for electrons
+Current is not a fluid either. It is a **wave of pushes** through particles already packed into the wire. The pump doesn't create them — it just gives them a direction.
+
+:::
+
+::::
+
+:::::
+
+## Exercise 3 — Q1: Blocked Pipe {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* If you completely block the pipe, the pump is still running. What happens to the pressure just before the block? What happens to the flow *everywhere*?
+
+::: {.fragment}
+**Answer:** Pressure reaches **maximum** just before the block (all pump force with nowhere to go). Flow everywhere = **0** — no complete loop means no movement anywhere in the circuit.
+:::
+
+## Exercise 3 — Q2: Friction and Heat {background-color="#00C9A7" .sdaia-dark}
+
+*(design)* What if the molecules were going so fast through a narrow section that the friction made them heat up? What do you think would happen to the pipe material?
+
+::: {.fragment}
+**Answer:** The pipe wall at the narrow section heats up and could melt or deform — exactly what happens to a wire or LED with too much current. This is how a fuse works: the narrow link melts to break the circuit safely.
+:::

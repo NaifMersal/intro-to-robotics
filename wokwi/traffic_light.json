@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "author": "naif mersal",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-pi-pico",
+      "id": "pico",
+      "top": -3.15,
+      "left": 3.6,
+      "attrs": { "env": "micropython-20241129-v1.24.1" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 159.6,
+      "left": -111.4,
+      "attrs": { "color": "green" }
+    },
+    { "type": "wokwi-led", "id": "led2", "top": -13.2, "left": -121, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-led",
+      "id": "led3",
+      "top": 92.4,
+      "left": -121,
+      "attrs": { "color": "yellow" }
+    },
+    { "type": "wokwi-resistor", "id": "r1", "top": -13.2, "left": -60, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r2", "top": 92.4, "left": -60, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r3", "top": 159.2, "left": -60, "attrs": { "value": "220" } }
+  ],
+  "connections": [
+    [ "pico:GND.2", "led2:C", "black", [ "h0" ] ],
+    [ "led3:C", "pico:GND.2", "black", [ "v0" ] ],
+    [ "pico:GND.3", "led1:C", "black", [ "h-19.2", "v96", "h-86.4", "v9.6" ] ],
+    [ "pico:GP1", "r1:1", "red", [ "v0" ] ],
+    [ "r1:2", "led2:A", "red", [ "v0" ] ],
+    [ "pico:GP2", "r2:1", "red", [ "v0" ] ],
+    [ "r2:2", "led3:A", "red", [ "v0" ] ],
+    [ "pico:GP3", "r3:1", "red", [ "v0" ] ],
+    [ "r3:2", "led1:A", "red", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}

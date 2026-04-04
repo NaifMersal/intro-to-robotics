@@ -1,0 +1,26 @@
+# Part 3 — The Bridge {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Water World ↔ Electron World
+
+| Water World | | Electronics |
+|---|:---:|---|
+| Water molecules | → | **Electrons** |
+| Pump | → | **Battery / power supply** |
+| Pressure | → | **Voltage** (V) |
+| Flow rate | → | **Current** (A) |
+| Narrow pipe | → | **Resistance** (Ω) |
+
+::: {.callout-tip}
+
+## Same physics. Different scale. Different particles.
+The battery doesn't *create* electrons — they're already there. It just creates *pressure*.
+
+:::
+
+## See the Translation Live {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/index.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Use the Voltage and Resistance sliders. Watch Current change — exactly as in the water world.*

@@ -1,0 +1,161 @@
+# Part 8 — 0s, 1s, and MicroPython {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Ladder of Abstraction
+
+From transistors to Python — five rungs:
+
+1. **Voltage** — above ~2V = HIGH (1), below ~0.8V = LOW (0)
+2. **Binary** — 1 bit = on/off · 8 bits = 1 byte = 256 values
+3. **Machine Code** — patterns of 0s and 1s the processor reads directly
+4. **Assembly / C** — human-readable commands, *compiled* to machine code
+5. **Python** — one line = hundreds of machine instructions, *interpreted* in real time
+
+::: {.callout-tip}
+
+## Python is not what the computer runs
+Python is translated — layer by layer — into the 0s and 1s that transistors actually process.
+
+:::
+
+## Meet the Pico's Pins
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+
+**GPIO = General Purpose Input / Output**
+
+Every numbered pin on the Pico is a **software-defined switch**. You decide its job.
+
+### Output — The Driver
+The Pico *forces* the pin to a specific voltage.
+
+- **HIGH** (3.3V) or **LOW** (0V)
+- **Role:** Drives LEDs, motors, or buzzers.
+
+### Input — The Listener
+The Pico *measures* the voltage at the pin.
+
+- **HIGH** (Signal) or **LOW** (Silence)
+- **Role:** Reads buttons and sensors.
+
+::::
+
+:::: {.column width="40%"}
+
+![](assets/pico_pins_glow.png){width="100%" style="border-radius: 12px;"}
+
+::::
+
+:::::
+
+## Programming the Pins
+
+::: {.callout-important}
+## Direction is Mandatory
+A pin defaults to **Input** for safety. If you forget `Pin.OUT`, your LED will never light because the pin is "listening," not "pushing."
+:::
+
+| Code Pattern | Physical Effect |
+|--------------|-----------------|
+| `Pin(17, Pin.OUT)` | GP17 configured to **drive** voltage |
+| `Pin(15, Pin.IN)` | GP15 configured to **listen** for voltage |
+| `.value(1)` | Switch GP17 **ON** (3.3 V) |
+| `.value(0)` | Switch GP17 **OFF** (0 V) |
+| `ADC(26)` | Read **fractional** voltage (Analog) |
+
+## Machines Need Everything Defined
+
+The machine has no common sense. You define everything:
+
+```python
+from machine import Pin
+
+led = Pin(17, Pin.OUT)  # "GP17 is an output — give it a name"
+led.value(1)            # "set GP17 HIGH (3.3V)"
+```
+
+- Forget `Pin.OUT`? The pin defaults to input — your LED won't light.
+
+> **Precision is the machine's strength. Common sense is yours.**
+
+## Exercise 11 — Q1: How Many Pins? {background-color="#00C9A7" .sdaia-dark}
+
+Read this script line by line, top to bottom:
+
+```python
+from machine import Pin
+import time
+
+led_a = Pin(17, Pin.OUT)   # GP17 is an output
+led_b = Pin(18, Pin.OUT)   # GP18 is an output
+
+led_a.value(1); time.sleep(1)
+led_a.value(0)
+led_b.value(1); time.sleep(0.5)
+led_b.value(0)
+```
+
+*(recall)* How many GP pins does this script use?
+
+::: {.fragment}
+**Answer:** **2** — GP17 (`led_a`) and GP18 (`led_b`).
+:::
+
+## Exercise 11 — Q2: Input or Output? {background-color="#00C9A7" .sdaia-dark}
+
+```python
+led_a = Pin(17, Pin.OUT)
+led_b = Pin(18, Pin.OUT)
+```
+
+*(recall)* Are the pins inputs or outputs?
+
+::: {.fragment}
+**Answer:** Both are **outputs** (`Pin.OUT`). The Pico drives these pins HIGH or LOW.
+:::
+
+## Exercise 11 — Q3: Describe the Script {background-color="#00C9A7" .sdaia-dark}
+
+```python
+led_a.value(1); time.sleep(1)
+led_a.value(0)
+led_b.value(1); time.sleep(0.5)
+led_b.value(0)
+```
+
+*(apply)* Describe in plain language what this script does, step by step.
+
+::: {.fragment}
+**Answer:** GP17 turns **ON** → waits 1 second → turns **OFF**. Then GP18 turns **ON** → waits 0.5 seconds → turns **OFF**. The script ends.
+:::
+
+## Exercise 11 — Q4: Pin.OUT vs Pin.IN {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* What is the difference between `Pin.OUT` and `Pin.IN`? What would happen if you forgot `Pin.OUT`?
+
+::: {.fragment}
+**Answer:**
+
+- **`Pin.OUT`** — the Pico *drives* the pin to 3.3 V or 0 V
+- **`Pin.IN`** — the Pico *reads* the voltage on the pin; it drives nothing
+
+Forgetting `Pin.OUT` → pin defaults to input mode → outputs no voltage → LED stays off.
+:::
+
+## Exercise 11 — Q5: Blink 3 Times {background-color="#00C9A7" .sdaia-dark}
+
+*(design)* **Modify it:** How would you make GP17's LED blink **3 times** before GP18 turns on?
+
+::: {.fragment}
+**Answer:**
+
+```python
+for _ in range(3):
+    led_a.value(1); time.sleep(0.5)
+    led_a.value(0); time.sleep(0.5)
+
+led_b.value(1); time.sleep(0.5)
+led_b.value(0)
+```
+:::

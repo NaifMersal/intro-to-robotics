@@ -1,0 +1,157 @@
+# Part 1 — The Water World {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Macro Circuit Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/index.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Toggle the pump. Watch the Pressure (Voltage) and Flow (Current) gauges.*
+
+## The Closed Loop
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+
+<br>
+
+::: {.fragment}
+
+- **The pump** creates **pressure** — it pushes the water
+
+:::
+
+::: {.fragment}
+
+- **The water moving** is the **flow**
+
+:::
+
+::: {.fragment}
+
+- **The narrow part of the pipe** is **resistance** — it fights the flow
+
+:::
+
+::: {.callout-note .fragment}
+
+## These three are always connected.
+You cannot change one without affecting the others.
+
+:::
+
+::::
+
+:::: {.column width="40%"}
+
+::: {.fragment}
+
+![](assets/water_circuit_concept.png){width="100%"}
+
+:::
+
+::: {.fragment}
+
+- ↑ Pressure → ↑ Flow
+- ↑ Resistance → ↓ Flow
+
+:::
+
+::::
+
+:::::
+
+## Series vs. Parallel Pipes
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+::: {.fragment}
+
+- **Series**: Pipes connected in a **single line**.
+  - All water must pass through *every* pipe.
+  - **Same Flow** throughout the line.
+  - Pressure is shared between them.
+
+:::
+
+::: {.fragment}
+
+- **Parallel**: Pipes connected in a **branch**.
+  - Water chooses a path.
+  - **Flow splits** between branches.
+  - **Same Pressure** at the start of each path.
+
+:::
+
+::::
+
+:::: {.column width="45%"}
+
+![](assets/series_parallel.png){width="100%"}
+
+::::
+
+:::::
+
+
+## Exercise 1 — Q1: Narrow Pipe {background-color="#00C9A7" .sdaia-dark}
+
+*(recall)* If I make the pipe narrower at one point, what happens to the water flow?
+
+::: {.fragment}
+**Answer:** Flow decreases — the narrowing increases resistance, so less water passes through for the same pump pressure.
+:::
+
+## Exercise 1 — Q2: Second Pump {background-color="#00C9A7" .sdaia-dark}
+
+*(recall)* If I add a second pump, what happens?
+
+::: {.fragment}
+**Answer:** It depends on how you connect them:
+
+- **In Series** (one after the other): **Pressure increases** → flow increases. (Like batteries in a flashlight).
+- **In Parallel** (side-by-side): **Pressure stays the same**, but you have more **total flow capacity**. (The pumps share the work).
+:::
+
+## Exercise 1 — Q3: Cut Pipe {background-color="#00C9A7" .sdaia-dark}
+
+*(recall)* If I cut the pipe somewhere, what happens?
+
+::: {.fragment}
+**Answer:** Flow stops completely — the loop is broken and water has nowhere to go.
+:::
+
+## Exercise 1 — Q4: Stronger Pump {background-color="#00C9A7" .sdaia-dark}
+
+*(recall)* If the pump gets stronger, what happens?
+
+::: {.fragment}
+**Answer:** More pressure → more flow. With the same resistance, higher pressure drives more water through the pipe.
+:::
+
+## Exercise 2 — Q1: Compensate for Narrowing {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* You narrow the pipe *a lot*. What must the pump do to keep the same flow rate?
+
+::: {.fragment}
+**Answer:** The pump must increase its pressure proportionally — to maintain the same flow against higher resistance, you need more force (higher voltage in the electron world).
+:::
+
+## Exercise 2 — Q2: All Valves Open {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* Someone opens ALL the valves at once. What happens to the flow at each valve?
+
+::: {.fragment}
+**Answer:** The total flow increases but splits between all open paths. Each valve gets less flow than it would alone — parallel paths share the total.
+:::
+
+## Exercise 2 — Q3: Pressure Before a Narrowing {background-color="#00C9A7" .sdaia-dark}
+
+*(design)* What happens to the pressure just *before* a sudden narrowing in the pipe?
+
+::: {.fragment}
+**Answer:** Pressure backs up just before the narrowing — molecules pile up waiting to squeeze through. Analogous to the high voltage level that exists on the upstream side of a resistor before it drops across it.
+:::

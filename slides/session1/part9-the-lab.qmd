@@ -1,0 +1,312 @@
+# Part 9 — The Lab {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Meet the Breadboard
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+
+A breadboard lets you build circuits **without soldering** — perfect for experimenting safely.
+
+::: {.fragment}
+- **Terminal rows** (short rows, A–E / F–J) — each row of 5 holes is **one wire**
+:::
+
+::: {.fragment}
+- **Centre divider** — separates left and right; designed to straddle chips
+:::
+
+::::
+
+:::: {.column width="40%"}
+
+![](assets/breadboard_diagram.png){width="100%"}
+
+::: {.callout-note}
+## The golden rule
+Same row = same wire. Different row = different wire.
+:::
+
+::::
+
+:::::
+
+## Powering the Board: The Rails
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+- **Power rails** (long side columns, + and −) — connect to **3.3V** and **GND**
+- Usually marked with red (+) and blue (−) lines.
+- Power flows the entire length of the rail.
+
+::: {.callout-note .fragment}
+## What is GND?
+**GND (Ground)** = the − terminal = **0 V reference point**.
+All voltages are measured *relative to GND* — it is the drain at the bottom of the water tank.
+Every circuit needs a complete loop: current must be able to flow **from + to GND**.
+:::
+
+::::
+
+:::: {.column width="45%"}
+
+![](assets/breadboard_diagram.png){width="100%"}
+
+::: {.callout-tip}
+## Pro tip
+Connect one rail to **3.3V** and the other to **GND** first — then you can pull power from anywhere on the board.
+:::
+
+::::
+
+:::::
+
+## Build #1 — Calculate Before You Wire
+
+Before connecting anything, calculate the **safe resistor** for each LED.
+
+::: {.fragment}
+
+| | Value |
+|---|---|
+| Pico supply voltage | **3.3 V** |
+| LED forward voltage | **2.0 V** |
+| Voltage across resistor | **3.3 − 2.0 = 1.3 V** |
+| Target current | **10 mA = 0.01 A** |
+| **Resistor needed** | **R = 1.3 / 0.01 = 130 Ω** |
+
+:::
+
+::: {.fragment}
+
+::: {.callout-tip}
+
+## Closest standard value: **150 Ω** ✓
+Slightly higher = slightly less current = LED lives longer. Never go lower.
+
+:::
+
+:::
+
+## Build #1 — Traffic Light on Wokwi {background-color="#f7f9fc"}
+
+<iframe src="https://wokwi.com/projects/460324970731475969/embed"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"
+        allowfullscreen></iframe>
+
+*Build this circuit in Wokwi. Run it. Does the sequence match your code?*
+
+## Build #1 — MicroPython Code
+
+```python
+from machine import Pin
+import time
+
+# Define each LED
+red    = Pin(1, Pin.OUT)   # GP1 = Red
+yellow = Pin(2, Pin.OUT)   # GP2 = Yellow
+green  = Pin(3, Pin.OUT)   # GP3 = Green
+
+while True:
+    red.value(1);    time.sleep(5)   # Red ON for 5 s
+    red.value(0)
+    yellow.value(1); time.sleep(2)   # Yellow ON for 2 s
+    yellow.value(0)
+    green.value(1);  time.sleep(5)   # Green ON for 5 s
+    green.value(0)
+```
+
+
+## Extend It with AI {background-color="#00C9A7" .sdaia-dark}
+
+Your traffic light works. Now **ask AI to extend it.**
+
+> *"I have a MicroPython script cycling Red → Yellow → Green on a Raspberry Pi Pico.*
+> *I want to add a button on GP15 that, when held, keeps the green light on for 10 s instead of 5 s.*
+> *Show me the updated code and explain what changed."*
+
+
+
+## Build #2 — The Voltage Divider
+
+How does a **light sensor** become a number the Pico can read?
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+::: {.fragment}
+
+```
+3.3V ── 10 kΩ ──●── LDR ── GND
+                ↑
+           ADC reads here
+              (GP26)
+```
+
+:::
+
+::: {.fragment}
+
+- LDR resistance **drops** in bright light
+- Fixed 10 kΩ stays **constant**
+- Midpoint voltage **rises** as LDR gets smaller
+
+:::
+
+::::
+
+:::: {.column width="45%"}
+
+::: {.callout-tip}
+
+## Water analogy
+Two resistors in series = two narrow pipes.
+The pressure tap *between* them reads a fraction of total — depending on which section is narrower.
+
+:::
+
+::: {.fragment}
+
+| Light level | LDR R | Midpoint V |
+|---|---|---|
+| Bright | ~1 kΩ | ~0.3 V |
+| Dark | ~100 kΩ | ~3.0 V |
+
+:::
+
+::::
+
+:::::
+
+## The ADC — Bridging Analog and Digital
+
+The Pico thinks in **digital** (0s and 1s). The LDR gives us **analog** (a continuous voltage).
+The **ADC (Analog-to-Digital Converter)** is the translator.
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+::: {.fragment}
+
+- The ADC samples the **midpoint voltage** thousands of times per second
+- It maps that voltage to a **16-bit number**: 0 → 65535
+
+:::
+
+::: {.fragment}
+
+| Voltage | `read_u16()` value |
+|---------|----------------------|
+| 0 V (max bright) | 0 |
+| 1.65 V (half) | ~32768 |
+| 3.3 V (max dark) | 65535 |
+
+:::
+
+::::
+
+:::: {.column width="45%"}
+
+::: {.callout-tip .fragment}
+
+## Why 65535?
+16 bits can hold 2¹⁶ = **65,536** values (0 to 65535).
+More bits = finer resolution = subtler light changes are detectable.
+
+:::
+
+::: {.callout-note .fragment}
+
+## In code
+`ldr = ADC(26)` — tell the Pico that GP26 is an analog input.
+`ldr.read_u16()` — take one sample and return the number.
+
+:::
+
+::::
+
+:::::
+
+## Build #2 — Automatic Light on Wokwi {background-color="#f7f9fc"}
+
+<iframe src="https://wokwi.com/projects/460329358708727809/embed"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"
+        allowfullscreen></iframe>
+
+*Click the LDR slider to change light level. Watch the LED respond in real time.*
+
+## Build #2 — MicroPython Code
+
+```python
+from machine import Pin, ADC
+import time
+
+ldr = ADC(26)           # GP26 = ADC0
+led = Pin(15, Pin.OUT)  # output LED on GP15
+
+DARK_THRESHOLD = 40000  # 0–65535; tune this in class
+
+while True:
+    brightness = ldr.read_u16()      # 0 (bright) → 65535 (dark)
+    if brightness > DARK_THRESHOLD:
+        led.value(1)                 # dark (high value) → LED ON
+    else:
+        led.value(0)                 # bright (low value) → LED OFF
+    time.sleep(0.1)
+```
+
+
+## Exercise 13 — Q1: ADC Voltage {background-color="#00C9A7" .sdaia-dark}
+
+*(recall)* What voltage does `read_u16() = 32768` represent?
+*(Hint: it is half the full 3.3 V range)*
+
+::: {.fragment}
+**Answer:** 32768 is half of 65535 ≈ half-scale → **1.65 V** (half of 3.3 V).
+:::
+
+## Exercise 13 — Q2: Change the Threshold {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* `DARK_THRESHOLD` is changed to **40000**. Does the LED now switch on in dimmer or brighter conditions? Why?
+
+::: {.fragment}
+**Answer:** **Dimmer** — the sensor must return a *higher* value (40000) before the LED switches on. Higher ADC values mean less light, so the room must be darker than before to trigger the LED.
+:::
+
+## Exercise 13 — Q3: Add a Second LED {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* Add a **second green LED** on GP16 that turns ON when the room is bright. Write the extra two lines of code.
+
+::: {.fragment}
+**Answer:**
+
+```python
+green_led = Pin(16, Pin.OUT)        # add after existing pin setup
+
+# inside the while loop, add:
+green_led.value(0 if brightness > DARK_THRESHOLD else 1)
+```
+
+When bright, `brightness > DARK_THRESHOLD` is False → `green_led.value(1)`.
+:::
+
+## Exercise 13 — Q4: Stabilising Noisy Readings {background-color="#00C9A7" .sdaia-dark}
+
+*(design)* The sensor reading can bounce slightly (noise). How could you use multiple readings or `time.sleep()` to make the response more stable?
+
+::: {.fragment}
+**Answer:** Average several readings before deciding:
+
+```python
+readings = [ldr.read_u16() for _ in range(5)]
+brightness = sum(readings) // 5
+```
+
+Or only switch the LED if the condition holds for two consecutive loops — prevents flickering from brief spikes.
+:::

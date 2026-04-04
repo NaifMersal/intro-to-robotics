@@ -1,0 +1,67 @@
+# Part 4 — But They Don't Touch {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Electromagnetic Repulsion Simulation {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/micro/repulsion.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Watch electrons repel each other before ever touching. Connect the battery — see the drift begin.*
+
+## Conductors vs Insulators
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+**Conductors (e.g. copper)**
+
+- Outer electrons are loosely bound
+- They roam freely through the material
+- Apply voltage → they drift together → **current flows**
+
+::: {.callout-note}
+
+## Why metals conduct
+Metallic bonds leave outer electrons free to drift.
+That freedom is exactly what makes a wire a wire.
+
+:::
+
+::::
+
+:::: {.column width="50%"}
+
+**Insulators (e.g. rubber, glass)**
+
+- Electrons are locked tightly to their atoms
+- No free electrons → no drift → **no current**
+
+::: {.callout-warning}
+
+## High enough voltage breaks insulators
+Rip the electrons free and even air conducts.
+That is lightning.
+
+:::
+
+::::
+
+:::::
+
+## Exercise 5 — Q1: Where is the Friction? {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* If electrons push each other without touching, why does a wire *feel* like it has resistance? Where is the "friction" really coming from?
+
+::: {.fragment}
+**Answer:** Electrons collide with the metal's lattice of positive ions (atoms). Each collision transfers kinetic energy to the lattice as heat — that *is* resistance. The friction is not between electrons; it is between electrons and the stationary atomic structure.
+:::
+
+## Exercise 5 — Q2: Breaking an Insulator {background-color="#00C9A7" .sdaia-dark}
+
+*(design)* An insulator has its electrons locked tight. What would happen if you applied an extremely high voltage — high enough to rip those electrons free?
+*(Think: lightning through air.)*
+
+::: {.fragment}
+**Answer:** The insulator breaks down — electrons are violently stripped from their atoms and a sudden rush of current flows. Air does exactly this during lightning: enormous voltage rips electrons free and the air briefly becomes a conductor.
+:::

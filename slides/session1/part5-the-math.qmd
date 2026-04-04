@@ -1,0 +1,63 @@
+# Part 5 — The Math {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Ohm's Law {.sdaia-dark background-color="#1C355E"}
+
+::: {.r-fit-text}
+
+**V = I × R**
+
+:::
+
+## Three Forms of the Same Truth
+
+You only need one formula — rearrange for what you don't know:
+
+| Find | Formula | Units |
+|------|---------|-------|
+| **Voltage** | V = I × R | Volts (V) |
+| **Current** | I = V / R | Amperes (A) |
+| **Resistance** | R = V / I | Ohms (Ω) |
+
+> If pressure goes up and resistance stays the same, flow increases.
+> Same physics. Same formula.
+
+## Ohm's Law Sandbox {background-color="#f7f9fc"}
+
+<iframe src="../simulations/water_circuit/index.html"
+        width="100%" height="520px"
+        style="border:none; border-radius:12px;"></iframe>
+
+*Calculate a target Current first. Then adjust the Voltage and Resistance sliders — does the gauge match your math?*
+
+## Exercise 6 — Q1: Calculate Current {background-color="#00C9A7" .sdaia-dark}
+
+*(recall)* A battery provides **5 V**. A resistor of **100 Ω** is connected. How much current flows?
+
+Show your calculation.
+
+::: {.fragment}
+**Answer:** I = V / R = 5 / 100 = **0.05 A (50 mA)**
+:::
+
+## Exercise 6 — Q2: Calculate Resistance {background-color="#00C9A7" .sdaia-dark}
+
+*(apply)* A circuit has **12 V** and the current is **0.1 A**. What is the resistance?
+
+Show your calculation.
+
+::: {.fragment}
+**Answer:** R = V / I = 12 / 0.1 = **120 Ω**
+:::
+
+## Exercise 6 — Q3: Halve or Double Resistance {background-color="#00C9A7" .sdaia-dark}
+
+*(design)* **Challenge:** If you *halve* the resistance in a circuit with fixed voltage, what happens to the current? If you *double* the resistance — what happens?
+
+::: {.fragment}
+**Answer:** Since I = V / R and V is fixed:
+
+- **Halve R** → current **doubles**
+- **Double R** → current **halves**
+
+Current and resistance are inversely proportional.
+:::
