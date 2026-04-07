@@ -1,4 +1,4 @@
-# Part 8 — 0s, 1s, and Arduino {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 9 — 0s, 1s, and Arduino {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## The Ladder of Abstraction
 
@@ -81,6 +81,20 @@ void loop() {
 - Forget `pinMode`? The pin defaults to input — your LED won't light.
 
 > **Precision is the machine's strength. Common sense is yours.**
+
+## Common Code Mistakes {.sdaia-dark background-color="#1C355E"}
+
+C++ is very picky. Watch out for these:
+
+1. **The Missing Semicolon (`;`)** — Every instruction must end with one. It's like a period at the end of a sentence.
+2. **Case Sensitivity** — `digitalWrite` is correct. `digitalwrite` or `DigitalWrite` will cause an error.
+3. **The Curly Braces (`{ }`)** — They group code together. Every `{` needs a matching `}`.
+4. **Incorrect Pin Numbers** — Make sure the number in your code matches the physical hole on the Arduino.
+
+::: {.callout-tip}
+## Error messages are your friends
+If your code won't upload, read the red text at the bottom. It usually tells you exactly which line has the "expected ';'" or "was not declared in this scope."
+:::
 
 ## Exercise 11 — Q1: How Many Pins? {background-color="#00C9A7" .sdaia-dark}
 

@@ -4,7 +4,7 @@
     "href": "slides/session1.html#agenda",
     "title": "Session 1: Circuits Basics",
     "section": "Agenda",
-    "text": "Agenda\n\nPart 1 — The Water World\nPart 2 — Zooming In\nPart 3 — The Bridge (Water ↔︎ Electrons)\nPart 4 — But They Don’t Touch\nPart 5 — Ohm’s Law: V = I × R\nPart 6 — Components: Bulb, Motor, Switch\nPart 7 — Variable Resistance & The Transistor\nPart 8 — 0s, 1s, and Arduino\nPart 9 — The Lab: Traffic Light & Automatic Light\nPart 10 — Summary, Homework & AI Onboarding"
+    "text": "Agenda\n\nPart 1 — The Water World\nPart 2 — Zooming In\nPart 3 — The Bridge (Water ↔︎ Electrons)\nPart 4 — But They Don’t Touch\nPart 5 — Ohm’s Law: V = I × R\nPart 6 — Components: Bulb, Motor, Switch\nPart 7 — Variable Resistance & The Transistor\nPart 8 — Designing Circuits: From Goal to Schematic\nPart 9 — 0s, 1s, and Arduino\nPart 10 — The Lab: Traffic Light & Automatic Light\nPart 11 — Summary, Homework & AI Onboarding"
   },
   {
     "objectID": "slides/session1.html#macro-circuit-simulation",
@@ -368,7 +368,7 @@
     "href": "slides/session1.html#two-worlds-analog-vs.-digital",
     "title": "Session 1: Circuits Basics",
     "section": "Two Worlds: Analog vs. Digital",
-    "text": "Two Worlds: Analog vs. Digital\n\n\nAnalog — Infinite Steps\n\n\nA dimmer switch: any brightness, 0% to 100%\nA thermometer: any temperature in a continuous range\nAn LDR sensor: resistance anywhere from 1 kΩ to 100 kΩ\n\n\n\n\n\n\n\n\n\nAnalog = continuous\n\n\nThere are infinite possible values between any two points.\n\n\n\n\n\nDigital — Two States Only\n\n\nA light switch: ON or OFF\nA transistor: fully ON or fully OFF\nA GPIO pin: HIGH (3.3 V) or LOW (0 V)\n\n\n\n\n\n\n\n\n\nDigital = discrete\n\n\nOnly two possible states. No in-between.\n\n\n\n\n\n\n\nThe bridge: A transistor collapses an analog input voltage into a digital decision — above a threshold → 1, below it → 0. A billion of these decisions per second = a CPU."
+    "text": "Two Worlds: Analog vs. Digital\n\n\nAnalog — Infinite Steps\n\n\nDimmer switch: 0% to 100% brightness\nThermometer: any value in a continuous range\nLDR sensor: variable (1 kΩ to 100 kΩ)\n\n\n\nDigital — Two States Only\n\n\nA light switch: ON or OFF\nA transistor: fully ON or fully OFF\nA GPIO pin: HIGH (3.3 V) or LOW (0 V)\n\n\n\n\n\n\n\n\n\nAnalog = continuous\nInfinite possible values between any two points.\n\n\n\n\n\n\n\n\n\nDigital = discrete\nOnly two possible states. No in-between.\n\n\n\n\n\n\n\nThe bridge: A transistor collapses an analog input voltage into a digital decision — above a threshold → 1, below it → 0. A billion of these decisions per second = a CPU."
   },
   {
     "objectID": "slides/session1.html#the-ladder-of-abstraction",
@@ -438,28 +438,28 @@
     "href": "slides/session1.html#meet-the-breadboard",
     "title": "Session 1: Circuits Basics",
     "section": "Meet the Breadboard",
-    "text": "Meet the Breadboard\n\n\nA breadboard lets you build circuits without soldering — perfect for experimenting safely.\n\n\nTerminal rows (short rows, A–E / F–J) — each row of 5 holes is one wire\n\n\n\n\nCentre divider — separates left and right; designed to straddle chips\n\n\n\n\n\n\n\n\n\n\nThe golden rule\n\n\nSame row = same wire. Different row = different wire."
+    "text": "Meet the Breadboard\n\n\nA breadboard lets you build circuits without soldering.\nThink of it as a temporary LEGO board for electrons.\n\n\nTerminal rows (A–E / F–J) — each row of 5 holes is one solid wire.\n\n\n\n\nPower rails (+ and −) — run vertically the full length of the board.\n\n\n\n\nCentre divider — a gap that separates the two halves; designed to straddle chips.\n\n\n\n\n\n\n\n\n\n\nThe 1-Second Rule\n\n\nSame row = Connected. Different row = Separated."
   },
   {
     "objectID": "slides/session1.html#powering-the-board-the-rails",
     "href": "slides/session1.html#powering-the-board-the-rails",
     "title": "Session 1: Circuits Basics",
     "section": "Powering the Board: The Rails",
-    "text": "Powering the Board: The Rails\n\n\n\nPower rails (long side columns, + and −) — connect to 3.3V and GND\nUsually marked with red (+) and blue (−) lines.\nPower flows the entire length of the rail.\n\n\n\n\n\n\n\n\nWhat is GND?\n\n\nGND (Ground) = the − terminal = 0 V reference point. All voltages are measured relative to GND — it is the drain at the bottom of the water tank. Every circuit needs a complete loop: current must be able to flow from + to GND.\n\n\n\n\n\n\n\n\n\n\n\n\nPro tip\n\n\nConnect one rail to 5V and the other to GND first — then you can pull power from anywhere on the board."
+    "text": "Powering the Board: The Rails\n\n\nTo give your circuit life, you need Pressure (V) and a Drain (GND).\n\nRed Rail (+): Connect to 5V or 3.3V.\nBlue Rail (−): Connect to GND (The Ground).\n\n\n\n\n\n\n\nRelative Ground\n\n\nAll voltages are measured relative to GND (0V). Think of it as the water level in the drain — everything flows toward it.\n\n\n\n\n\n\n\n\n\n\n\nPro tip\n\n\nWire the Rails first! Then you can pull power for your components from anywhere on the long side strips."
   },
   {
     "objectID": "slides/session1.html#build-1-calculate-before-you-wire",
     "href": "slides/session1.html#build-1-calculate-before-you-wire",
     "title": "Session 1: Circuits Basics",
     "section": "Build #1 — Calculate Before You Wire",
-    "text": "Build #1 — Calculate Before You Wire\nBefore connecting anything, calculate the safe resistor for each LED.\n\n\n\n\n\nValue\n\n\n\n\nArduino supply voltage\n5.0 V\n\n\nLED forward voltage\n2.0 V\n\n\nVoltage across resistor\n5.0 − 2.0 = 3.0 V\n\n\nTarget current\n10 mA = 0.01 A\n\n\nResistor needed\nR = 3.0 / 0.01 = 300 Ω\n\n\n\n\n\n\n\n\n\n\n\nClosest standard value: 330 Ω ✓\n\n\nSlightly higher = slightly less current = LED lives longer. Never go lower."
+    "text": "Build #1 — Calculate Before You Wire\nBefore connecting anything, calculate the safe resistor for each LED.\n\n\n\n\nComponent\nAnalogy\nValue\n\n\n\n\nArduino Supply\nTotal Pressure\n5.0 V\n\n\nLED Drop\nTurbine “Tax”\n2.0 V\n\n\nResistor Drop\n“Wasted” Pressure\n5.0 − 2.0 = 3.0 V\n\n\nTarget Speed\nTarget Current\n10 mA = 0.01 A\n\n\nResistor Width\nR = 3.0 / 0.01\n300 Ω\n\n\n\n\n\n\n\n\n\n\n\nClosest standard value: 330 Ω ✓\n\n\nSlightly higher = slightly less current = LED lives longer. Never go lower."
   },
   {
     "objectID": "slides/session1.html#build-1-traffic-light-on-wokwi",
     "href": "slides/session1.html#build-1-traffic-light-on-wokwi",
     "title": "Session 1: Circuits Basics",
     "section": "Build #1 — Traffic Light on Wokwi",
-    "text": "Build #1 — Traffic Light on Wokwi\n&lt;iframe src=“https://wokwi.com/projects/460363431768902657 width=”100%” height=“520px” style=“border:none; border-radius:12px;” allowfullscreen&gt;\nBuild this circuit in Wokwi. Run it. Does the sequence match your code?"
+    "text": "Build #1 — Traffic Light on Wokwi\n\n\nBuild this circuit in Wokwi. Run it. Does the sequence match your code?"
   },
   {
     "objectID": "slides/session1.html#build-1-arduino-code",
@@ -536,21 +536,21 @@
     "href": "slides/session1.html#the-master-translation-table",
     "title": "Session 1: Circuits Basics",
     "section": "The Master Translation Table",
-    "text": "The Master Translation Table\n\n\n\n\n\n\n\n\nConcept\nWater Analogy\nElectronics Reality\n\n\n\n\nVoltage (V)\nPump pressure\nForce pushing electrons\n\n\nCurrent (I)\nFlow rate\nElectrons per second (Amperes)\n\n\nResistance (R)\nNarrow pipe\nOpposition to electron flow (Ohms)\n\n\nOhm’s Law\nP ∝ F / R\nV = I × R\n\n\nOpen circuit\nCut pipe\nNo complete path, no current\n\n\nShort circuit\nRemoved all pipes\nNear-zero resistance, huge current\n\n\nLED / Bulb\nFriction heating pipe\nResistance → heat → light\n\n\nLED Polarity\nOne-way check valve\nCurrent only flows one way (+ to −)\n\n\nSeries\nPipes in a single line\nComponents in a single path (Same Current)\n\n\nParallel\nBranching pipes\nComponents side-by-side (Same Voltage)\n\n\nMotor\nPaddle wheel\nEM force drives magnets → rotation\n\n\nSwitch\nGate valve\nOpens / closes the electron path\n\n\nVariable resistor\nValve\nAdjustable resistance, adjustable current\n\n\nTransistor\nElectron-controlled valve\nSmall current controls large current\n\n\nBinary\nOpen / closed valve\nHIGH / LOW voltage states\n\n\nPython\nInstructions to the pump operator\nHigh-level language the interpreter translates"
+    "text": "The Master Translation Table\n\n\n\n\n\n\n\n\nConcept\nWater Analogy\nElectronics Reality\n\n\n\n\nVoltage (V)\nPump pressure\nForce pushing electrons\n\n\nCurrent (I)\nFlow rate\nElectrons per second (Amperes)\n\n\nResistance (R)\nNarrow pipe\nOpposition to electron flow (Ohms)\n\n\nOhm’s Law\nP ∝ F / R\nV = I × R\n\n\nOpen circuit\nCut pipe\nNo complete path, no current\n\n\nShort circuit\nRemoved all pipes\nNear-zero resistance, huge current\n\n\nLED / Bulb\nFriction heating pipe\nResistance → heat → light\n\n\nLED Polarity\nOne-way check valve\nCurrent only flows one way (+ to −)\n\n\nSeries\nPipes in a single line\nComponents in a single path (Same Current)\n\n\nParallel\nBranching pipes\nComponents side-by-side (Same Voltage)\n\n\nMotor\nPaddle wheel\nEM force drives magnets → rotation\n\n\nSwitch\nGate valve\nOpens / closes the electron path\n\n\nVariable resistor\nValve\nAdjustable resistance, adjustable current\n\n\nTransistor\nElectron-controlled valve\nSmall current controls large current\n\n\nBinary\nOpen / closed valve\nHIGH / LOW voltage states\n\n\nC++\nInstructions to the processor\nHigh-level language the compiler translates"
   },
   {
     "objectID": "slides/session1.html#homework",
     "href": "slides/session1.html#homework",
     "title": "Session 1: Circuits Basics",
     "section": "Homework",
-    "text": "Homework\nPart A — Calculations\n\nA 9V battery + 270Ω resistor. What current flows?\nA circuit draws 50mA from 5V. What is the total resistance?\nDim an LED to 10mA using a 3.3V GPIO pin (LED drops 2V). What resistor do you need?\nA motor needs 500mA. Can a Pico GP pin (max 16mA) drive it directly? Use AI to explain the transistor solution.\n\nPart B — Observation\nFind 3 places in your home where a reactive system turns on/off based on a sensor. For each: What is the sensor? What is the action? Write 3-line Python pseudo-code for how it might work."
+    "text": "Homework\nPart A — Calculations\n\nA 9V battery + 270Ω resistor. What current flows?\nA circuit draws 50mA from 5V. What is the total resistance?\nDim an LED to 10mA using a 5V Digital pin (LED drops 2V). What resistor do you need?\nA motor needs 500mA. Can an Arduino Digital pin (max 20–40mA) drive it directly? Use AI to explain the transistor solution.\n\nPart B — Observation\nFind 3 places in your home where a reactive system turns on/off based on a sensor. For each: What is the sensor? What is the action? Write 3-line C++ pseudo-code for how it might work."
   },
   {
     "objectID": "slides/session1.html#ways-to-use-ai-in-this-course",
     "href": "slides/session1.html#ways-to-use-ai-in-this-course",
     "title": "Session 1: Circuits Basics",
     "section": "4 Ways to Use AI in This Course",
-    "text": "4 Ways to Use AI in This Course\nIn this course, AI is a senior engineer sitting next to you — not a replacement for thinking.\n\nExplain — “What does GPIO.setmode(GPIO.BCM) actually do? Use the water analogy.”\nDebug — “I’m getting RuntimeError: Blue LED not found. Here is my code and wiring description. What did I miss?”\nExtend — “My traffic light works. How do I make the yellow light pulse slowly like a heartbeat?”\nGenerate — “Write the boilerplate to set up 3 output pins on a Raspberry Pi.”\n\nSetup: Open Cursor IDE · Log in to your assigned account · First prompt: introduce yourself and ask it to help verify your Ohm’s Law calculations."
+    "text": "4 Ways to Use AI in This Course\nIn this course, AI is a senior engineer sitting next to you — not a replacement for thinking.\n\nExplain — “What does pinMode(13, OUTPUT) actually do? Use the water analogy.”\nDebug — “I’m getting expected ';' before '}'. Here is my code and wiring description. What did I miss?”\nExtend — “My traffic light works. How do I make the yellow light pulse slowly like a heartbeat?”\nGenerate — “Write the boilerplate to set up 3 output pins on an Arduino Uno.”\n\nSetup: Open Antigravity · Log in to your assigned account · First prompt: introduce yourself and ask it to help verify your Ohm’s Law calculations."
   },
   {
     "objectID": "slides/session1.html#questions",
@@ -579,5 +579,215 @@
     "title": "Intro to Robotics",
     "section": "🚀 Interactive Simulations",
     "text": "🚀 Interactive Simulations\nVisualize complex concepts through real-time web-based simulations.\n\n\n\n\nWater Circuit Sim\nInteractive visualization of voltage (pressure), current (flow), and resistance (valves) using a water pipe analogy. Launch Sim →"
+  },
+  {
+    "objectID": "slides/session1.html#common-code-mistakes",
+    "href": "slides/session1.html#common-code-mistakes",
+    "title": "Session 1: Circuits Basics",
+    "section": "Common Code Mistakes",
+    "text": "Common Code Mistakes\nC++ is very picky. Watch out for these:\n\nThe Missing Semicolon (;) — Every instruction must end with one. It’s like a period at the end of a sentence.\nCase Sensitivity — digitalWrite is correct. digitalwrite or DigitalWrite will cause an error.\nThe Curly Braces ({ }) — They group code together. Every { needs a matching }.\nIncorrect Pin Numbers — Make sure the number in your code matches the physical hole on the Arduino.\n\n\n\n\n\n\n\nError messages are your friends\n\n\nIf your code won’t upload, read the red text at the bottom. It usually tells you exactly which line has the “expected ‘;’” or “was not declared in this scope.”"
+  },
+  {
+    "objectID": "slides/session1.html#danger-the-short-circuit",
+    "href": "slides/session1.html#danger-the-short-circuit",
+    "title": "Session 1: Circuits Basics",
+    "section": "DANGER: The Short Circuit",
+    "text": "DANGER: The Short Circuit\n\n\nA Short Circuit happens when you connect 5V directly to GND with a bare wire.\n\n\n**Resistance ≈ 0 * (no obstacle)\nFlow (Current) ≈ \\(\\infty\\) (dangerous speed!)\n\n\n\nThis generates intense heat, can trigger a “burning” smell, and will fry your Arduino’s chip or your laptop’s USB port instantly.\n\n\n\n\n\n\n\n\nRule #1: The Safety Buffer\n\n\nNever connect 5V to GND without a “buffer” component (like a resistor or LED) to regulate the flow."
+  },
+  {
+    "objectID": "slides/session1.html#component-identifying-the-led",
+    "href": "slides/session1.html#component-identifying-the-led",
+    "title": "Session 1: Circuits Basics",
+    "section": "Component: Identifying the LED",
+    "text": "Component: Identifying the LED\nLEDs are polar — they only work in one direction.\nHow to tell which side is which:\n\nThe Legs: The Longer leg is the Anode (+). Connect this to the positive voltage (5V or a pin).\nThe Flat Side: Look closely at the plastic bulb. The side with a flat edge is the Cathode (-). This goes to GND.\n\n\n\n\n\n\n\n“A” for Anode, “A” for Addition (+)\n\n\nIf you connect it backwards, it won’t break, but it won’t light up!"
+  },
+  {
+    "objectID": "slides/session1.html#physical-setup-ide-ports",
+    "href": "slides/session1.html#physical-setup-ide-ports",
+    "title": "Session 1: Circuits Basics",
+    "section": "Physical Setup: IDE & Ports",
+    "text": "Physical Setup: IDE & Ports\n\n\n\n\n\n\nQuick Setup Links\n\n\n\n📥 Download Arduino IDE\n🔌 Select Board & Port Guide\n\n\n\n\n\n\n\n\n\n\nTroubleshooting\n\n\nIf your Port is greyed out, try a different USB port or check your cable connection."
+  },
+  {
+    "objectID": "slides/session1.html#the-serial-monitor-seeing-the-invisible",
+    "href": "slides/session1.html#the-serial-monitor-seeing-the-invisible",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Serial Monitor: Seeing the Invisible",
+    "text": "The Serial Monitor: Seeing the Invisible\nHow do you know what the Light Sensor is actually “seeing”? You ask the Arduino to print the numbers to your screen.\n\nStart Communication: Add Serial.begin(9600); in setup().\nPrint the Value: Use Serial.println(brightness); in loop().\n\n\n\n\n\n\n\nThe Glass Window\n\n\nIn the Arduino IDE or Wokwi, look for the Serial Monitor (usually a magnifying glass icon). It opens a window where you can watch the values live!"
+  },
+  {
+    "objectID": "slides/session1.html#floating-pins-noise",
+    "href": "slides/session1.html#floating-pins-noise",
+    "title": "Session 1: Circuits Basics",
+    "section": "Floating Pins & Noise",
+    "text": "Floating Pins & Noise\nImagine a sensor wire that isn’t connected to anything. It doesn’t read 0. It acts like an antenna, picking up random electrical noise from the air.\n\nFloating state: The value “bits” or “bounces” between 0 and 1023 randomly.\nSolution: Use a Pull-up or Pull-down resistor to “tie” the pin to a known voltage (GND or 5V) when no signal is present.\n\n\n\n\n\n\n\nNote\n\n\nThis is why our button lab or sensor lab needs that 10kΩ resistor — it keeps the pin “stable.”"
+  },
+  {
+    "objectID": "slides/session1.html#a-quick-question",
+    "href": "slides/session1.html#a-quick-question",
+    "title": "Session 1: Circuits Basics",
+    "section": "A Quick Question…",
+    "text": "A Quick Question…\n\n\nHow many numbers are there between 0 and 1?\n\n\nCan’t be counted… Infinity!\n(0.1, 0.11, 0.111, 0.5000001…)"
+  },
+  {
+    "objectID": "slides/session1.html#the-x-ray-view",
+    "href": "slides/session1.html#the-x-ray-view",
+    "title": "Session 1: Circuits Basics",
+    "section": "The “X-Ray” View",
+    "text": "The “X-Ray” View\n\n\nIf you peeled off the plastic, you’d see metal clips inside.\n\n\nEach clip grabs onto the legs of your components.\nThe 5 holes in a row (e.g. A10, B10, C10, D10, E10) are all connected by one piece of metal."
+  },
+  {
+    "objectID": "slides/session1.html#common-mistake-the-same-row-short",
+    "href": "slides/session1.html#common-mistake-the-same-row-short",
+    "title": "Session 1: Circuits Basics",
+    "section": "Common Mistake: The “Same-Row Short”",
+    "text": "Common Mistake: The “Same-Row Short”\n\n\nIf you plug both legs of a resistor into the same row, the current skips the resistor!\n\n\nThe metal clip is a “highway” with zero resistance.\nThe resistor is a “rocky path”.\nElectrons always take the highway.\n\n\n\n\n\n\n\n\n\nThe fix\n\n\nComponents must bridge two different rows to do their job.\n\n\n\n\n\n (Imagine a resistor with both legs in Row 10)"
+  },
+  {
+    "objectID": "slides/session1.html#how-to-read-the-grid",
+    "href": "slides/session1.html#how-to-read-the-grid",
+    "title": "Session 1: Circuits Basics",
+    "section": "How to Read the Grid",
+    "text": "How to Read the Grid\n\n\nThe breadboard has “addresses” just like a map:\n\nLetters (A-J): Identify the columns.\nNumbers (1-30): Identify the rows.\n\n\n\n\n\n\n\n\nExample\n\n\nIf I say: “Plug a leg into A10”, look for row 10 and column A."
+  },
+  {
+    "objectID": "slides/session1.html#the-x-ray-view-why-columns-stick-together",
+    "href": "slides/session1.html#the-x-ray-view-why-columns-stick-together",
+    "title": "Session 1: Circuits Basics",
+    "section": "The “X-Ray” View: Why Columns Stick Together",
+    "text": "The “X-Ray” View: Why Columns Stick Together\n\n\nIf you peeled off the plastic, you’d see metal clips inside.\n\n\nEach clip grabs onto the legs of your components.\nThe 5 holes in a row (e.g. A10, B10, C10, D10, E10) are all connected by one piece of metal."
+  },
+  {
+    "objectID": "slides/session1.html#bridging-the-gap-correct-vs.-incorrect",
+    "href": "slides/session1.html#bridging-the-gap-correct-vs.-incorrect",
+    "title": "Session 1: Circuits Basics",
+    "section": "Bridging the Gap: Correct vs. Incorrect",
+    "text": "Bridging the Gap: Correct vs. Incorrect\n\n\nA component must bridge two different metal clips to work.\n\n\nWRONG: Both legs in the SAME row. The metal clip is a “shortcut” that skips your component entirely.\n\n\n\n\nRIGHT: Each leg in a DIFFERENT row. Current is forced to travel through your component."
+  },
+  {
+    "objectID": "slides/session1.html#the-resistor-leap",
+    "href": "slides/session1.html#the-resistor-leap",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Resistor “Leap”",
+    "text": "The Resistor “Leap”\n\n\nTo make a circuit, components must “hop” between different metal clips.\n\nMethod 1: The Side Hop\nOne leg in Row 5, other leg in Row 10.\n\n\nMethod 2: The Divider Leap\nOne leg on the Left (E10), other leg on the Right (F10)."
+  },
+  {
+    "objectID": "slides/session1.html#spot-the-error",
+    "href": "slides/session1.html#spot-the-error",
+    "title": "Session 1: Circuits Basics",
+    "section": "Spot the Error!",
+    "text": "Spot the Error!\nWhich connection attempt is Wrong and why?\n\n\nA\n (LED legs in Row 5 and Row 6)\n\nB\n (Resistor legs both in Row 10)\n\nC\n (Button straddling the centre divider)\n\n\nAnswer: B is wrong. Since both legs are in the same metal clip (Row 10), the electricity takes the shortcut through the clip and ignores the resistor!"
+  },
+  {
+    "objectID": "slides/session1.html#bridging-the-gap-interactive-demo",
+    "href": "slides/session1.html#bridging-the-gap-interactive-demo",
+    "title": "Session 1: Circuits Basics",
+    "section": "Bridging the Gap: Interactive Demo",
+    "text": "Bridging the Gap: Interactive Demo\nTo understand how to connect components, watch this Live Simulation.\n\n\nWhat to look for:\n\nLeft (Green LED): The resistor bridges two different rows. Current is forced to go through it. (Works!)\nRight (Red LED): The resistor is in the SAME row. Electricity takes the shortcut through the metal clip and ignores the resistor. (Fails!)\n\n\n\n\n\n\n\n\nThe Discovery\n\n\nIf you don’t “bridge” a gap, your component is invisible to the electricity."
+  },
+  {
+    "objectID": "slides/session1.html#build-1-the-pressure-drop-analogy",
+    "href": "slides/session1.html#build-1-the-pressure-drop-analogy",
+    "title": "Session 1: Circuits Basics",
+    "section": "Build #1 — The “Pressure Drop” Analogy",
+    "text": "Build #1 — The “Pressure Drop” Analogy\n\n\nThinking with water:\n\nPump (5V): The battery/Arduino pushing water.\nTurbine (LED): Needs 2.0 V of “pressure” to spin.\nRestriction (Resistor): Squeezes the pipe to “waste” the leftover pressure.\n\n\n\n\n\n\n\n\nThe Shared Burden\n\n\nThe total pressure (5V) must be used up. If the LED only takes 2V, the resistor must handle the remaining 3.0 V.\n\n\n\n\n\n (Pump → Narrow Pipe → Turbine → Drain)"
+  },
+  {
+    "objectID": "slides/session1.html#build-2-the-two-faucets-analogy",
+    "href": "slides/session1.html#build-2-the-two-faucets-analogy",
+    "title": "Session 1: Circuits Basics",
+    "section": "Build #2 — The “Two Faucets” Analogy",
+    "text": "Build #2 — The “Two Faucets” Analogy\n\n\nHow do we “see” light with an Arduino?\n\nFixed Pipe (10kΩ): Always stays the same width.\nVariable Pipe (LDR): Changes width based on light.\nPressure Gauge (A0): Measures the “pressure” trapped in the middle.\n\n\n\n\n\n\n\n\nWhy it works\n\n\nIf the LDR pipe (GND) is wide open (bright light), the pressure at the gauge falls to 0V. If it clogs up (darkness), the pressure builds up towards 5V.\n\n\n\n\n\n (Gauge needle moves as LDR width changes!)"
+  },
+  {
+    "objectID": "slides/session1.html#build-2-reading-the-light",
+    "href": "slides/session1.html#build-2-reading-the-light",
+    "title": "Session 1: Circuits Basics",
+    "section": "Build #2 — Reading the Light",
+    "text": "Build #2 — Reading the Light\n\n  5V ───── 10 kΩ (Top Pipe) ────●──── LDR (Bottom Drain) ───── GND\n                                ↑\n                          Pressure Gauge\n                               (A0)\n\n\n\n\n\nLight Level\nDrain State\nResistance\nGauge Pressure (V)\n\n\n\n\nBright\nWide Open\nLOW\nDrops towards GND (0V)\n\n\nDark\nClogged\nHIGH\nBuilds towards 5V\n\n\n\n\n\n\n\n\n\n\n\nWhy use two resistors?\n\n\nArduino pins cannot directly read resistance. They can only measure Voltage (relative pressure). We MUST use a fixed resistor to create a “bottleneck”. This converts the sensor’s changing resistance into a changing pressure that the Arduino can read!"
+  },
+  {
+    "objectID": "slides/session1.html#build-2-the-smart-drain-analogy",
+    "href": "slides/session1.html#build-2-the-smart-drain-analogy",
+    "title": "Session 1: Circuits Basics",
+    "section": "Build #2 — The “Smart Drain” Analogy",
+    "text": "Build #2 — The “Smart Drain” Analogy\n\n\nHow do we “read” light as a number? Imagine water flowing from the 5V pump down to the GND drain:\n\nTop Pipe (10kΩ Fixed): Always restricts the flow by the same amount.\nBottom Pipe (LDR Variable): A “smart drain” that changes width based on light.\n\nBright light: The drain opens naturally wide.\nDarkness: The drain gets clogged and narrow.\n\n\n\n\n\n\n\n\n\nThe Pressure Balance\n\n\nThe Arduino pin (A0) acts as a Pressure Gauge between the pipes.\n\nWhen bright (Wide Drain): Water escapes easily down the drain. Pressure at the gauge drops to 0V.\nWhen dark (Clogged Drain): Water gets “backed up.” Pressure at the gauge builds up to 5V.\n\n\n\n\n\n\n\n\n\n\n\n\nWhat about the “Closed Loop” rule?\n\n\nThe closed loop is the main path: 5V → Top Pipe → Bottom Drain → GND. The A0 pin doesn’t break this because no water flows into A0. A good pressure gauge is sealed—it simply “feels” the pressure from the outside without stealing any water!\n\n\n\n\n\n (Gauge needle moves as LDR width changes!)"
+  },
+  {
+    "objectID": "slides/session1.html#the-design-workflow",
+    "href": "slides/session1.html#the-design-workflow",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Design Workflow",
+    "text": "The Design Workflow\nEngineering isn’t just “plugging things in”—it’s a deliberate cycle:\n\nDefine the Goal (What should happen?)\nSelect Components (What sensors/actuators?)\nDraft the Schematic (How are they connected?)\nCalculate Values (What resistor sizes?)\nPrototype (Build on Breadboard)\nTest & Iterate (Fix errors)"
+  },
+  {
+    "objectID": "slides/session1.html#the-language-of-design-schematics",
+    "href": "slides/session1.html#the-language-of-design-schematics",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Language of Design: Schematics",
+    "text": "The Language of Design: Schematics\nIf we want to build a house, we look at a blueprint. In electronics, that’s a Schematic. It shows the logic of the connections, not the physical location of the parts.\n\n\nWhy use symbols?\n\nUniversal: An engineer in Tokyo and London can read the same drawing.\nClear: No messy wires or overlapping photos.\nFast: Symbols are optimized for quick drafting.\n\n\n\n\n\n\n\n\n\nComponent\nSchematic Symbol\n\n\n\n\nPower (+V)\n (or +5V label)\n\n\nGround (GND)\n (The Drain)\n\n\nResistor\n\n\n\nLED\n\n\n\nSwitch\n\n\n\nCapacitor\n—││— (Filter/Tank)"
+  },
+  {
+    "objectID": "slides/session1.html#interactive-schematic-falstad",
+    "href": "slides/session1.html#interactive-schematic-falstad",
+    "title": "Session 1: Circuits Basics",
+    "section": "Interactive Schematic (Falstad)",
+    "text": "Interactive Schematic (Falstad)\n\n\nWatch the yellow dots (current). Increase the voltage or decrease the resistance—what happens to the speed?"
+  },
+  {
+    "objectID": "slides/session1.html#design-exercise-safe-led",
+    "href": "slides/session1.html#design-exercise-safe-led",
+    "title": "Session 1: Circuits Basics",
+    "section": "Design Exercise: Safe LED",
+    "text": "Design Exercise: Safe LED\n(design) Target: Limit current to 20 mA using a 3.3 V supply. (Assume LED voltage drop = 2 V)\n\nStep 1: Find the Resistor Voltage\n\\(V_{resistor} = V_{supply} - V_{led} = 3.3V - 2.0V = 1.3V\\)\nStep 2: Calculate Resistance\n\\(R = V / I = 1.3V / 0.02A = 65 \\Omega\\)\nStep 3: Select Standard Value\nNearest standard: **68 . Always round UP for safety. 100 is also common for “dimmer but safer” LEDs.*"
+  },
+  {
+    "objectID": "slides/session1.html#the-bridge-schematic-vs-physical",
+    "href": "slides/session1.html#the-bridge-schematic-vs-physical",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Bridge: Schematic vs Physical",
+    "text": "The Bridge: Schematic vs Physical\n\n\nSchematic (The Plan)\n (Abstract, Logical)\n\nBreadboard (The Reality)\n (Physical, Specific)\n\n\n\n\n\n\n\nPro Tip\n\n\nAlways draw the Schematic first. If you can’t draw the loop on paper, you won’t be able to wire it on the board!"
+  },
+  {
+    "objectID": "slides/session1.html#design-heuristics-rules-of-thumb",
+    "href": "slides/session1.html#design-heuristics-rules-of-thumb",
+    "title": "Session 1: Circuits Basics",
+    "section": "Design Heuristics (Rules of Thumb)",
+    "text": "Design Heuristics (Rules of Thumb)\nWhen you’re designing a quick prototype, start with these “Goldilocks” values:\n\n\n\n\n\n\n\n\nUse Case\nStandard Value\nWhy?\n\n\n\n\nPower Indicator (5V)\n220 Ω - 330 Ω\nBright enough to see, safe enough to not blow up.\n\n\nPull-up/Down Sensors\n10 kΩ\nLow power consumption but keeps the signal “stable.”\n\n\nHigh Precision Sensor\n1 kΩ\nFaster response at the cost of more power."
+  },
+  {
+    "objectID": "slides/session1.html#the-engineering-design-cycle",
+    "href": "slides/session1.html#the-engineering-design-cycle",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Engineering Design Cycle",
+    "text": "The Engineering Design Cycle\nEngineering isn’t just “plugging things in”—it’s a deliberate, repeatable cycle of prediction and observation:\n\nDefine the Goal — What should happen? (e.g., “An LED turns on when dark”)\nSelect Components — What sensors and actuators do we need?\nDraft the Schematic — How are they connected logically?\nCalculate Values — What resistor sizes are safe? (Ohm’s Law!)\nSimulate (Optional) — Test the logic in Falstad or Wokwi.\nPrototype — Build the physical circuit on a Breadboard.\nTest & Iterate — Observe results, fix errors, and optimize."
+  },
+  {
+    "objectID": "slides/session1.html#reading-a-schematic-the-rules",
+    "href": "slides/session1.html#reading-a-schematic-the-rules",
+    "title": "Session 1: Circuits Basics",
+    "section": "Reading a Schematic: The Rules",
+    "text": "Reading a Schematic: The Rules\n\n\n\n\n\n\nThe Standard Flow\n\n\n\nInputs on the Left, Outputs on the Right.\nPositive Voltage (+V) at the TOP.\nGround (GND) at the BOTTOM. Current flows like water: Downhill from Power to Ground."
+  },
+  {
+    "objectID": "slides/session1.html#intuition-1-the-pressure-drop",
+    "href": "slides/session1.html#intuition-1-the-pressure-drop",
+    "title": "Session 1: Circuits Basics",
+    "section": "Intuition #1: The “Pressure Drop”",
+    "text": "Intuition #1: The “Pressure Drop”\n\n\nThinking with water:\n\nPump (5V): The power source pushing water.\nTurbine (LED): Needs exactly 2.0 V to spin correctly.\nRestriction (Resistor): Squeezes the pipe to “waste” the leftover pressure.\n\n\n\n\n\n\n\n\nThe Complete Cycle\n\n\nThe water doesn’t just “hit” the drain—it flows through it and returns to the pump to be pushed again. Without the return path (GND), there is no flow.\n\n\n\n\n\n (Pump → Resistor → Turbine → Return Path)"
+  },
+  {
+    "objectID": "slides/session1.html#intuition-2-the-smart-drain",
+    "href": "slides/session1.html#intuition-2-the-smart-drain",
+    "title": "Session 1: Circuits Basics",
+    "section": "Intuition #2: The “Smart Drain”",
+    "text": "Intuition #2: The “Smart Drain”\n\n\nHow do we “read” light as a number?\n\nTop Pipe (10kΩ Fixed): Restricts flow by a set amount.\nBottom Pipe (LDR Variable): Opens or closes based on light.\n\n\n\n\n\n\n\n\nThe Pressure Balance\n\n\nThe Arduino pin (A0) acts as a Pressure Gauge between the pipes.\n\nBright (Wide Drain): Water escapes easily through the bottom pipe. Gauge drops to 0V.\nDark (Clogged Drain): Water gets backed up. Gauge builds to 5V.\n\n\n\n\n\n\n\n\n\n\n\n\nIt’s Still a Loop!\n\n\nEven though A0 just “listens,” the main water path is a continuous loop from the pump, through both pipes, and back to the start.\n\n\n\n\n\n (Closed loop through both restrictions)"
+  },
+  {
+    "objectID": "slides/session1.html#design-heuristics-pro-tips",
+    "href": "slides/session1.html#design-heuristics-pro-tips",
+    "title": "Session 1: Circuits Basics",
+    "section": "Design Heuristics (Pro Tips)",
+    "text": "Design Heuristics (Pro Tips)\nWhen you’re designing a quick prototype, start with these “Goldilocks” values:\n\n\n\n\n\n\n\n\n\nUse Case\nStandard Value\nColor Code\nWhy?\n\n\n\n\nPower LED (5V)\n**220 - 330 *\nRed-Red-Brown\nSafe & Bright.\n\n\nSignal Pull-up\n**10 k*\nBrown-Black-Orange\nStable “Listening”.\n\n\nPrecision Setup\n**1 k*\nBrown-Black-Red\nFast response.\n\n\n\n\n\n\n\n\n\nThe “Finger Test”\n\n\nIf you build a circuit and a component feels hot to the touch—UNPLUG IT. Something is wired incorrectly or a resistor is too small."
   }
 ]

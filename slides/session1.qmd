@@ -30,9 +30,10 @@ Circuits Basics — From Water Pipes to Computer Logic
 - **Part 5** — Ohm's Law: V = I × R
 - **Part 6** — Components: Bulb, Motor, Switch
 - **Part 7** — Variable Resistance & The Transistor
-- **Part 8** — 0s, 1s, and Arduino
-- **Part 9** — The Lab: Traffic Light & Automatic Light
-- **Part 10** — Summary, Homework & AI Onboarding
+- **Part 8** — Designing Circuits: From Goal to Schematic
+- **Part 9** — 0s, 1s, and Arduino
+- **Part 10** — The Lab: Traffic Light & Automatic Light
+- **Part 11** — Summary, Homework & AI Onboarding
 
 {{< include session1/part1-water-world.qmd >}}
 
@@ -47,6 +48,8 @@ Circuits Basics — From Water Pipes to Computer Logic
 {{< include session1/part6-components.qmd >}}
 
 {{< include session1/part7-the-valve.qmd >}}
+
+{{< include session1/part7_5-design-principles.qmd >}}
 
 {{< include session1/part8-zeros-ones-arduino.qmd >}}
 

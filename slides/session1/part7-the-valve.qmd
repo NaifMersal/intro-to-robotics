@@ -132,6 +132,19 @@ A tiny 0.5 mA signal controls a 100 mA load — that is amplification.
 - Fully **OFF** (1 MΩ) → near-infinite resistance → no current → **"0"**
 :::
 
+## A Quick Question... {background-color="#1C355E" .sdaia-dark}
+
+<br/>
+
+::: {.r-fit-text}
+How many numbers are there between **0** and **1**?
+:::
+
+::: {.fragment .r-fit-text}
+### **Can't be counted... Infinity!**
+*(0.1, 0.11, 0.111, 0.5000001...)*
+:::
+
 ## Two Worlds: Analog vs. Digital
 
 ::::: {.columns}

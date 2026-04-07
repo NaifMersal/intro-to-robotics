@@ -1,67 +1,21 @@
-# Part 9 — The Lab {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 10 — The Lab {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
-## Meet the Breadboard
 
-::::: {.columns}
 
-:::: {.column width="60%"}
-
-A breadboard lets you build circuits **without soldering** — perfect for experimenting safely.
-
-::: {.fragment}
-- **Terminal rows** (short rows, A–E / F–J) — each row of 5 holes is **one wire**
-:::
-
-::: {.fragment}
-- **Centre divider** — separates left and right; designed to straddle chips
-:::
-
-::::
-
-:::: {.column width="40%"}
-
-![](assets/breadboard_diagram.png){width="100%"}
+## Physical Setup: IDE & Ports {.sdaia-dark background-color="#1C355E"}
 
 ::: {.callout-note}
-## The golden rule
-Same row = same wire. Different row = different wire.
+## Quick Setup Links
+- **[📥 Download Arduino IDE](https://www.arduino.cc/en/software)**
+- **[🔌 Select Board & Port Guide](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-uploading-a-sketch/)**
 :::
 
-::::
-
-:::::
-
-## Powering the Board: The Rails
-
-::::: {.columns}
-
-:::: {.column width="55%"}
-
-- **Power rails** (long side columns, + and −) — connect to **3.3V** and **GND**
-- Usually marked with red (+) and blue (−) lines.
-- Power flows the entire length of the rail.
-
-::: {.callout-note .fragment}
-## What is GND?
-**GND (Ground)** = the − terminal = **0 V reference point**.
-All voltages are measured *relative to GND* — it is the drain at the bottom of the water tank.
-Every circuit needs a complete loop: current must be able to flow **from + to GND**.
+::: {.callout-warning}
+## Troubleshooting
+If your **Port** is greyed out, try a different USB port or check your cable connection.
 :::
 
-::::
 
-:::: {.column width="45%"}
-
-![](assets/breadboard_diagram.png){width="100%"}
-
-::: {.callout-tip}
-## Pro tip
-Connect one rail to **5V** and the other to **GND** first — then you can pull power from anywhere on the board.
-:::
-
-::::
-
-:::::
 
 ## Build #1 — Calculate Before You Wire
 
@@ -69,13 +23,13 @@ Before connecting anything, calculate the **safe resistor** for each LED.
 
 ::: {.fragment}
 
-| | Value |
-|---|---|
-| Arduino supply voltage | **5.0 V** |
-| LED forward voltage | **2.0 V** |
-| Voltage across resistor | **5.0 − 2.0 = 3.0 V** |
-| Target current | **10 mA = 0.01 A** |
-| **Resistor needed** | **R = 3.0 / 0.01 = 300 Ω** |
+| Component | Analogy | Value |
+|---|---|---|
+| Arduino Supply | **Total Pressure** | **5.0 V** |
+| LED Drop | **Turbine "Tax"** | **2.0 V** |
+| Resistor Drop | **"Wasted" Pressure** | **5.0 − 2.0 = 3.0 V** |
+| Target Speed | **Target Current** | **10 mA = 0.01 A** |
+| **Resistor Width** | **R = 3.0 / 0.01** | **300 Ω** |
 
 :::
 
@@ -92,10 +46,7 @@ Slightly higher = slightly less current = LED lives longer. Never go lower.
 
 ## Build #1 — Traffic Light on Wokwi {background-color="#f7f9fc"}
 
-<iframe src="https://wokwi.com/projects/460363431768902657
-        width="100%" height="520px"
-        style="border:none; border-radius:12px;"
-        allowfullscreen></iframe>
+<iframe src="https://wokwi.com/projects/460363431768902657" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen></iframe>
 
 *Build this circuit in Wokwi. Run it. Does the sequence match your code?*
 
@@ -132,59 +83,57 @@ Your traffic light works. Now **ask AI to extend it.**
 > *I want to add a button on Pin 12 that, when held, keeps the green light on for 10 s instead of 5 s.*
 > *Show me the updated code and explain what changed."*
 
+## The Serial Monitor: Seeing the Invisible {.sdaia-dark background-color="#1C355E"}
 
+How do you know what the Light Sensor is actually "seeing"? You ask the Arduino to **print** the numbers to your screen.
 
-## Build #2 — The Voltage Divider
-
-How does a **light sensor** become a number the Arduino can read?
-
-::::: {.columns}
-
-:::: {.column width="55%"}
-
-::: {.fragment}
-
-```
-  5V ── 10 kΩ ──●── LDR ── GND
-                ↑
-           ADC reads here
-               (A0)
-```
-
-:::
-
-::: {.fragment}
-
-- LDR resistance **drops** in bright light
-- Fixed 10 kΩ stays **constant**
-- Midpoint voltage **rises** as LDR gets smaller
-
-:::
-
-::::
-
-:::: {.column width="45%"}
+1. **Start Communication**: Add `Serial.begin(9600);` in `setup()`.
+2. **Print the Value**: Use `Serial.println(brightness);` in `loop()`.
 
 ::: {.callout-tip}
+## The Glass Window
+In the Arduino IDE or Wokwi, look for the **Serial Monitor** (usually a magnifying glass icon). It opens a window where you can watch the values live!
+:::
 
-## Water analogy
-Two resistors in series = two narrow pipes.
-The pressure tap *between* them reads a fraction of total — depending on which section is narrower.
+## Floating Pins & Noise {.sdaia-dark background-color="#1C355E"}
+
+Imagine a sensor wire that isn't connected to anything. It doesn't read 0. It acts like an **antenna**, picking up random electrical noise from the air.
+
+- **Floating state**: The value "bits" or "bounces" between 0 and 1023 randomly.
+- **Solution**: Use a **Pull-up** or **Pull-down** resistor to "tie" the pin to a known voltage (GND or 5V) when no signal is present.
+
+::: {.callout-note}
+This is why our button lab or sensor lab needs that 10kΩ resistor — it keeps the pin "stable."
+:::
+
+
+
+## Build #2 — Reading the Light
+
+::: {.fragment}
+
+```
+  5V ───── 10 kΩ (Top Pipe) ────●──── LDR (Bottom Drain) ───── GND
+                                ↑
+                          Pressure Gauge
+                               (A0)
+```
 
 :::
 
 ::: {.fragment}
 
-| Light level | LDR R | Midpoint V |
-|---|---|---|
-| Bright | ~1 kΩ | ~0.5 V |
-| Dark | ~100 kΩ | ~4.5 V |
+| Light Level | Drain State | Resistance | **Gauge Pressure (V)** |
+|---|---|---|---|
+| **Bright** | Wide Open | **LOW** | **Drops towards GND (0V)** |
+| **Dark** | Clogged | **HIGH** | **Builds towards 5V** |
 
 :::
 
-::::
-
-:::::
+::: {.callout-tip .fragment}
+## Why use two resistors?
+Arduino pins cannot directly read resistance. They can only measure **Voltage** (relative pressure). We MUST use a fixed resistor to create a "bottleneck". This converts the sensor's changing resistance into a changing pressure that the Arduino can read!
+:::
 
 ## The ADC — Bridging Analog and Digital
 

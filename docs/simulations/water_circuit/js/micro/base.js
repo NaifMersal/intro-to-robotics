@@ -63,7 +63,7 @@ const MicroBase = {
 
     setupCommonScene: function(w, h) {
         const { Bodies, Composite } = Matter;
-        const wallOptions = { isStatic: true, render: { fillStyle: '#142640' }, friction: 1, restitution: 0.2 };
+        const wallOptions = { isStatic: true, render: { fillStyle: '#142640' }, friction: 1, restitution: 0.2, collisionFilter: { category: 0x0002, mask: 0xFFFFFFFF } };
         const pipeY = h / 2;
         const pt = this.PIPE_THICKNESS;
         const wv = this.WALL_VISUAL;

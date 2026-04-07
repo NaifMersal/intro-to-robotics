@@ -1,0 +1,302 @@
+# Part 8 — Designing Circuits {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Engineering Design Cycle
+
+Engineering isn't just "plugging things in"—it's a deliberate, repeatable cycle of prediction and observation:
+
+::: {.incremental}
+1. **Define the Goal** — *What should happen? (e.g., "An LED turns on when dark")*
+2. **Select Components** — *What sensors and actuators do we need?*
+3. **Draft the Schematic** — *How are they connected logically?*
+4. **Calculate Values** — *What resistor sizes are safe? (Ohm's Law!)*
+5. **Simulate (Optional)** — *Test the logic in Falstad or Wokwi.*
+6. **Prototype** — *Build the physical circuit on a Breadboard.*
+7. **Test & Iterate** — *Observe results, fix errors, and optimize.*
+:::
+
+## The Language of Design: Schematics
+
+If we want to build a house, we look at a **blueprint**. In electronics, that's a **Schematic**. It shows the *logic* of the connections.
+
+::::: {.columns}
+
+:::: {.column width="45%"}
+### Why use symbols?
+- **Universal**: An engineer in Tokyo and London can read the same drawing.
+- **Clear**: No messy wires or overlapping photos.
+- **Fast**: Symbols are optimized for quick drafting.
+::::
+
+:::: {.column width="55%"}
+
+| Component | Schematic Symbol |
+|-----------|------------------|
+| **Power (+V)**  | ![](assets/battery_sym.svg){width="35px"} (or +5V label) |
+| **Ground (GND)** | ![](assets/gnd_sym.svg){width="35px"} (The Drain) |
+| **Resistor**    | ![](assets/resistor_sym.svg){width="40px"} |
+| **LED**         | ![](assets/led_sym.svg){width="40px"} |
+| **Switch**      | ![](assets/switch_sym.svg){width="40px"} |
+| **Capacitor**   | `—││—` (Filter/Tank) |
+
+::::
+
+:::::
+
+## Reading a Schematic: The Rules
+
+::: {.callout-tip}
+## The Standard Flow
+1. **Inputs on the Left, Outputs on the Right**.
+2. **Positive Voltage (+V) at the TOP**.
+3. **Ground (GND) at the BOTTOM**. 
+*Current flows like water: Downhill from Power to Ground.*
+:::
+
+## Intuition #1: The "Pressure Drop"
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+
+Thinking with water:
+
+- **Pump (5V)**: The power source pushing water.
+- **Turbine (LED)**: Needs exactly **2.0 V** to spin correctly.
+- **Restriction (Resistor)**: Squeezes the pipe to "waste" the leftover pressure.
+
+::: {.callout-important .fragment}
+## The Complete Cycle
+The water doesn't just "hit" the drain—it flows through it and **returns to the pump** to be pushed again. Without the return path (GND), there is no flow.
+:::
+
+::::
+
+:::: {.column width="40%"}
+
+![](assets/water_analogy_led.png){width="100%"}
+*(Pump → Resistor → Turbine → Return Path)*
+
+::::
+
+:::::
+
+## Intuition #2: The "Smart Drain"
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+
+How do we "read" light as a number? 
+
+- **Top Pipe (10kΩ Fixed)**: Restricts flow by a set amount.
+- **Bottom Pipe (LDR Variable)**: Opens or closes based on light.
+
+::: {.callout-note .fragment}
+## The Pressure Balance
+The Arduino pin (A0) acts as a **Pressure Gauge** between the pipes.
+
+- **Bright (Wide Drain)**: Water escapes easily through the bottom pipe. Gauge drops to **0V**.
+- **Dark (Clogged Drain)**: Water gets backed up. Gauge builds to **5V**.
+:::
+
+::: {.callout-important .fragment}
+## It's Still a Loop!
+Even though A0 just "listens," the main water path is a **continuous loop** from the pump, through both pipes, and back to the start.
+:::
+
+::::
+
+:::: {.column width="40%"}
+
+![](assets/water_divider_closed_loop.png){width="100%"}
+*(Closed loop through both restrictions)*
+
+::::
+
+:::::
+
+## Design Exercise: Safe LED {background-color="#00C9A7" .sdaia-dark}
+
+*(design)* Target: Limit current to **20 mA** using a **3.3 V** supply.
+*(Assume LED voltage drop = 2 V)*
+
+::: {.fragment}
+### Step 1: Find the Resistor Voltage
+$V_{resistor} = V_{supply} - V_{led} = 3.3V - 2.0V = 1.3V$
+
+### Step 2: Calculate Resistance
+$R = V / I = 1.3V / 0.02A = 65 \Omega$
+
+### Step 3: Select Standard Value
+Nearest standard: **68 \Omega**. 
+*Always round UP for safety. 100 \Omega is also common for "dimmer but safer" LEDs.*
+:::
+
+## DANGER: The Short Circuit {.sdaia-dark background-gradient="radial-gradient(circle at 70% 30%, #450a0a 0%, #020617 100%)"}
+
+::::: {.columns}
+
+:::: {.column width="65%"}
+
+A **Short Circuit** happens when you connect **5V directly to GND** with a bare wire. 
+
+::: {.fragment}
+- **Resistance ≈ 0 \Omega** (no obstacle)
+- **Flow (Current) ≈ $\infty$** (dangerous speed!)
+:::
+
+::: {.fragment}
+This generates intense heat, can trigger a "burning" smell, and will **fry your Arduino's chip** or your laptop's USB port instantly.
+:::
+
+::: {.callout-important .fragment}
+## Rule #1: The Safety Buffer
+**Never** connect 5V to GND without a "buffer" component (like a resistor or LED) to regulate the flow.
+:::
+
+::::
+
+:::: {.column width="35%"}
+
+![](assets/short_circuit_danger_icon.png){width="100%"}
+
+::::
+
+:::::
+
+## Design Heuristics (Pro Tips)
+
+When you're designing a quick prototype, start with these "Goldilocks" values:
+
+| Use Case | Standard Value | Color Code | Why? |
+|----------|----------------|------------|------|
+| **Power LED (5V)** | **220 \Omega - 330 \Omega** | Red-Red-Brown | Safe & Bright. |
+| **Signal Pull-up** | **10 k\Omega** | Brown-Black-Orange | Stable "Listening". |
+| **Precision Setup**| **1 k\Omega** | Brown-Black-Red | Fast response. |
+
+::: {.callout-tip}
+## The "Finger Test"
+If you build a circuit and a component feels hot to the touch—**UNPLUG IT**. Something is wired incorrectly or a resistor is too small.
+:::
+
+## Meet the Breadboard
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+
+A breadboard lets you build circuits **without soldering**. 
+
+Think of it as a **temporary LEGO board** for electrons.
+
+::: {.fragment .highlight-blue}
+- **Terminal rows** (A–E / F–J) — each row of 5 holes is **one solid wire**.
+:::
+
+::: {.fragment .highlight-red}
+- **Power rails** (+ and −) — run vertically the full length of the board.
+:::
+
+::: {.fragment}
+- **Centre divider** — a gap that separates the two halves; designed to straddle chips.
+:::
+
+::::
+
+:::: {.column width="40%"}
+
+![](assets/breadboard_400_standard.png){width="100%"}
+
+::: {.callout-note}
+## The 1-Second Rule
+Same row = Connected. Different row = Separated.
+:::
+
+::::
+
+:::::
+
+## The "X-Ray" View
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+If you peeled off the plastic, you'd see **metal clips** inside.
+
+::: {.fragment}
+- Each clip grabs onto the legs of your components.
+- The 5 holes in a row (e.g. A10, B10, C10, D10, E10) are all **connected by one piece of metal**.
+:::
+
+::::
+
+:::: {.column width="50%"}
+
+![](assets/breadboard_400_xray.png){width="100%"}
+
+::::
+
+:::::
+
+## Spot the Error! {background-color="#00C9A7" .sdaia-dark}
+
+Which connection attempt is **Wrong** and why?
+
+::::: {.columns}
+
+:::: {.column width="33%"}
+### A
+![](assets/breadboard_led_correct.png){width="100%"}
+*(LED legs in Row 5 and Row 6)*
+::::
+
+:::: {.column width="33%"}
+### B
+![](assets/breadboard_resistor_shorted.png){width="100%"}
+*(Resistor legs both in Row 10)*
+::::
+
+:::: {.column width="33%"}
+### C
+![](assets/breadboard_button_straddle.png){width="100%"}
+*(Button straddling the centre divider)*
+::::
+
+:::::
+
+::: {.fragment}
+**Answer:** **B is wrong.** Since both legs are in the same metal clip (Row 10), the electricity takes the shortcut through the clip and ignores the resistor!
+:::
+
+## Powering the Board: The Rails
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+To give your circuit life, you need **Pressure (V)** and a **Drain (GND)**.
+
+- **Red Rail (+)**: Connect to **5V** or **3.3V**.
+- **Blue Rail (−)**: Connect to **GND** (The Ground).
+
+::: {.callout-note}
+## Relative Ground
+All voltages are measured *relative to GND* (0V). 
+Think of it as the **water level in the drain** — everything flows toward it.
+:::
+
+::::
+
+:::: {.column width="45%"}
+
+![](assets/breadboard_400_standard.png){width="100%"}
+
+::: {.callout-tip}
+## Pro tip
+Wire the Rails first! Then you can pull power for your components from anywhere on the long side strips.
+:::
+
+::::
+
+:::::

@@ -103,20 +103,6 @@ Current without a resistor = **330 mA**. The LED is rated for a maximum of **30 
 **Answer:** Tungsten has the **highest melting point of any metal (~3 422 °C)** and is designed to glow. An LED is a **semiconductor junction** — it converts current to light very efficiently but is destroyed by excess heat. It was never built to survive white-hot temperatures.
 :::
 
-## Exercise 7 — Q4: Design a Safe Circuit {background-color="#00C9A7" .sdaia-dark}
-
-*(design)* Design the safe version: what resistor limits current to **20 mA**?
-*(V = 3.3 V, LED voltage drop = 2 V)*
-
-::: {.fragment}
-**Answer:**
-
-Voltage across resistor = 3.3 − 2.0 = **1.3 V**
-
-R = V / I = 1.3 / 0.02 = **65 Ω**
-
-Nearest standard value: **68 Ω** (or 100 Ω for extra safety — slightly less current, LED lives longer).
-:::
 
 ## Micro Motor Simulation {background-color="#f7f9fc"}
 

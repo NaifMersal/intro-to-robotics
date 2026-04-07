@@ -244,13 +244,94 @@ $callout-color-success: $sdaia-green;
   letter-spacing: 0.02em;
 }
 
-/* Callouts: slightly tighter */
+/* Callouts: premium glassmorphism styling */
 .reveal .callout {
-  border-radius: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.05); /* Default translucent background */
+  overflow: hidden;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  border-left: 0 !important; /* Remove Quarto's default thick left border */
+}
+
+/* Callout Header */
+.reveal .callout-header {
+  padding: 0.5em 1.0em;
+  background: rgba(255, 255, 255, 0.15); /* Subdued fallback */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.reveal .callout-icon-container {
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  opacity: 0.9;
 }
 
 .reveal .callout-title-container {
   font-weight: 800;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: inherit !important; /* Ensure it follows header color */
+}
+
+.reveal .callout-content {
+  padding: 1.0em 1.25em;
+  font-size: 0.9em;
+}
+
+/* Specific Callout Types with Vibrant Contrast */
+.reveal .callout.callout-tip {
+  border: 1px solid rgba(0, 201, 167, 0.3);
+  background: rgba(0, 201, 167, 0.06);
+}
+.reveal .callout.callout-tip .callout-header {
+  background: #00C9A7;
+  color: #1C355E !important; /* Dark navy on teal for maximum legibility */
+}
+
+.reveal .callout.callout-important {
+  border: 1px solid rgba(28, 53, 94, 0.3);
+  background: rgba(28, 53, 94, 0.06);
+}
+.reveal .callout.callout-important .callout-header {
+  background: #1C355E;
+  color: #ffffff !important;
+}
+
+.reveal .callout.callout-warning {
+  border: 1px solid rgba(255, 122, 92, 0.3);
+  background: rgba(255, 122, 92, 0.06);
+}
+.reveal .callout.callout-warning .callout-header {
+  background: #FF7A5C;
+  color: #ffffff !important;
+}
+
+.reveal .callout.callout-note {
+  border: 1px solid rgba(155, 142, 192, 0.3);
+  background: rgba(155, 142, 192, 0.06);
+}
+.reveal .callout.callout-note .callout-header {
+  background: #9B8EC0;
+  color: #ffffff !important;
+}
+
+.reveal .callout.callout-caution {
+  border: 1px solid rgba(255, 181, 72, 0.3);
+  background: rgba(255, 181, 72, 0.06);
+}
+.reveal .callout.callout-caution .callout-header {
+  background: #FFB548;
+  color: #1C355E !important; /* Dark navy on yellow */
 }
 
 /* Custom blocks for bootcamp pedagogy */
@@ -318,6 +399,20 @@ $callout-color-success: $sdaia-green;
 .reveal .slides section.sdaia-dark h4,
 .reveal .slides section.sdaia-dark p,
 .reveal .slides section.sdaia-dark li {
+  color: #ffffff;
+}
+
+/* Ensure callouts inside dark slides maintain their high-contrast internal text */
+.reveal .slides section.sdaia-dark .callout-header * {
+  color: inherit !important;
+}
+
+.reveal .slides section.sdaia-dark .callout-content {
+  color: #ffffff;
+}
+
+.reveal .slides section.sdaia-dark .callout-content p,
+.reveal .slides section.sdaia-dark .callout-content li {
   color: #ffffff !important;
 }
 

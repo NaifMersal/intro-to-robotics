@@ -9,7 +9,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <meta name="dcterms.date" content="2026-04-04">
+  <meta name="dcterms.date" content="2026-04-07">
   <title>Session 1: Circuits Basics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-11fb225df25554060309039e467d350a.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-5d15484fdef58f96baaf08c5b3aaad75.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -201,7 +201,7 @@
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-04-04</p>
+  <p class="date">2026-04-07</p>
 </section>
 <section>
 <section id="session-1" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -218,9 +218,10 @@
 <li><strong>Part 5</strong> — Ohm’s Law: V = I × R</li>
 <li><strong>Part 6</strong> — Components: Bulb, Motor, Switch</li>
 <li><strong>Part 7</strong> — Variable Resistance &amp; The Transistor</li>
-<li><strong>Part 8</strong> — 0s, 1s, and Arduino</li>
-<li><strong>Part 9</strong> — The Lab: Traffic Light &amp; Automatic Light</li>
-<li><strong>Part 10</strong> — Summary, Homework &amp; AI Onboarding</li>
+<li><strong>Part 8</strong> — Designing Circuits: From Goal to Schematic</li>
+<li><strong>Part 9</strong> — 0s, 1s, and Arduino</li>
+<li><strong>Part 10</strong> — The Lab: Traffic Light &amp; Automatic Light</li>
+<li><strong>Part 11</strong> — Summary, Homework &amp; AI Onboarding</li>
 </ul>
 </section></section>
 <section>
@@ -732,16 +733,6 @@
 <p><strong>Answer:</strong> Tungsten has the <strong>highest melting point of any metal (~3 422 °C)</strong> and is designed to glow. An LED is a <strong>semiconductor junction</strong> — it converts current to light very efficiently but is destroyed by excess heat. It was never built to survive white-hot temperatures.</p>
 </div>
 </section>
-<section id="exercise-7-q4-design-a-safe-circuit" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 7 — Q4: Design a Safe Circuit</h2>
-<p><em>(design)</em> Design the safe version: what resistor limits current to <strong>20 mA</strong>? <em>(V = 3.3 V, LED voltage drop = 2 V)</em></p>
-<div class="fragment">
-<p><strong>Answer:</strong></p>
-<p>Voltage across resistor = 3.3 − 2.0 = <strong>1.3 V</strong></p>
-<p>R = V / I = 1.3 / 0.02 = <strong>65 Ω</strong></p>
-<p>Nearest standard value: <strong>68 Ω</strong> (or 100 Ω for extra safety — slightly less current, LED lives longer).</p>
-</div>
-</section>
 <section id="micro-motor-simulation" class="slide level2" data-background-color="#f7f9fc">
 <h2>Micro Motor Simulation</h2>
 <iframe src="../simulations/water_circuit/micro/motor.html" width="100%" height="520px" style="border:none; border-radius:12px;">
@@ -1036,6 +1027,17 @@ Loop broken    → Current = 0</code></pre>
 </ul>
 </div>
 </section>
+<section id="a-quick-question" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>A Quick Question…</h2>
+<p><br></p>
+<div class="r-fit-text">
+<p>How many numbers are there between <strong>0</strong> and <strong>1</strong>?</p>
+</div>
+<div class="fragment r-fit-text">
+<h3 id="cant-be-counted-infinity"><strong>Can’t be counted… Infinity!</strong></h3>
+<p><em>(0.1, 0.11, 0.111, 0.5000001…)</em></p>
+</div>
+</section>
 <section id="two-worlds-analog-vs.-digital" class="slide level2">
 <h2>Two Worlds: Analog vs.&nbsp;Digital</h2>
 <div class="columns">
@@ -1043,25 +1045,10 @@ Loop broken    → Current = 0</code></pre>
 <p><strong>Analog — Infinite Steps</strong></p>
 <div class="fragment">
 <ul>
-<li>A <strong>dimmer switch</strong>: any brightness, 0% to 100%</li>
-<li>A <strong>thermometer</strong>: any temperature in a continuous range</li>
-<li>An <strong>LDR sensor</strong>: resistance anywhere from 1 kΩ to 100 kΩ</li>
+<li><strong>Dimmer switch</strong>: 0% to 100% brightness</li>
+<li><strong>Thermometer</strong>: any value in a continuous range</li>
+<li><strong>LDR sensor</strong>: variable (1 kΩ to 100 kΩ)</li>
 </ul>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Analog = continuous</strong></p>
-</div>
-<div class="callout-content">
-<p>There are infinite possible values between any two points.</p>
-</div>
-</div>
-</div>
 </div>
 </div><div class="column" style="width:50%;">
 <p><strong>Digital — Two States Only</strong></p>
@@ -1072,17 +1059,26 @@ Loop broken    → Current = 0</code></pre>
 <li>A <strong>GPIO pin</strong>: HIGH (3.3 V) or LOW (0 V)</li>
 </ul>
 </div>
+</div></div>
+<div class="columns smaller">
+<div class="column" style="width:50%;">
 <div class="fragment">
-<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Digital = discrete</strong></p>
-</div>
 <div class="callout-content">
-<p>Only two possible states. No in-between.</p>
+<p><strong>Analog = continuous</strong><br>
+Infinite possible values between any two points.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p><strong>Digital = discrete</strong><br>
+Only two possible states. No in-between.</p>
 </div>
 </div>
 </div>
@@ -1095,8 +1091,382 @@ Loop broken    → Current = 0</code></pre>
 </div>
 </section></section>
 <section>
-<section id="part-8-0s-1s-and-arduino" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 8 — 0s, 1s, and Arduino</h1>
+<section id="part-8-designing-circuits" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 8 — Designing Circuits</h1>
+
+</section>
+<section id="the-engineering-design-cycle" class="slide level2">
+<h2>The Engineering Design Cycle</h2>
+<p>Engineering isn’t just “plugging things in”—it’s a deliberate, repeatable cycle of prediction and observation:</p>
+<ol type="1">
+<li class="fragment"><strong>Define the Goal</strong> — <em>What should happen? (e.g., “An LED turns on when dark”)</em></li>
+<li class="fragment"><strong>Select Components</strong> — <em>What sensors and actuators do we need?</em></li>
+<li class="fragment"><strong>Draft the Schematic</strong> — <em>How are they connected logically?</em></li>
+<li class="fragment"><strong>Calculate Values</strong> — <em>What resistor sizes are safe? (Ohm’s Law!)</em></li>
+<li class="fragment"><strong>Simulate (Optional)</strong> — <em>Test the logic in Falstad or Wokwi.</em></li>
+<li class="fragment"><strong>Prototype</strong> — <em>Build the physical circuit on a Breadboard.</em></li>
+<li class="fragment"><strong>Test &amp; Iterate</strong> — <em>Observe results, fix errors, and optimize.</em></li>
+</ol>
+</section>
+<section id="the-language-of-design-schematics" class="slide level2">
+<h2>The Language of Design: Schematics</h2>
+<p>If we want to build a house, we look at a <strong>blueprint</strong>. In electronics, that’s a <strong>Schematic</strong>. It shows the <em>logic</em> of the connections, not the physical location of the parts.</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<h3 id="why-use-symbols">Why use symbols?</h3>
+<ul>
+<li><strong>Universal</strong>: An engineer in Tokyo and London can read the same drawing.</li>
+<li><strong>Clear</strong>: No messy wires or overlapping photos.</li>
+<li><strong>Fast</strong>: Symbols are optimized for quick drafting.</li>
+</ul>
+</div><div class="column" style="width:55%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Schematic Symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Power (+V)</strong></td>
+<td><img data-src="assets/battery_sym.svg" width="35"> (or +5V label)</td>
+</tr>
+<tr class="even">
+<td><strong>Ground (GND)</strong></td>
+<td><img data-src="assets/gnd_sym.svg" width="35"> (The Drain)</td>
+</tr>
+<tr class="odd">
+<td><strong>Resistor</strong></td>
+<td><img data-src="assets/resistor_sym.svg" width="40"></td>
+</tr>
+<tr class="even">
+<td><strong>LED</strong></td>
+<td><img data-src="assets/led_sym.svg" width="40"></td>
+</tr>
+<tr class="odd">
+<td><strong>Switch</strong></td>
+<td><img data-src="assets/switch_sym.svg" width="40"></td>
+</tr>
+<tr class="even">
+<td><strong>Capacitor</strong></td>
+<td><code>—││—</code> (Filter/Tank)</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="reading-a-schematic-the-rules" class="slide level2">
+<h2>Reading a Schematic: The Rules</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Standard Flow</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><strong>Inputs on the Left, Outputs on the Right</strong>.</li>
+<li><strong>Positive Voltage (+V) at the TOP</strong>.</li>
+<li><strong>Ground (GND) at the BOTTOM</strong>. <em>Current flows like water: Downhill from Power to Ground.</em></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="intuition-1-the-pressure-drop" class="slide level2">
+<h2>Intuition #1: The “Pressure Drop”</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>Thinking with water:</p>
+<ul>
+<li><strong>Pump (5V)</strong>: The power source pushing water.</li>
+<li><strong>Turbine (LED)</strong>: Needs exactly <strong>2.0 V</strong> to spin correctly.</li>
+<li><strong>Restriction (Resistor)</strong>: Squeezes the pipe to “waste” the leftover pressure.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Complete Cycle</strong></p>
+</div>
+<div class="callout-content">
+<p>The water doesn’t just “hit” the drain—it flows through it and <strong>returns to the pump</strong> to be pushed again. Without the return path (GND), there is no flow.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="assets/water_led_closed_loop.png" style="width:100.0%"> <em>(Pump → Resistor → Turbine → Return Path)</em></p>
+</div></div>
+</section>
+<section id="intuition-2-the-smart-drain" class="slide level2">
+<h2>Intuition #2: The “Smart Drain”</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>How do we “read” light as a number?</p>
+<ul>
+<li><strong>Top Pipe (10kΩ Fixed)</strong>: Restricts flow by a set amount.</li>
+<li><strong>Bottom Pipe (LDR Variable)</strong>: Opens or closes based on light.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Pressure Balance</strong></p>
+</div>
+<div class="callout-content">
+<p>The Arduino pin (A0) acts as a <strong>Pressure Gauge</strong> between the pipes.</p>
+<ul>
+<li><strong>Bright (Wide Drain)</strong>: Water escapes easily through the bottom pipe. Gauge drops to <strong>0V</strong>.</li>
+<li><strong>Dark (Clogged Drain)</strong>: Water gets backed up. Gauge builds to <strong>5V</strong>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>It’s Still a Loop!</strong></p>
+</div>
+<div class="callout-content">
+<p>Even though A0 just “listens,” the main water path is a <strong>continuous loop</strong> from the pump, through both pipes, and back to the start.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="assets/water_divider_closed_loop.png" style="width:100.0%"> <em>(Closed loop through both restrictions)</em></p>
+</div></div>
+</section>
+<section id="design-exercise-safe-led" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Design Exercise: Safe LED</h2>
+<p><em>(design)</em> Target: Limit current to <strong>20 mA</strong> using a <strong>3.3 V</strong> supply. <em>(Assume LED voltage drop = 2 V)</em></p>
+<div class="fragment">
+<h3 id="step-1-find-the-resistor-voltage">Step 1: Find the Resistor Voltage</h3>
+<p><span class="math inline">\(V_{resistor} = V_{supply} - V_{led} = 3.3V - 2.0V = 1.3V\)</span></p>
+<h3 id="step-2-calculate-resistance">Step 2: Calculate Resistance</h3>
+<p><span class="math inline">\(R = V / I = 1.3V / 0.02A = 65 \Omega\)</span></p>
+<h3 id="step-3-select-standard-value">Step 3: Select Standard Value</h3>
+<p>Nearest standard: **68 <em>. </em>Always round UP for safety. 100 is also common for “dimmer but safer” LEDs.*</p>
+</div>
+</section>
+<section id="danger-the-short-circuit" class="slide level2 sdaia-dark" data-background-gradient="radial-gradient(circle at 70% 30%, #450a0a 0%, #020617 100%)">
+<h2>DANGER: The Short Circuit</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<p>A <strong>Short Circuit</strong> happens when you connect <strong>5V directly to GND</strong> with a bare wire.</p>
+<div class="fragment">
+<ul>
+<li>**Resistance ≈ 0 * (no obstacle)</li>
+<li><strong>Flow (Current) ≈ <span class="math inline">\(\infty\)</span></strong> (dangerous speed!)</li>
+</ul>
+</div>
+<div class="fragment">
+<p>This generates intense heat, can trigger a “burning” smell, and will <strong>fry your Arduino’s chip</strong> or your laptop’s USB port instantly.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Rule #1: The Safety Buffer</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Never</strong> connect 5V to GND without a “buffer” component (like a resistor or LED) to regulate the flow.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:35%;">
+<p><img data-src="assets/short_circuit_danger_icon.png" style="width:100.0%"></p>
+</div></div>
+</section>
+<section id="design-heuristics-pro-tips" class="slide level2">
+<h2>Design Heuristics (Pro Tips)</h2>
+<p>When you’re designing a quick prototype, start with these “Goldilocks” values:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 36%">
+<col style="width: 27%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Use Case</th>
+<th>Standard Value</th>
+<th>Color Code</th>
+<th>Why?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Power LED (5V)</strong></td>
+<td>**220 - 330 *</td>
+<td>Red-Red-Brown</td>
+<td>Safe &amp; Bright.</td>
+</tr>
+<tr class="even">
+<td><strong>Signal Pull-up</strong></td>
+<td>**10 k*</td>
+<td>Brown-Black-Orange</td>
+<td>Stable “Listening”.</td>
+</tr>
+<tr class="odd">
+<td><strong>Precision Setup</strong></td>
+<td>**1 k*</td>
+<td>Brown-Black-Red</td>
+<td>Fast response.</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The “Finger Test”</strong></p>
+</div>
+<div class="callout-content">
+<p>If you build a circuit and a component feels hot to the touch—<strong>UNPLUG IT</strong>. Something is wired incorrectly or a resistor is too small.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="meet-the-breadboard" class="slide level2">
+<h2>Meet the Breadboard</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>A breadboard lets you build circuits <strong>without soldering</strong>.</p>
+<p>Think of it as a <strong>temporary LEGO board</strong> for electrons.</p>
+<div class="fragment highlight-blue">
+<ul>
+<li><strong>Terminal rows</strong> (A–E / F–J) — each row of 5 holes is <strong>one solid wire</strong>.</li>
+</ul>
+</div>
+<div class="fragment highlight-red">
+<ul>
+<li><strong>Power rails</strong> (+ and −) — run vertically the full length of the board.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Centre divider</strong> — a gap that separates the two halves; designed to straddle chips.</li>
+</ul>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="assets/breadboard_400_standard.png" style="width:100.0%"></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The 1-Second Rule</strong></p>
+</div>
+<div class="callout-content">
+<p>Same row = Connected. Different row = Separated.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="the-x-ray-view" class="slide level2">
+<h2>The “X-Ray” View</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>If you peeled off the plastic, you’d see <strong>metal clips</strong> inside.</p>
+<div class="fragment">
+<ul>
+<li>Each clip grabs onto the legs of your components.</li>
+<li>The 5 holes in a row (e.g.&nbsp;A10, B10, C10, D10, E10) are all <strong>connected by one piece of metal</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/breadboard_400_xray.png" style="width:100.0%"></p>
+</div></div>
+</section>
+<section id="spot-the-error" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Spot the Error!</h2>
+<p>Which connection attempt is <strong>Wrong</strong> and why?</p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<h3 id="a">A</h3>
+<p><img data-src="assets/breadboard_led_correct.png" style="width:100.0%"> <em>(LED legs in Row 5 and Row 6)</em></p>
+</div><div class="column" style="width:33%;">
+<h3 id="b">B</h3>
+<p><img data-src="assets/breadboard_resistor_shorted.png" style="width:100.0%"> <em>(Resistor legs both in Row 10)</em></p>
+</div><div class="column" style="width:33%;">
+<h3 id="c">C</h3>
+<p><img data-src="assets/breadboard_button_straddle.png" style="width:100.0%"> <em>(Button straddling the centre divider)</em></p>
+</div></div>
+<div class="fragment">
+<p><strong>Answer:</strong> <strong>B is wrong.</strong> Since both legs are in the same metal clip (Row 10), the electricity takes the shortcut through the clip and ignores the resistor!</p>
+</div>
+</section>
+<section id="powering-the-board-the-rails" class="slide level2">
+<h2>Powering the Board: The Rails</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p>To give your circuit life, you need <strong>Pressure (V)</strong> and a <strong>Drain (GND)</strong>.</p>
+<ul>
+<li><strong>Red Rail (+)</strong>: Connect to <strong>5V</strong> or <strong>3.3V</strong>.</li>
+<li><strong>Blue Rail (−)</strong>: Connect to <strong>GND</strong> (The Ground).</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Relative Ground</strong></p>
+</div>
+<div class="callout-content">
+<p>All voltages are measured <em>relative to GND</em> (0V). Think of it as the <strong>water level in the drain</strong> — everything flows toward it.</p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<p><img data-src="assets/breadboard_400_standard.png" style="width:100.0%"></p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Pro tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Wire the Rails first! Then you can pull power for your components from anywhere on the long side strips.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section id="part-9-0s-1s-and-arduino" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 9 — 0s, 1s, and Arduino</h1>
 
 </section>
 <section id="the-ladder-of-abstraction" class="slide level2">
@@ -1215,6 +1585,29 @@ Loop broken    → Current = 0</code></pre>
 <p><strong>Precision is the machine’s strength. Common sense is yours.</strong></p>
 </blockquote>
 </section>
+<section id="common-code-mistakes" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>Common Code Mistakes</h2>
+<p>C++ is very picky. Watch out for these:</p>
+<ol type="1">
+<li><strong>The Missing Semicolon (<code>;</code>)</strong> — Every instruction must end with one. It’s like a period at the end of a sentence.</li>
+<li><strong>Case Sensitivity</strong> — <code>digitalWrite</code> is correct. <code>digitalwrite</code> or <code>DigitalWrite</code> will cause an error.</li>
+<li><strong>The Curly Braces (<code>{ }</code>)</strong> — They group code together. Every <code>{</code> needs a matching <code>}</code>.</li>
+<li><strong>Incorrect Pin Numbers</strong> — Make sure the number in your code matches the physical hole on the Arduino.</li>
+</ol>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Error messages are your friends</strong></p>
+</div>
+<div class="callout-content">
+<p>If your code won’t upload, read the red text at the bottom. It usually tells you exactly which line has the “expected ‘;’” or “was not declared in this scope.”</p>
+</div>
+</div>
+</div>
+</section>
 <section id="exercise-11-q1-how-many-pins" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 11 — Q1: How Many Pins?</h2>
 <p>Read this sketch line by line, top to bottom:</p>
@@ -1281,82 +1674,41 @@ Loop broken    → Current = 0</code></pre>
 </div>
 </section></section>
 <section>
-<section id="part-9-the-lab" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 9 — The Lab</h1>
+<section id="part-10-the-lab" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 10 — The Lab</h1>
 
 </section>
-<section id="meet-the-breadboard" class="slide level2">
-<h2>Meet the Breadboard</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p>A breadboard lets you build circuits <strong>without soldering</strong> — perfect for experimenting safely.</p>
-<div class="fragment">
-<ul>
-<li><strong>Terminal rows</strong> (short rows, A–E / F–J) — each row of 5 holes is <strong>one wire</strong></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li><strong>Centre divider</strong> — separates left and right; designed to straddle chips</li>
-</ul>
-</div>
-</div><div class="column" style="width:40%;">
-<p><img data-src="assets/breadboard_diagram.png" style="width:100.0%"></p>
+<section id="physical-setup-ide-ports" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>Physical Setup: IDE &amp; Ports</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>The golden rule</strong></p>
+<p><strong>Quick Setup Links</strong></p>
 </div>
 <div class="callout-content">
-<p>Same row = same wire. Different row = different wire.</p>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="powering-the-board-the-rails" class="slide level2">
-<h2>Powering the Board: The Rails</h2>
-<div class="columns">
-<div class="column" style="width:55%;">
 <ul>
-<li><strong>Power rails</strong> (long side columns, + and −) — connect to <strong>3.3V</strong> and <strong>GND</strong></li>
-<li>Usually marked with red (+) and blue (−) lines.</li>
-<li>Power flows the entire length of the rail.</li>
+<li><strong><a href="https://www.arduino.cc/en/software">📥 Download Arduino IDE</a></strong></li>
+<li><strong><a href="https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-uploading-a-sketch/">🔌 Select Board &amp; Port Guide</a></strong></li>
 </ul>
-<div class="fragment">
-<div class="callout callout-note callout-titled callout-style-default">
+</div>
+</div>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>What is GND?</strong></p>
+<p><strong>Troubleshooting</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>GND (Ground)</strong> = the − terminal = <strong>0 V reference point</strong>. All voltages are measured <em>relative to GND</em> — it is the drain at the bottom of the water tank. Every circuit needs a complete loop: current must be able to flow <strong>from + to GND</strong>.</p>
+<p>If your <strong>Port</strong> is greyed out, try a different USB port or check your cable connection.</p>
 </div>
 </div>
 </div>
-</div>
-</div><div class="column" style="width:45%;">
-<p><img data-src="assets/breadboard_diagram.png" style="width:100.0%"></p>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Pro tip</strong></p>
-</div>
-<div class="callout-content">
-<p>Connect one rail to <strong>5V</strong> and the other to <strong>GND</strong> first — then you can pull power from anywhere on the board.</p>
-</div>
-</div>
-</div>
-</div></div>
 </section>
 <section id="build-1-calculate-before-you-wire" class="slide level2">
 <h2>Build #1 — Calculate Before You Wire</h2>
@@ -1365,30 +1717,36 @@ Loop broken    → Current = 0</code></pre>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th></th>
+<th>Component</th>
+<th>Analogy</th>
 <th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Arduino supply voltage</td>
+<td>Arduino Supply</td>
+<td><strong>Total Pressure</strong></td>
 <td><strong>5.0 V</strong></td>
 </tr>
 <tr class="even">
-<td>LED forward voltage</td>
+<td>LED Drop</td>
+<td><strong>Turbine “Tax”</strong></td>
 <td><strong>2.0 V</strong></td>
 </tr>
 <tr class="odd">
-<td>Voltage across resistor</td>
+<td>Resistor Drop</td>
+<td><strong>“Wasted” Pressure</strong></td>
 <td><strong>5.0 − 2.0 = 3.0 V</strong></td>
 </tr>
 <tr class="even">
-<td>Target current</td>
+<td>Target Speed</td>
+<td><strong>Target Current</strong></td>
 <td><strong>10 mA = 0.01 A</strong></td>
 </tr>
 <tr class="odd">
-<td><strong>Resistor needed</strong></td>
-<td><strong>R = 3.0 / 0.01 = 300 Ω</strong></td>
+<td><strong>Resistor Width</strong></td>
+<td><strong>R = 3.0 / 0.01</strong></td>
+<td><strong>300 Ω</strong></td>
 </tr>
 </tbody>
 </table>
@@ -1411,7 +1769,8 @@ Loop broken    → Current = 0</code></pre>
 </section>
 <section id="build-1-traffic-light-on-wokwi" class="slide level2" data-background-color="#f7f9fc">
 <h2>Build #1 — Traffic Light on Wokwi</h2>
-<p>&lt;iframe src=“https://wokwi.com/projects/460363431768902657 width=”100%” height=“520px” style=“border:none; border-radius:12px;” allowfullscreen&gt;</p>
+<iframe src="https://wokwi.com/projects/460363431768902657" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen="">
+</iframe>
 <p><em>Build this circuit in Wokwi. Run it. Does the sequence match your code?</em></p>
 </section>
 <section id="build-1-arduino-code" class="slide level2">
@@ -1443,62 +1802,97 @@ Loop broken    → Current = 0</code></pre>
 <p><em>“I have an Arduino sketch cycling Red (Pin 2) → Yellow (Pin 3) → Green (Pin 4).<em> </em>I want to add a button on Pin 12 that, when held, keeps the green light on for 10 s instead of 5 s.<em> </em>Show me the updated code and explain what changed.”</em></p>
 </blockquote>
 </section>
-<section id="build-2-the-voltage-divider" class="slide level2">
-<h2>Build #2 — The Voltage Divider</h2>
-<p>How does a <strong>light sensor</strong> become a number the Arduino can read?</p>
-<div class="columns">
-<div class="column" style="width:55%;">
-<div class="fragment">
-<pre><code>  5V ── 10 kΩ ──●── LDR ── GND
-                ↑
-           ADC reads here
-               (A0)</code></pre>
-</div>
-<div class="fragment">
-<ul>
-<li>LDR resistance <strong>drops</strong> in bright light</li>
-<li>Fixed 10 kΩ stays <strong>constant</strong></li>
-<li>Midpoint voltage <strong>rises</strong> as LDR gets smaller</li>
-</ul>
-</div>
-</div><div class="column" style="width:45%;">
+<section id="the-serial-monitor-seeing-the-invisible" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>The Serial Monitor: Seeing the Invisible</h2>
+<p>How do you know what the Light Sensor is actually “seeing”? You ask the Arduino to <strong>print</strong> the numbers to your screen.</p>
+<ol type="1">
+<li><strong>Start Communication</strong>: Add <code>Serial.begin(9600);</code> in <code>setup()</code>.</li>
+<li><strong>Print the Value</strong>: Use <code>Serial.println(brightness);</code> in <code>loop()</code>.</li>
+</ol>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Water analogy</strong></p>
+<p><strong>The Glass Window</strong></p>
 </div>
 <div class="callout-content">
-<p>Two resistors in series = two narrow pipes. The pressure tap <em>between</em> them reads a fraction of total — depending on which section is narrower.</p>
+<p>In the Arduino IDE or Wokwi, look for the <strong>Serial Monitor</strong> (usually a magnifying glass icon). It opens a window where you can watch the values live!</p>
 </div>
 </div>
+</div>
+</section>
+<section id="floating-pins-noise" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>Floating Pins &amp; Noise</h2>
+<p>Imagine a sensor wire that isn’t connected to anything. It doesn’t read 0. It acts like an <strong>antenna</strong>, picking up random electrical noise from the air.</p>
+<ul>
+<li><strong>Floating state</strong>: The value “bits” or “bounces” between 0 and 1023 randomly.</li>
+<li><strong>Solution</strong>: Use a <strong>Pull-up</strong> or <strong>Pull-down</strong> resistor to “tie” the pin to a known voltage (GND or 5V) when no signal is present.</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>This is why our button lab or sensor lab needs that 10kΩ resistor — it keeps the pin “stable.”</p>
+</div>
+</div>
+</div>
+</section>
+<section id="build-2-reading-the-light" class="slide level2">
+<h2>Build #2 — Reading the Light</h2>
+<div class="fragment">
+<pre><code>  5V ───── 10 kΩ (Top Pipe) ────●──── LDR (Bottom Drain) ───── GND
+                                ↑
+                          Pressure Gauge
+                               (A0)</code></pre>
 </div>
 <div class="fragment">
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>Light level</th>
-<th>LDR R</th>
-<th>Midpoint V</th>
+<th>Light Level</th>
+<th>Drain State</th>
+<th>Resistance</th>
+<th><strong>Gauge Pressure (V)</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Bright</td>
-<td>~1 kΩ</td>
-<td>~0.5 V</td>
+<td><strong>Bright</strong></td>
+<td>Wide Open</td>
+<td><strong>LOW</strong></td>
+<td><strong>Drops towards GND (0V)</strong></td>
 </tr>
 <tr class="even">
-<td>Dark</td>
-<td>~100 kΩ</td>
-<td>~4.5 V</td>
+<td><strong>Dark</strong></td>
+<td>Clogged</td>
+<td><strong>HIGH</strong></td>
+<td><strong>Builds towards 5V</strong></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div></div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why use two resistors?</strong></p>
+</div>
+<div class="callout-content">
+<p>Arduino pins cannot directly read resistance. They can only measure <strong>Voltage</strong> (relative pressure). We MUST use a fixed resistor to create a “bottleneck”. This converts the sensor’s changing resistance into a changing pressure that the Arduino can read!</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="the-adc-bridging-analog-and-digital" class="slide level2">
 <h2>The ADC — Bridging Analog and Digital</h2>
@@ -1633,8 +2027,8 @@ Loop broken    → Current = 0</code></pre>
 </div>
 </section></section>
 <section>
-<section id="part-10-bringing-it-all-back" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 10 — Bringing It All Back</h1>
+<section id="part-11-bringing-it-all-back" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 11 — Bringing It All Back</h1>
 
 </section>
 <section id="the-master-translation-table" class="slide level2 smaller">
@@ -1729,9 +2123,9 @@ Loop broken    → Current = 0</code></pre>
 <td>HIGH / LOW voltage states</td>
 </tr>
 <tr class="even">
-<td>Python</td>
-<td>Instructions to the pump operator</td>
-<td>High-level language the interpreter translates</td>
+<td>C++</td>
+<td>Instructions to the processor</td>
+<td>High-level language the compiler translates</td>
 </tr>
 </tbody>
 </table>
@@ -1742,11 +2136,11 @@ Loop broken    → Current = 0</code></pre>
 <ol type="1">
 <li>A 9V battery + 270Ω resistor. What current flows?</li>
 <li>A circuit draws 50mA from 5V. What is the total resistance?</li>
-<li>Dim an LED to 10mA using a 3.3V GPIO pin (LED drops 2V). What resistor do you need?</li>
-<li>A motor needs 500mA. Can a Pico GP pin (max 16mA) drive it directly? Use AI to explain the transistor solution.</li>
+<li>Dim an LED to 10mA using a 5V Digital pin (LED drops 2V). What resistor do you need?</li>
+<li>A motor needs 500mA. Can an Arduino Digital pin (max 20–40mA) drive it directly? Use AI to explain the transistor solution.</li>
 </ol>
 <p><strong>Part B — Observation</strong></p>
-<p>Find <strong>3 places</strong> in your home where a reactive system turns on/off based on a sensor. For each: What is the sensor? What is the action? Write 3-line Python pseudo-code for how it might work.</p>
+<p>Find <strong>3 places</strong> in your home where a reactive system turns on/off based on a sensor. For each: What is the sensor? What is the action? Write 3-line C++ pseudo-code for how it might work.</p>
 </section></section>
 <section>
 <section id="ai-onboarding-your-lab-partner" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -1757,12 +2151,12 @@ Loop broken    → Current = 0</code></pre>
 <h2>4 Ways to Use AI in This Course</h2>
 <p>In this course, AI is a <strong>senior engineer sitting next to you</strong> — not a replacement for thinking.</p>
 <ol type="1">
-<li><strong>Explain</strong> — <em>“What does <code>GPIO.setmode(GPIO.BCM)</code> actually do? Use the water analogy.”</em></li>
-<li><strong>Debug</strong> — <em>“I’m getting <code>RuntimeError: Blue LED not found</code>. Here is my code and wiring description. What did I miss?”</em></li>
+<li><strong>Explain</strong> — <em>“What does <code>pinMode(13, OUTPUT)</code> actually do? Use the water analogy.”</em></li>
+<li><strong>Debug</strong> — <em>“I’m getting <code>expected ';' before '}'</code>. Here is my code and wiring description. What did I miss?”</em></li>
 <li><strong>Extend</strong> — <em>“My traffic light works. How do I make the yellow light pulse slowly like a heartbeat?”</em></li>
-<li><strong>Generate</strong> — <em>“Write the boilerplate to set up 3 output pins on a Raspberry Pi.”</em></li>
+<li><strong>Generate</strong> — <em>“Write the boilerplate to set up 3 output pins on an Arduino Uno.”</em></li>
 </ol>
-<p><strong>Setup:</strong> Open Cursor IDE · Log in to your assigned account · First prompt: introduce yourself and ask it to help verify your Ohm’s Law calculations.</p>
+<p><strong>Setup:</strong> Open Antigravity · Log in to your assigned account · First prompt: introduce yourself and ask it to help verify your Ohm’s Law calculations.</p>
 </section>
 <section id="questions" class="slide level2 sdaia-dark" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
 <h2>Questions?</h2>
