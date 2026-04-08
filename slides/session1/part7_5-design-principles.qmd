@@ -42,87 +42,127 @@ If we want to build a house, we look at a **blueprint**. In electronics, that's 
 
 :::::
 
-## Reading a Schematic: The Rules
+## Reading a Schematic: The Flow
 
-::: {.callout-tip}
-## The Standard Flow
-1. **Inputs on the Left, Outputs on the Right**.
-2. **Positive Voltage (+V) at the TOP**.
-3. **Ground (GND) at the BOTTOM**. 
-*Current flows like water: Downhill from Power to Ground.*
-:::
-
-## Intuition #1: The "Pressure Drop"
+To read a circuit like a pro, think of it as a **Gravity System**:
 
 ::::: {.columns}
 
 :::: {.column width="60%"}
+### 1. The Vertical Flow $\downarrow$
+- **High Pressure (+V)** is at the **TOP**.
+- **The Drain (GND)** is at the **BOTTOM**.
+- *Current always flows "downhill" from Power to Ground.*
 
-Thinking with water:
-
-- **Pump (5V)**: The power source pushing water.
-- **Turbine (LED)**: Needs exactly **2.0 V** to spin correctly.
-- **Restriction (Resistor)**: Squeezes the pipe to "waste" the leftover pressure.
-
-::: {.callout-important .fragment}
-## The Complete Cycle
-The water doesn't just "hit" the drain—it flows through it and **returns to the pump** to be pushed again. Without the return path (GND), there is no flow.
-:::
-
+### 2. The Horizontal Logic $\rightarrow$
+- **Inputs** (Sensors/Switches) on the **Left**.
+- **Outputs** (LEDs/Motors) on the **Right**.
+- *Read connections like a book: Left to Right.*
 ::::
 
 :::: {.column width="40%"}
-
-![](assets/water_analogy_led.png){width="100%"}
-*(Pump → Resistor → Turbine → Return Path)*
-
+::: {.callout-note}
+## Pro Tip
+If a schematic is drawn poorly (GND on top, Power on bottom), it's much harder to "see" the electricity moving. Always stick to the **Downhill Rule**.
+:::
 ::::
 
 :::::
 
-## Intuition #2: The "Smart Drain"
+## KVL: Conservation of Energy
 
 ::::: {.columns}
 
-:::: {.column width="60%"}
+:::: {.column width="55%"}
+**The Principle:** Every volt added by the supply must be *dropped* (used up) somewhere in the loop. You cannot return to the battery with "leftover" pressure.
 
-How do we "read" light as a number? 
-
-- **Top Pipe (10kΩ Fixed)**: Restricts flow by a set amount.
-- **Bottom Pipe (LDR Variable)**: Opens or closes based on light.
+$$\text{Voltage}_{\text{Supply}} = V_1 + V_2 + V_3 \dots$$
 
 ::: {.callout-note .fragment}
-## The Pressure Balance
-The Arduino pin (A0) acts as a **Pressure Gauge** between the pipes.
-
-- **Bright (Wide Drain)**: Water escapes easily through the bottom pipe. Gauge drops to **0V**.
-- **Dark (Clogged Drain)**: Water gets backed up. Gauge builds to **5V**.
+## The Roller Coaster Analogy
+The chain lift pulls you up to the peak (+V). Every drop and loop after that uses up that height. You must be at 0 height to return to the start.
 :::
-
-::: {.callout-important .fragment}
-## It's Still a Loop!
-Even though A0 just "listens," the main water path is a **continuous loop** from the pump, through both pipes, and back to the start.
-:::
-
 ::::
 
-:::: {.column width="40%"}
-
-![](assets/water_divider_closed_loop.png){width="100%"}
-*(Closed loop through both restrictions)*
-
+:::: {.column width="45%"}
+![](assets/water_analogy_led.png){width="100%"}
 ::::
 
 :::::
 
-## Design Exercise: Safe LED {background-color="#00C9A7" .sdaia-dark}
+## Interactive: Voltage Loops
+
+<iframe src="../simulations/kirchhoff/index.html?tab=kvl"
+  style="width:100%;height:450px;border:none;border-radius:12px;"
+  allowfullscreen>
+</iframe>
+
+**Observation:** The Battery adds 5V. Notice how each resistor "drops" (uses up) some of it. 
+*Does the sum of $V_1 + V_2$ ever change, even if you change the resistance?*
+
+
+## KVL in Practice: The "Leftover" Voltage
+
+Why do we need a resistor for a simple LED? 
+
+::: {.incremental}
+1. **The Supply**: Your battery provides **5V**.
+2. **The LED**: A standard Red LED only needs **2V**.
+3. **The Problem**: Without a resistor, the extra **3V** of pressure will force too much current into the LED—making it go **POP**.
+4. **The Solution**: A resistor "absorbs" that extra 3V, keeping the LED safe. 
+:::
+
+## KCL: Conservation of Charge
+
+::::: {.columns}
+
+:::: {.column width="55%"}
+**The Principle:** Whatever current flows *into* a junction (node) must flow *out* of it. Electricity isn't a gas; it can't "compress" or pile up.
+
+$$\text{Current}_{\text{In}} = I_1 + I_2 + I_3 \dots$$
+
+::: {.callout-note .fragment}
+## The Highway Analogy
+Think of a highway interchange. 100 cars enter. If 40 exit West and 60 exit East, all 100 are accounted for. No cars vanish.
+:::
+::::
+
+:::: {.column width="45%"}
+![](assets/water_divider_closed_loop.png){width="100%"}
+::::
+
+:::::
+
+## Interactive: Current Branches
+
+<iframe src="../simulations/kirchhoff/index.html?tab=kcl"
+  style="width:100%;height:450px;border:none;border-radius:12px;"
+  allowfullscreen>
+</iframe>
+
+**Observation:** Watching the "moving charges" (dots). At the junction, the flow splits into two paths.
+*Does any charge disappear at the junction? Is the total flow in equal to the total flow out?*
+
+
+## KCL in Practice: Parallel Paths
+
+In robotics, we often have many components (motors, sensors, LEDs) sharing the same battery.
+
+::: {.incremental}
+- **The Junction**: The battery's positive rail acts as a massive junction.
+- **The Split**: Current flows out of the battery and **splits** into each component path.
+- **The Sum**: Every milliamp drawn by a motor or LED is added together. This is why high-power robots need thick wires—to carry the *sum* of all those currents!
+:::
+
+## Design Exercise: Safe LED — KVL in Action {background-color="#00C9A7" .sdaia-dark}
 
 *(design)* Target: Limit current to **20 mA** using a **3.3 V** supply.
 *(Assume LED voltage drop = 2 V)*
 
 ::: {.fragment}
-### Step 1: Find the Resistor Voltage
+### Step 1: Apply KVL — Find the Resistor Voltage
 $V_{resistor} = V_{supply} - V_{led} = 3.3V - 2.0V = 1.3V$
+*KVL says: all voltage must be used up — the resistor absorbs the leftover 1.3 V.*
 
 ### Step 2: Calculate Resistance
 $R = V / I = 1.3V / 0.02A = 65 \Omega$
@@ -141,7 +181,7 @@ Nearest standard: **68 \Omega**.
 A **Short Circuit** happens when you connect **5V directly to GND** with a bare wire. 
 
 ::: {.fragment}
-- **Resistance ≈ 0 \Omega** (no obstacle)
+- **Resistance ≈ 0 \Omega ** (no obstacle)
 - **Flow (Current) ≈ $\infty$** (dangerous speed!)
 :::
 
