@@ -9,7 +9,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <meta name="dcterms.date" content="2026-04-07">
+  <meta name="dcterms.date" content="2026-04-11">
   <title>Session 1: Circuits Basics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -201,7 +201,7 @@
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-04-07</p>
+  <p class="date">2026-04-11</p>
 </section>
 <section>
 <section id="session-1" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -242,12 +242,12 @@
 <p><br></p>
 <div class="fragment">
 <ul>
-<li><strong>The pump</strong> creates <strong>pressure</strong> — it pushes the water</li>
+<li><strong>The pump</strong> creates <strong>pressure</strong> — the force that pushes the water</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><strong>The water moving</strong> is the <strong>flow</strong></li>
+<li><strong>The actual amount of water moving</strong> is the <strong>flow</strong></li>
 </ul>
 </div>
 <div class="fragment">
@@ -385,12 +385,12 @@
 </div>
 <div class="fragment">
 <ul>
-<li><strong>Pressure</strong> is the density of those collisions piling up behind a blockage</li>
+<li><strong>Pressure</strong> is the collective “pushing force” created when molecules pile up and collide tightly together</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><strong>Flow</strong> is the net drift direction of all those tiny pushes</li>
+<li><strong>Flow</strong> is the actual amount of those molecules managing to pass by a specific point every second</li>
 </ul>
 </div>
 <div class="fragment">
@@ -481,6 +481,19 @@
 </div>
 <div class="callout-content">
 <p>The battery doesn’t <em>create</em> electrons — they’re already there. It just creates <em>pressure</em>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Wait — which direction does current flow?</strong></p>
+</div>
+<div class="callout-content">
+<p>Electrons (negative charges) actually drift from <strong>− to +</strong> inside the wire. But engineers defined “current direction” centuries before electrons were discovered — they picked <strong>+ to −</strong>. Both descriptions are correct. In this course we always follow the <strong>+ to −</strong> convention.</p>
 </div>
 </div>
 </div>
@@ -711,7 +724,7 @@
 </section>
 <section id="exercise-7-q1-calculate-current-no-resistor" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 7 — Q1: Calculate Current (No Resistor)</h2>
-<p>A student wires an LED directly to <strong>3.3 V</strong> with no resistor. The LED has a resistance of ~<strong>10 Ω</strong> when lit.</p>
+<p>A student wires an LED directly to <strong>3.3 V</strong> with no resistor. The LED has an <em>approximate</em> resistance of ~<strong>10 Ω</strong> when lit <em>(LEDs are non-ohmic — this is a simplified model for calculation only)</em>.</p>
 <p><em>(recall)</em> Using I = V / R, calculate how much current flows.</p>
 <div class="fragment">
 <p><strong>Answer:</strong> I = 3.3 / 10 = <strong>0.33 A = 330 mA</strong></p>
@@ -1011,9 +1024,9 @@ Loop broken    → Current = 0</code></pre>
 </section>
 <section id="exercise-10-q2-controlling-a-motor" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
 <h2>Exercise 10 — Q2: Controlling a Motor</h2>
-<p><em>(apply)</em> You want to control a <strong>500 mA motor</strong> using a Raspberry Pi GPIO pin (<strong>max 16 mA</strong>). Is this possible? What is the transistor’s role?</p>
+<p><em>(apply)</em> You want to control a <strong>500 mA motor</strong> using an Arduino GPIO pin (<strong>max 40 mA</strong>). Is this possible? What is the transistor’s role?</p>
 <div class="fragment">
-<p><strong>Answer:</strong> <strong>Yes</strong> — but not directly. The GPIO cannot source 500 mA safely. A transistor with gain ≥ 32 driven by the GPIO switches the 500 mA motor current from a separate supply. The GPIO controls the <em>gate</em>; the transistor carries the <em>load</em>.</p>
+<p><strong>Answer:</strong> <strong>Yes</strong> — but not directly. The GPIO cannot source 500 mA safely. A transistor with gain ≥ 13 driven by the GPIO switches the 500 mA motor current from a separate supply. The GPIO controls the <em>gate</em>; the transistor carries the <em>load</em>.</p>
 </div>
 </section>
 <section id="exercise-10-q3-on-vs-off-1-vs-0" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
@@ -1091,339 +1104,478 @@ Only two possible states. No in-between.</p>
 </div>
 </section></section>
 <section>
-<section id="part-8-designing-circuits" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 8 — Designing Circuits</h1>
+<section id="part-8-circuit-design-principles" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 8 — Circuit Design Principles</h1>
 
 </section>
 <section id="the-engineering-design-cycle" class="slide level2">
 <h2>The Engineering Design Cycle</h2>
 <p>Engineering isn’t just “plugging things in”—it’s a deliberate, repeatable cycle of prediction and observation:</p>
 <ol type="1">
-<li class="fragment"><strong>Define the Goal</strong> — <em>What should happen? (e.g., “An LED turns on when dark”)</em></li>
-<li class="fragment"><strong>Select Components</strong> — <em>What sensors and actuators do we need?</em></li>
-<li class="fragment"><strong>Draft the Schematic</strong> — <em>How are they connected logically?</em></li>
-<li class="fragment"><strong>Calculate Values</strong> — <em>What resistor sizes are safe? (Ohm’s Law!)</em></li>
-<li class="fragment"><strong>Simulate (Optional)</strong> — <em>Test the logic in Falstad or Wokwi.</em></li>
-<li class="fragment"><strong>Prototype</strong> — <em>Build the physical circuit on a Breadboard.</em></li>
-<li class="fragment"><strong>Test &amp; Iterate</strong> — <em>Observe results, fix errors, and optimize.</em></li>
+<li class="fragment"><strong>Define the Goal</strong> — <em>What should happen?</em></li>
+<li class="fragment"><strong>Select Components</strong> — <em>Which sensors/actuators?</em></li>
+<li class="fragment"><strong>Draft the Schematic</strong> — <em>Logically connect them.</em></li>
+<li class="fragment"><strong>Calculate Values</strong> — <em>Safety first (Ohm’s Law).</em></li>
+<li class="fragment"><strong>Simulate</strong> — <em>Test in Wokwi or Falstad.</em></li>
+<li class="fragment"><strong>Prototype</strong> — <em>Build on a Breadboard.</em></li>
+<li class="fragment"><strong>Test &amp; Iterate</strong> — <em>Find bugs and optimize.</em></li>
 </ol>
 </section>
 <section id="the-language-of-design-schematics" class="slide level2">
 <h2>The Language of Design: Schematics</h2>
-<p>If we want to build a house, we look at a <strong>blueprint</strong>. In electronics, that’s a <strong>Schematic</strong>. It shows the <em>logic</em> of the connections, not the physical location of the parts.</p>
+<p>If we want to build a house, we look at a <strong>blueprint</strong>. In electronics, that’s a <strong>Schematic</strong>. It shows the <em>logic</em> of the connections.</p>
 <div class="columns">
-<div class="column" style="width:45%;">
-<h3 id="why-use-symbols">Why use symbols?</h3>
+<div class="column" style="width:50%;">
+<h3 id="why-symbols">Why symbols?</h3>
 <ul>
-<li><strong>Universal</strong>: An engineer in Tokyo and London can read the same drawing.</li>
-<li><strong>Clear</strong>: No messy wires or overlapping photos.</li>
-<li><strong>Fast</strong>: Symbols are optimized for quick drafting.</li>
+<li class="fragment"><strong>Universal</strong>: Read across borders.</li>
+<li class="fragment"><strong>Clear</strong>: No messy wire photos.</li>
+<li class="fragment"><strong>Fast</strong>: Optimized for drafting.</li>
 </ul>
-</div><div class="column" style="width:55%;">
+</div><div class="column" style="width:50%;">
+<div id="9b07231a" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="session1_files/figure-revealjs/cell-2-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="standard-symbols" class="slide level2">
+<h2>Standard Symbols</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 37%">
-<col style="width: 62%">
+<col style="width: 30%">
+<col style="width: 22%">
+<col style="width: 47%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Component</th>
-<th>Schematic Symbol</th>
+<th>Symbol</th>
+<th>Role</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><strong>Power (+V)</strong></td>
-<td><img data-src="assets/battery_sym.svg" width="35"> (or +5V label)</td>
+<td><img data-src="assets/battery_sym.svg" width="35"></td>
+<td>Energy Source</td>
 </tr>
 <tr class="even">
 <td><strong>Ground (GND)</strong></td>
-<td><img data-src="assets/gnd_sym.svg" width="35"> (The Drain)</td>
+<td><img data-src="assets/gnd_sym.svg" width="35"></td>
+<td>0V Reference</td>
 </tr>
 <tr class="odd">
 <td><strong>Resistor</strong></td>
 <td><img data-src="assets/resistor_sym.svg" width="40"></td>
+<td>Current Limiter</td>
 </tr>
 <tr class="even">
 <td><strong>LED</strong></td>
 <td><img data-src="assets/led_sym.svg" width="40"></td>
+<td>Light Emitter</td>
 </tr>
 <tr class="odd">
 <td><strong>Switch</strong></td>
 <td><img data-src="assets/switch_sym.svg" width="40"></td>
+<td>Path Control</td>
 </tr>
 <tr class="even">
 <td><strong>Capacitor</strong></td>
-<td><code>—││—</code> (Filter/Tank)</td>
+<td><img data-src="assets/capacitor_sym.svg" width="40"></td>
+<td>Energy Storage <em>(like a water tank — stores charge briefly; covered in Session 2)</em></td>
 </tr>
 </tbody>
 </table>
-</div></div>
 </section>
-<section id="reading-a-schematic-the-rules" class="slide level2">
-<h2>Reading a Schematic: The Rules</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>The Standard Flow</strong></p>
-</div>
-<div class="callout-content">
-<ol type="1">
-<li><strong>Inputs on the Left, Outputs on the Right</strong>.</li>
-<li><strong>Positive Voltage (+V) at the TOP</strong>.</li>
-<li><strong>Ground (GND) at the BOTTOM</strong>. <em>Current flows like water: Downhill from Power to Ground.</em></li>
-</ol>
-</div>
-</div>
-</div>
-</section>
-<section id="intuition-1-the-pressure-drop" class="slide level2">
-<h2>Intuition #1: The “Pressure Drop”</h2>
+<section id="schematic-layout-rules" class="slide level2">
+<h2>Schematic Layout Rules</h2>
+<p>Schematics aren’t random; they follow a strict “gravity” and “reading” direction to prevent head-aches.</p>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>Thinking with water:</p>
+<h3 id="vertical-gravity-downarrow">1. Vertical Gravity <span class="math inline">\(\downarrow\)</span></h3>
 <ul>
-<li><strong>Pump (5V)</strong>: The power source pushing water.</li>
-<li><strong>Turbine (LED)</strong>: Needs exactly <strong>2.0 V</strong> to spin correctly.</li>
-<li><strong>Restriction (Resistor)</strong>: Squeezes the pipe to “waste” the leftover pressure.</li>
+<li><strong>High Potential (+V)</strong> is at the <strong>TOP</strong>.</li>
+<li><strong>The Reference (GND)</strong> is at the <strong>BOTTOM</strong>.</li>
+<li><em>Electricity “falls” downhill.</em></li>
 </ul>
-<div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>The Complete Cycle</strong></p>
-</div>
-<div class="callout-content">
-<p>The water doesn’t just “hit” the drain—it flows through it and <strong>returns to the pump</strong> to be pushed again. Without the return path (GND), there is no flow.</p>
-</div>
-</div>
-</div>
-</div>
+<h3 id="horizontal-reading-rightarrow">2. Horizontal Reading <span class="math inline">\(\rightarrow\)</span></h3>
+<ul>
+<li><strong>Inputs</strong> (Sensors) on the <strong>Left</strong>.</li>
+<li><strong>Outputs</strong> (LEDs) on the <strong>Right</strong>.</li>
+</ul>
 </div><div class="column" style="width:40%;">
-<p><img data-src="assets/water_led_closed_loop.png" style="width:100.0%"> <em>(Pump → Resistor → Turbine → Return Path)</em></p>
-</div></div>
-</section>
-<section id="intuition-2-the-smart-drain" class="slide level2">
-<h2>Intuition #2: The “Smart Drain”</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p>How do we “read” light as a number?</p>
-<ul>
-<li><strong>Top Pipe (10kΩ Fixed)</strong>: Restricts flow by a set amount.</li>
-<li><strong>Bottom Pipe (LDR Variable)</strong>: Opens or closes based on light.</li>
-</ul>
-<div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>The Pressure Balance</strong></p>
+<p><strong>Professional Tip</strong></p>
 </div>
 <div class="callout-content">
-<p>The Arduino pin (A0) acts as a <strong>Pressure Gauge</strong> between the pipes.</p>
+<p>Always draw your “GND” symbols pointing down. It makes the schematic instantly readable as a circuit.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="interactive-series-flow" class="slide level2">
+<h2>Interactive: Series Flow</h2>
+<iframe src="../simulations/water_resistors/index.html?topo=series&amp;mode=electric" style="width:100%;height:450px;border:none;border-radius:12px;" allowfullscreen="">
+</iframe>
+<p><strong>Observation:</strong> In a series path, current (flow) has nowhere else to go. It must pass through every component in sequence.</p>
+</section>
+<section id="kirchhoffs-voltage-law-kvl" class="slide level2">
+<h2>Kirchhoff’s Voltage Law (KVL)</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="shared-energy">Shared Energy</h3>
+<p><strong>Fundamental Principle: Conservation of Energy</strong></p>
+<p>Every volt provided by the power source must be “dropped” (used up) by the components.</p>
+<div class="callout callout-important callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><strong>Key Concept</strong>: In a single loop (Series), the <strong>Current (<span class="math inline">\(I\)</span>)</strong> is constant everywhere (<span class="math inline">\(I_{in} = I_{out}\)</span>), but the <strong>Voltage (<span class="math inline">\(V\)</span>)</strong> is shared among components.</p>
+</div>
+</div>
+</div>
+<p><span class="math display">\[V_{total} = V_1 + V_2 + \dots\]</span></p>
+<div class="fragment">
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><strong>For engineers:</strong> this is written as <span class="math inline">\(\sum V_{loop} = 0\)</span>. Every electron must lose all its potential energy before returning to the source.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Loop Rule</strong></p>
+</div>
+<div class="callout-content">
+<p>Think of a waterfall. If you start at height <span class="math inline">\(H\)</span>, you must drop a total of <span class="math inline">\(H\)</span> distance (via one or many falls) before reaching the bottom.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="the-math-series-resistance" class="slide level2">
+<h2>The Math: Series Resistance</h2>
+<p>In a series circuit, components are connected end-to-end, forming a single path.</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div id="52304ab9" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="session1_files/figure-revealjs/cell-3-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Assumptions</strong></p>
+</div>
+<div class="callout-content">
 <ul>
-<li><strong>Bright (Wide Drain)</strong>: Water escapes easily through the bottom pipe. Gauge drops to <strong>0V</strong>.</li>
-<li><strong>Dark (Clogged Drain)</strong>: Water gets backed up. Gauge builds to <strong>5V</strong>.</li>
+<li><strong>KCL:</strong> Current (<span class="math inline">\(I\)</span>) is the same everywhere. <span class="math inline">\(I_{total} = I_1 = I_2 = \dots\)</span></li>
+<li><strong>KVL:</strong> Total voltage equals the sum of drops. <span class="math inline">\(V_{total} = V_1 + V_2 + \dots\)</span></li>
 </ul>
 </div>
 </div>
 </div>
+</div><div class="column" style="width:55%;">
+<h3 id="the-derivation">The Derivation</h3>
+<ol type="1">
+<li class="fragment">Apply <strong>Ohm’s Law</strong> (<span class="math inline">\(V = IR\)</span>) to each: <span class="math inline">\(V_1 = I \cdot R_1, \quad V_2 = I \cdot R_2 \dots\)</span></li>
+<li class="fragment">Substitute into KVL: <span class="math inline">\(V_{total} = (I \cdot R_1) + (I \cdot R_2) \dots\)</span></li>
+<li class="fragment">Use Equivalent Resistance (<span class="math inline">\(R_{eq}\)</span>): <span class="math inline">\(I \cdot R_{eq} = I(R_1 + R_2 + \dots)\)</span></li>
+<li class="fragment">Divide by <span class="math inline">\(I\)</span>: <strong><span class="math inline">\(\mathbf{R_{eq} = R_1 + R_2 + \dots + R_n}\)</span></strong></li>
+</ol>
+</div></div>
+</section>
+<section id="interactive-parallel-flow" class="slide level2">
+<h2>Interactive: Parallel Flow</h2>
+<iframe src="../simulations/water_resistors/index.html?topo=parallel&amp;mode=water" style="width:100%;height:450px;border:none;border-radius:12px;" allowfullscreen="">
+</iframe>
+<p><strong>Observation:</strong> Notice that while the flow (current) splits, the “pressure” (voltage) is available to all branches equally.</p>
+</section>
+<section id="kirchhoffs-current-law-kcl" class="slide level2">
+<h2>Kirchhoff’s Current Law (KCL)</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="split-flow">Split Flow</h3>
+<p><strong>Fundamental Principle: Conservation of Charge</strong></p>
+<p>Electric charge cannot be created or destroyed. Whatever current flows into a junction must flow out of it.</p>
+<div class="callout callout-important callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-content">
+<p><strong>Key Concept</strong>: In a junction (Parallel), the <strong>Voltage (<span class="math inline">\(V\)</span>)</strong> across branches is equal, but the <strong>Current (<span class="math inline">\(I\)</span>)</strong> is split (<span class="math inline">\(I_{in} = I_1 + I_2\)</span>).</p>
+</div>
+</div>
+</div>
+<p><span class="math display">\[I_{total} = I_1 + I_2 + \dots\]</span></p>
 <div class="fragment">
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><strong>For engineers:</strong> this is written as <span class="math inline">\(\sum I_{in} = \sum I_{out}\)</span>. Nodes are just distribution points for charge; electricity doesn’t “pile up.”</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Junction Rule</strong></p>
+</div>
+<div class="callout-content">
+<p>Think of parallel pipes. If 1 liter per second enters a T-junction, exactly 1 liter per second must exit through the combined branches.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="the-math-parallel-resistance" class="slide level2">
+<h2>The Math: Parallel Resistance</h2>
+<p>In a parallel circuit, resistors are connected across the same two nodes.</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div id="a0b3f991" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="session1_files/figure-revealjs/cell-4-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Assumptions</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><strong>KVL:</strong> Voltage (<span class="math inline">\(V\)</span>) is identical across all. <span class="math inline">\(V_{total} = V_1 = V_2 = \dots\)</span></li>
+<li><strong>KCL:</strong> Total current splits among branches. <span class="math inline">\(I_{total} = I_1 + I_2 + \dots\)</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:55%;">
+<h3 id="the-derivation-1">The Derivation</h3>
+<ol type="1">
+<li class="fragment">Apply <strong>Ohm’s Law</strong> (<span class="math inline">\(I = V/R\)</span>): <span class="math inline">\(I_1 = V/R_1, \quad I_2 = V/R_2 \dots\)</span></li>
+<li class="fragment">Substitute into KCL: <span class="math inline">\(I_{total} = \frac{V}{R_1} + \frac{V}{R_2} \dots\)</span></li>
+<li class="fragment">Use Equivalent Resistance (<span class="math inline">\(R_{eq}\)</span>): <span class="math inline">\(\frac{V}{R_{eq}} = V \left( \frac{1}{R_1} + \frac{1}{R_2} \dots \right)\)</span></li>
+<li class="fragment">Divide by <span class="math inline">\(V\)</span>: <strong><span class="math inline">\(\mathbf{\frac{1}{R_{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}}\)</span></strong></li>
+</ol>
+</div></div>
+</section>
+<section id="summary-table" class="slide level2">
+<h2>Summary Table</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Connection</th>
+<th style="text-align: left;">Constant Value</th>
+<th style="text-align: left;">Physical Law Used</th>
+<th style="text-align: left;">Resulting Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Series</strong></td>
+<td style="text-align: left;">Current (<span class="math inline">\(I\)</span>)</td>
+<td style="text-align: left;">KVL (<span class="math inline">\(\sum V = 0\)</span>)</td>
+<td style="text-align: left;"><span class="math inline">\(R_{eq} = \sum R_i\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Parallel</strong></td>
+<td style="text-align: left;">Voltage (<span class="math inline">\(V\)</span>)</td>
+<td style="text-align: left;">KCL (<span class="math inline">\(\sum I = 0\)</span>)</td>
+<td style="text-align: left;"><span class="math inline">\(\frac{1}{R_{eq}} = \sum \frac{1}{R_i}\)</span></td>
+</tr>
+</tbody>
+</table>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>It’s Still a Loop!</strong></p>
+<p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
-<p>Even though A0 just “listens,” the main water path is a <strong>continuous loop</strong> from the pump, through both pipes, and back to the start.</p>
+<p>In parallel, the total resistance is ALWAYS <strong>smaller</strong> than the smallest individual resistor!</p>
 </div>
 </div>
 </div>
-</div>
-</div><div class="column" style="width:40%;">
-<p><img data-src="assets/water_divider_closed_loop.png" style="width:100.0%"> <em>(Closed loop through both restrictions)</em></p>
-</div></div>
 </section>
-<section id="design-exercise-safe-led" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Design Exercise: Safe LED</h2>
-<p><em>(design)</em> Target: Limit current to <strong>20 mA</strong> using a <strong>3.3 V</strong> supply. <em>(Assume LED voltage drop = 2 V)</em></p>
-<div class="fragment">
-<h3 id="step-1-find-the-resistor-voltage">Step 1: Find the Resistor Voltage</h3>
-<p><span class="math inline">\(V_{resistor} = V_{supply} - V_{led} = 3.3V - 2.0V = 1.3V\)</span></p>
-<h3 id="step-2-calculate-resistance">Step 2: Calculate Resistance</h3>
-<p><span class="math inline">\(R = V / I = 1.3V / 0.02A = 65 \Omega\)</span></p>
-<h3 id="step-3-select-standard-value">Step 3: Select Standard Value</h3>
-<p>Nearest standard: **68 <em>. </em>Always round UP for safety. 100 is also common for “dimmer but safer” LEDs.*</p>
+<section id="engineering-math-the-safe-led" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Engineering Math: The Safe LED</h2>
+<p>Why do we need a resistor?</p>
+<p><strong>KVL says:</strong> <span class="math inline">\(V_{supply} = V_{resistor} + V_{LED}\)</span>.</p>
+<p>The LED will consume a 2V drop and the maximum current it can handle is 20 mA.</p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ol type="1">
+<li class="fragment"><p><strong>Find the “Leftover” Voltage</strong><br>
+<span class="math inline">\(V_{resistor} = V_{supply} - V_{led}
+              = 3.3V - 2.0V = \mathbf{1.3V}\)</span></p></li>
+<li class="fragment"><p><strong>Calculate Resistance (Ohm’s Law)</strong><br>
+<span class="math inline">\(R = V / I = 1.3V / 0.02A = \mathbf{65 \Omega}\)</span></p></li>
+<li class="fragment"><p><strong>Select Standard Value</strong><br>
+Nearest standard: <strong>68 <span class="math inline">\(\Omega\)</span></strong>. (Always round UP for safety).</p></li>
+</ol>
+</div><div class="column" style="width:40%;">
+<div id="67e090bd" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="session1_files/figure-revealjs/cell-5-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
 </div>
+</div>
+</div>
+</div></div>
 </section>
 <section id="danger-the-short-circuit" class="slide level2 sdaia-dark" data-background-gradient="radial-gradient(circle at 70% 30%, #450a0a 0%, #020617 100%)">
 <h2>DANGER: The Short Circuit</h2>
 <div class="columns">
 <div class="column" style="width:65%;">
 <p>A <strong>Short Circuit</strong> happens when you connect <strong>5V directly to GND</strong> with a bare wire.</p>
-<div class="fragment">
 <ul>
-<li>**Resistance ≈ 0 * (no obstacle)</li>
-<li><strong>Flow (Current) ≈ <span class="math inline">\(\infty\)</span></strong> (dangerous speed!)</li>
+<li class="fragment"><strong>Resistance ≈ 0 <span class="math inline">\(\Omega\)</span></strong> (no obstacle)</li>
+<li class="fragment"><strong>Flow (Current) ≈ <span class="math inline">\(\infty\)</span></strong> (dangerous surge!)</li>
 </ul>
-</div>
 <div class="fragment">
-<p>This generates intense heat, can trigger a “burning” smell, and will <strong>fry your Arduino’s chip</strong> or your laptop’s USB port instantly.</p>
+<p>This generates intense heat and will <strong>fry your Arduino’s chip</strong> or your laptop’s USB port instantly.</p>
 </div>
-<div class="fragment">
+</div><div class="column" style="width:35%;">
+<p><img data-src="assets/short_circuit_danger_icon.png" style="width:100.0%"></p>
+</div></div>
+</section>
+<section id="rule-1-the-safety-buffer" class="slide level2 sdaia-dark" data-background-gradient="linear-gradient(135deg, #450a0a, #020617)">
+<h2>Rule #1: The Safety Buffer</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Rule #1: The Safety Buffer</strong></p>
+<p><strong>Never connect 5V to GND directly</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Never</strong> connect 5V to GND without a “buffer” component (like a resistor or LED) to regulate the flow.</p>
+<p>Always use a “buffer” component (like a resistor or LED) to regulate the flow of energy.</p>
 </div>
 </div>
 </div>
-</div>
-</div><div class="column" style="width:35%;">
-<p><img data-src="assets/short_circuit_danger_icon.png" style="width:100.0%"></p>
-</div></div>
-</section>
-<section id="design-heuristics-pro-tips" class="slide level2">
-<h2>Design Heuristics (Pro Tips)</h2>
-<p>When you’re designing a quick prototype, start with these “Goldilocks” values:</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 22%">
-<col style="width: 36%">
-<col style="width: 27%">
-<col style="width: 13%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Use Case</th>
-<th>Standard Value</th>
-<th>Color Code</th>
-<th>Why?</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Power LED (5V)</strong></td>
-<td>**220 - 330 *</td>
-<td>Red-Red-Brown</td>
-<td>Safe &amp; Bright.</td>
-</tr>
-<tr class="even">
-<td><strong>Signal Pull-up</strong></td>
-<td>**10 k*</td>
-<td>Brown-Black-Orange</td>
-<td>Stable “Listening”.</td>
-</tr>
-<tr class="odd">
-<td><strong>Precision Setup</strong></td>
-<td>**1 k*</td>
-<td>Brown-Black-Red</td>
-<td>Fast response.</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>The “Finger Test”</strong></p>
-</div>
-<div class="callout-content">
-<p>If you build a circuit and a component feels hot to the touch—<strong>UNPLUG IT</strong>. Something is wired incorrectly or a resistor is too small.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="meet-the-breadboard" class="slide level2">
-<h2>Meet the Breadboard</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
-<p>A breadboard lets you build circuits <strong>without soldering</strong>.</p>
-<p>Think of it as a <strong>temporary LEGO board</strong> for electrons.</p>
-<div class="fragment highlight-blue">
-<ul>
-<li><strong>Terminal rows</strong> (A–E / F–J) — each row of 5 holes is <strong>one solid wire</strong>.</li>
-</ul>
-</div>
-<div class="fragment highlight-red">
-<ul>
-<li><strong>Power rails</strong> (+ and −) — run vertically the full length of the board.</li>
-</ul>
-</div>
+<div class="column" style="width:55%;">
+<h3 id="the-physics-ohms-law">The Physics (Ohm’s Law)</h3>
+<p><span class="math inline">\(I = V / R = 5V / 0\Omega = \mathbf{\infty A}\)</span></p>
 <div class="fragment">
+<h3 id="the-real-world">The Real World</h3>
 <ul>
-<li><strong>Centre divider</strong> — a gap that separates the two halves; designed to straddle chips.</li>
+<li><strong>USB Safety Limit</strong>: ~500 mA</li>
+<li><strong>A “Short” pulls</strong>: Thousands of mA</li>
 </ul>
 </div>
-</div><div class="column" style="width:40%;">
-<p><img data-src="assets/breadboard_400_standard.png" style="width:100.0%"></p>
+</div><div class="column" style="width:45%;">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>The 1-Second Rule</strong></p>
+<p><strong>Result</strong></p>
 </div>
 <div class="callout-content">
-<p>Same row = Connected. Different row = Separated.</p>
+<p>The “excess” energy has nowhere to go but into <strong>heat</strong>. This is why components melt or smell like burning.</p>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="the-x-ray-view" class="slide level2">
-<h2>The “X-Ray” View</h2>
+<section id="the-finger-test" class="slide level2">
+<h2>The “Finger Test”</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Safety Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>If you build a circuit and a component feels hot to the touch—<strong>UNPLUG IT</strong>.</p>
+<p>Something is wired incorrectly, or a resistor is too small, allowing too much “friction” (heat).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="meet-the-breadboard" class="slide level2">
+<h2>Meet the Breadboard</h2>
+<p>A breadboard lets you build circuits <strong>without soldering</strong>.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>If you peeled off the plastic, you’d see <strong>metal clips</strong> inside.</p>
-<div class="fragment">
+<h3 id="the-internal-logic">The Internal Logic</h3>
 <ul>
-<li>Each clip grabs onto the legs of your components.</li>
-<li>The 5 holes in a row (e.g.&nbsp;A10, B10, C10, D10, E10) are all <strong>connected by one piece of metal</strong>.</li>
+<li class="fragment"><strong>Terminal rows</strong> (A–J) — Holes in a row are connected.</li>
+<li class="fragment"><strong>Power rails</strong> (+ / −) — Run the full length.</li>
+<li class="fragment"><strong>Centre divider</strong> — Splits the board in two.</li>
 </ul>
-</div>
 </div><div class="column" style="width:50%;">
 <p><img data-src="assets/breadboard_400_xray.png" style="width:100.0%"></p>
 </div></div>
-</section>
-<section id="spot-the-error" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Spot the Error!</h2>
-<p>Which connection attempt is <strong>Wrong</strong> and why?</p>
-<div class="columns">
-<div class="column" style="width:33%;">
-<h3 id="a">A</h3>
-<p><img data-src="assets/breadboard_led_correct.png" style="width:100.0%"> <em>(LED legs in Row 5 and Row 6)</em></p>
-</div><div class="column" style="width:33%;">
-<h3 id="b">B</h3>
-<p><img data-src="assets/breadboard_resistor_shorted.png" style="width:100.0%"> <em>(Resistor legs both in Row 10)</em></p>
-</div><div class="column" style="width:33%;">
-<h3 id="c">C</h3>
-<p><img data-src="assets/breadboard_button_straddle.png" style="width:100.0%"> <em>(Button straddling the centre divider)</em></p>
-</div></div>
-<div class="fragment">
-<p><strong>Answer:</strong> <strong>B is wrong.</strong> Since both legs are in the same metal clip (Row 10), the electricity takes the shortcut through the clip and ignores the resistor!</p>
-</div>
 </section>
 <section id="powering-the-board-the-rails" class="slide level2">
 <h2>Powering the Board: The Rails</h2>
@@ -1434,6 +1586,14 @@ Only two possible states. No in-between.</p>
 <li><strong>Red Rail (+)</strong>: Connect to <strong>5V</strong> or <strong>3.3V</strong>.</li>
 <li><strong>Blue Rail (−)</strong>: Connect to <strong>GND</strong> (The Ground).</li>
 </ul>
+<div class="fragment">
+<h3 id="wiring-the-rails-do-this-first">Wiring the Rails (Do This First!)</h3>
+<ol type="1">
+<li>One wire from <strong>Arduino 5V pin</strong> → red rail.</li>
+<li>One wire from <strong>Arduino GND pin</strong> → blue rail.</li>
+<li>Now every row on the board can draw power or connect to ground.</li>
+</ol>
+</div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1448,7 +1608,7 @@ Only two possible states. No in-between.</p>
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<p><img data-src="assets/breadboard_400_standard.png" style="width:100.0%"></p>
+<p><img data-src="assets/breadboard_diagram.png" style="width:100.0%"></p>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1473,7 +1633,7 @@ Only two possible states. No in-between.</p>
 <h2>The Ladder of Abstraction</h2>
 <p>From transistors to C++ — five rungs:</p>
 <ol type="1">
-<li><strong>Voltage</strong> — above ~3V = HIGH (1), below ~1V = LOW (0)</li>
+<li><strong>Voltage</strong> — above ~3V = HIGH (1), below ~1V = LOW (0) <em>(voltages between 1V–3V are undefined — the pin may read 0 or 1 unpredictably; always drive pins to exactly 5V or 0V)</em></li>
 <li><strong>Binary</strong> — 1 bit = on/off · 8 bits = 1 byte = 256 values</li>
 <li><strong>Machine Code</strong> — patterns of 0s and 1s the processor reads directly</li>
 <li><strong>Assembly</strong> — human-readable commands, <em>assembled</em> to machine code</li>
@@ -1807,7 +1967,7 @@ Only two possible states. No in-between.</p>
 <p>How do you know what the Light Sensor is actually “seeing”? You ask the Arduino to <strong>print</strong> the numbers to your screen.</p>
 <ol type="1">
 <li><strong>Start Communication</strong>: Add <code>Serial.begin(9600);</code> in <code>setup()</code>.</li>
-<li><strong>Print the Value</strong>: Use <code>Serial.println(brightness);</code> in <code>loop()</code>.</li>
+<li><strong>Print the Value</strong>: Use <code>Serial.println(ldrReading);</code> in <code>loop()</code>.</li>
 </ol>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -1980,8 +2140,8 @@ Only two possible states. No in-between.</p>
 <span id="cb10-8"><a></a><span class="op">}</span></span>
 <span id="cb10-9"><a></a></span>
 <span id="cb10-10"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-11"><a></a>  <span class="dt">int</span> brightness <span class="op">=</span> analogRead<span class="op">(</span>ldrPin<span class="op">);</span>      <span class="co">// 0 (bright) → 1023 (dark)</span></span>
-<span id="cb10-12"><a></a>  <span class="cf">if</span> <span class="op">(</span>brightness <span class="op">&gt;</span> DARK_THRESHOLD<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-11"><a></a>  <span class="dt">int</span> ldrReading <span class="op">=</span> analogRead<span class="op">(</span>ldrPin<span class="op">);</span>      <span class="co">// 0 = bright, 1023 = dark (counter-intuitive!)</span></span>
+<span id="cb10-12"><a></a>  <span class="cf">if</span> <span class="op">(</span>ldrReading <span class="op">&gt;</span> DARK_THRESHOLD<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb10-13"><a></a>    digitalWrite<span class="op">(</span>ledPin<span class="op">,</span> HIGH<span class="op">);</span>             <span class="co">// dark (high value) → LED ON</span></span>
 <span id="cb10-14"><a></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
 <span id="cb10-15"><a></a>    digitalWrite<span class="op">(</span>ledPin<span class="op">,</span> LOW<span class="op">);</span>              <span class="co">// bright (low value) → LED OFF</span></span>
@@ -2011,8 +2171,8 @@ Only two possible states. No in-between.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb11-1"><a></a>pinMode<span class="op">(</span><span class="dv">11</span><span class="op">,</span> OUTPUT<span class="op">);</span>        <span class="co">// add in setup()</span></span>
 <span id="cb11-2"><a></a></span>
 <span id="cb11-3"><a></a><span class="co">// inside loop(), add:</span></span>
-<span id="cb11-4"><a></a>digitalWrite<span class="op">(</span><span class="dv">11</span><span class="op">,</span> brightness <span class="op">&gt;</span> DARK_THRESHOLD <span class="op">?</span> LOW <span class="op">:</span> HIGH<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>When bright, <code>brightness &gt; DARK_THRESHOLD</code> is false → <code>LOW</code> is replaced by <code>HIGH</code>.</p>
+<span id="cb11-4"><a></a>digitalWrite<span class="op">(</span><span class="dv">11</span><span class="op">,</span> ldrReading <span class="op">&gt;</span> DARK_THRESHOLD <span class="op">?</span> LOW <span class="op">:</span> HIGH<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When bright, <code>ldrReading &gt; DARK_THRESHOLD</code> is false → the green LED turns <code>HIGH</code>.</p>
 </div>
 </section>
 <section id="exercise-13-q4-stabilising-noisy-readings" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
@@ -2022,7 +2182,7 @@ Only two possible states. No in-between.</p>
 <p><strong>Answer:</strong> Average several readings before deciding:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb12-1"><a></a><span class="dt">long</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb12-2"><a></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++)</span> sum <span class="op">+=</span> analogRead<span class="op">(</span>A0<span class="op">);</span></span>
-<span id="cb12-3"><a></a><span class="dt">int</span> brightness <span class="op">=</span> sum <span class="op">/</span> <span class="dv">5</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-3"><a></a><span class="dt">int</span> ldrReading <span class="op">=</span> sum <span class="op">/</span> <span class="dv">5</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Or only switch the LED if the condition holds for several consecutive loops — prevents flickering from brief spikes.</p>
 </div>
 </section></section>
@@ -2064,7 +2224,7 @@ Only two possible states. No in-between.</p>
 </tr>
 <tr class="even">
 <td>Ohm’s Law</td>
-<td>P ∝ F / R</td>
+<td>P = F × R</td>
 <td>V = I × R</td>
 </tr>
 <tr class="odd">

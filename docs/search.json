@@ -18,7 +18,7 @@
     "href": "slides/session1.html#the-closed-loop",
     "title": "Session 1: Circuits Basics",
     "section": "The Closed Loop",
-    "text": "The Closed Loop\n\n\n\n\n\nThe pump creates pressure — it pushes the water\n\n\n\n\nThe water moving is the flow\n\n\n\n\nThe narrow part of the pipe is resistance — it fights the flow\n\n\n\n\n\n\n\n\n\nThese three are always connected.\n\n\nYou cannot change one without affecting the others.\n\n\n\n\n\n\n\n\n\n\n↑ Pressure → ↑ Flow\n↑ Resistance → ↓ Flow"
+    "text": "The Closed Loop\n\n\n\n\n\nThe pump creates pressure — the force that pushes the water\n\n\n\n\nThe actual amount of water moving is the flow\n\n\n\n\nThe narrow part of the pipe is resistance — it fights the flow\n\n\n\n\n\n\n\n\n\nThese three are always connected.\n\n\nYou cannot change one without affecting the others.\n\n\n\n\n\n\n\n\n\n\n↑ Pressure → ↑ Flow\n↑ Resistance → ↓ Flow"
   },
   {
     "objectID": "slides/session1.html#series-vs.-parallel-pipes",
@@ -88,7 +88,7 @@
     "href": "slides/session1.html#what-the-molecules-are-telling-you",
     "title": "Session 1: Circuits Basics",
     "section": "What the Molecules Are Telling You",
-    "text": "What the Molecules Are Telling You\n\n\n\n\nWater is not a smooth fluid — it is discrete molecules crowding and pushing\n\n\n\n\nPressure is the density of those collisions piling up behind a blockage\n\n\n\n\nFlow is the net drift direction of all those tiny pushes\n\n\n\n\nResistance is energy lost to collisions with the pipe wall — the narrower the pipe, the more collisions per metre\n\n\n\n\n\n\n\n\n\nWhy this matters for electrons\n\n\nCurrent is not a fluid either. It is a wave of pushes through particles already packed into the wire. The pump doesn’t create them — it just gives them a direction."
+    "text": "What the Molecules Are Telling You\n\n\n\n\nWater is not a smooth fluid — it is discrete molecules crowding and pushing\n\n\n\n\nPressure is the collective “pushing force” created when molecules pile up and collide tightly together\n\n\n\n\nFlow is the actual amount of those molecules managing to pass by a specific point every second\n\n\n\n\nResistance is energy lost to collisions with the pipe wall — the narrower the pipe, the more collisions per metre\n\n\n\n\n\n\n\n\n\nWhy this matters for electrons\n\n\nCurrent is not a fluid either. It is a wave of pushes through particles already packed into the wire. The pump doesn’t create them — it just gives them a direction."
   },
   {
     "objectID": "slides/session1.html#exercise-3-q1-blocked-pipe",
@@ -109,7 +109,7 @@
     "href": "slides/session1.html#water-world-electron-world",
     "title": "Session 1: Circuits Basics",
     "section": "Water World ↔︎ Electron World",
-    "text": "Water World ↔︎ Electron World\n\n\n\nWater World\n\nElectronics\n\n\n\n\nWater molecules\n→\nElectrons\n\n\nPump\n→\nBattery / power supply\n\n\nPressure\n→\nVoltage (V)\n\n\nFlow rate\n→\nCurrent (A)\n\n\nNarrow pipe\n→\nResistance (Ω)\n\n\n\n\n\n\n\n\n\nSame physics. Different scale. Different particles.\n\n\nThe battery doesn’t create electrons — they’re already there. It just creates pressure."
+    "text": "Water World ↔︎ Electron World\n\n\n\nWater World\n\nElectronics\n\n\n\n\nWater molecules\n→\nElectrons\n\n\nPump\n→\nBattery / power supply\n\n\nPressure\n→\nVoltage (V)\n\n\nFlow rate\n→\nCurrent (A)\n\n\nNarrow pipe\n→\nResistance (Ω)\n\n\n\n\n\n\n\n\n\nSame physics. Different scale. Different particles.\n\n\nThe battery doesn’t create electrons — they’re already there. It just creates pressure.\n\n\n\n\n\n\n\n\n\nWait — which direction does current flow?\n\n\nElectrons (negative charges) actually drift from − to + inside the wire. But engineers defined “current direction” centuries before electrons were discovered — they picked + to −. Both descriptions are correct. In this course we always follow the + to − convention."
   },
   {
     "objectID": "slides/session1.html#see-the-translation-live",
@@ -214,7 +214,7 @@
     "href": "slides/session1.html#exercise-7-q1-calculate-current-no-resistor",
     "title": "Session 1: Circuits Basics",
     "section": "Exercise 7 — Q1: Calculate Current (No Resistor)",
-    "text": "Exercise 7 — Q1: Calculate Current (No Resistor)\nA student wires an LED directly to 3.3 V with no resistor. The LED has a resistance of ~10 Ω when lit.\n(recall) Using I = V / R, calculate how much current flows.\n\nAnswer: I = 3.3 / 10 = 0.33 A = 330 mA\n(That is 11× the maximum rated current!)"
+    "text": "Exercise 7 — Q1: Calculate Current (No Resistor)\nA student wires an LED directly to 3.3 V with no resistor. The LED has an approximate resistance of ~10 Ω when lit (LEDs are non-ohmic — this is a simplified model for calculation only).\n(recall) Using I = V / R, calculate how much current flows.\n\nAnswer: I = 3.3 / 10 = 0.33 A = 330 mA\n(That is 11× the maximum rated current!)"
   },
   {
     "objectID": "slides/session1.html#exercise-7-q2-what-happens-to-the-led",
@@ -354,7 +354,7 @@
     "href": "slides/session1.html#exercise-10-q2-controlling-a-motor",
     "title": "Session 1: Circuits Basics",
     "section": "Exercise 10 — Q2: Controlling a Motor",
-    "text": "Exercise 10 — Q2: Controlling a Motor\n(apply) You want to control a 500 mA motor using a Raspberry Pi GPIO pin (max 16 mA). Is this possible? What is the transistor’s role?\n\nAnswer: Yes — but not directly. The GPIO cannot source 500 mA safely. A transistor with gain ≥ 32 driven by the GPIO switches the 500 mA motor current from a separate supply. The GPIO controls the gate; the transistor carries the load."
+    "text": "Exercise 10 — Q2: Controlling a Motor\n(apply) You want to control a 500 mA motor using an Arduino GPIO pin (max 40 mA). Is this possible? What is the transistor’s role?\n\nAnswer: Yes — but not directly. The GPIO cannot source 500 mA safely. A transistor with gain ≥ 13 driven by the GPIO switches the 500 mA motor current from a separate supply. The GPIO controls the gate; the transistor carries the load."
   },
   {
     "objectID": "slides/session1.html#exercise-10-q3-on-vs-off-1-vs-0",
@@ -375,7 +375,7 @@
     "href": "slides/session1.html#the-ladder-of-abstraction",
     "title": "Session 1: Circuits Basics",
     "section": "The Ladder of Abstraction",
-    "text": "The Ladder of Abstraction\nFrom transistors to C++ — five rungs:\n\nVoltage — above ~3V = HIGH (1), below ~1V = LOW (0)\nBinary — 1 bit = on/off · 8 bits = 1 byte = 256 values\nMachine Code — patterns of 0s and 1s the processor reads directly\nAssembly — human-readable commands, assembled to machine code\nC++ — high-level logic, compiled into machine code for the Arduino\n\n\n\n\n\n\n\nC++ is not what the computer runs directly\n\n\nYour code is compiled — turned into a binary file — containing the 0s and 1s that transistors actually process."
+    "text": "The Ladder of Abstraction\nFrom transistors to C++ — five rungs:\n\nVoltage — above ~3V = HIGH (1), below ~1V = LOW (0) (voltages between 1V–3V are undefined — the pin may read 0 or 1 unpredictably; always drive pins to exactly 5V or 0V)\nBinary — 1 bit = on/off · 8 bits = 1 byte = 256 values\nMachine Code — patterns of 0s and 1s the processor reads directly\nAssembly — human-readable commands, assembled to machine code\nC++ — high-level logic, compiled into machine code for the Arduino\n\n\n\n\n\n\n\nC++ is not what the computer runs directly\n\n\nYour code is compiled — turned into a binary file — containing the 0s and 1s that transistors actually process."
   },
   {
     "objectID": "slides/session1.html#meet-the-arduino-pins",
@@ -438,14 +438,14 @@
     "href": "slides/session1.html#meet-the-breadboard",
     "title": "Session 1: Circuits Basics",
     "section": "Meet the Breadboard",
-    "text": "Meet the Breadboard\n\n\nA breadboard lets you build circuits without soldering.\nThink of it as a temporary LEGO board for electrons.\n\n\nTerminal rows (A–E / F–J) — each row of 5 holes is one solid wire.\n\n\n\n\nPower rails (+ and −) — run vertically the full length of the board.\n\n\n\n\nCentre divider — a gap that separates the two halves; designed to straddle chips.\n\n\n\n\n\n\n\n\n\n\nThe 1-Second Rule\n\n\nSame row = Connected. Different row = Separated."
+    "text": "Meet the Breadboard\nA breadboard lets you build circuits without soldering.\n\n\nThe Internal Logic\n\nTerminal rows (A–J) — Holes in a row are connected.\nPower rails (+ / −) — Run the full length.\nCentre divider — Splits the board in two."
   },
   {
     "objectID": "slides/session1.html#powering-the-board-the-rails",
     "href": "slides/session1.html#powering-the-board-the-rails",
     "title": "Session 1: Circuits Basics",
     "section": "Powering the Board: The Rails",
-    "text": "Powering the Board: The Rails\n\n\nTo give your circuit life, you need Pressure (V) and a Drain (GND).\n\nRed Rail (+): Connect to 5V or 3.3V.\nBlue Rail (−): Connect to GND (The Ground).\n\n\n\n\n\n\n\nRelative Ground\n\n\nAll voltages are measured relative to GND (0V). Think of it as the water level in the drain — everything flows toward it.\n\n\n\n\n\n\n\n\n\n\n\nPro tip\n\n\nWire the Rails first! Then you can pull power for your components from anywhere on the long side strips."
+    "text": "Powering the Board: The Rails\n\n\nTo give your circuit life, you need Pressure (V) and a Drain (GND).\n\nRed Rail (+): Connect to 5V or 3.3V.\nBlue Rail (−): Connect to GND (The Ground).\n\n\nWiring the Rails (Do This First!)\n\nOne wire from Arduino 5V pin → red rail.\nOne wire from Arduino GND pin → blue rail.\nNow every row on the board can draw power or connect to ground.\n\n\n\n\n\n\n\n\nRelative Ground\n\n\nAll voltages are measured relative to GND (0V). Think of it as the water level in the drain — everything flows toward it.\n\n\n\n\n\n\n\n\n\n\n\nPro tip\n\n\nWire the Rails first! Then you can pull power for your components from anywhere on the long side strips."
   },
   {
     "objectID": "slides/session1.html#build-1-calculate-before-you-wire",
@@ -501,7 +501,7 @@
     "href": "slides/session1.html#build-2-arduino-code",
     "title": "Session 1: Circuits Basics",
     "section": "Build #2 — Arduino Code",
-    "text": "Build #2 — Arduino Code\nconst int ldrPin = A0;\nconst int ledPin = 12;\n\nint DARK_THRESHOLD = 600;  // 0–1023; tune this in class\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  int brightness = analogRead(ldrPin);      // 0 (bright) → 1023 (dark)\n  if (brightness &gt; DARK_THRESHOLD) {\n    digitalWrite(ledPin, HIGH);             // dark (high value) → LED ON\n  } else {\n    digitalWrite(ledPin, LOW);              // bright (low value) → LED OFF\n  }\n  delay(100);\n}"
+    "text": "Build #2 — Arduino Code\nconst int ldrPin = A0;\nconst int ledPin = 12;\n\nint DARK_THRESHOLD = 600;  // 0–1023; tune this in class\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  int ldrReading = analogRead(ldrPin);      // 0 = bright, 1023 = dark (counter-intuitive!)\n  if (ldrReading &gt; DARK_THRESHOLD) {\n    digitalWrite(ledPin, HIGH);             // dark (high value) → LED ON\n  } else {\n    digitalWrite(ledPin, LOW);              // bright (low value) → LED OFF\n  }\n  delay(100);\n}"
   },
   {
     "objectID": "slides/session1.html#exercise-13-q1-adc-voltage",
@@ -522,21 +522,21 @@
     "href": "slides/session1.html#exercise-13-q3-add-a-second-led",
     "title": "Session 1: Circuits Basics",
     "section": "Exercise 13 — Q3: Add a Second LED",
-    "text": "Exercise 13 — Q3: Add a Second LED\n(apply) Add a second green LED on Pin 11 that turns ON when the room is bright. Write the extra two lines of code.\n\nAnswer:\npinMode(11, OUTPUT);        // add in setup()\n\n// inside loop(), add:\ndigitalWrite(11, brightness &gt; DARK_THRESHOLD ? LOW : HIGH);\nWhen bright, brightness &gt; DARK_THRESHOLD is false → LOW is replaced by HIGH."
+    "text": "Exercise 13 — Q3: Add a Second LED\n(apply) Add a second green LED on Pin 11 that turns ON when the room is bright. Write the extra two lines of code.\n\nAnswer:\npinMode(11, OUTPUT);        // add in setup()\n\n// inside loop(), add:\ndigitalWrite(11, ldrReading &gt; DARK_THRESHOLD ? LOW : HIGH);\nWhen bright, ldrReading &gt; DARK_THRESHOLD is false → the green LED turns HIGH."
   },
   {
     "objectID": "slides/session1.html#exercise-13-q4-stabilising-noisy-readings",
     "href": "slides/session1.html#exercise-13-q4-stabilising-noisy-readings",
     "title": "Session 1: Circuits Basics",
     "section": "Exercise 13 — Q4: Stabilising Noisy Readings",
-    "text": "Exercise 13 — Q4: Stabilising Noisy Readings\n(design) The sensor reading can bounce slightly (noise). How could you use multiple readings or delay() to make the response more stable?\n\nAnswer: Average several readings before deciding:\nlong sum = 0;\nfor (int i = 0; i &lt; 5; i++) sum += analogRead(A0);\nint brightness = sum / 5;\nOr only switch the LED if the condition holds for several consecutive loops — prevents flickering from brief spikes."
+    "text": "Exercise 13 — Q4: Stabilising Noisy Readings\n(design) The sensor reading can bounce slightly (noise). How could you use multiple readings or delay() to make the response more stable?\n\nAnswer: Average several readings before deciding:\nlong sum = 0;\nfor (int i = 0; i &lt; 5; i++) sum += analogRead(A0);\nint ldrReading = sum / 5;\nOr only switch the LED if the condition holds for several consecutive loops — prevents flickering from brief spikes."
   },
   {
     "objectID": "slides/session1.html#the-master-translation-table",
     "href": "slides/session1.html#the-master-translation-table",
     "title": "Session 1: Circuits Basics",
     "section": "The Master Translation Table",
-    "text": "The Master Translation Table\n\n\n\n\n\n\n\n\nConcept\nWater Analogy\nElectronics Reality\n\n\n\n\nVoltage (V)\nPump pressure\nForce pushing electrons\n\n\nCurrent (I)\nFlow rate\nElectrons per second (Amperes)\n\n\nResistance (R)\nNarrow pipe\nOpposition to electron flow (Ohms)\n\n\nOhm’s Law\nP ∝ F / R\nV = I × R\n\n\nOpen circuit\nCut pipe\nNo complete path, no current\n\n\nShort circuit\nRemoved all pipes\nNear-zero resistance, huge current\n\n\nLED / Bulb\nFriction heating pipe\nResistance → heat → light\n\n\nLED Polarity\nOne-way check valve\nCurrent only flows one way (+ to −)\n\n\nSeries\nPipes in a single line\nComponents in a single path (Same Current)\n\n\nParallel\nBranching pipes\nComponents side-by-side (Same Voltage)\n\n\nMotor\nPaddle wheel\nEM force drives magnets → rotation\n\n\nSwitch\nGate valve\nOpens / closes the electron path\n\n\nVariable resistor\nValve\nAdjustable resistance, adjustable current\n\n\nTransistor\nElectron-controlled valve\nSmall current controls large current\n\n\nBinary\nOpen / closed valve\nHIGH / LOW voltage states\n\n\nC++\nInstructions to the processor\nHigh-level language the compiler translates"
+    "text": "The Master Translation Table\n\n\n\n\n\n\n\n\nConcept\nWater Analogy\nElectronics Reality\n\n\n\n\nVoltage (V)\nPump pressure\nForce pushing electrons\n\n\nCurrent (I)\nFlow rate\nElectrons per second (Amperes)\n\n\nResistance (R)\nNarrow pipe\nOpposition to electron flow (Ohms)\n\n\nOhm’s Law\nP = F × R\nV = I × R\n\n\nOpen circuit\nCut pipe\nNo complete path, no current\n\n\nShort circuit\nRemoved all pipes\nNear-zero resistance, huge current\n\n\nLED / Bulb\nFriction heating pipe\nResistance → heat → light\n\n\nLED Polarity\nOne-way check valve\nCurrent only flows one way (+ to −)\n\n\nSeries\nPipes in a single line\nComponents in a single path (Same Current)\n\n\nParallel\nBranching pipes\nComponents side-by-side (Same Voltage)\n\n\nMotor\nPaddle wheel\nEM force drives magnets → rotation\n\n\nSwitch\nGate valve\nOpens / closes the electron path\n\n\nVariable resistor\nValve\nAdjustable resistance, adjustable current\n\n\nTransistor\nElectron-controlled valve\nSmall current controls large current\n\n\nBinary\nOpen / closed valve\nHIGH / LOW voltage states\n\n\nC++\nInstructions to the processor\nHigh-level language the compiler translates"
   },
   {
     "objectID": "slides/session1.html#homework",
@@ -592,7 +592,7 @@
     "href": "slides/session1.html#danger-the-short-circuit",
     "title": "Session 1: Circuits Basics",
     "section": "DANGER: The Short Circuit",
-    "text": "DANGER: The Short Circuit\n\n\nA Short Circuit happens when you connect 5V directly to GND with a bare wire.\n\n\n**Resistance ≈ 0 * (no obstacle)\nFlow (Current) ≈ \\(\\infty\\) (dangerous speed!)\n\n\n\nThis generates intense heat, can trigger a “burning” smell, and will fry your Arduino’s chip or your laptop’s USB port instantly.\n\n\n\n\n\n\n\n\nRule #1: The Safety Buffer\n\n\nNever connect 5V to GND without a “buffer” component (like a resistor or LED) to regulate the flow."
+    "text": "DANGER: The Short Circuit\n\n\nA Short Circuit happens when you connect 5V directly to GND with a bare wire.\n\nResistance ≈ 0 \\(\\Omega\\) (no obstacle)\nFlow (Current) ≈ \\(\\infty\\) (dangerous surge!)\n\n\nThis generates intense heat and will fry your Arduino’s chip or your laptop’s USB port instantly."
   },
   {
     "objectID": "slides/session1.html#component-identifying-the-led",
@@ -613,7 +613,7 @@
     "href": "slides/session1.html#the-serial-monitor-seeing-the-invisible",
     "title": "Session 1: Circuits Basics",
     "section": "The Serial Monitor: Seeing the Invisible",
-    "text": "The Serial Monitor: Seeing the Invisible\nHow do you know what the Light Sensor is actually “seeing”? You ask the Arduino to print the numbers to your screen.\n\nStart Communication: Add Serial.begin(9600); in setup().\nPrint the Value: Use Serial.println(brightness); in loop().\n\n\n\n\n\n\n\nThe Glass Window\n\n\nIn the Arduino IDE or Wokwi, look for the Serial Monitor (usually a magnifying glass icon). It opens a window where you can watch the values live!"
+    "text": "The Serial Monitor: Seeing the Invisible\nHow do you know what the Light Sensor is actually “seeing”? You ask the Arduino to print the numbers to your screen.\n\nStart Communication: Add Serial.begin(9600); in setup().\nPrint the Value: Use Serial.println(ldrReading); in loop().\n\n\n\n\n\n\n\nThe Glass Window\n\n\nIn the Arduino IDE or Wokwi, look for the Serial Monitor (usually a magnifying glass icon). It opens a window where you can watch the values live!"
   },
   {
     "objectID": "slides/session1.html#floating-pins-noise",
@@ -725,7 +725,7 @@
     "href": "slides/session1.html#the-language-of-design-schematics",
     "title": "Session 1: Circuits Basics",
     "section": "The Language of Design: Schematics",
-    "text": "The Language of Design: Schematics\nIf we want to build a house, we look at a blueprint. In electronics, that’s a Schematic. It shows the logic of the connections, not the physical location of the parts.\n\n\nWhy use symbols?\n\nUniversal: An engineer in Tokyo and London can read the same drawing.\nClear: No messy wires or overlapping photos.\nFast: Symbols are optimized for quick drafting.\n\n\n\n\n\n\n\n\n\nComponent\nSchematic Symbol\n\n\n\n\nPower (+V)\n (or +5V label)\n\n\nGround (GND)\n (The Drain)\n\n\nResistor\n\n\n\nLED\n\n\n\nSwitch\n\n\n\nCapacitor\n—││— (Filter/Tank)"
+    "text": "The Language of Design: Schematics\nIf we want to build a house, we look at a blueprint. In electronics, that’s a Schematic. It shows the logic of the connections.\n\n\nWhy symbols?\n\nUniversal: Read across borders.\nClear: No messy wire photos.\nFast: Optimized for drafting."
   },
   {
     "objectID": "slides/session1.html#interactive-schematic-falstad",
@@ -760,7 +760,7 @@
     "href": "slides/session1.html#the-engineering-design-cycle",
     "title": "Session 1: Circuits Basics",
     "section": "The Engineering Design Cycle",
-    "text": "The Engineering Design Cycle\nEngineering isn’t just “plugging things in”—it’s a deliberate, repeatable cycle of prediction and observation:\n\nDefine the Goal — What should happen? (e.g., “An LED turns on when dark”)\nSelect Components — What sensors and actuators do we need?\nDraft the Schematic — How are they connected logically?\nCalculate Values — What resistor sizes are safe? (Ohm’s Law!)\nSimulate (Optional) — Test the logic in Falstad or Wokwi.\nPrototype — Build the physical circuit on a Breadboard.\nTest & Iterate — Observe results, fix errors, and optimize."
+    "text": "The Engineering Design Cycle\nEngineering isn’t just “plugging things in”—it’s a deliberate, repeatable cycle of prediction and observation:\n\nDefine the Goal — What should happen?\nSelect Components — Which sensors/actuators?\nDraft the Schematic — Logically connect them.\nCalculate Values — Safety first (Ohm’s Law).\nSimulate — Test in Wokwi or Falstad.\nPrototype — Build on a Breadboard.\nTest & Iterate — Find bugs and optimize."
   },
   {
     "objectID": "slides/session1.html#reading-a-schematic-the-rules",
@@ -788,6 +788,454 @@
     "href": "slides/session1.html#design-heuristics-pro-tips",
     "title": "Session 1: Circuits Basics",
     "section": "Design Heuristics (Pro Tips)",
-    "text": "Design Heuristics (Pro Tips)\nWhen you’re designing a quick prototype, start with these “Goldilocks” values:\n\n\n\n\n\n\n\n\n\nUse Case\nStandard Value\nColor Code\nWhy?\n\n\n\n\nPower LED (5V)\n**220 - 330 *\nRed-Red-Brown\nSafe & Bright.\n\n\nSignal Pull-up\n**10 k*\nBrown-Black-Orange\nStable “Listening”.\n\n\nPrecision Setup\n**1 k*\nBrown-Black-Red\nFast response.\n\n\n\n\n\n\n\n\n\nThe “Finger Test”\n\n\nIf you build a circuit and a component feels hot to the touch—UNPLUG IT. Something is wired incorrectly or a resistor is too small."
+    "text": "Design Heuristics (Pro Tips)\nWhen you’re designing a quick prototype, start with these “Goldilocks” values:\n\n\n\n\n\n\n\n\n\nUse Case\nStandard Value\nColor Code\nWhy?\n\n\n\n\nPower LED (5V)\n**220 - 330 *\nRed-Red-Brown\nSafe & Bright.\n\n\nSignal Pull-up\n**10 k*\nBrown-Black-Orange\nStable “Listening”.\n\n\nPrecision Setup\n**1 k*\nBrown-Black-Red\nFast response.\n\n\n\n\n\n\n\n\n\n\nHow to Read Color Codes\n\n\nEach band is a digit: the first two give the number, the third is the multiplier.\n\n\n\n\n\n\n\n\n\n\nResistor\nBand 1\nBand 2\nBand 3 (×)\nResult\n\n\n\n\n330 Ω\nRed = 3\nRed = 3\nBrown = ×10\n33 × 10 = 330\n\n\n10 kΩ\nBrown = 1\nBlack = 0\nOrange = ×1000\n10 × 1000 = 10,000\n\n\n1 kΩ\nBrown = 1\nBlack = 0\nRed = ×100\n10 × 100 = 1,000\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe “Finger Test”\n\n\nIf you build a circuit and a component feels hot to the touch—UNPLUG IT. Something is wired incorrectly or a resistor is too small."
+  },
+  {
+    "objectID": "slides/session1.html#kvl-kirchhoffs-voltage-law",
+    "href": "slides/session1.html#kvl-kirchhoffs-voltage-law",
+    "title": "Session 1: Circuits Basics",
+    "section": "KVL — Kirchhoff’s Voltage Law",
+    "text": "KVL — Kirchhoff’s Voltage Law\n\n\nThe Rule: Every volt added by the battery must be dropped (used up) somewhere in the loop. Nothing leaks out.\n\\[\\text{Voltage}_{\\text{Supply}} = V_1 + V_2 + V_3 \\dots\\]\n\n\n\n\n\n\n\nWater analogy\n\n\nThe pump’s pressure gets squeezed out across every restriction. You can’t exit the loop with leftover pressure — it all gets used up before returning to the pump.\n\n\n\n\n\nWhy it matters: It’s how we calculate the resistor value in any LED circuit — the resistor must absorb whatever voltage the LED doesn’t use.\n\n\n\n\nAdjust R₁ and R₂ — watch the voltage split, but the sum always stays 5 V."
+  },
+  {
+    "objectID": "slides/session1.html#kcl-kirchhoffs-current-law",
+    "href": "slides/session1.html#kcl-kirchhoffs-current-law",
+    "title": "Session 1: Circuits Basics",
+    "section": "KCL — Kirchhoff’s Current Law",
+    "text": "KCL — Kirchhoff’s Current Law\n\n\nThe Rule: Whatever current flows into a junction must flow out of it. Charge cannot pile up.\n\\[\\text{Current}_{\\text{In}} = I_1 + I_2 + I_3 \\dots\\]\n\n\n\n\n\n\n\nWater analogy\n\n\nAt a pipe T-junction, flow splits between branches — but every drop that entered must come out the other side. Nothing disappears.\n\n\n\n\n\nWhy it matters: This is the basis of the voltage divider — two parallel paths sharing the same source voltage, each drawing its own current.\n\n\n\n\nAdjust R₁ and R₂ — the dot density in each branch shows its current."
+  },
+  {
+    "objectID": "slides/session1.html#design-exercise-safe-led-kvl-in-action",
+    "href": "slides/session1.html#design-exercise-safe-led-kvl-in-action",
+    "title": "Session 1: Circuits Basics",
+    "section": "Design Exercise: Safe LED — KVL in Action",
+    "text": "Design Exercise: Safe LED — KVL in Action\n(design) Target: Limit current to 20 mA using a 3.3 V supply. (Assume LED voltage drop = 2 V)\n\n\n\nStep 1: Apply KVL — Find the Resistor Voltage\n\\(V_{resistor} = V_{supply} - V_{led} = 3.3V - 2.0V = 1.3V\\) KVL says: all voltage must be used up — the resistor absorbs the leftover 1.3 V.\nStep 2: Calculate Resistance\n\\(R = V / I = 1.3V / 0.02A = 65 \\Omega\\)\nStep 3: Select Standard Value\nNearest standard: **68 . Always round UP for safety. 100 is also common for “dimmer but safer” LEDs.*\n\n\n\n\n\n\n\n\n\n\nCircuit labels\n\n\n\nSupply: 3.3V\n\\(V_R\\) = 1.3V (resistor absorbs this)\n\\(V_{LED}\\) = 2.0V\nCurrent: 19 mA ✓ (safe!)"
+  },
+  {
+    "objectID": "slides/session1.html#reading-a-schematic-the-flow",
+    "href": "slides/session1.html#reading-a-schematic-the-flow",
+    "title": "Session 1: Circuits Basics",
+    "section": "Reading a Schematic: The Flow",
+    "text": "Reading a Schematic: The Flow\nTo read a circuit like a pro, think of it as a Gravity System:\n\n\n1. The Vertical Flow \\(\\downarrow\\)\n\nHigh Pressure (+V) is at the TOP.\nThe Drain (GND) is at the BOTTOM.\nCurrent always flows “downhill” from Power to Ground.\n\n2. The Horizontal Logic \\(\\rightarrow\\)\n\nInputs (Sensors/Switches) on the Left.\nOutputs (LEDs/Motors) on the Right.\nRead connections like a book: Left to Right.\n\n\n\n\n\n\n\n\n\nWhat you’re reading above\n\n\n+5V (top) → Resistor (zigzag) → LED (arrow-triangle) → GND (bottom). Every complete schematic follows this downhill pattern."
+  },
+  {
+    "objectID": "slides/session1.html#interactive-voltage-loops",
+    "href": "slides/session1.html#interactive-voltage-loops",
+    "title": "Session 1: Circuits Basics",
+    "section": "Interactive: Voltage Loops",
+    "text": "Interactive: Voltage Loops"
+  },
+  {
+    "objectID": "slides/session1.html#kvl-conservation-of-energy",
+    "href": "slides/session1.html#kvl-conservation-of-energy",
+    "title": "Session 1: Circuits Basics",
+    "section": "KVL: Conservation of Energy",
+    "text": "KVL: Conservation of Energy\n\n\nThe Principle: Every volt added by the supply must be dropped (used up) somewhere in the loop. You cannot return to the battery with “leftover” pressure.\n\\[\\text{Voltage}_{\\text{Supply}} = V_1 + V_2 + V_3 \\dots\\]\n\n\n\n\n\n\n\nThe Roller Coaster Analogy\n\n\nThe chain lift pulls you up to the peak (+V). Every drop and loop after that uses up that height. You must be at 0 height to return to the start."
+  },
+  {
+    "objectID": "slides/session1.html#interactive-current-branches",
+    "href": "slides/session1.html#interactive-current-branches",
+    "title": "Session 1: Circuits Basics",
+    "section": "Interactive: Current Branches",
+    "text": "Interactive: Current Branches\n\n\nObservation: Watching the “moving charges” (dots). At the junction, the flow splits into two paths. Does any charge disappear at the junction? Is the total flow in equal to the total flow out?"
+  },
+  {
+    "objectID": "slides/session1.html#kcl-conservation-of-charge",
+    "href": "slides/session1.html#kcl-conservation-of-charge",
+    "title": "Session 1: Circuits Basics",
+    "section": "KCL: Conservation of Charge",
+    "text": "KCL: Conservation of Charge\n\n\nThe Principle: Whatever current flows into a junction (node) must flow out of it. Electricity isn’t a gas; it can’t “compress” or pile up.\n\\[\\text{Current}_{\\text{In}} = I_1 + I_2 + I_3 \\dots\\]\n\n\n\n\n\n\n\nThe Highway Analogy\n\n\nThink of a highway interchange. 100 cars enter. If 40 exit West and 60 exit East, all 100 are accounted for. No cars vanish."
+  },
+  {
+    "objectID": "slides/session1.html#kvl-in-practice-the-leftover-voltage",
+    "href": "slides/session1.html#kvl-in-practice-the-leftover-voltage",
+    "title": "Session 1: Circuits Basics",
+    "section": "KVL in Practice: The “Leftover” Voltage",
+    "text": "KVL in Practice: The “Leftover” Voltage\nWhy do we need a resistor for a simple LED?\n\n\n\nThe Supply: Your battery provides 5V.\nThe LED: A standard Red LED only needs 2V.\nThe Problem: Without a resistor, the extra 3V of pressure will force too much current into the LED—making it go POP.\nThe Solution: A resistor “absorbs” that extra 3V, keeping the LED safe.\n\n\n\\[V_{supply} = V_{resistor} + V_{LED}\\] \\[5V = 3V + 2V \\checkmark\\]\n\n\n\n\n\n\n\n\n\n\nRead the labels\n\n\nThe 3V drop happens across the resistor (zigzag). The 2V drop happens across the LED. They sum to exactly 5V. KVL holds."
+  },
+  {
+    "objectID": "slides/session1.html#kcl-in-practice-parallel-paths",
+    "href": "slides/session1.html#kcl-in-practice-parallel-paths",
+    "title": "Session 1: Circuits Basics",
+    "section": "KCL in Practice: Parallel Paths",
+    "text": "KCL in Practice: Parallel Paths\nIn robotics, we often have many components (motors, sensors, LEDs) sharing the same battery.\n\nThe Junction: The battery’s positive rail acts as a massive junction.\nThe Split: Current flows out of the battery and splits into each component path.\nThe Sum: Every milliamp drawn by a motor or LED is added together. This is why high-power robots need thick wires—to carry the sum of all those currents!"
+  },
+  {
+    "objectID": "slides/session1.html#from-schematic-to-real-life",
+    "href": "slides/session1.html#from-schematic-to-real-life",
+    "title": "Session 1: Circuits Basics",
+    "section": "From Schematic to Real Life",
+    "text": "From Schematic to Real Life\nThe schematic tells you the logic. The breadboard makes it physical.\n\n\nSchematic (Logic)\n\n\n\nTop wire = Power rail\nZigzag = Resistor\nArrow = LED\n\n\n\nBreadboard (Physical)\n\n\n\nRed rail = Power source\nRow 5 = Connection point\nBlue rail = Ground return"
+  },
+  {
+    "objectID": "slides/session1.html#putting-it-together",
+    "href": "slides/session1.html#putting-it-together",
+    "title": "Session 1: Circuits Basics",
+    "section": "Putting It Together",
+    "text": "Putting It Together\nLet’s trace one complete circuit through all three lenses:\n\n\n\n1. The Schematic\n\\[\\text{+5V} \\rightarrow \\underbrace{330\\Omega}_{\\text{resistor}} \\rightarrow \\underbrace{\\text{LED}}_{\\text{2V drop}} \\rightarrow \\text{GND}\\]\n\n\n2. The Math (KVL + Ohm’s Law)\n\\(V_R = 5V - 2V = 3V\\) \\(I = 3V / 330\\Omega = 9\\text{ mA}\\) ✓ (safe!)\n\n\n3. The Build Plan\n\nWire 5V → Red Rail, GND → Blue Rail\nResistor: red rail → Row 5\nLED: Row 5 (+) → Row 6 (−)\nRow 6 → Blue Rail\n\n\n\n\n\n\n\n\n\n\n\nNext Up: Part 9 — The Lab\n\n\nYou’ll build exactly this circuit — then extend it to 3 LEDs (traffic light!) and add a light sensor. The schematic → breadboard → code pipeline you just learned is the full workflow."
+  },
+  {
+    "objectID": "slides/session1.html#kirchhoffs-voltage-law-kvl",
+    "href": "slides/session1.html#kirchhoffs-voltage-law-kvl",
+    "title": "Session 1: Circuits Basics",
+    "section": "Kirchhoff’s Voltage Law (KVL)",
+    "text": "Kirchhoff’s Voltage Law (KVL)\n\n\nShared Energy\nFundamental Principle: Conservation of Energy\nEvery volt provided by the power source must be “dropped” (used up) by the components.\n\n\n\n\n\n\nKey Concept: In a single loop (Series), the Current (\\(I\\)) is constant everywhere (\\(I_{in} = I_{out}\\)), but the Voltage (\\(V\\)) is shared among components.\n\n\n\n\\[V_{total} = V_1 + V_2 + \\dots\\]\n\n\n\n\n\n\n\nFor engineers: this is written as \\(\\sum V_{loop} = 0\\). Every electron must lose all its potential energy before returning to the source.\n\n\n\n\n\n\n\n\n\n\n\n\nThe Loop Rule\n\n\nThink of a waterfall. If you start at height \\(H\\), you must drop a total of \\(H\\) distance (via one or many falls) before reaching the bottom."
+  },
+  {
+    "objectID": "slides/session1.html#resistors-in-series",
+    "href": "slides/session1.html#resistors-in-series",
+    "title": "Session 1: Circuits Basics",
+    "section": "Resistors in Series",
+    "text": "Resistors in Series\nWhen components are connected end-to-end, they form a Series circuit.\n\n\nCharacteristics:\n\nConstant Current: The current \\(I\\) has only one path; it is the same through all components.\nVoltage Division: The supply voltage splits across each resistor.\nTotal Resistance: \\(R_{total}\\) is the sum of all individual resistances.\n\n\\[R_{total} = R_1 + R_2 + R_3 \\dots\\]\n\n\nAdding more resistors in series increases total resistance and decreases total current flow."
+  },
+  {
+    "objectID": "slides/session1.html#kirchhoffs-current-law-kcl",
+    "href": "slides/session1.html#kirchhoffs-current-law-kcl",
+    "title": "Session 1: Circuits Basics",
+    "section": "Kirchhoff’s Current Law (KCL)",
+    "text": "Kirchhoff’s Current Law (KCL)\n\n\nSplit Flow\nFundamental Principle: Conservation of Charge\nElectric charge cannot be created or destroyed. Whatever current flows into a junction must flow out of it.\n\n\n\n\n\n\nKey Concept: In a junction (Parallel), the Voltage (\\(V\\)) across branches is equal, but the Current (\\(I\\)) is split (\\(I_{in} = I_1 + I_2\\)).\n\n\n\n\\[I_{total} = I_1 + I_2 + \\dots\\]\n\n\n\n\n\n\n\nFor engineers: this is written as \\(\\sum I_{in} = \\sum I_{out}\\). Nodes are just distribution points for charge; electricity doesn’t “pile up.”\n\n\n\n\n\n\n\n\n\n\n\n\nThe Junction Rule\n\n\nThink of parallel pipes. If 1 liter per second enters a T-junction, exactly 1 liter per second must exit through the combined branches."
+  },
+  {
+    "objectID": "slides/session1.html#resistors-in-parallel",
+    "href": "slides/session1.html#resistors-in-parallel",
+    "title": "Session 1: Circuits Basics",
+    "section": "Resistors in Parallel",
+    "text": "Resistors in Parallel\nWhen components are connected across the same two nodes, they form a Parallel circuit.\n\n\nCharacteristics:\n\nConstant Voltage: Every branch sees the exact same voltage (potential difference).\nCurrent Division: The total current \\(I_{tot}\\) splits based on the resistance of each branch.\nTotal Resistance: \\(R_{eq}\\) decreases as you add more paths.\n\n\\[\\frac{1}{R_{total}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\frac{1}{R_3} \\dots\\]\n\n\nAdding more resistors in parallel decreases total resistance and increases total current!"
+  },
+  {
+    "objectID": "slides/session1.html#interactive-pipe-logic-kcl",
+    "href": "slides/session1.html#interactive-pipe-logic-kcl",
+    "title": "Session 1: Circuits Basics",
+    "section": "Interactive: Pipe Logic (KCL)",
+    "text": "Interactive: Pipe Logic (KCL)\n\n\nObservation: Hover over the split point with your mouse to use the Probe. Notice that \\(Q_{total} = Q_1 + Q_2\\). Even if you restrict one branch, the total flow logic holds."
+  },
+  {
+    "objectID": "slides/session1.html#summary-series-vs.-parallel",
+    "href": "slides/session1.html#summary-series-vs.-parallel",
+    "title": "Session 1: Circuits Basics",
+    "section": "Summary: Series vs. Parallel",
+    "text": "Summary: Series vs. Parallel\n\n\n\n\n\n\n\n\nFeature\nSeries\nParallel\n\n\n\n\nPath\nSingle Path\nMultiple Branches\n\n\nCurrent (\\(I\\))\nSame through all\nSplits between branches\n\n\nVoltage (\\(V\\))\nSplits across resistors\nSame across all branches\n\n\nResistance\nIncreases\nDecreases\n\n\n\n\n\n\n\n\n\nTip\n\n\nIn parallel, the total resistance is ALWAYS smaller than the smallest individual resistor!"
+  },
+  {
+    "objectID": "slides/session1.html#standard-symbols",
+    "href": "slides/session1.html#standard-symbols",
+    "title": "Session 1: Circuits Basics",
+    "section": "Standard Symbols",
+    "text": "Standard Symbols\n\n\n\n\n\n\n\n\nComponent\nSymbol\nRole\n\n\n\n\nPower (+V)\n\nEnergy Source\n\n\nGround (GND)\n\n0V Reference\n\n\nResistor\n\nCurrent Limiter\n\n\nLED\n\nLight Emitter\n\n\nSwitch\n\nPath Control\n\n\nCapacitor\n\nEnergy Storage (like a water tank — stores charge briefly; covered in Session 2)"
+  },
+  {
+    "objectID": "slides/session1.html#schematic-layout-rules",
+    "href": "slides/session1.html#schematic-layout-rules",
+    "title": "Session 1: Circuits Basics",
+    "section": "Schematic Layout Rules",
+    "text": "Schematic Layout Rules\nSchematics aren’t random; they follow a strict “gravity” and “reading” direction to prevent head-aches.\n\n\n1. Vertical Gravity \\(\\downarrow\\)\n\nHigh Potential (+V) is at the TOP.\nThe Reference (GND) is at the BOTTOM.\nElectricity “falls” downhill.\n\n2. Horizontal Reading \\(\\rightarrow\\)\n\nInputs (Sensors) on the Left.\nOutputs (LEDs) on the Right.\n\n\n\n\n\n\n\n\nProfessional Tip\n\n\nAlways draw your “GND” symbols pointing down. It makes the schematic instantly readable as a circuit."
+  },
+  {
+    "objectID": "slides/session1.html#engineering-math-the-safe-led",
+    "href": "slides/session1.html#engineering-math-the-safe-led",
+    "title": "Session 1: Circuits Basics",
+    "section": "Engineering Math: The Safe LED",
+    "text": "Engineering Math: The Safe LED\nWhy do we need a resistor?\nKVL says: \\(V_{supply} = V_{resistor} + V_{LED}\\).\nThe LED will consume a 2V drop and the maximum current it can handle is 20 mA.\n\n\n\nFind the “Leftover” Voltage\n\\(V_{resistor} = V_{supply} - V_{led}\n              = 3.3V - 2.0V = \\mathbf{1.3V}\\)\nCalculate Resistance (Ohm’s Law)\n\\(R = V / I = 1.3V / 0.02A = \\mathbf{65 \\Omega}\\)\nSelect Standard Value\nNearest standard: 68 \\(\\Omega\\). (Always round UP for safety)."
+  },
+  {
+    "objectID": "slides/session1.html#prototyping-heuristics",
+    "href": "slides/session1.html#prototyping-heuristics",
+    "title": "Session 1: Circuits Basics",
+    "section": "Prototyping Heuristics",
+    "text": "Prototyping Heuristics\nWhen designing a quick prototype, start with these “Goldilocks” values:\n\n\n\n\n\n\n\n\nUse Case\nStandard Value\nWhy?\n\n\n\n\nPower LED (5V)\n220 \\(\\Omega\\) - 330 \\(\\Omega\\)\nSafe & Bright.\n\n\nSignal Pull-up\n10 k\\(\\Omega\\)\nStable “Listening”.\n\n\nPrecision Setup\n1 k\\(\\Omega\\)\nFast response."
+  },
+  {
+    "objectID": "slides/session1.html#resistor-color-codes",
+    "href": "slides/session1.html#resistor-color-codes",
+    "title": "Session 1: Circuits Basics",
+    "section": "Resistor Color Codes",
+    "text": "Resistor Color Codes\nReading bands is faster than using a multimeter.\n\n\n\n\n\n\n\n\n\n\nResistor\nBand 1\nBand 2\nBand 3 (Multiplier)\nResult\n\n\n\n\n330 \\(\\Omega\\)\nRed (3)\nRed (3)\nBrown (×10)\n330\n\n\n10 k\\(\\Omega\\)\nBrown (1)\nBlack (0)\nOrange (×1000)\n10,000\n\n\n1 k\\(\\Omega\\)\nBrown (1)\nBlack (0)\nRed (×100)\n1,000"
+  },
+  {
+    "objectID": "slides/session1.html#the-finger-test",
+    "href": "slides/session1.html#the-finger-test",
+    "title": "Session 1: Circuits Basics",
+    "section": "The “Finger Test”",
+    "text": "The “Finger Test”\n\n\n\n\n\n\nSafety Tip\n\n\nIf you build a circuit and a component feels hot to the touch—UNPLUG IT.\nSomething is wired incorrectly, or a resistor is too small, allowing too much “friction” (heat)."
+  },
+  {
+    "objectID": "slides/session1.html#rule-1-the-safety-buffer",
+    "href": "slides/session1.html#rule-1-the-safety-buffer",
+    "title": "Session 1: Circuits Basics",
+    "section": "Rule #1: The Safety Buffer",
+    "text": "Rule #1: The Safety Buffer\n\n\n\n\n\n\nNever connect 5V to GND directly\n\n\nAlways use a “buffer” component (like a resistor or LED) to regulate the flow of energy.\n\n\n\n\n\nThe Physics (Ohm’s Law)\n\\(I = V / R = 5V / 0\\Omega = \\mathbf{\\infty A}\\)\n\nThe Real World\n\nUSB Safety Limit: ~500 mA\nA “Short” pulls: Thousands of mA\n\n\n\n\n\n\n\n\n\nResult\n\n\nThe “excess” energy has nowhere to go but into heat. This is why components melt or smell like burning."
+  },
+  {
+    "objectID": "slides/session2.html#agenda",
+    "href": "slides/session2.html#agenda",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Agenda",
+    "text": "Agenda\n\nPart 1 — The Danger of Motors\nPart 2 — Tinkercad Simulation\nPart 3 — The Physical Build\nPart 4 — Programming Movement\nPart 5 — The IR Remote\nPart 6 — Obstacle Course & AI Demo\nPart 7 — Problem Patterns (Closing)"
+  },
+  {
+    "objectID": "slides/session2.html#the-muscle-vs-the-brain",
+    "href": "slides/session2.html#the-muscle-vs-the-brain",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "The “Muscle” vs The “Brain”",
+    "text": "The “Muscle” vs The “Brain”\nWe learned that the Arduino is the Brain (it sends 0s and 1s using low-voltage signals).\nMotors are the Muscles. They require a large flow of electricity (current) to generate magnetic fields strong enough to spin wheels.\n\nLED Requires: ~20 milliAmps (mA)\nArduino Pin Maximum: ~40 milliAmps (mA)\nDC Motor Requires: ~500 to 1,000+ milliAmps (mA)"
+  },
+  {
+    "objectID": "slides/session2.html#rule-1-of-robotics",
+    "href": "slides/session2.html#rule-1-of-robotics",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Rule #1 of Robotics",
+    "text": "Rule #1 of Robotics\n\n\n\n\n\n\nNever Power a Motor Directly From an Arduino Pin!\n\n\nIf you try to draw 1,000 mA from a pin designed to supply only 40 mA, you will instantly melt the internal circuitry of the Arduino chip.\n\n\n\n\nThink of it like trying to fill a swimming pool using a drinking straw. The pressure will destroy the straw."
+  },
+  {
+    "objectID": "slides/session2.html#the-solution-the-motor-driver",
+    "href": "slides/session2.html#the-solution-the-motor-driver",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "The Solution: The Motor Driver",
+    "text": "The Solution: The Motor Driver\nTo protect the Arduino, we use a component called a Motor Driver (like the L298N).\n\n\nHow it works:\n\nSeparate Power: The motor gets its heavy power directly from the battery pack.\nLogic Control: The Arduino sends a tiny, safe HIGH or LOW signal to the Motor Driver.\nThe Switch: The Motor Driver opens a “heavy-duty valve” that lets the battery power flow to the motor."
+  },
+  {
+    "objectID": "slides/session2.html#why-we-simulate-before-we-build",
+    "href": "slides/session2.html#why-we-simulate-before-we-build",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Why we simulate before we build",
+    "text": "Why we simulate before we build\nWiring a motor driver wrong can short-circuit the battery or blow up components. We will use Tinkercad to wire our first virtual motor driver. If we make a mistake, we only blow up pixels!\n\n\n\n\n\n\nYour Task\n\n\nGo to tinkercad.com/circuits and start a new project."
+  },
+  {
+    "objectID": "slides/session2.html#wiring-the-l298n-motor-driver",
+    "href": "slides/session2.html#wiring-the-l298n-motor-driver",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Wiring the L298N Motor Driver",
+    "text": "Wiring the L298N Motor Driver\n\n\nWe need to connect 3 types of wires:\n\nPower In: Battery + to 12V, Battery - to GND.\nMotor Out: Motor wires to OUT1 and OUT2.\nLogic In: Arduino Pins to IN1 and IN2.\n\nAnd crucially, Arduino GND must connect to the Battery GND so they share the same 0V reference!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWait, what is 12V vs 5V?\n\n\nThe driver takes the strong battery power (up to 12V) on one side, and the safe 5V logic signals from the Arduino on the other side."
+  },
+  {
+    "objectID": "slides/session2.html#writing-the-tinkercad-code",
+    "href": "slides/session2.html#writing-the-tinkercad-code",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Writing the Tinkercad Code",
+    "text": "Writing the Tinkercad Code\nOnce wired, let’s write the code to spin the motor. We use the exact same digitalWrite commands we learned for LEDs.\nvoid setup() {\n  pinMode(9, OUTPUT);  // IN1\n  pinMode(10, OUTPUT); // IN2\n}\n\nvoid loop() {\n  // Spin Forward\n  digitalWrite(9, HIGH);\n  digitalWrite(10, LOW);\n  delay(1000);\n\n  // Stop completely\n  digitalWrite(9, LOW);\n  digitalWrite(10, LOW);\n  delay(1000);\n}"
+  },
+  {
+    "objectID": "slides/session2.html#testing-the-simulation",
+    "href": "slides/session2.html#testing-the-simulation",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Testing the Simulation",
+    "text": "Testing the Simulation\nClick “Start Simulation” in Tinkercad.\nObserve the virtual motor: 1. Does it spin? What RPM is indicated? 2. Change the Code: Make IN1 LOW and IN2 HIGH. What happens to the spin direction?\n\nWe reverse the direction of a DC motor by swapping the HIGH and LOW signals!"
+  },
+  {
+    "objectID": "slides/session2.html#transition-to-reality",
+    "href": "slides/session2.html#transition-to-reality",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Transition to Reality",
+    "text": "Transition to Reality\nYou proved your logic in Tinkercad. Now it’s time to build the real thing.\n\n\n\n\n\n\nSafety First\n\n\nDo not plug in the battery pack until the instructor inspects your wiring. A short circuit on the battery pack can cause it to overheat."
+  },
+  {
+    "objectID": "slides/session2.html#step-1-chassis-assembly",
+    "href": "slides/session2.html#step-1-chassis-assembly",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Step 1: Chassis Assembly",
+    "text": "Step 1: Chassis Assembly\nThe chassis is the physical body of the robot.\n\nMount the DC motors to the frame using the provided brackets.\nAttach the wheels to the motor shafts.\nSecure the caster wheel (the tiny front wheel) to the front of the frame.\nMount the Arduino and the L298N Motor Driver to the top deck."
+  },
+  {
+    "objectID": "slides/session2.html#step-2-power-connections",
+    "href": "slides/session2.html#step-2-power-connections",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Step 2: Power Connections",
+    "text": "Step 2: Power Connections\nWe must route the power carefully.\n\n\nFrom the Battery Pack:\n\nRed wire (+) \\(\\rightarrow\\) Motor Driver 12V\nBlack wire (-) \\(\\rightarrow\\) Motor Driver GND\n\nFrom the Arduino:\n\nArduino GND \\(\\rightarrow\\) Motor Driver GND\nDo not connect Arduino 5V to the motor power!\n\n\n\n\n\nPower & Common Ground"
+  },
+  {
+    "objectID": "slides/session2.html#step-3-wiring-the-motors",
+    "href": "slides/session2.html#step-3-wiring-the-motors",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Step 3: Wiring the Motors",
+    "text": "Step 3: Wiring the Motors\nConnect the physical motor wires.\n\nLeft motor red/black wires \\(\\rightarrow\\) Motor Driver OUT1 & OUT2.\nRight motor red/black wires \\(\\rightarrow\\) Motor Driver OUT3 & OUT4.\n\n(Don’t worry too much about matching red and black perfectly here; if a motor spins backward later, we can fix it by simply swapping the wires or changing our code!)"
+  },
+  {
+    "objectID": "slides/session2.html#step-4-the-logic-wires",
+    "href": "slides/session2.html#step-4-the-logic-wires",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Step 4: The Logic Wires",
+    "text": "Step 4: The Logic Wires\nFinally, connect the Arduino pins to the Motor Driver inputs. Use jumper wires:\n\nLeft Motor: Pin 9 \\(\\rightarrow\\) IN1, Pin 10 \\(\\rightarrow\\) IN2, Pin 11 \\(\\rightarrow\\) ENA\nRight Motor: Pin 5 \\(\\rightarrow\\) IN3, Pin 6 \\(\\rightarrow\\) IN4, Pin 3 \\(\\rightarrow\\) ENB\n\n\n\n\n\n\n\nSpeed Control\n\n\nThe ENA and ENB pins control how fast the motors spin. By connecting them to PWM pins (marked with a ~), we can change the speed in our code!"
+  },
+  {
+    "objectID": "slides/session2.html#the-base-code",
+    "href": "slides/session2.html#the-base-code",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "The Base Code",
+    "text": "The Base Code\nTo drive a car, we must manage 4 pins simultaneously.\n// Define our pins\nint IN1 = 9;   // Left Forward\nint IN2 = 10;  // Left Backward\nint ENA = 11;  // Left Speed\n\nint IN3 = 5;   // Right Forward\nint IN4 = 6;   // Right Backward\nint ENB = 3;   // Right Speed\n\nvoid setup() {\n  pinMode(IN1, OUTPUT);\n  pinMode(IN2, OUTPUT);\n  pinMode(IN3, OUTPUT);\n  pinMode(IN4, OUTPUT);\n  pinMode(ENA, OUTPUT);\n  pinMode(ENB, OUTPUT);\n}"
+  },
+  {
+    "objectID": "slides/session2.html#functions-organizing-logic",
+    "href": "slides/session2.html#functions-organizing-logic",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Functions: Organizing Logic",
+    "text": "Functions: Organizing Logic\nTyping digitalWrite four times just to move forward is tedious. In C++, we can create custom functions to bundle commands together.\nvoid forward() {\n  digitalWrite(IN1, HIGH);\n  digitalWrite(IN2, LOW);\n  analogWrite(ENA, 150); // Set speed (0-255)\n\n  digitalWrite(IN3, HIGH);\n  digitalWrite(IN4, LOW);\n  analogWrite(ENB, 150);\n}\n\nvoid stopCar() {\n  digitalWrite(IN1, LOW);\n  digitalWrite(IN2, LOW);\n  analogWrite(ENA, 0);\n\n  digitalWrite(IN3, LOW);\n  digitalWrite(IN4, LOW);\n  analogWrite(ENB, 0);\n}"
+  },
+  {
+    "objectID": "slides/session2.html#driving-the-car",
+    "href": "slides/session2.html#driving-the-car",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Driving the Car",
+    "text": "Driving the Car\nNow, our loop() becomes very simple and easy to read!\nvoid loop() {\n  forward();\n  delay(2000); // Drive for 2 seconds\n  \n  stopCar();\n  delay(1000); // Wait 1 second\n}\n\n\n\n\n\n\nInstructor Checkpoint\n\n\nUpload this code to your Arduino. Put the car on the floor. Does it move forward? If it spins in a circle, one of your motors is wired backward! How can you fix it? (Hint: Swap the physical wires, or swap HIGH and LOW in the code)."
+  },
+  {
+    "objectID": "slides/session2.html#exercise-turning",
+    "href": "slides/session2.html#exercise-turning",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Exercise: Turning",
+    "text": "Exercise: Turning\nHow does a tank turn? It spins its tracks in opposite directions!\n(Apply): Write the code for a turnRight() function.\n\nSolution: To turn Right, the Left wheels must go Forward, and the Right wheels must go Backward.\nvoid turnRight() {\n  digitalWrite(IN1, HIGH); // Left Forward\n  digitalWrite(IN2, LOW);\n  analogWrite(ENA, 150);\n  \n  digitalWrite(IN3, LOW);\n  digitalWrite(IN4, HIGH); // Right Backward (Reverse!)\n  analogWrite(ENB, 150);\n}"
+  },
+  {
+    "objectID": "slides/session2.html#the-obstacle-course-challenge",
+    "href": "slides/session2.html#the-obstacle-course-challenge",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "The Obstacle Course Challenge",
+    "text": "The Obstacle Course Challenge\nThere is a maze taped out on the floor.\nYour Mission:\n\nPlace your car at the START line.\nWrite a single sequence of commands in your loop() to navigate the maze.\nYou cannot touch the car once it starts!\n\nHint: Timing is everything. If your turn is exactly 90 degrees, how many milliseconds should you delay()? You must experiment to find the perfect number!"
+  },
+  {
+    "objectID": "slides/session2.html#automating-with-ai",
+    "href": "slides/session2.html#automating-with-ai",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Automating with AI",
+    "text": "Automating with AI\nWriting hundreds of lines of forward(); delay(); turnRight(); takes a long time. What if we asked AI to write a complex sequence for us?\nInstructor Demo: Using Cursor to generate a “Dance Routine.”\nWatch as your instructor types: “Write an Arduino loop that makes my car drive in a Figure-8 pattern. It should go forward, curve right, go forward, curve left, and repeat.”"
+  },
+  {
+    "objectID": "slides/session2.html#closing-problem-patterns",
+    "href": "slides/session2.html#closing-problem-patterns",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Closing: Problem Patterns",
+    "text": "Closing: Problem Patterns\nThis course is about building robots that solve real problems. A moving car is fun, but what use is it? Can it deliver medicine? Can it inspect dangerous pipes?\nHomework Prompt:\n\nInterview 2 people this week (family, friends, or teachers). Ask them: “What is your biggest daily frustration?” Write down their answers. Next week, we will see if a moving robot can solve them."
+  },
+  {
+    "objectID": "slides/session2.html#motor-logic-polarity-direction",
+    "href": "slides/session2.html#motor-logic-polarity-direction",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Motor Logic: Polarity & Direction",
+    "text": "Motor Logic: Polarity & Direction"
+  },
+  {
+    "objectID": "slides/session2.html#the-manual-problem",
+    "href": "slides/session2.html#the-manual-problem",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "The Manual Problem",
+    "text": "The Manual Problem\n\n\n\n\n\n\nCan we swap wires while driving?\n\n\nTo make a robot reverse, we would have to stop it, unplug the wires, swap them, and plug them back in.\n\n\n\nThis is impossible for a computer to do by itself… unless we use electronic switches."
+  },
+  {
+    "objectID": "slides/session2.html#the-solution-the-h-bridge",
+    "href": "slides/session2.html#the-solution-the-h-bridge",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "The Solution: The H-Bridge",
+    "text": "The Solution: The H-Bridge\nAn H-Bridge is a circuit of 4 electronic switches. By opening and closing different pairs, we can “redirect” the electricity flow without touching a single wire!\n\n\n\nTo go Forward: Close S1 and S4.\nTo go Backward: Close S2 and S3.\nTo Stop: Open all switches.\n\nCaution: Never close S1 and S3 at the same time (Short Circuit!)"
+  },
+  {
+    "objectID": "slides/session2.html#the-motor-driver-l298n",
+    "href": "slides/session2.html#the-motor-driver-l298n",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "The Motor Driver (L298N)",
+    "text": "The Motor Driver (L298N)\nYou don’t need to build an H-Bridge from tiny switches. It’s already built into the Motor Driver chip!\n\n\nHow it works:\n\nThe Battery gives the heavy power (Muscle).\nThe Arduino sends 5V signals (Brain) to say “Close S1 and S4”.\nThe Chip does the heavy lifting, protecting the Arduino from the 1,000 mA current."
+  },
+  {
+    "objectID": "slides/session2.html#invisible-control",
+    "href": "slides/session2.html#invisible-control",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Invisible Control",
+    "text": "Invisible Control\nHow does a TV remote talk to the TV? It blinks a light that we can’t see!\n\nInfrared (IR) is light with a frequency lower than red.\nOur eyes can’t see it, but the robot’s receiver can.\nIt’s like a flashlight sending a secret Morse code."
+  },
+  {
+    "objectID": "slides/session2.html#the-hardware",
+    "href": "slides/session2.html#the-hardware",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "The Hardware",
+    "text": "The Hardware\nTo receive signals, we use an IR Receiver Module.\n\n\nConnections:\n\nGND → GND\nVCC → 5V\nSignal → Pin 2 (Digital)\n\n\n\n\n\nIR System"
+  },
+  {
+    "objectID": "slides/session2.html#activity-scanning-for-codes",
+    "href": "slides/session2.html#activity-scanning-for-codes",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Activity: Scanning for Codes",
+    "text": "Activity: Scanning for Codes\nEvery remote is different. Before we control the car, we need to know what “Language” your remote speaks.\n\nOpen Arduino IDE.\nGo to File &gt; Examples &gt; IRremote &gt; SimpleReceiver.\nChange IR_RECEIVE_PIN to 2.\nOpen the Serial Monitor (115200 baud).\nPress buttons and write down the HEX codes for:\n\nUp Arrow\nDown Arrow\nLeft Arrow\nRight Arrow\nOK / Stop"
+  },
+  {
+    "objectID": "slides/session2.html#the-logic-decoding",
+    "href": "slides/session2.html#the-logic-decoding",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "The Logic: Decoding",
+    "text": "The Logic: Decoding\nOnce you have your codes, we use a switch statement to decide what to do.\n#include &lt;IRremote.hpp&gt;\n\n#define IR_RECEIVE_PIN 2\n\nvoid setup() {\n  Serial.begin(115200);\n  IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);\n  // ... your motor setup from Part 4 ...\n}\n\nvoid loop() {\n  if (IrReceiver.decode()) {\n    unsigned long cmd = IrReceiver.decodedIRData.decodedRawData;\n    Serial.println(cmd, HEX); // See the code in the monitor\n    \n    handleCommand(cmd); // Custom function to move the car\n    \n    IrReceiver.resume(); // Ready for next signal\n  }\n}"
+  },
+  {
+    "objectID": "slides/session2.html#creating-your-controller",
+    "href": "slides/session2.html#creating-your-controller",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Creating Your Controller",
+    "text": "Creating Your Controller\nIntegrate the functions you wrote in Part 4!\nvoid handleCommand(unsigned long cmd) {\n  switch (cmd) {\n    case 0xFF18E7: // Example code for UP\n      forward();\n      break;\n    case 0xFF4AB5: // Example code for DOWN\n      backward();\n      break;\n    case 0xFF38C7: // Example code for OK\n      stopCar();\n      break;\n    // Add Left and Right!\n  }\n}\n\n\n\n\n\n\nPro Tip\n\n\nIf your car keeps moving even after you let go of the button, it’s because the IR signal was only sent once. You might need a “Stop” button or a timer!"
+  },
+  {
+    "objectID": "slides/session1.html#interactive-series-parallel-water-loops",
+    "href": "slides/session1.html#interactive-series-parallel-water-loops",
+    "title": "Session 1: Circuits Basics",
+    "section": "Interactive: Series & Parallel Water Loops",
+    "text": "Interactive: Series & Parallel Water Loops"
+  },
+  {
+    "objectID": "slides/session1.html#the-math-solving-series-circuits",
+    "href": "slides/session1.html#the-math-solving-series-circuits",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Math: Solving Series Circuits",
+    "text": "The Math: Solving Series Circuits\nIn a series circuit, components are connected end-to-end, forming a single path.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Assumptions\n\n\n\nKCL: Current (\\(I\\)) is the same everywhere. \\(I_{total} = I_1 = I_2 = \\dots\\)\nKVL: Source voltage equals the sum of drops. \\(V_{total} = V_1 + V_2 + \\dots\\)\n\n\n\n\n\nThe Derivation\n\nApply Ohm’s Law (\\(V = IR\\)) to each: \\(V_1 = I \\cdot R_1, \\quad V_2 = I \\cdot R_2 \\dots\\)\nSubstitute into KVL: \\(V_{total} = (I \\cdot R_1) + (I \\cdot R_2) \\dots\\)\nUse Equivalent Resistance (\\(R_{eq}\\)): \\(I \\cdot R_{eq} = I(R_1 + R_2 + \\dots)\\)\nDivide by \\(I\\): \\(\\mathbf{R_{eq} = R_1 + R_2 + \\dots + R_n}\\)"
+  },
+  {
+    "objectID": "slides/session1.html#the-math-solving-parallel-circuits",
+    "href": "slides/session1.html#the-math-solving-parallel-circuits",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Math: Solving Parallel Circuits",
+    "text": "The Math: Solving Parallel Circuits\nIn a parallel circuit, resistors are connected across the same two nodes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Assumptions\n\n\n\nKVL: Voltage (\\(V\\)) is identical across all. \\(V_{total} = V_1 = V_2 = \\dots\\)\nKCL: Total current splits among branches. \\(I_{total} = I_1 + I_2 + \\dots\\)\n\n\n\n\n\nThe Derivation\n\nApply Ohm’s Law (\\(I = V/R\\)): \\(I_1 = V/R_1, \\quad I_2 = V/R_2 \\dots\\)\nSubstitute into KCL: \\(I_{total} = \\frac{V}{R_1} + \\frac{V}{R_2} \\dots\\)\nUse Equivalent Resistance (\\(R_{eq}\\)): \\(\\frac{V}{R_{eq}} = V \\left( \\frac{1}{R_1} + \\frac{1}{R_2} \\dots \\right)\\)\nDivide by \\(V\\): \\(\\mathbf{\\frac{1}{R_{eq}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\dots + \\frac{1}{R_n}}\\)"
+  },
+  {
+    "objectID": "slides/session1.html#summary-table",
+    "href": "slides/session1.html#summary-table",
+    "title": "Session 1: Circuits Basics",
+    "section": "Summary Table",
+    "text": "Summary Table\n\n\n\n\n\n\n\n\n\nConnection\nConstant Value\nPhysical Law Used\nResulting Formula\n\n\n\n\nSeries\nCurrent (\\(I\\))\nKVL (\\(\\sum V = 0\\))\n\\(R_{eq} = \\sum R_i\\)\n\n\nParallel\nVoltage (\\(V\\))\nKCL (\\(\\sum I = 0\\))\n\\(\\frac{1}{R_{eq}} = \\sum \\frac{1}{R_i}\\)\n\n\n\n\n\n\n\n\n\nTip\n\n\nIn parallel, the total resistance is ALWAYS smaller than the smallest individual resistor!"
+  },
+  {
+    "objectID": "slides/session2.html#hardware-reference",
+    "href": "slides/session2.html#hardware-reference",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Hardware Reference",
+    "text": "Hardware Reference\n\n\nThe L298N Driver\n\n\n\nA real H-Bridge module\n\n\n\nThe Wiring\n\n\n\nConnection diagram"
+  },
+  {
+    "objectID": "slides/session2.html#the-real-h-bridge",
+    "href": "slides/session2.html#the-real-h-bridge",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "The Real H-Bridge",
+    "text": "The Real H-Bridge\n\n\nBuilding an H-Bridge from tiny transistors is hard.\nInstead, we use the L298N Module. It’s a “dual” driver that can control two motors.\nIt gives us 3 types of pins: - IN Pins: Controls Direction (Forward/Backward) - EN Pins: Controls Speed (The Gas Pedal!)\n\n\n\n\nThe L298N Motor Driver"
+  },
+  {
+    "objectID": "slides/session1.html#interactive-parallel-flow",
+    "href": "slides/session1.html#interactive-parallel-flow",
+    "title": "Session 1: Circuits Basics",
+    "section": "Interactive: Parallel Flow",
+    "text": "Interactive: Parallel Flow\n\n\nObservation: Notice that while the flow (current) splits, the “pressure” (voltage) is available to all branches equally."
+  },
+  {
+    "objectID": "slides/session1.html#the-math-parallel-resistance",
+    "href": "slides/session1.html#the-math-parallel-resistance",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Math: Parallel Resistance",
+    "text": "The Math: Parallel Resistance\nIn a parallel circuit, resistors are connected across the same two nodes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Assumptions\n\n\n\nKVL: Voltage (\\(V\\)) is identical across all. \\(V_{total} = V_1 = V_2 = \\dots\\)\nKCL: Total current splits among branches. \\(I_{total} = I_1 + I_2 + \\dots\\)\n\n\n\n\n\nThe Derivation\n\nApply Ohm’s Law (\\(I = V/R\\)): \\(I_1 = V/R_1, \\quad I_2 = V/R_2 \\dots\\)\nSubstitute into KCL: \\(I_{total} = \\frac{V}{R_1} + \\frac{V}{R_2} \\dots\\)\nUse Equivalent Resistance (\\(R_{eq}\\)): \\(\\frac{V}{R_{eq}} = V \\left( \\frac{1}{R_1} + \\frac{1}{R_2} \\dots \\right)\\)\nDivide by \\(V\\): \\(\\mathbf{\\frac{1}{R_{eq}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\dots + \\frac{1}{R_n}}\\)"
+  },
+  {
+    "objectID": "slides/session1.html#interactive-series-flow",
+    "href": "slides/session1.html#interactive-series-flow",
+    "title": "Session 1: Circuits Basics",
+    "section": "Interactive: Series Flow",
+    "text": "Interactive: Series Flow\n\n\nObservation: In a series path, current (flow) has nowhere else to go. It must pass through every component in sequence."
+  },
+  {
+    "objectID": "slides/session1.html#the-math-series-resistance",
+    "href": "slides/session1.html#the-math-series-resistance",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Math: Series Resistance",
+    "text": "The Math: Series Resistance\nIn a series circuit, components are connected end-to-end, forming a single path.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Assumptions\n\n\n\nKCL: Current (\\(I\\)) is the same everywhere. \\(I_{total} = I_1 = I_2 = \\dots\\)\nKVL: Total voltage equals the sum of drops. \\(V_{total} = V_1 + V_2 + \\dots\\)\n\n\n\n\n\nThe Derivation\n\nApply Ohm’s Law (\\(V = IR\\)) to each: \\(V_1 = I \\cdot R_1, \\quad V_2 = I \\cdot R_2 \\dots\\)\nSubstitute into KVL: \\(V_{total} = (I \\cdot R_1) + (I \\cdot R_2) \\dots\\)\nUse Equivalent Resistance (\\(R_{eq}\\)): \\(I \\cdot R_{eq} = I(R_1 + R_2 + \\dots)\\)\nDivide by \\(I\\): \\(\\mathbf{R_{eq} = R_1 + R_2 + \\dots + R_n}\\)"
   }
 ]
