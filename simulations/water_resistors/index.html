@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Resistors Simulation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="simCanvas"></canvas>
+    <div id="ui-layer">
+        <div class="glass-panel">
+            <h2>Circuit Topology</h2>
+            <div class="tabs">
+                <button class="tab-btn" data-topo="series">Series</button>
+                <button class="tab-btn active" data-topo="parallel">Parallel</button>
+            </div>
+
+            <div class="control-group">
+                <label>Pump Push (Voltage - V)</label>
+                <input type="range" id="pumpSlider" min="0" max="100" value="50">
+            </div>
+
+            <div class="control-group">
+                <label>Valve 1 (Resistance - &Omega;)</label>
+                <input type="range" id="v1Slider" min="1" max="100" value="50">
+            </div>
+
+            <div class="control-group" id="v2Group">
+                <label>Valve 2 (Resistance - &Omega;)</label>
+                <input type="range" id="v2Slider" min="1" max="100" value="50">
+            </div>
+
+            <div class="metrics">
+                <div class="metric">
+                    <span class="label">Equivalent Resistance (R)</span>
+                    <span class="val" id="rTotal">-</span>
+                </div>
+                <div class="metric highlight">
+                    <span class="label">Total Flow (Current - I)</span>
+                    <span class="val" id="iTotal">-</span>
+                </div>
+                <div class="metric highlight" style="font-size: 0.95rem; color: #a5b4fc; border-top: none; padding-top: 0; margin-top: 5px;">
+                    <span class="label">Branch 1 Flow</span>
+                    <span class="val" id="i1">-</span>
+                </div>
+                <div class="metric highlight" style="font-size: 0.95rem; color: #a5b4fc; border-top: none; padding-top: 0; margin-top: 5px;">
+                    <span class="label">Branch 2 Flow</span>
+                    <span class="val" id="i2">-</span>
+                </div>
+            </div>
+            
+            <div class="observation">
+                <strong>Observation:</strong> In Series, combining valves <em>increases</em> friction (less flow). In Parallel, combining branches gives water more paths, <em>decreasing</em> equivalent friction (more total flow). Watch how flow divides!
+            </div>
+        </div>
+    </div>
+    <script src="js/renderer.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
