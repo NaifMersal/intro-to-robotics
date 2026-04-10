@@ -1,0 +1,94 @@
+# Part 4 — Programming Movement {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Base Code
+
+To drive a car, we must manage 4 pins simultaneously. 
+
+```cpp
+// Define our pins
+int IN1 = 9;   // Left Forward
+int IN2 = 10;  // Left Backward
+int ENA = 11;  // Left Speed
+
+int IN3 = 5;   // Right Forward
+int IN4 = 6;   // Right Backward
+int ENB = 3;   // Right Speed
+
+void setup() {
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(ENA, OUTPUT);
+  pinMode(ENB, OUTPUT);
+}
+```
+
+## Functions: Organizing Logic
+
+Typing `digitalWrite` four times just to move forward is tedious. In C++, we can create custom **functions** to bundle commands together.
+
+```cpp
+void forward() {
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 150); // Set speed (0-255)
+
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENB, 150);
+}
+
+void stopCar() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 0);
+
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENB, 0);
+}
+```
+
+## Driving the Car
+
+Now, our `loop()` becomes very simple and easy to read!
+
+```cpp
+void loop() {
+  forward();
+  delay(2000); // Drive for 2 seconds
+  
+  stopCar();
+  delay(1000); // Wait 1 second
+}
+```
+
+::: {.callout-important}
+## Instructor Checkpoint
+Upload this code to your Arduino. Put the car on the floor. Does it move forward? 
+If it spins in a circle, one of your motors is wired backward! How can you fix it? (Hint: Swap the physical wires, or swap `HIGH` and `LOW` in the code).
+:::
+
+## Exercise: Turning {background-color="#00C9A7" .sdaia-dark}
+
+How does a tank turn? It spins its tracks in opposite directions! 
+
+*(Apply)*: Write the code for a `turnRight()` function.
+
+::: {.fragment}
+**Solution:**
+To turn Right, the Left wheels must go Forward, and the Right wheels must go Backward.
+
+```cpp
+void turnRight() {
+  digitalWrite(IN1, HIGH); // Left Forward
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 150);
+  
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH); // Right Backward (Reverse!)
+  analogWrite(ENB, 150);
+}
+```
+:::

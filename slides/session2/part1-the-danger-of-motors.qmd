@@ -1,0 +1,115 @@
+# Part 1 — The Danger of Motors {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The "Muscle" vs The "Brain"
+
+We learned that the Arduino is the **Brain** (it sends 0s and 1s using low-voltage signals). 
+
+Motors are the **Muscles**. They require a large flow of electricity (current) to generate magnetic fields strong enough to spin wheels.
+
+::: {.incremental}
+- **LED Requires:** ~20 milliAmps (mA)
+- **Arduino Pin Maximum:** ~40 milliAmps (mA)
+- **DC Motor Requires:** ~500 to 1,000+ milliAmps (mA)
+:::
+
+## Rule #1 of Robotics {.sdaia-dark background-gradient="radial-gradient(circle at 70% 30%, #450a0a 0%, #020617 100%)"}
+
+::: {.callout-important}
+
+## Never Power a Motor Directly From an Arduino Pin!
+
+If you try to draw 1,000 mA from a pin designed to supply only 40 mA, you will **instantly melt** the internal circuitry of the Arduino chip.
+
+:::
+
+::: {.fragment}
+Think of it like trying to fill a swimming pool using a drinking straw. The pressure will destroy the straw.
+:::
+
+## Motor Logic: Polarity & Direction
+
+<iframe src="../simulations/motor_polarity/index.html"
+  style="width:100%;height:600px;border:none;border-radius:12px;"
+  allowfullscreen>
+</iframe>
+
+## The Manual Problem
+
+::: {.callout-caution}
+## Can we swap wires while driving?
+To make a robot reverse, we would have to stop it, unplug the wires, swap them, and plug them back in. 
+:::
+
+**This is impossible for a computer to do by itself... unless we use electronic switches.**
+
+## The Solution: The H-Bridge
+
+An **H-Bridge** is a circuit of 4 electronic switches. By opening and closing different pairs, we can "redirect" the electricity flow without touching a single wire!
+
+:::::: {.columns}
+
+::: {.column width="60%"}
+- **To go Forward:** Close **S1** and **S4**.
+- **To go Backward:** Close **S2** and **S3**.
+- **To Stop:** Open all switches.
+
+*Caution: Never close S1 and S3 at the same time (Short Circuit!)*
+:::
+
+::: {.column width="40%"}
+```{python}
+#| echo: false
+#| fig-align: center
+import schemdraw
+import schemdraw.elements as elm
+
+with schemdraw.Drawing() as d:
+    # Top power
+    d += (top := elm.Line().right().length(4))
+    d += elm.Line().at(top.start).up().length(0.5).label('Battery (+)', loc='top')
+    
+    # Left branch
+    d += elm.Line().at(top.start).down().length(0.5)
+    s1 = d.add(elm.Switch().down().label('S1'))
+    d += (node_left := elm.Dot())
+    s3 = d.add(elm.Switch().down().label('S3'))
+    d += (bot_left := elm.Line().right().length(2))
+    
+    # Right branch
+    d += elm.Line().at(top.end).down().length(0.5)
+    s2 = d.add(elm.Switch().down().label('S2'))
+    d += (node_right := elm.Dot())
+    s4 = d.add(elm.Switch().down().label('S4'))
+    d += (bot_right := elm.Line().left().length(2))
+    
+    # Bottom ground
+    d += elm.Line().at(s4.end).down().length(0.5).label('GND (-)', loc='bottom')
+    
+    # Motor in the middle
+    d += elm.Motor().at(node_left.start).to(node_right.start).label('Motor')
+    
+    d.draw()
+```
+:::
+
+::::::
+
+## The Real H-Bridge {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+::::: {.columns}
+
+::: {.column width="50%"}
+Building an H-Bridge from tiny transistors is hard. 
+
+Instead, we use the **L298N Module**. It's a "dual" driver that can control **two motors**.
+
+It gives us 3 types of pins:
+- **IN Pins**: Controls **Direction** (Forward/Backward)
+- **EN Pins**: Controls **Speed** (The Gas Pedal!)
+:::
+
+::: {.column width="50%"}
+![The L298N Motor Driver](assets/L298n.png)
+:::
+
+:::::

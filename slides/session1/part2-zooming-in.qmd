@@ -22,13 +22,13 @@
 
 ::: {.fragment}
 
-- **Pressure** is the density of those collisions piling up behind a blockage
+- **Pressure** is the collective "pushing force" created when molecules pile up and collide tightly together
 
 :::
 
 ::: {.fragment}
 
-- **Flow** is the net drift direction of all those tiny pushes
+- **Flow** is the actual amount of those molecules managing to pass by a specific point every second
 
 :::
 

@@ -1,0 +1,32 @@
+# Part 6 — Obstacle Course & AI {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Obstacle Course Challenge
+
+There is a maze taped out on the floor.
+
+**Your Mission:**
+
+1. Place your car at the START line.
+2. Write a single sequence of commands in your `loop()` to navigate the maze.
+3. You cannot touch the car once it starts!
+
+**Hint:**
+Timing is everything. If your turn is exactly 90 degrees, how many milliseconds should you `delay()`? You must experiment to find the perfect number!
+
+## Automating with AI {background-color="#00C9A7" .sdaia-dark}
+
+Writing hundreds of lines of `forward(); delay(); turnRight();` takes a long time. 
+What if we asked AI to write a complex sequence for us?
+
+**Instructor Demo:** Using Cursor to generate a "Dance Routine."
+
+Watch as your instructor types: 
+*“Write an Arduino loop that makes my car drive in a Figure-8 pattern. It should go forward, curve right, go forward, curve left, and repeat.”*
+
+## Closing: Problem Patterns
+
+This course is about building robots that **solve real problems**. A moving car is fun, but what *use* is it? Can it deliver medicine? Can it inspect dangerous pipes?
+
+### Homework Prompt:
+> Interview 2 people this week (family, friends, or teachers). Ask them: "What is your biggest daily frustration?" 
+> Write down their answers. Next week, we will see if a moving robot can solve them.

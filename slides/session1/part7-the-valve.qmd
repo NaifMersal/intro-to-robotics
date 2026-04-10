@@ -69,7 +69,9 @@ You have: **5 V** supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) 
 
 ::: {.fragment}
 **Answer:** I = V / R = 3 / (0 + 150) = **0.02 A = 20 mA** — LED at rated maximum brightness.
+
 :::
+
 
 ## Exercise 9 — Q2: Potentiometer at 500 Ω {background-color="#00C9A7" .sdaia-dark}
 
@@ -79,7 +81,9 @@ You have: **5 V** supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) 
 
 ::: {.fragment}
 **Answer:** I = 3 / (500 + 150) = 3 / 650 ≈ **4.6 mA** — LED is very dim, just below usable threshold.
+
 :::
+
 
 ## Exercise 9 — Q3: Rotating from 0 to 500 Ω {background-color="#00C9A7" .sdaia-dark}
 
@@ -89,7 +93,9 @@ You have: **5 V** supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) 
 
 ::: {.fragment}
 **Answer:** The LED **dims gradually** — from 20 mA (full brightness) down to ~4.6 mA (barely visible). The potentiometer acts as a variable brightness (dimmer) control.
+
 :::
+
 
 ## Exercise 9 — Q4: Find the Cut-off {background-color="#00C9A7" .sdaia-dark}
 
@@ -101,7 +107,9 @@ You have: **5 V** supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) 
 **Answer:** I = 3 / (R + 150) < 0.005 → R + 150 > 600 → **R > 450 Ω**
 
 At 450 Ω the LED falls below 5 mA and effectively goes out.
+
 :::
+
 
 ## Exercise 10 — Q1: Transistor Gain {background-color="#00C9A7" .sdaia-dark}
 
@@ -111,15 +119,19 @@ At 450 Ω the LED falls below 5 mA and effectively goes out.
 **Answer:** I_C = Gain × I_B = 200 × 0.5 mA = **100 mA**
 
 A tiny 0.5 mA signal controls a 100 mA load — that is amplification.
+
 :::
+
 
 ## Exercise 10 — Q2: Controlling a Motor {background-color="#00C9A7" .sdaia-dark}
 
-*(apply)* You want to control a **500 mA motor** using a Raspberry Pi GPIO pin (**max 16 mA**). Is this possible? What is the transistor's role?
+*(apply)* You want to control a **500 mA motor** using an Arduino GPIO pin (**max 40 mA**). Is this possible? What is the transistor's role?
 
 ::: {.fragment}
-**Answer:** **Yes** — but not directly. The GPIO cannot source 500 mA safely. A transistor with gain ≥ 32 driven by the GPIO switches the 500 mA motor current from a separate supply. The GPIO controls the *gate*; the transistor carries the *load*.
+**Answer:** **Yes** — but not directly. The GPIO cannot source 500 mA safely. A transistor with gain ≥ 13 driven by the GPIO switches the 500 mA motor current from a separate supply. The GPIO controls the *gate*; the transistor carries the *load*.
+
 :::
+
 
 ## Exercise 10 — Q3: ON vs OFF = 1 vs 0 {background-color="#00C9A7" .sdaia-dark}
 
@@ -130,7 +142,9 @@ A tiny 0.5 mA signal controls a 100 mA load — that is amplification.
 
 - Fully **ON** (0.1 Ω) → near-zero resistance → current flows → **"1"**
 - Fully **OFF** (1 MΩ) → near-infinite resistance → no current → **"0"**
+
 :::
+
 
 ## A Quick Question... {background-color="#1C355E" .sdaia-dark}
 

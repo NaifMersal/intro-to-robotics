@@ -7,7 +7,7 @@
 | Voltage (V) | Pump pressure | Force pushing electrons |
 | Current (I) | Flow rate | Electrons per second (Amperes) |
 | Resistance (R) | Narrow pipe | Opposition to electron flow (Ohms) |
-| Ohm's Law | P ∝ F / R | V = I × R |
+| Ohm's Law | P = F × R | V = I × R |
 | Open circuit | Cut pipe | No complete path, no current |
 | Short circuit | Removed all pipes | Near-zero resistance, huge current |
 | LED / Bulb | Friction heating pipe | Resistance → heat → light |

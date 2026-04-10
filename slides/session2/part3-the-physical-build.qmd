@@ -1,0 +1,68 @@
+# Part 3 — The Physical Build {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Transition to Reality
+
+You proved your logic in Tinkercad. Now it's time to build the real thing.
+
+::: {.callout-warning}
+## Safety First
+Do not plug in the battery pack until **the instructor inspects your wiring**. A short circuit on the battery pack can cause it to overheat.
+:::
+
+## Step 1: Chassis Assembly
+
+The chassis is the physical body of the robot.
+
+1. Mount the DC motors to the frame using the provided brackets.
+2. Attach the wheels to the motor shafts.
+3. Secure the caster wheel (the tiny front wheel) to the front of the frame.
+4. Mount the Arduino and the L298N Motor Driver to the top deck.
+
+## Step 2: Power Connections
+
+We must route the power carefully.
+
+:::::: {.columns}
+
+::::: {.column width="60%"}
+
+**From the Battery Pack:**
+
+- Red wire (+) $\rightarrow$ Motor Driver `12V`
+- Black wire (-) $\rightarrow$ Motor Driver `GND`
+
+**From the Arduino:**
+
+- Arduino `GND` $\rightarrow$ Motor Driver `GND`
+- *Do not connect Arduino 5V to the motor power!*
+
+:::::
+
+::::: {.column width="40%"}
+
+![Power & Common Ground](assets/Motor_drive_wiring.png)
+
+:::::
+
+::::::
+
+## Step 3: Wiring the Motors
+
+Connect the physical motor wires.
+
+- Left motor red/black wires $\rightarrow$ Motor Driver `OUT1` & `OUT2`.
+- Right motor red/black wires $\rightarrow$ Motor Driver `OUT3` & `OUT4`.
+
+*(Don't worry too much about matching red and black perfectly here; if a motor spins backward later, we can fix it by simply swapping the wires or changing our code!)*
+
+## Step 4: The Logic Wires
+
+Finally, connect the Arduino pins to the Motor Driver inputs. Use jumper wires:
+
+- **Left Motor:** Pin 9 $\rightarrow$ `IN1`, Pin 10 $\rightarrow$ `IN2`, **Pin 11 $\rightarrow$ `ENA`**
+- **Right Motor:** Pin 5 $\rightarrow$ `IN3`, Pin 6 $\rightarrow$ `IN4`, **Pin 3 $\rightarrow$ `ENB`**
+
+::: {.callout-tip}
+## Speed Control
+The `ENA` and `ENB` pins control how fast the motors spin. By connecting them to PWM pins (marked with a `~`), we can change the speed in our code!
+:::

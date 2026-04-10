@@ -103,16 +103,14 @@ Always draw your "GND" symbols pointing down. It makes the schematic instantly r
 
 ::::::
 
-## Interactive: Series & Parallel Water Loops
+## Interactive: Series Flow
 
-<iframe src="../simulations/water_resistors/index.html"
-  style="width:100%;height:550px;border:none;border-radius:12px;"
+<iframe src="../simulations/water_resistors/index.html?topo=series&mode=electric"
+  style="width:100%;height:450px;border:none;border-radius:12px;"
   allowfullscreen>
 </iframe>
 
-**Observation:** Think of a simple circuit as a closed water pipe system where molecules (dots) carry energy.
-- **Series:** Valves are in a row. Friction adds up! Total flow (current) goes down.
-- **Parallel (KCL):** The pipe splits! Water molecules divide based on resistance. Opening another branch gives more paths, *decreasing* total friction and *increasing* total flow!
+**Observation:** In a series path, current (flow) has nowhere else to go. It must pass through every component in sequence.
 
 ## Kirchhoff’s Voltage Law (KVL)
 
@@ -120,14 +118,19 @@ Always draw your "GND" symbols pointing down. It makes the schematic instantly r
 
 ::::: {.column width="60%"}
 
+### Shared Energy
 **Fundamental Principle: Conservation of Energy**
 
 Every volt provided by the power source must be "dropped" (used up) by the components.
 
-$$V_{supply} = V_1 + V_2 + \dots$$
+::: {.callout-important appearance="simple"}
+**Key Concept**: In a single loop (Series), the **Current ($I$)** is constant everywhere ($I_{in} = I_{out}$), but the **Voltage ($V$)** is shared among components.
+:::
+
+$$V_{total} = V_1 + V_2 + \dots$$
 
 ::: {.fragment .callout-note appearance="simple"}
-**For engineers:** this is written as $\sum V_{loop} = 0$ — just a compact way of saying "all the voltage drops must add up to the source."
+**For engineers:** this is written as $\sum V_{loop} = 0$. Every electron must lose all its potential energy before returning to the source.
 :::
 
 :::::
@@ -137,61 +140,72 @@ $$V_{supply} = V_1 + V_2 + \dots$$
 :::: {.callout-tip .fragment}
 
 ## The Loop Rule
-You can't return to the source with "leftover" voltage. Every electron must lose all its potential energy.
+Think of a waterfall. If you start at height $H$, you must drop a total of $H$ distance (via one or many falls) before reaching the bottom.
 
 ::::
-
-:::: {.callout-note .fragment}
-
-## Gravity Analogy
-Think of a waterfall. If you start at height $H$, you must drop a total of $H$ distance before reaching the bottom.
-
-::::
-
 
 :::::
-
 ::::::
 
-## Resistors in Series
+## The Math: Series Resistance
 
-When components are connected end-to-end, they form a **Series** circuit.
+In a series circuit, components are connected end-to-end, forming a single path.
 
 :::::: {.columns}
 
-::::: {.column width="60%"}
+::: {.column width="45%"}
 
-### Characteristics:
-1. **Constant Current**: The current $I$ has only one path; it is the same through all components.
-2. **Voltage Division**: The supply voltage splits across each resistor.
-3. **Total Resistance**: $R_{total}$ is the sum of all individual resistances.
+```{python}
+#| echo: false
+#| fig-align: center
+import schemdraw
+import schemdraw.elements as elm
 
-$$R_{total} = R_1 + R_2 + R_3 \dots$$
+with schemdraw.Drawing(canvas='svg') as d:
+    d += elm.Line().right().length(1)
+    d += elm.Resistor().label('$R_1$')
+    d += elm.Resistor().label('$R_2$')
+    d += elm.Resistor().label('$R_n$')
+    d += elm.Line().right().length(1)
+```
 
-:::::
+::: {.callout-note}
+### The Assumptions
+* **KCL:** Current ($I$) is the same everywhere.
+  $I_{total} = I_1 = I_2 = \dots$
+* **KVL:** Total voltage equals the sum of drops.
+  $V_{total} = V_1 + V_2 + \dots$
+:::
 
-::::: {.column width="40%"}
+:::
 
-:::: {.fragment}
+::: {.column width="55%"}
 
-Adding more resistors in series **increases** total resistance and **decreases** total current flow.
+### The Derivation
 
-::::
+::: {.incremental}
+1. Apply **Ohm’s Law** ($V = IR$) to each:
+   $V_1 = I \cdot R_1, \quad V_2 = I \cdot R_2 \dots$
+2. Substitute into KVL:
+   $V_{total} = (I \cdot R_1) + (I \cdot R_2) \dots$
+3. Use Equivalent Resistance ($R_{eq}$):
+   $I \cdot R_{eq} = I(R_1 + R_2 + \dots)$
+4. Divide by $I$:
+   **$\mathbf{R_{eq} = R_1 + R_2 + \dots + R_n}$**
+:::
 
-:::::
+:::
 
 ::::::
 
-## Interactive: Voltage Loops
+## Interactive: Parallel Flow
 
-<iframe src="../simulations/kirchhoff/index.html?tab=kvl"
+<iframe src="../simulations/water_resistors/index.html?topo=parallel&mode=water"
   style="width:100%;height:450px;border:none;border-radius:12px;"
   allowfullscreen>
 </iframe>
 
-**Observation:** The source adds 5V. Use the **Visual Mode** toggle to see how Pressure relates to Voltage.
-*Notice how each resistor "drops" a portion of the potential. Does the sum always equal the source?*
-
+**Observation:** Notice that while the flow (current) splits, the "pressure" (voltage) is available to all branches equally.
 
 ## Kirchhoff’s Current Law (KCL)
 
@@ -199,14 +213,19 @@ Adding more resistors in series **increases** total resistance and **decreases**
 
 ::::: {.column width="60%"}
 
+### Split Flow
 **Fundamental Principle: Conservation of Charge**
 
-Electric charge cannot be created or destroyed at a junction. Whatever current flows into a junction (node) must flow out of it.
+Electric charge cannot be created or destroyed. Whatever current flows into a junction must flow out of it.
 
-$$I_{total} = I_1 + I_2 + I_3 \dots$$
+::: {.callout-important appearance="simple"}
+**Key Concept**: In a junction (Parallel), the **Voltage ($V$)** across branches is equal, but the **Current ($I$)** is split ($I_{in} = I_1 + I_2$).
+:::
+
+$$I_{total} = I_1 + I_2 + \dots$$
 
 ::: {.fragment .callout-note appearance="simple"}
-**For engineers:** this is written as $\sum I_{in} = \sum I_{out}$ — compact notation for "all currents in equal all currents out."
+**For engineers:** this is written as $\sum I_{in} = \sum I_{out}$. Nodes are just distribution points for charge; electricity doesn't "pile up."
 :::
 
 
@@ -217,68 +236,77 @@ $$I_{total} = I_1 + I_2 + I_3 \dots$$
 :::: {.callout-tip .fragment}
 
 ## The Junction Rule
-Electricity doesn't "pile up" at a connection point. Nodes are just distribution points for charge.
-
-::::
-
-:::: {.callout-note .fragment}
-
-## Insight
-Electrons are like incompressible fluid in a pipe. If 1 liter per second enters a T-junction, exactly 1 liter per second must exit through the branches.
+Think of parallel pipes. If 1 liter per second enters a T-junction, exactly 1 liter per second must exit through the combined branches.
 
 ::::
 
 :::::
 ::::::
 
-## Resistors in Parallel
+## The Math: Parallel Resistance
 
-When components are connected across the same two nodes, they form a **Parallel** circuit.
+In a parallel circuit, resistors are connected across the same two nodes.
 
 :::::: {.columns}
 
-::::: {.column width="60%"}
+::: {.column width="45%"}
 
-### Characteristics:
-1. **Constant Voltage**: Every branch sees the exact same voltage (potential difference).
-2. **Current Division**: The total current $I_{tot}$ splits based on the resistance of each branch.
-3. **Total Resistance**: $R_{eq}$ decreases as you add more paths.
+```{python}
+#| echo: false
+#| fig-align: center
+import schemdraw
+import schemdraw.elements as elm
 
-$$\frac{1}{R_{total}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} \dots$$
+with schemdraw.Drawing(canvas='svg') as d:
+    d += (in_line := elm.Line().right().length(1))
+    d.push()
+    d += elm.Line().up().length(0.75)
+    d += elm.Resistor().right().label('$R_1$')
+    d += elm.Line().down().length(0.75)
+    d.pop()
+    d.push()
+    d += elm.Line().down().length(0.75)
+    d += elm.Resistor().right().label('$R_2$')
+    d += elm.Line().up().length(0.75)
+    d.pop()
+    d += elm.Line().right().length(5) # Closing path
+```
 
-:::::
+::: {.callout-note}
+### The Assumptions
+* **KVL:** Voltage ($V$) is identical across all.
+  $V_{total} = V_1 = V_2 = \dots$
+* **KCL:** Total current splits among branches.
+  $I_{total} = I_1 + I_2 + \dots$
+:::
 
-::::: {.column width="40%"}
+:::
 
-:::: {.fragment}
+::: {.column width="55%"}
 
-Adding more resistors in parallel **decreases** total resistance and **increases** total current!
+### The Derivation
 
-::::
+::: {.incremental}
+1. Apply **Ohm’s Law** ($I = V/R$):
+   $I_1 = V/R_1, \quad I_2 = V/R_2 \dots$
+2. Substitute into KCL:
+   $I_{total} = \frac{V}{R_1} + \frac{V}{R_2} \dots$
+3. Use Equivalent Resistance ($R_{eq}$):
+   $\frac{V}{R_{eq}} = V \left( \frac{1}{R_1} + \frac{1}{R_2} \dots \right)$
+4. Divide by $V$:
+   **$\mathbf{\frac{1}{R_{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}}$**
+:::
 
-:::::
+:::
 
 ::::::
 
-## Interactive: Pipe Logic (KCL)
+## Summary Table
 
-<iframe src="../simulations/kirchhoff/index.html?tab=pipe&mode=water"
-  style="width:100%;height:450px;border:none;border-radius:12px;"
-  allowfullscreen>
-</iframe>
-
-**Observation:** Observe how the "fluid" splits at the **SPLIT** junction and recombines at the **REJOIN** point.
-*Notice that $Q_{total} = Q_1 + Q_2$. Even if you restrict one branch, the total flow logic holds.*
-
-
-## Summary: Series vs. Parallel
-
-| Feature | Series | Parallel |
-|:---|:---|:---|
-| **Path** | Single Path | Multiple Branches |
-| **Current ($I$)** | Same through all | Splits between branches |
-| **Voltage ($V$)** | Splits across resistors | Same across all branches |
-| **Resistance** | Increases | Decreases |
+| Connection | Constant Value | Physical Law Used | Resulting Formula |
+|:---|:---|:---|:---|
+| **Series** | Current ($I$) | KVL ($\sum V = 0$) | $R_{eq} = \sum R_i$ |
+| **Parallel** | Voltage ($V$) | KCL ($\sum I = 0$) | $\frac{1}{R_{eq}} = \sum \frac{1}{R_i}$ |
 
 ::: {.callout-important}
 
@@ -289,7 +317,11 @@ In parallel, the total resistance is ALWAYS **smaller** than the smallest indivi
 
 ## Engineering Math: The Safe LED {background-color="#00C9A7" .sdaia-dark}
 
-Why do we need a resistor? **KVL says:** $V_{supply} = V_{resistor} + V_{LED}$.
+Why do we need a resistor? 
+
+**KVL says:** $V_{supply} = V_{resistor} + V_{LED}$.
+
+The LED will consume a 2V drop and the maximum current it can handle is 20 mA.
 
 :::::: {.columns}
 
@@ -298,7 +330,8 @@ Why do we need a resistor? **KVL says:** $V_{supply} = V_{resistor} + V_{LED}$.
 :::: {.incremental}
 
 1. **Find the "Leftover" Voltage**  
-   $V_{resistor} = V_{supply} - V_{led} = 3.3V - 2.0V = \mathbf{1.3V}$
+   $V_{resistor} = V_{supply} - V_{led} 
+                 = 3.3V - 2.0V = \mathbf{1.3V}$
 
 2. **Calculate Resistance (Ohm's Law)**  
    $R = V / I = 1.3V / 0.02A = \mathbf{65 \Omega}$
@@ -328,19 +361,6 @@ with schemdraw.Drawing(canvas='svg') as d:
     d.draw()
 ```
 
-:::: {.fragment}
-
-::: {.callout-note}
-
-## Circuit Summary
-- Supply: **3.3V**
-- $V_{res}$ = **1.3V** (absorbed)
-- $V_{LED}$ = **2.0V**
-- Current: **19 mA** ✓
-
-:::
-
-::::
 
 :::::
 

@@ -75,7 +75,7 @@ This is why LEDs need resistors. Without one: low resistance + fixed voltage = e
 
 ## Exercise 7 — Q1: Calculate Current (No Resistor) {background-color="#00C9A7" .sdaia-dark}
 
-A student wires an LED directly to **3.3 V** with no resistor. The LED has a resistance of ~**10 Ω** when lit.
+A student wires an LED directly to **3.3 V** with no resistor. The LED has an *approximate* resistance of ~**10 Ω** when lit *(LEDs are non-ohmic — this is a simplified model for calculation only)*.
 
 *(recall)* Using I = V / R, calculate how much current flows.
 
@@ -83,7 +83,9 @@ A student wires an LED directly to **3.3 V** with no resistor. The LED has a res
 **Answer:** I = 3.3 / 10 = **0.33 A = 330 mA**
 
 *(That is 11× the maximum rated current!)*
+
 :::
+
 
 ## Exercise 7 — Q2: What Happens to the LED? {background-color="#00C9A7" .sdaia-dark}
 
@@ -93,7 +95,9 @@ Current without a resistor = **330 mA**. The LED is rated for a maximum of **30 
 
 ::: {.fragment}
 **Answer:** The LED **burns out instantly** — 330 mA is 11× the maximum. The semiconductor junction overheats in milliseconds and is permanently destroyed.
+
 :::
+
 
 ## Exercise 7 — Q3: Filament vs LED {background-color="#00C9A7" .sdaia-dark}
 
@@ -101,7 +105,9 @@ Current without a resistor = **330 mA**. The LED is rated for a maximum of **30 
 
 ::: {.fragment}
 **Answer:** Tungsten has the **highest melting point of any metal (~3 422 °C)** and is designed to glow. An LED is a **semiconductor junction** — it converts current to light very efficiently but is destroyed by excess heat. It was never built to survive white-hot temperatures.
+
 :::
+
 
 
 ## Micro Motor Simulation {background-color="#f7f9fc"}
@@ -188,7 +194,9 @@ Loop broken    → Current = 0
 
 ::: {.fragment}
 **Answer:** Electrons collide with atoms in the resistive wire — kinetic energy converts to heat. This is **resistive (Joule) heating**: the basis of how a resistor or filament gets hot.
+
 :::
+
 
 ## Exercise 8 — Q2: Open Valve {background-color="#00C9A7" .sdaia-dark}
 
@@ -200,7 +208,9 @@ Loop broken    → Current = 0
 
 ::: {.fragment}
 **Answer:** A **closed gate valve** — the valve is physically shut, breaking the loop so water (current) cannot flow.
+
 :::
+
 
 ## Exercise 8 — Q3: Paddle Wheel {background-color="#00C9A7" .sdaia-dark}
 
@@ -212,7 +222,9 @@ Loop broken    → Current = 0
 
 ::: {.fragment}
 **Answer:** Current through a coil creates a magnetic field → force on permanent magnets → rotation. This is an **electric motor**.
+
 :::
+
 
 ## Exercise 8 — Q4: Melting Section {background-color="#00C9A7" .sdaia-dark}
 
@@ -224,4 +236,6 @@ Loop broken    → Current = 0
 
 ::: {.fragment}
 **Answer:** A pipe section so narrow that friction heats the material until it **melts** — equivalent to a fuse blowing, or an LED junction destroyed by overcurrent.
+
 :::
+

@@ -1,0 +1,44 @@
+---
+title: "Session 2: Movement + Problem Patterns"
+subtitle: "Make Something Move"
+date: today
+format:
+  revealjs:
+    theme: [default, ../slides_template/assets/sdaia.scss]
+    transition: slide
+    background-transition: fade
+    slide-number: true
+    controls: true
+    progress: true
+    center-title-slide: true
+    title-slide-attributes:
+      data-background-image: "../slides_template/assets/anim.svg"
+      data-background-opacity: "0.08"
+      data-background-size: "cover"
+---
+
+# Session 2 {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+Movement + Problem Patterns — Make Something Move
+
+## Agenda
+
+- **Part 1** — The Danger of Motors
+- **Part 2** — Tinkercad Simulation
+- **Part 3** — The Physical Build
+- **Part 4** — Programming Movement
+- **Part 5** — The IR Remote
+- **Part 6** — Obstacle Course & AI Demo
+- **Part 7** — Problem Patterns (Closing)
+
+{{< include session2/part1-the-danger-of-motors.qmd >}}
+
+{{< include session2/part2-tinkercad-simulation.qmd >}}
+
+{{< include session2/part3-the-physical-build.qmd >}}
+
+{{< include session2/part4-coding-movement.qmd >}}
+
+{{< include session2/part5-ir-remote.qmd >}}
+
+{{< include session2/part6-obstacle-and-ai.qmd >}}

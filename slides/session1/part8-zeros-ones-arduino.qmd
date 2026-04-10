@@ -4,7 +4,7 @@
 
 From transistors to C++ — five rungs:
 
-1. **Voltage** — above ~3V = HIGH (1), below ~1V = LOW (0)
+1. **Voltage** — above ~3V = HIGH (1), below ~1V = LOW (0) *(voltages between 1V–3V are undefined — the pin may read 0 or 1 unpredictably; always drive pins to exactly 5V or 0V)*
 2. **Binary** — 1 bit = on/off · 8 bits = 1 byte = 256 values
 3. **Machine Code** — patterns of 0s and 1s the processor reads directly
 4. **Assembly** — human-readable commands, *assembled* to machine code
@@ -37,7 +37,9 @@ Every pin is a **software-defined switch**.
 
 ::: {.callout-note appearance="simple"}
 **GPIO** = General Purpose Input / Output
+
 :::
+
 
 ::::
 
@@ -54,7 +56,9 @@ Every pin is a **software-defined switch**.
 ::: {.callout-important}
 ## Mode is Mandatory
 A pin defaults to **Input** for safety. If you forget `pinMode(pin, OUTPUT)`, your LED will never light because the pin is "listening," not "pushing."
+
 :::
+
 
 | Code Pattern | Physical Effect |
 |--------------|-----------------|
@@ -94,7 +98,9 @@ C++ is very picky. Watch out for these:
 ::: {.callout-tip}
 ## Error messages are your friends
 If your code won't upload, read the red text at the bottom. It usually tells you exactly which line has the "expected ';'" or "was not declared in this scope."
+
 :::
+
 
 ## Exercise 11 — Q1: How Many Pins? {background-color="#00C9A7" .sdaia-dark}
 
@@ -118,7 +124,9 @@ void loop() {
 
 ::: {.fragment}
 **Answer:** **2** — Pin 13 and Pin 12.
+
 :::
+
 
 ## Exercise 11 — Q2: Input or Output? {background-color="#00C9A7" .sdaia-dark}
 
@@ -131,7 +139,9 @@ pinMode(12, OUTPUT);
 
 ::: {.fragment}
 **Answer:** Both are **outputs** (`OUTPUT`). The Arduino drives these pins HIGH or LOW.
+
 :::
+
 
 ## Exercise 11 — Q3: Describe the Script {background-color="#00C9A7" .sdaia-dark}
 
@@ -146,7 +156,9 @@ digitalWrite(12, LOW);
 
 ::: {.fragment}
 **Answer:** Pin 13 turns **ON** → waits 1 second → turns **OFF**. Then Pin 12 turns **ON** → waits 0.5 seconds → turns **OFF**. The `loop` repeats this forever.
+
 :::
+
 
 ## Exercise 11 — Q4: OUTPUT vs INPUT {background-color="#00C9A7" .sdaia-dark}
 
@@ -159,7 +171,9 @@ digitalWrite(12, LOW);
 - **`INPUT`** — the Arduino *reads* the voltage on the pin; it drives nothing
 
 Forgetting `pinMode` → pin defaults to input mode → outputs no voltage → LED stays off.
+
 :::
+
 
 ## Exercise 11 — Q5: Blink 3 Times {background-color="#00C9A7" .sdaia-dark}
 
@@ -177,5 +191,7 @@ for (int i = 0; i < 3; i++) {
 digitalWrite(12, HIGH); delay(500);
 digitalWrite(12, LOW);
 ```
+
 :::
+
 

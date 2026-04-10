@@ -8,12 +8,16 @@
 ## Quick Setup Links
 - **[📥 Download Arduino IDE](https://www.arduino.cc/en/software)**
 - **[🔌 Select Board & Port Guide](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-uploading-a-sketch/)**
+
 :::
+
 
 ::: {.callout-warning}
 ## Troubleshooting
 If your **Port** is greyed out, try a different USB port or check your cable connection.
+
 :::
+
 
 
 
@@ -88,12 +92,14 @@ Your traffic light works. Now **ask AI to extend it.**
 How do you know what the Light Sensor is actually "seeing"? You ask the Arduino to **print** the numbers to your screen.
 
 1. **Start Communication**: Add `Serial.begin(9600);` in `setup()`.
-2. **Print the Value**: Use `Serial.println(brightness);` in `loop()`.
+2. **Print the Value**: Use `Serial.println(ldrReading);` in `loop()`.
 
 ::: {.callout-tip}
 ## The Glass Window
 In the Arduino IDE or Wokwi, look for the **Serial Monitor** (usually a magnifying glass icon). It opens a window where you can watch the values live!
+
 :::
+
 
 ## Floating Pins & Noise {.sdaia-dark background-color="#1C355E"}
 
@@ -104,7 +110,9 @@ Imagine a sensor wire that isn't connected to anything. It doesn't read 0. It ac
 
 ::: {.callout-note}
 This is why our button lab or sensor lab needs that 10kΩ resistor — it keeps the pin "stable."
+
 :::
+
 
 
 
@@ -133,7 +141,9 @@ This is why our button lab or sensor lab needs that 10kΩ resistor — it keeps 
 ::: {.callout-tip .fragment}
 ## Why use two resistors?
 Arduino pins cannot directly read resistance. They can only measure **Voltage** (relative pressure). We MUST use a fixed resistor to create a "bottleneck". This converts the sensor's changing resistance into a changing pressure that the Arduino can read!
+
 :::
+
 
 ## The ADC — Bridging Analog and Digital
 
@@ -206,8 +216,8 @@ void setup() {
 }
 
 void loop() {
-  int brightness = analogRead(ldrPin);      // 0 (bright) → 1023 (dark)
-  if (brightness > DARK_THRESHOLD) {
+  int ldrReading = analogRead(ldrPin);      // 0 = bright, 1023 = dark (counter-intuitive!)
+  if (ldrReading > DARK_THRESHOLD) {
     digitalWrite(ledPin, HIGH);             // dark (high value) → LED ON
   } else {
     digitalWrite(ledPin, LOW);              // bright (low value) → LED OFF
@@ -224,7 +234,9 @@ void loop() {
 
 ::: {.fragment}
 **Answer:** 512 is half of 1023 ≈ half-scale → **2.5 V** (half of 5.0 V).
+
 :::
+
 
 ## Exercise 13 — Q2: Change the Threshold {background-color="#00C9A7" .sdaia-dark}
 
@@ -232,7 +244,9 @@ void loop() {
 
 ::: {.fragment}
 **Answer:** **Dimmer** — the sensor must return a *higher* value (800) before the LED switches on. Higher ADC values mean less light, so the room must be darker than before to trigger the LED.
+
 :::
+
 
 ## Exercise 13 — Q3: Add a Second LED {background-color="#00C9A7" .sdaia-dark}
 
@@ -245,11 +259,13 @@ void loop() {
 pinMode(11, OUTPUT);        // add in setup()
 
 // inside loop(), add:
-digitalWrite(11, brightness > DARK_THRESHOLD ? LOW : HIGH);
+digitalWrite(11, ldrReading > DARK_THRESHOLD ? LOW : HIGH);
 ```
 
-When bright, `brightness > DARK_THRESHOLD` is false → `LOW` is replaced by `HIGH`.
+When bright, `ldrReading > DARK_THRESHOLD` is false → the green LED turns `HIGH`.
+
 :::
+
 
 ## Exercise 13 — Q4: Stabilising Noisy Readings {background-color="#00C9A7" .sdaia-dark}
 
@@ -261,8 +277,10 @@ When bright, `brightness > DARK_THRESHOLD` is false → `LOW` is replaced by `HI
 ```cpp
 long sum = 0;
 for (int i = 0; i < 5; i++) sum += analogRead(A0);
-int brightness = sum / 5;
+int ldrReading = sum / 5;
 ```
 
 Or only switch the LED if the condition holds for several consecutive loops — prevents flickering from brief spikes.
+
 :::
+
