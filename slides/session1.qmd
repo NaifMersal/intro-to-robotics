@@ -11,6 +11,8 @@ format:
     controls: true
     progress: true
     center-title-slide: true
+    view-distance: 4
+    preload-iframes: false
     title-slide-attributes:
       data-background-image: "../slides_template/assets/anim.svg"
       data-background-opacity: "0.08"

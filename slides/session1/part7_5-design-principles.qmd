@@ -62,12 +62,12 @@ with schemdraw.Drawing() as d:
 
 | Component | Symbol | Role |
 |-----------|--------|-----------------|
-| **Power (+V)**  | ![](assets/battery_sym.svg){width="35px" loading="lazy"} | Energy Source |
-| **Ground (GND)** | ![](assets/gnd_sym.svg){width="35px" loading="lazy"} | 0V Reference |
-| **Resistor**    | ![](assets/resistor_sym.svg){width="40px" loading="lazy"} | Current Limiter |
-| **LED**         | ![](assets/led_sym.svg){width="40px" loading="lazy"} | Light Emitter |
-| **Switch**      | ![](assets/switch_sym.svg){width="40px" loading="lazy"} | Path Control |
-| **Capacitor**   | ![](assets/capacitor_sym.svg){width="40px" loading="lazy"} | Energy Storage *(like a water tank — stores charge briefly; covered in Session 2)* |
+| **Power (+V)**  | ![](assets/battery_sym.svg){width="35px" data-src="assets/battery_sym.svg"} | Energy Source |
+| **Ground (GND)** | ![](assets/gnd_sym.svg){width="35px" data-src="assets/gnd_sym.svg"} | 0V Reference |
+| **Resistor**    | ![](assets/resistor_sym.svg){width="40px" data-src="assets/resistor_sym.svg"} | Current Limiter |
+| **LED**         | ![](assets/led_sym.svg){width="40px" data-src="assets/led_sym.svg"} | Light Emitter |
+| **Switch**      | ![](assets/switch_sym.svg){width="40px" data-src="assets/switch_sym.svg"} | Path Control |
+| **Capacitor**   | ![](assets/capacitor_sym.svg){width="40px" data-src="assets/capacitor_sym.svg"} | Energy Storage *(like a water tank — stores charge briefly; covered in Session 2)* |
 
 ## Schematic Layout Rules
 
@@ -105,7 +105,7 @@ Always draw your "GND" symbols pointing down. It makes the schematic instantly r
 
 ## Interactive: Series Flow
 
-<iframe loading="lazy" src="../simulations/water_resistors/index.html?topo=series&mode=electric"
+<iframe data-src="../simulations/water_resistors/index.html?topo=series&mode=electric"
   style="width:100%;height:450px;border:none;border-radius:12px;"
   allowfullscreen>
 </iframe>
@@ -200,7 +200,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 
 ## Interactive: Parallel Flow
 
-<iframe loading="lazy" src="../simulations/water_resistors/index.html?topo=parallel&mode=water"
+<iframe data-src="../simulations/water_resistors/index.html?topo=parallel&mode=water"
   style="width:100%;height:450px;border:none;border-radius:12px;"
   allowfullscreen>
 </iframe>
@@ -619,7 +619,7 @@ This generates intense heat and will **fry your Arduino's chip** or your laptop'
 
 ::::: {.column width="35%"}
 
-![](assets/short_circuit_danger_icon.webp){width="100%" loading="lazy"}
+![](assets/short_circuit_danger_icon.webp){width="100%" data-src="assets/short_circuit_danger_icon.webp"}
 
 :::::
 
@@ -724,7 +724,7 @@ A breadboard lets you build circuits **without soldering**.
 
 ::::: {.column width="50%"}
 
-![](assets/breadboard_400_xray.webp){width="100%" loading="lazy"}
+![](assets/breadboard_400_xray.webp){width="100%" data-src="assets/breadboard_400_xray.webp"}
 
 :::::
 
@@ -762,7 +762,7 @@ Think of it as the **water level in the drain** — everything flows toward it.
 
 ::::: {.column width="45%"}
 
-![](assets/breadboard_diagram.webp){width="100%" loading="lazy"}
+![](assets/breadboard_diagram.webp){width="100%" data-src="assets/breadboard_diagram.webp"}
 
 :::: {.callout-tip}
 

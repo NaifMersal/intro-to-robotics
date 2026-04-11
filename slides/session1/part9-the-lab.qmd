@@ -50,7 +50,7 @@ Slightly higher = slightly less current = LED lives longer. Never go lower.
 
 ## Build #1 — Traffic Light on Wokwi {background-color="#f7f9fc"}
 
-<iframe loading="lazy" src="https://wokwi.com/projects/460363431768902657" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen></iframe>
+<iframe data-src="https://wokwi.com/projects/460363431768902657" width="100%" height="520px" style="border:none; border-radius:12px;" allowfullscreen></iframe>
 
 *Build this circuit in Wokwi. Run it. Does the sequence match your code?*
 
@@ -196,7 +196,7 @@ Arduino Uno uses 10-bit resolution for its analog pins.
 
 ## Build #2 — Automatic Light on Wokwi {background-color="#f7f9fc"}
 
-<iframe loading="lazy" src="https://wokwi.com/projects/460387279699213313/embed"
+<iframe data-src="https://wokwi.com/projects/460387279699213313/embed"
         width="100%" height="520px"
         style="border:none; border-radius:12px;"
         allowfullscreen></iframe>

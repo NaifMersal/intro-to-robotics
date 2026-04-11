@@ -28,7 +28,7 @@ Both descriptions are correct. In this course we always follow the **+ to −** 
 
 ## See the Translation Live {background-color="#f7f9fc"}
 
-<iframe loading="lazy" src="../simulations/water_circuit/index.html"
+<iframe data-src="../simulations/water_circuit/index.html"
         width="100%" height="520px"
         style="border:none; border-radius:12px;"></iframe>
 

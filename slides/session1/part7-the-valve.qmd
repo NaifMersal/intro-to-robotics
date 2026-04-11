@@ -17,7 +17,7 @@ Volume knobs · Brightness dimmers · Steering sensitivity controls
 
 ## The Valve Simulation {background-color="#f7f9fc"}
 
-<iframe loading="lazy" src="../simulations/water_circuit/micro/valve.html"
+<iframe data-src="../simulations/water_circuit/micro/valve.html"
         width="100%" height="520px"
         style="border:none; border-radius:12px;"></iframe>
 
