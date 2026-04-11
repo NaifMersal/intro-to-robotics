@@ -571,14 +571,14 @@
     "href": "index.html#curriculum-slides",
     "title": "Intro to Robotics",
     "section": "📚 Curriculum Slides",
-    "text": "📚 Curriculum Slides\nExplore the core concepts through our interactive slide decks.\n\n\n\n\nSession 1: Circuits Basics\nFrom Water Pipes to Computer Logic. Covering voltage, current, resistance, and the bridge to electronics. View Slides →\n\n\n\n\n\n\nSession 2: Movement + Problem Patterns\nComing Soon — From assembly to locomotion. Mastering the basics of robot movement and problem identification."
+    "text": "📚 Curriculum Slides\nExplore the core concepts through our interactive slide decks.\n\n\n\n\nSession 1: Circuits Basics\nFrom Water Pipes to Computer Logic. Covering voltage, current, resistance, and the bridge to electronics. View Slides →\n\n\n\n\n\n\nSession 2: Movement + Problem Patterns\nFrom physical assembly to autonomous movement. Mastering the basics of robot locomotion and problem identification. View Slides →"
   },
   {
     "objectID": "index.html#interactive-simulations",
     "href": "index.html#interactive-simulations",
     "title": "Intro to Robotics",
     "section": "🚀 Interactive Simulations",
-    "text": "🚀 Interactive Simulations\nVisualize complex concepts through real-time web-based simulations.\n\n\n\n\nWater Circuit Sim\nInteractive visualization of voltage (pressure), current (flow), and resistance (valves) using a water pipe analogy. Launch Sim →"
+    "text": "🚀 Interactive Simulations\nVisualize complex concepts through real-time web-based simulations.\n\n\n\n\nWater Circuit Sim\nInteractive visualization of voltage (pressure), current (flow), and resistance (valves) using a water pipe analogy. Launch Sim →\n\n\n\n\n\n\nWater Resistors Sim\nA deeper dive into resistor networks. Visualize how series and parallel connections affect water flow and pressure. Launch Sim →"
   },
   {
     "objectID": "slides/session1.html#common-code-mistakes",

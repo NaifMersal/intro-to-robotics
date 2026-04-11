@@ -33,10 +33,11 @@ From Water Pipes to Computer Logic. Covering voltage, current, resistance, and t
 :::
 
 ::: {.g-col-12 .g-col-md-6}
-::: {.card .h-100 .slide-card .muted-card}
+::: {.card .h-100 .slide-card}
 ::: {.card-body}
-### Session 2: Movement + Problem Patterns
-*Coming Soon* — From assembly to locomotion. Mastering the basics of robot movement and problem identification.
+### [Session 2: Movement + Problem Patterns](slides/session2.qmd)
+From physical assembly to autonomous movement. Mastering the basics of robot locomotion and problem identification.
+[View Slides →](slides/session2.qmd){.btn .btn-outline-primary .btn-sm}
 :::
 :::
 :::
@@ -54,6 +55,16 @@ Visualize complex concepts through real-time web-based simulations.
 ### [Water Circuit Sim](simulations/water_circuit/index.html)
 Interactive visualization of voltage (pressure), current (flow), and resistance (valves) using a water pipe analogy.
 [Launch Sim →](simulations/water_circuit/index.html){.btn .btn-outline-teal .btn-sm}
+:::
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100 .sim-card}
+::: {.card-body}
+### [Water Resistors Sim](simulations/water_resistors/index.html)
+A deeper dive into resistor networks. Visualize how series and parallel connections affect water flow and pressure.
+[Launch Sim →](simulations/water_resistors/index.html){.btn .btn-outline-teal .btn-sm}
 :::
 :::
 :::
