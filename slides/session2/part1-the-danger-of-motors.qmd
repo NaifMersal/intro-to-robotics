@@ -104,12 +104,18 @@ Building an H-Bridge from tiny transistors is hard.
 Instead, we use the **L298N Module**. It's a "dual" driver that can control **two motors**.
 
 It gives us 3 types of pins:
+
 - **IN Pins**: Controls **Direction** (Forward/Backward)
 - **EN Pins**: Controls **Speed** (The Gas Pedal!)
 :::
 
 ::: {.column width="50%"}
 ![The L298N Motor Driver](assets/L298n.png)
+
+::: {.callout-note}
+## Tinkercad Note
+Tinkercad does not have the L298N "Red Board." Instead, we will use the **L293D chip**, which is the H-Bridge "brain" inside these modules. The logic is exactly the same!
+:::
 :::
 
 :::::

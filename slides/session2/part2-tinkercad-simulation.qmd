@@ -19,7 +19,7 @@ We need to connect 3 types of wires:
 
 1. **Power In**: Battery `+` to `12V`, Battery `-` to `GND`.
 2. **Motor Out**: Motor wires to `OUT1` and `OUT2`.
-3. **Logic In**: Arduino Pins to `IN1` and `IN2`.
+3. **Logic In**: `IN1` (Pin 9), `IN2` (Pin 10), and **`ENA` (Pin 11)**.
 
 *And crucially, Arduino `GND` must connect to the Battery `GND` so they share the same 0V reference!*
 
@@ -41,11 +41,12 @@ with schemdraw.Drawing() as d:
     l298 = elm.Ic(pins=[
         elm.IcPin(name='GND', side='left'),   # Left Bottom
         elm.IcPin(name='12V', side='left'),   # Left Top
-        elm.IcPin(name='IN1', side='bottom'), # Bottom Left
+        elm.IcPin(name='ENA', side='bottom'), # Bottom Left
+        elm.IcPin(name='IN1', side='bottom'), # Bottom Middle
         elm.IcPin(name='IN2', side='bottom'), # Bottom Right
         elm.IcPin(name='OUT2', side='right'), # Right Bottom
         elm.IcPin(name='OUT1', side='right')  # Right Top
-    ], w=5, h=5, pinspacing=1.5, edgepadH=1.5).label('L298N', loc='center')
+    ], w=6, h=5, pinspacing=1.5, edgepadH=1.5).label('L298N', loc='center')
     d += l298
     
     # Left side: Battery loop
@@ -59,7 +60,8 @@ with schemdraw.Drawing() as d:
     d += elm.Line().toy(pgnd)
     d += elm.Line().right().to(pgnd)
 
-    # Bottom side: Logic (Pin 9 / Pin 10)
+    # Bottom side: Logic (ENA, IN1, IN2)
+    d += elm.Line().at(l298.ENA).down().length(1.5).label('Pin 11', loc='bottom', color='blue')
     d += elm.Line().at(l298.IN1).down().length(1.5).label('Pin 9', loc='bottom', color='blue')
     d += elm.Line().at(l298.IN2).down().length(1.5).label('Pin 10', loc='bottom', color='blue')
     
@@ -95,17 +97,20 @@ Once wired, let's write the code to spin the motor. We use the exact same `digit
 void setup() {
   pinMode(9, OUTPUT);  // IN1
   pinMode(10, OUTPUT); // IN2
+  pinMode(11, OUTPUT); // ENA (Speed)
 }
 
 void loop() {
-  // Spin Forward
+  // Spin Forward at half speed
   digitalWrite(9, HIGH);
   digitalWrite(10, LOW);
+  analogWrite(11, 150); 
   delay(1000);
 
   // Stop completely
   digitalWrite(9, LOW);
   digitalWrite(10, LOW);
+  analogWrite(11, 0);
   delay(1000);
 }
 ```

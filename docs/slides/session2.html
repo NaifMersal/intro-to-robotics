@@ -288,7 +288,7 @@
 </ul>
 <p><em>Caution: Never close S1 and S3 at the same time (Short Circuit!)</em></p>
 </div><div class="column" style="width:40%;">
-<div id="ef4ab0b5" class="cell" data-execution_count="1">
+<div id="1b8aa3bb" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -305,13 +305,30 @@
 <div class="column" style="width:50%;">
 <p>Building an H-Bridge from tiny transistors is hard.</p>
 <p>Instead, we use the <strong>L298N Module</strong>. It’s a “dual” driver that can control <strong>two motors</strong>.</p>
-<p>It gives us 3 types of pins: - <strong>IN Pins</strong>: Controls <strong>Direction</strong> (Forward/Backward) - <strong>EN Pins</strong>: Controls <strong>Speed</strong> (The Gas Pedal!)</p>
+<p>It gives us 3 types of pins:</p>
+<ul>
+<li><strong>IN Pins</strong>: Controls <strong>Direction</strong> (Forward/Backward)</li>
+<li><strong>EN Pins</strong>: Controls <strong>Speed</strong> (The Gas Pedal!)</li>
+</ul>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="assets/L298n.png"></p>
 <figcaption>The L298N Motor Driver</figcaption>
 </figure>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tinkercad Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Tinkercad does not have the L298N “Red Board.” Instead, we will use the <strong>L293D chip</strong>, which is the H-Bridge “brain” inside these modules. The logic is exactly the same!</p>
+</div>
+</div>
 </div>
 </div></div>
 </section></section>
@@ -345,11 +362,11 @@
 <ol type="1">
 <li><strong>Power In</strong>: Battery <code>+</code> to <code>12V</code>, Battery <code>-</code> to <code>GND</code>.</li>
 <li><strong>Motor Out</strong>: Motor wires to <code>OUT1</code> and <code>OUT2</code>.</li>
-<li><strong>Logic In</strong>: Arduino Pins to <code>IN1</code> and <code>IN2</code>.</li>
+<li><strong>Logic In</strong>: <code>IN1</code> (Pin 9), <code>IN2</code> (Pin 10), and <strong><code>ENA</code> (Pin 11)</strong>.</li>
 </ol>
 <p><em>And crucially, Arduino <code>GND</code> must connect to the Battery <code>GND</code> so they share the same 0V reference!</em></p>
 </div><div class="column" style="width:50%;">
-<div id="44709e43" class="cell" data-execution_count="2">
+<div id="ff0fbfdf" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -379,19 +396,22 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
 <span id="cb1-2"><a></a>  pinMode<span class="op">(</span><span class="dv">9</span><span class="op">,</span> OUTPUT<span class="op">);</span>  <span class="co">// IN1</span></span>
 <span id="cb1-3"><a></a>  pinMode<span class="op">(</span><span class="dv">10</span><span class="op">,</span> OUTPUT<span class="op">);</span> <span class="co">// IN2</span></span>
-<span id="cb1-4"><a></a><span class="op">}</span></span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-7"><a></a>  <span class="co">// Spin Forward</span></span>
-<span id="cb1-8"><a></a>  digitalWrite<span class="op">(</span><span class="dv">9</span><span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb1-9"><a></a>  digitalWrite<span class="op">(</span><span class="dv">10</span><span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb1-10"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
-<span id="cb1-11"><a></a></span>
-<span id="cb1-12"><a></a>  <span class="co">// Stop completely</span></span>
-<span id="cb1-13"><a></a>  digitalWrite<span class="op">(</span><span class="dv">9</span><span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb1-14"><a></a>  digitalWrite<span class="op">(</span><span class="dv">10</span><span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb1-15"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
-<span id="cb1-16"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-4"><a></a>  pinMode<span class="op">(</span><span class="dv">11</span><span class="op">,</span> OUTPUT<span class="op">);</span> <span class="co">// ENA (Speed)</span></span>
+<span id="cb1-5"><a></a><span class="op">}</span></span>
+<span id="cb1-6"><a></a></span>
+<span id="cb1-7"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-8"><a></a>  <span class="co">// Spin Forward at half speed</span></span>
+<span id="cb1-9"><a></a>  digitalWrite<span class="op">(</span><span class="dv">9</span><span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb1-10"><a></a>  digitalWrite<span class="op">(</span><span class="dv">10</span><span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb1-11"><a></a>  analogWrite<span class="op">(</span><span class="dv">11</span><span class="op">,</span> <span class="dv">150</span><span class="op">);</span> </span>
+<span id="cb1-12"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb1-13"><a></a></span>
+<span id="cb1-14"><a></a>  <span class="co">// Stop completely</span></span>
+<span id="cb1-15"><a></a>  digitalWrite<span class="op">(</span><span class="dv">9</span><span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb1-16"><a></a>  digitalWrite<span class="op">(</span><span class="dv">10</span><span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb1-17"><a></a>  analogWrite<span class="op">(</span><span class="dv">11</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb1-18"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb1-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="testing-the-simulation" class="slide level2">
 <h2>Testing the Simulation</h2>

@@ -1005,14 +1005,14 @@
     "href": "slides/session2.html#wiring-the-l298n-motor-driver",
     "title": "Session 2: Movement + Problem Patterns",
     "section": "Wiring the L298N Motor Driver",
-    "text": "Wiring the L298N Motor Driver\n\n\nWe need to connect 3 types of wires:\n\nPower In: Battery + to 12V, Battery - to GND.\nMotor Out: Motor wires to OUT1 and OUT2.\nLogic In: Arduino Pins to IN1 and IN2.\n\nAnd crucially, Arduino GND must connect to the Battery GND so they share the same 0V reference!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWait, what is 12V vs 5V?\n\n\nThe driver takes the strong battery power (up to 12V) on one side, and the safe 5V logic signals from the Arduino on the other side."
+    "text": "Wiring the L298N Motor Driver\n\n\nWe need to connect 3 types of wires:\n\nPower In: Battery + to 12V, Battery - to GND.\nMotor Out: Motor wires to OUT1 and OUT2.\nLogic In: IN1 (Pin 9), IN2 (Pin 10), and ENA (Pin 11).\n\nAnd crucially, Arduino GND must connect to the Battery GND so they share the same 0V reference!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWait, what is 12V vs 5V?\n\n\nThe driver takes the strong battery power (up to 12V) on one side, and the safe 5V logic signals from the Arduino on the other side."
   },
   {
     "objectID": "slides/session2.html#writing-the-tinkercad-code",
     "href": "slides/session2.html#writing-the-tinkercad-code",
     "title": "Session 2: Movement + Problem Patterns",
     "section": "Writing the Tinkercad Code",
-    "text": "Writing the Tinkercad Code\nOnce wired, let’s write the code to spin the motor. We use the exact same digitalWrite commands we learned for LEDs.\nvoid setup() {\n  pinMode(9, OUTPUT);  // IN1\n  pinMode(10, OUTPUT); // IN2\n}\n\nvoid loop() {\n  // Spin Forward\n  digitalWrite(9, HIGH);\n  digitalWrite(10, LOW);\n  delay(1000);\n\n  // Stop completely\n  digitalWrite(9, LOW);\n  digitalWrite(10, LOW);\n  delay(1000);\n}"
+    "text": "Writing the Tinkercad Code\nOnce wired, let’s write the code to spin the motor. We use the exact same digitalWrite commands we learned for LEDs.\nvoid setup() {\n  pinMode(9, OUTPUT);  // IN1\n  pinMode(10, OUTPUT); // IN2\n  pinMode(11, OUTPUT); // ENA (Speed)\n}\n\nvoid loop() {\n  // Spin Forward at half speed\n  digitalWrite(9, HIGH);\n  digitalWrite(10, LOW);\n  analogWrite(11, 150); \n  delay(1000);\n\n  // Stop completely\n  digitalWrite(9, LOW);\n  digitalWrite(10, LOW);\n  analogWrite(11, 0);\n  delay(1000);\n}"
   },
   {
     "objectID": "slides/session2.html#testing-the-simulation",
@@ -1208,7 +1208,7 @@
     "href": "slides/session2.html#the-real-h-bridge",
     "title": "Session 2: Movement + Problem Patterns",
     "section": "The Real H-Bridge",
-    "text": "The Real H-Bridge\n\n\nBuilding an H-Bridge from tiny transistors is hard.\nInstead, we use the L298N Module. It’s a “dual” driver that can control two motors.\nIt gives us 3 types of pins: - IN Pins: Controls Direction (Forward/Backward) - EN Pins: Controls Speed (The Gas Pedal!)\n\n\n\n\nThe L298N Motor Driver"
+    "text": "The Real H-Bridge\n\n\nBuilding an H-Bridge from tiny transistors is hard.\nInstead, we use the L298N Module. It’s a “dual” driver that can control two motors.\nIt gives us 3 types of pins:\n\nIN Pins: Controls Direction (Forward/Backward)\nEN Pins: Controls Speed (The Gas Pedal!)\n\n\n\n\n\nThe L298N Motor Driver\n\n\n\n\n\n\n\n\nTinkercad Note\n\n\nTinkercad does not have the L298N “Red Board.” Instead, we will use the L293D chip, which is the H-Bridge “brain” inside these modules. The logic is exactly the same!"
   },
   {
     "objectID": "slides/session1.html#interactive-parallel-flow",
@@ -1237,5 +1237,12 @@
     "title": "Session 1: Circuits Basics",
     "section": "The Math: Series Resistance",
     "text": "The Math: Series Resistance\nIn a series circuit, components are connected end-to-end, forming a single path.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Assumptions\n\n\n\nKCL: Current (\\(I\\)) is the same everywhere. \\(I_{total} = I_1 = I_2 = \\dots\\)\nKVL: Total voltage equals the sum of drops. \\(V_{total} = V_1 + V_2 + \\dots\\)\n\n\n\n\n\nThe Derivation\n\nApply Ohm’s Law (\\(V = IR\\)) to each: \\(V_1 = I \\cdot R_1, \\quad V_2 = I \\cdot R_2 \\dots\\)\nSubstitute into KVL: \\(V_{total} = (I \\cdot R_1) + (I \\cdot R_2) \\dots\\)\nUse Equivalent Resistance (\\(R_{eq}\\)): \\(I \\cdot R_{eq} = I(R_1 + R_2 + \\dots)\\)\nDivide by \\(I\\): \\(\\mathbf{R_{eq} = R_1 + R_2 + \\dots + R_n}\\)"
+  },
+  {
+    "objectID": "slides/session2.html#wiring-the-l293d-driver-chip",
+    "href": "slides/session2.html#wiring-the-l293d-driver-chip",
+    "title": "Session 2: Movement + Problem Patterns",
+    "section": "Wiring the L293D Driver (Chip)",
+    "text": "Wiring the L293D Driver (Chip)\n\n\nWe connect the L293D chip across the middle of a breadboard.\n\nPower: Battery + to Pin 8, Arduino 5V to Pin 16, and GND to Pin 4.\nMotor: Motor wires to Pin 3 and Pin 6.\nLogic: IN1 (Pin 9) \\(\\rightarrow\\) Pin 2, IN2 (Pin 10) \\(\\rightarrow\\) Pin 7, and ENA (Pin 11) \\(\\rightarrow\\) Pin 1.\n\nMake sure Arduino GND and Battery GND are both connected to Pin 4!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPins 4, 5, 12, 13\n\n\nOn the L293D, all four of these pins are connected to GND and also help act as a “heat sink” to keep the chip cool."
   }
 ]
