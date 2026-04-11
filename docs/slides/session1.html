@@ -1133,7 +1133,7 @@ Only two possible states. No in-between.</p>
 <li class="fragment"><strong>Fast</strong>: Optimized for drafting.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="2a465229" class="cell" data-execution_count="1">
+<div id="65c50f55" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1284,7 +1284,7 @@ Only two possible states. No in-between.</p>
 <p>In a series circuit, components are connected end-to-end, forming a single path.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div id="7c3a27e5" class="cell" data-execution_count="2">
+<div id="8e8c968a" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1378,7 +1378,7 @@ Only two possible states. No in-between.</p>
 <p>In a parallel circuit, resistors are connected across the same two nodes.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div id="b36744db" class="cell" data-execution_count="3">
+<div id="c3cb7dbe" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1512,7 +1512,7 @@ Only two possible states. No in-between.</p>
 <h2>Case Study 1 — Option A: Series (Circuit)</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="03542cd0" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="4">
+<div id="64a1a99c" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1552,7 +1552,7 @@ Only two possible states. No in-between.</p>
 <h2>Case Study 1 — Option B: Parallel (Circuit)</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="5b92a915" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="5">
+<div id="20ffb736" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1663,7 +1663,7 @@ Only two possible states. No in-between.</p>
 </div>
 <div class="columns">
 <div class="column" style="width:55%;">
-<div id="0bcae74f" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="6">
+<div id="a44f3ffb" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1797,24 +1797,37 @@ Only two possible states. No in-between.</p>
 </div>
 </div>
 </section>
-<section id="the-detective-troubleshooting-with-laws" class="slide level2 sdaia-dark" data-background-gradient="linear-gradient(135deg, #1C355E, #450a0a)">
-<h2>The Detective: Troubleshooting with Laws</h2>
-<p>When a circuit doesn’t work, don’t just “wiggle the wires.” Use the laws to find the culprit:</p>
+<section id="the-detective-the-case-of-the-dead-led" class="slide level2 sdaia-dark" data-background-gradient="linear-gradient(135deg, #1C355E, #020617)">
+<h2>The Detective: The Case of the Dead LED</h2>
+<p>When a circuit doesn’t work, don’t just “wiggle the wires.” Use the laws to find the invisible culprit.</p>
+<p>You’ve connected everything perfectly—or so you think—but the LED remains dark.</p>
+<ol type="1">
+<li class="fragment"><strong>The KVL Scan (Source)</strong>: Measure voltage at the battery.
+<ul>
+<li class="fragment"><em>Result</em>: <strong>5V</strong>. (The energy is there).</li>
+</ul></li>
+<li class="fragment"><strong>The KVL Scan (Load)</strong>: Measure voltage across the LED.
+<ul>
+<li class="fragment"><em>Result</em>: <strong>0V</strong>. (Wait… where did the pressure go?)</li>
+</ul></li>
+</ol>
+</section>
+<section id="the-detectives-verdict" class="slide level2 sdaia-dark" data-background-gradient="linear-gradient(135deg, #020617, #450a0a)">
+<h2>The Detective’s Verdict</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<h3 id="the-case-of-the-dead-led">The Case of the Dead LED</h3>
-<p><strong>Clue</strong>: You connected everything, but there is no light.</p>
-<ol type="1">
-<li><strong>The KVL Scan</strong>: Measure voltage across the Battery.
-<ul>
-<li><em>Result</em>: <strong>5V</strong>. (Energy is entrying).</li>
-</ul></li>
-<li><strong>The KVL Scan</strong>: Measure voltage across the LED.
-<ul>
-<li><em>Result</em>: <strong>0V</strong>. (Wait! Where did the pressure go?)</li>
-</ul></li>
-<li><strong>The Conclusion</strong>: If <span class="math inline">\(V_{led} = 0\)</span>, then according to KVL, the “pressure” is hanging out somewhere else—likely a <strong>broken wire</strong> or a <strong>bad connection</strong> that has “Infinite Resistance.”</li>
-</ol>
+<h3 id="the-solution">The Solution</h3>
+<p>If <span class="math inline">\(V_{led} = 0V\)</span> but the battery has <span class="math inline">\(5V\)</span>, according to KVL, that <strong>5V must be dropped somewhere else</strong>.</p>
+<div class="fragment">
+<h4 id="the-culprit-infinite-resistance">The Culprit: <strong>Infinite Resistance</strong></h4>
+<p>A broken wire, a loose connection, or a component not touching the breadboard strips creates a “gap” that steals all the pressure.</p>
+</div>
+<div class="fragment">
+<blockquote>
+<p>“Troubleshooting without laws is <strong>luck</strong>.<br>
+Troubleshooting with laws is <strong>science</strong>.”</p>
+</blockquote>
+</div>
 </div><div class="column" style="width:40%;">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -1822,10 +1835,14 @@ Only two possible states. No in-between.</p>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Scientific Luck</strong></p>
+<p><strong>Scientific Method</strong></p>
 </div>
 <div class="callout-content">
-<p>Troubleshooting without laws is <strong>luck</strong>. Troubleshooting with laws is <strong>science</strong>.</p>
+<ol type="1">
+<li><strong>Observe</strong>: LED is OFF.</li>
+<li><strong>Measure</strong>: <span class="math inline">\(V_{battery} = 5V, V_{LED} = 0V\)</span>.</li>
+<li><strong>Deduce</strong>: The “missing” 5V is trapped at a bad connection.</li>
+</ol>
 </div>
 </div>
 </div>

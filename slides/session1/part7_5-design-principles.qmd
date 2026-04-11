@@ -675,32 +675,51 @@ Something is wired incorrectly, or a resistor is too small, allowing too much "f
 
 :::
 
-## The Detective: Troubleshooting with Laws {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #450a0a)"}
+## The Detective: The Case of the Dead LED {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #020617)"}
 
-When a circuit doesn't work, don't just "wiggle the wires." Use the laws to find the culprit:
+When a circuit doesn't work, don't just "wiggle the wires." Use the laws to find the invisible culprit.
 
-::::: {.columns}
 
-:::: {.column width="60%"}
-### The Case of the Dead LED
-**Clue**: You connected everything, but there is no light.
+You’ve connected everything perfectly—or so you think—but the LED remains dark. 
 
-1. **The KVL Scan**: Measure voltage across the Battery. 
-   - *Result*: **5V**. (Energy is entrying).
-2. **The KVL Scan**: Measure voltage across the LED.
-   - *Result*: **0V**. (Wait! Where did the pressure go?)
-3. **The Conclusion**: If $V_{led} = 0$, then according to KVL, the "pressure" is hanging out somewhere else—likely a **broken wire** or a **bad connection** that has "Infinite Resistance."
-::::
-
-:::: {.column width="40%"}
-::: {.callout-tip}
-## Scientific Luck
-Troubleshooting without laws is **luck**.
-Troubleshooting with laws is **science**.
+::: {.incremental}
+1. **The KVL Scan (Source)**: Measure voltage at the battery. 
+   - *Result*: **5V**. (The energy is there).
+2. **The KVL Scan (Load)**: Measure voltage across the LED.
+    - *Result*: **0V**. (Wait... where did the pressure go?)
 :::
-::::
 
-:::::
+
+## The Detective's Verdict {.sdaia-dark background-gradient="linear-gradient(135deg, #020617, #450a0a)"}
+
+::: {.columns}
+
+::: {.column width="60%"}
+### The Solution
+If $V_{led} = 0V$ but the battery has $5V$, according to KVL, that **5V must be dropped somewhere else**.
+
+::: {.fragment}
+#### The Culprit: **Infinite Resistance**
+A broken wire, a loose connection, or a component not touching the breadboard strips creates a "gap" that steals all the pressure.
+:::
+
+:::: {.fragment}
+> "Troubleshooting without laws is **luck**.  
+> Troubleshooting with laws is **science**."
+::::
+:::
+
+::: {.column width="40%"}
+::: {.callout-tip}
+## Scientific Method
+1. **Observe**: LED is OFF.
+2. **Measure**: $V_{battery} = 5V, V_{LED} = 0V$.
+3. **Deduce**: The "missing" 5V is trapped at a bad connection.
+:::
+:::
+
+:::
+
 
 ## Meet the Breadboard
 

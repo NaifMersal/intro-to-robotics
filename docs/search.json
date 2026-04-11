@@ -1356,5 +1356,19 @@
     "title": "Session 1: Circuits Basics",
     "section": "Case Study 1 — Option B: Parallel (Calculation)",
     "text": "Case Study 1 — Option B: Parallel (Calculation)\nStep-by-Step Calculation\n\nApply KVL — How much voltage falls across each resistor?\nEach branch sees the full 5V, and the LED drops 2V: \\[V_R = V_{supply} - V_{LED} = 5V - 2V = \\mathbf{3V}\\]\nApply Ohm’s Law — Find the required resistor per branch\nWe want \\(I = 20\\,\\text{mA}\\) through each LED: \\[R = \\frac{V_R}{I} = \\frac{3V}{0.02\\,A} = \\mathbf{150\\,\\Omega} \\rightarrow \\text{pick standard } \\mathbf{150\\,\\Omega}\\]\nVerify branch current with chosen resistor\n\\[I_{Eye1} = \\frac{3V}{150\\,\\Omega} = \\mathbf{20\\,mA}, \\quad I_{Eye2} = \\frac{3V}{150\\,\\Omega} = \\mathbf{20\\,mA} \\quad \\text{(safe ✓)}\\]\nTotal current drawn (KCL at junction)\n\\[I_{total} = I_{Eye1} + I_{Eye2} = 20 + 20 = \\mathbf{40\\,mA}\\]"
+  },
+  {
+    "objectID": "slides/session1.html#the-detective-the-case-of-the-dead-led",
+    "href": "slides/session1.html#the-detective-the-case-of-the-dead-led",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Detective: The Case of the Dead LED",
+    "text": "The Detective: The Case of the Dead LED\nWhen a circuit doesn’t work, don’t just “wiggle the wires.” Use the laws to find the invisible culprit.\nYou’ve connected everything perfectly—or so you think—but the LED remains dark.\n\nThe KVL Scan (Source): Measure voltage at the battery.\n\nResult: 5V. (The energy is there).\n\nThe KVL Scan (Load): Measure voltage across the LED.\n\nResult: 0V. (Wait… where did the pressure go?)"
+  },
+  {
+    "objectID": "slides/session1.html#the-detectives-verdict",
+    "href": "slides/session1.html#the-detectives-verdict",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Detective’s Verdict",
+    "text": "The Detective’s Verdict\n\n\nThe Solution\nIf \\(V_{led} = 0V\\) but the battery has \\(5V\\), according to KVL, that 5V must be dropped somewhere else.\n\nThe Culprit: Infinite Resistance\nA broken wire, a loose connection, or a component not touching the breadboard strips creates a “gap” that steals all the pressure.\n\n\n\n“Troubleshooting without laws is luck.\nTroubleshooting with laws is science.”\n\n\n\n\n\n\n\n\n\nScientific Method\n\n\n\nObserve: LED is OFF.\nMeasure: \\(V_{battery} = 5V, V_{LED} = 0V\\).\nDeduce: The “missing” 5V is trapped at a bad connection."
   }
 ]
