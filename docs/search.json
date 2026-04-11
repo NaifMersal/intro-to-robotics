@@ -879,7 +879,7 @@
     "href": "slides/session1.html#kirchhoffs-voltage-law-kvl",
     "title": "Session 1: Circuits Basics",
     "section": "Kirchhoff’s Voltage Law (KVL)",
-    "text": "Kirchhoff’s Voltage Law (KVL)\n\n\nShared Energy\nFundamental Principle: Conservation of Energy\nEvery volt provided by the power source must be “dropped” (used up) by the components.\n\n\n\n\n\n\nKey Concept: In a single loop (Series), the Current (\\(I\\)) is constant everywhere (\\(I_{in} = I_{out}\\)), but the Voltage (\\(V\\)) is shared among components.\n\n\n\n\\[V_{total} = V_1 + V_2 + \\dots\\]\n\n\n\n\n\n\n\nFor engineers: this is written as \\(\\sum V_{loop} = 0\\). Every electron must lose all its potential energy before returning to the source.\n\n\n\n\n\n\n\n\n\n\n\n\nThe Loop Rule\n\n\nThink of a waterfall. If you start at height \\(H\\), you must drop a total of \\(H\\) distance (via one or many falls) before reaching the bottom."
+    "text": "Kirchhoff’s Voltage Law (KVL)\n\n\nShared Energy\nFundamental Principle: Conservation of Energy\nEvery volt provided by the power source must be “dropped” (used up) by the components.\n\n\n\n\n\n\nKey Concept: In a single loop (Series), the Current (\\(I\\)) is constant everywhere (\\(I_{in} = I_{out}\\)), but the Voltage (\\(V\\)) is shared among components.\n\n\n\n\\[V_{total} = V_1 + V_2 + \\dots\\]\n\n\n\n\n\n\n\nFor engineers: this is written as \\(V_1 + V_2 + \\dots = V_{total}\\). Every electron must lose all its potential energy before returning to the source.\n\n\n\n\n\n\n\n\n\n\n\n\nThe Loop Rule\n\n\nThink of a waterfall. If you start at height \\(H\\), you must drop a total of \\(H\\) distance (via one or many falls) before reaching the bottom."
   },
   {
     "objectID": "slides/session1.html#resistors-in-series",
@@ -893,7 +893,7 @@
     "href": "slides/session1.html#kirchhoffs-current-law-kcl",
     "title": "Session 1: Circuits Basics",
     "section": "Kirchhoff’s Current Law (KCL)",
-    "text": "Kirchhoff’s Current Law (KCL)\n\n\nSplit Flow\nFundamental Principle: Conservation of Charge\nElectric charge cannot be created or destroyed. Whatever current flows into a junction must flow out of it.\n\n\n\n\n\n\nKey Concept: In a junction (Parallel), the Voltage (\\(V\\)) across branches is equal, but the Current (\\(I\\)) is split (\\(I_{in} = I_1 + I_2\\)).\n\n\n\n\\[I_{total} = I_1 + I_2 + \\dots\\]\n\n\n\n\n\n\n\nFor engineers: this is written as \\(\\sum I_{in} = \\sum I_{out}\\). Nodes are just distribution points for charge; electricity doesn’t “pile up.”\n\n\n\n\n\n\n\n\n\n\n\n\nThe Junction Rule\n\n\nThink of parallel pipes. If 1 liter per second enters a T-junction, exactly 1 liter per second must exit through the combined branches."
+    "text": "Kirchhoff’s Current Law (KCL)\n\n\nSplit Flow\nFundamental Principle: Conservation of Charge\nElectric charge cannot be created or destroyed. Whatever current flows into a junction must flow out of it.\n\n\n\n\n\n\nKey Concept: In a junction (Parallel), the Voltage (\\(V\\)) across branches is equal, but the Current (\\(I\\)) is split (\\(I_{in} = I_1 + I_2\\)).\n\n\n\n\\[I_{total} = I_1 + I_2 + \\dots\\]\n\n\n\n\n\n\n\nFor engineers: this is written as \\(I_{in} = I_1 + I_2 + \\dots\\). Nodes are just distribution points for charge; electricity doesn’t “pile up.”\n\n\n\n\n\n\n\n\n\n\n\n\nThe Junction Rule\n\n\nThink of parallel pipes. If 1 liter per second enters a T-junction, exactly 1 liter per second must exit through the combined branches."
   },
   {
     "objectID": "slides/session1.html#resistors-in-parallel",
@@ -1194,7 +1194,7 @@
     "href": "slides/session1.html#summary-table",
     "title": "Session 1: Circuits Basics",
     "section": "Summary Table",
-    "text": "Summary Table\n\n\n\n\n\n\n\n\n\nConnection\nConstant Value\nPhysical Law Used\nResulting Formula\n\n\n\n\nSeries\nCurrent (\\(I\\))\nKVL (\\(\\sum V = 0\\))\n\\(R_{eq} = \\sum R_i\\)\n\n\nParallel\nVoltage (\\(V\\))\nKCL (\\(\\sum I = 0\\))\n\\(\\frac{1}{R_{eq}} = \\sum \\frac{1}{R_i}\\)\n\n\n\n\n\n\n\n\n\nTip\n\n\nIn parallel, the total resistance is ALWAYS smaller than the smallest individual resistor!"
+    "text": "Summary Table\n\n\n\n\n\n\n\n\n\nConnection\nConstant Value\nPhysical Law Used\nResulting Formula\n\n\n\n\nSeries\nCurrent (\\(I\\))\nKVL (\\(V_1 + V_2 + \\dots = V_{total}\\))\n\\(R_{eq} = R_1 + R_2 + \\dots\\)\n\n\nParallel\nVoltage (\\(V\\))\nKCL (\\(I_{in} = I_1 + I_2 + \\dots\\))\n\\(\\frac{1}{R_{eq}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\dots\\)\n\n\n\n\n\n\n\n\n\nTip\n\n\nIn parallel, the total resistance is ALWAYS smaller than the smallest individual resistor!"
   },
   {
     "objectID": "slides/session2.html#hardware-reference",
@@ -1244,5 +1244,117 @@
     "title": "Session 2: Movement + Problem Patterns",
     "section": "Wiring the L293D Driver (Chip)",
     "text": "Wiring the L293D Driver (Chip)\n\n\nWe connect the L293D chip across the middle of a breadboard.\n\nPower: Battery + to Pin 8, Arduino 5V to Pin 16, and GND to Pin 4.\nMotor: Motor wires to Pin 3 and Pin 6.\nLogic: IN1 (Pin 9) \\(\\rightarrow\\) Pin 2, IN2 (Pin 10) \\(\\rightarrow\\) Pin 7, and ENA (Pin 11) \\(\\rightarrow\\) Pin 1.\n\nMake sure Arduino GND and Battery GND are both connected to Pin 4!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPins 4, 5, 12, 13\n\n\nOn the L293D, all four of these pins are connected to GND and also help act as a “heat sink” to keep the chip cool."
+  },
+  {
+    "objectID": "slides/session1.html#case-study-the-robots-eyes",
+    "href": "slides/session1.html#case-study-the-robots-eyes",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study: The Robot’s Eyes",
+    "text": "Case Study: The Robot’s Eyes\nYou want to add two Red LEDs for a robot’s eyes. You have a 5V battery. Should you wire them in Series or Parallel?\n\n\nOption A: Series\n\nApply KVL: Each LED “costs” 2V. \\(2V + 2V = \\mathbf{4V}\\) total drop.\nThe Result: 5V supply is enough!\nValue: Battery lasts longer because current only flows through one path (KCL).\n\n\nOption B: Parallel\n\nApply KCL: Each LED needs 20mA. Total flow = \\(20mA + 20mA = \\mathbf{40mA}\\).\nThe Result: Battery drains twice as fast.\nValue: If one LED breaks, the other stays on! (Independence)."
+  },
+  {
+    "objectID": "slides/session1.html#why-do-we-care-the-predictor",
+    "href": "slides/session1.html#why-do-we-care-the-predictor",
+    "title": "Session 1: Circuits Basics",
+    "section": "Why do we care? The Predictor",
+    "text": "Why do we care? The Predictor\nWithout these laws, engineering is just guessing. With them, you are a Predictor.\n\nKVL predicts if you have enough “pressure” to turn things on.\nKCL predicts how long your battery will last.\nOhm’s Law predicts if your component will survive or explode."
+  },
+  {
+    "objectID": "slides/session1.html#step-by-step-the-safe-led",
+    "href": "slides/session1.html#step-by-step-the-safe-led",
+    "title": "Session 1: Circuits Basics",
+    "section": "Step-by-Step: The Safe LED",
+    "text": "Step-by-Step: The Safe LED\nWhy do we need a resistor?\nKVL says: \\(V_{supply} = V_{resistor} + V_{LED}\\).\nThe LED will consume a 2V drop and the maximum current it can handle is 20 mA.\n\n\nThe Mission: Don’t Fried the LED\nCalculate the resistor needed for a Red LED (2V drop, 20mA target) on a 5V Arduino pin.\n\nIdentify the Pressure (Voltage) \\(V_{supply} = 5V\\)\nApply KVL (Find the “Leftover”) Resistor must “soak up” what the LED doesn’t. \\(V_{resistor} = 5V - 2.0V = \\mathbf{3.0V}\\)\nApply Ohm’s Law (Find the Width) \\(R = V / I = 3.0V / 0.02A = \\mathbf{150 \\Omega}\\)\nThe Engineering Choice Standard resistors: \\(150 \\Omega, 220 \\Omega, 330 \\Omega\\). Pick 220 \\(\\Omega\\) to be safe. (Lower current = longer life)."
+  },
+  {
+    "objectID": "slides/session1.html#the-detective-troubleshooting-with-laws",
+    "href": "slides/session1.html#the-detective-troubleshooting-with-laws",
+    "title": "Session 1: Circuits Basics",
+    "section": "The Detective: Troubleshooting with Laws",
+    "text": "The Detective: Troubleshooting with Laws\nWhen a circuit doesn’t work, don’t just “wiggle the wires.” Use the laws to find the culprit:\n\n\nThe Case of the Dead LED\nClue: You connected everything, but there is no light.\n\nThe KVL Scan: Measure voltage across the Battery.\n\nResult: 5V. (Energy is entrying).\n\nThe KVL Scan: Measure voltage across the LED.\n\nResult: 0V. (Wait! Where did the pressure go?)\n\nThe Conclusion: If \\(V_{led} = 0\\), then according to KVL, the “pressure” is hanging out somewhere else—likely a broken wire or a bad connection that has “Infinite Resistance.”\n\n\n\n\n\n\n\n\nScientific Luck\n\n\nTroubleshooting without laws is luck. Troubleshooting with laws is science."
+  },
+  {
+    "objectID": "slides/session1.html#case-study-1-the-robots-eyes",
+    "href": "slides/session1.html#case-study-1-the-robots-eyes",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 1: The Robot’s Eyes",
+    "text": "Case Study 1: The Robot’s Eyes\nThe Problem: You want to add two Red LEDs as a robot’s eyes.\n\n\nGiven Information\n\n\n\nParameter\nValue\n\n\n\n\nSupply Voltage\n5V battery\n\n\nLED Forward Voltage\n2V each\n\n\nLED Target Current\n20 mA each\n\n\n\nYour decision: Wire them in Series or Parallel?\n\n\n\n\n\n\n\nThe Goal\n\n\nFor each wiring option, we need to:\n\nFind the correct resistor to protect each LED.\nAnalyse the voltage across each component and the total current drawn."
+  },
+  {
+    "objectID": "slides/session1.html#case-study-1-option-a-series",
+    "href": "slides/session1.html#case-study-1-option-a-series",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 1 — Option A: Series",
+    "text": "Case Study 1 — Option A: Series\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStep-by-Step Calculation\n\nApply KVL — Check voltage drops sum to supply\n\\[V_{supply} = V_R + V_{Eye1} + V_{Eye2}\\] \\[5V = V_R + 2V + 2V \\implies V_R = \\mathbf{1V}\\]\nFind the single current (same everywhere in series)\n\\[I = \\frac{V_R}{R} = \\frac{1V}{150\\,\\Omega} = \\mathbf{6.7\\,mA}\\]\nVoltage at each point in the loop\n\nAfter resistor: \\(5V - 1V = \\mathbf{4V}\\) remaining\nAfter Eye 1: \\(4V - 2V = \\mathbf{2V}\\) remaining\nAfter Eye 2: \\(2V - 2V = \\mathbf{0V}\\) (back to GND ✓)"
+  },
+  {
+    "objectID": "slides/session1.html#case-study-1-option-b-parallel",
+    "href": "slides/session1.html#case-study-1-option-b-parallel",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 1 — Option B: Parallel",
+    "text": "Case Study 1 — Option B: Parallel\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStep-by-Step Calculation\n\nApply KVL — Voltage across each branch\nBoth branches are connected to the same 5V: \\[V_R = V_{supply} - V_{LED} = 5V - 2V = \\mathbf{3V}\\]\nCurrent in each branch (Ohm’s Law)\n\\[I_{Eye1} = \\frac{3V}{150\\,\\Omega} = \\mathbf{20\\,mA}\\] \\[I_{Eye2} = \\frac{3V}{150\\,\\Omega} = \\mathbf{20\\,mA}\\]\nTotal current drawn (KCL at junction)\n\\[I_{total} = I_{Eye1} + I_{Eye2} = 20 + 20 = \\mathbf{40\\,mA}\\]"
+  },
+  {
+    "objectID": "slides/session1.html#case-study-1-the-verdict",
+    "href": "slides/session1.html#case-study-1-the-verdict",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 1 — The Verdict",
+    "text": "Case Study 1 — The Verdict\n\n\n\n\n\n\n\n\n\nSeries\nParallel\n\n\n\n\nVoltage per LED\n2V each (shared from 5V)\n2V each (full 5V available)\n\n\nCurrent per LED\n~6.7 mA (dimmer)\n20 mA (full brightness)\n\n\nTotal Current\n~6.7 mA\n40 mA\n\n\nBattery Life\n✅ Longer\n❌ Drains 6× faster\n\n\nIf one LED breaks\n❌ Both go dark\n✅ Other stays on\n\n\n\n\n\n\n\n\n\nPick Series for battery life. Pick Parallel for reliability and full brightness."
+  },
+  {
+    "objectID": "slides/session1.html#case-study-2-the-safe-led-setup",
+    "href": "slides/session1.html#case-study-2-the-safe-led-setup",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 2: The Safe LED — Setup",
+    "text": "Case Study 2: The Safe LED — Setup\nThe Problem: An Arduino pin outputs 5V. A Red LED needs 2V and max 20 mA. What resistor protects it?\n\n\n\n\n\n\nKVL says: \\(V_{supply} = V_{resistor} + V_{LED}\\)\nThe resistor must “absorb” whatever voltage the LED doesn’t use.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat We Know\n\n\n\nQuantity\nValue\n\n\n\n\n\\(V_{supply}\\)\n5V\n\n\n\\(V_{LED}\\)\n2V\n\n\n\\(I_{target}\\)\n20 mA\n\n\n\\(R = ?\\)\n❓"
+  },
+  {
+    "objectID": "slides/session1.html#case-study-2-calculating-the-resistor",
+    "href": "slides/session1.html#case-study-2-calculating-the-resistor",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 2: Calculating the Resistor",
+    "text": "Case Study 2: Calculating the Resistor\n\nStep 1 — Apply KVL (voltage across the resistor)\n\\[V_{R} = V_{supply} - V_{LED} = 5V - 2V = \\mathbf{3V}\\]\nStep 2 — Apply Ohm’s Law (find resistance)\n\\[R = \\frac{V_R}{I} = \\frac{3V}{0.02\\,A} = \\mathbf{150\\,\\Omega}\\]\nStep 3 — Verify current through the circuit\n\\[I = \\frac{V_R}{R} = \\frac{3V}{150\\,\\Omega} = \\mathbf{20\\,mA} \\checkmark\\]\nStep 4 — The Engineering Choice\nStandard resistors: \\(150\\,\\Omega\\), \\(220\\,\\Omega\\), \\(330\\,\\Omega\\)\n→ Pick \\(220\\,\\Omega\\) to be safe (slightly lower current → longer LED life)\n\\[I_{actual} = \\frac{3V}{220\\,\\Omega} \\approx \\mathbf{13.6\\,mA} \\quad \\text{(safe ✓)}\\]"
+  },
+  {
+    "objectID": "slides/session1.html#case-study-2-calculating-the-resistor-part-1",
+    "href": "slides/session1.html#case-study-2-calculating-the-resistor-part-1",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 2: Calculating the Resistor (Part 1)",
+    "text": "Case Study 2: Calculating the Resistor (Part 1)\n\nStep 1 — Apply KVL (voltage across the resistor)\n\\[V_{R} = V_{supply} - V_{LED} = 5V - 2V = \\mathbf{3V}\\]\nStep 2 — Apply Ohm’s Law (find resistance)\n\\[R = \\frac{V_R}{I} = \\frac{3V}{0.02\\,A} = \\mathbf{150\\,\\Omega}\\]"
+  },
+  {
+    "objectID": "slides/session1.html#case-study-2-calculating-the-resistor-part-2",
+    "href": "slides/session1.html#case-study-2-calculating-the-resistor-part-2",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 2: Calculating the Resistor (Part 2)",
+    "text": "Case Study 2: Calculating the Resistor (Part 2)\n\nStep 3 — Verify current through the circuit\n\\[I = \\frac{V_R}{R} = \\frac{3V}{150\\,\\Omega} = \\mathbf{20\\,mA} \\checkmark\\]\nStep 4 — The Engineering Choice\nStandard resistors: \\(150\\,\\Omega\\), \\(220\\,\\Omega\\), \\(330\\,\\Omega\\)\n→ Pick \\(220\\,\\Omega\\) to be safe (slightly lower current → longer LED life)\n\\[I_{actual} = \\frac{3V}{220\\,\\Omega} \\approx \\mathbf{13.6\\,mA} \\quad \\text{(safe ✓)}\\]"
+  },
+  {
+    "objectID": "slides/session1.html#case-study-1-option-a-series-circuit",
+    "href": "slides/session1.html#case-study-1-option-a-series-circuit",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 1 — Option A: Series (Circuit)",
+    "text": "Case Study 1 — Option A: Series (Circuit)\n\n\n\n\n\n\n\n\n\n\n\n\nThe Topology\n\nKVL: Total voltage supplied (5V) must be shared.\nKCL: Only one path exists; current (\\(I\\)) is constant.\nGoal: First find the resistor \\(R\\), then analyse the circuit."
+  },
+  {
+    "objectID": "slides/session1.html#case-study-1-option-a-series-calculation",
+    "href": "slides/session1.html#case-study-1-option-a-series-calculation",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 1 — Option A: Series (Calculation)",
+    "text": "Case Study 1 — Option A: Series (Calculation)\nStep-by-Step Calculation\n\nApply KVL — How much voltage is left for the resistor?\n\\[V_R = V_{supply} - V_{Eye1} - V_{Eye2} = 5V - 2V - 2V = \\mathbf{1V}\\]\nApply Ohm’s Law — Find the required resistor\nWe want \\(I = 20\\,\\text{mA}\\) (the LED’s rated current) flowing through the loop: \\[R = \\frac{V_R}{I} = \\frac{1V}{0.02\\,A} = \\mathbf{50\\,\\Omega} \\rightarrow \\text{pick standard } \\mathbf{68\\,\\Omega}\\]\nVerify — Actual current with chosen resistor\n\\[I = \\frac{V_R}{R} = \\frac{1V}{68\\,\\Omega} \\approx \\mathbf{14.7\\,mA} \\quad \\text{(safe ✓)}\\]\nVoltage at each point in the loop\n\nAfter resistor: \\(5V - 1V = \\mathbf{4V}\\) remaining\nAfter Eye 1: \\(4V - 2V = \\mathbf{2V}\\) remaining\nAfter Eye 2: \\(2V - 2V = \\mathbf{0V}\\) (back to GND ✓)"
+  },
+  {
+    "objectID": "slides/session1.html#case-study-1-option-b-parallel-circuit",
+    "href": "slides/session1.html#case-study-1-option-b-parallel-circuit",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 1 — Option B: Parallel (Circuit)",
+    "text": "Case Study 1 — Option B: Parallel (Circuit)\n\n\n\n\n\n\n\n\n\n\n\n\nThe Topology\n\nKVL: Each branch gets full pressure (5V).\nKCL: Total current splits among branches.\nGoal: First find the resistor \\(R\\) for each branch, then sum the currents."
+  },
+  {
+    "objectID": "slides/session1.html#case-study-1-option-b-parallel-calculation",
+    "href": "slides/session1.html#case-study-1-option-b-parallel-calculation",
+    "title": "Session 1: Circuits Basics",
+    "section": "Case Study 1 — Option B: Parallel (Calculation)",
+    "text": "Case Study 1 — Option B: Parallel (Calculation)\nStep-by-Step Calculation\n\nApply KVL — How much voltage falls across each resistor?\nEach branch sees the full 5V, and the LED drops 2V: \\[V_R = V_{supply} - V_{LED} = 5V - 2V = \\mathbf{3V}\\]\nApply Ohm’s Law — Find the required resistor per branch\nWe want \\(I = 20\\,\\text{mA}\\) through each LED: \\[R = \\frac{V_R}{I} = \\frac{3V}{0.02\\,A} = \\mathbf{150\\,\\Omega} \\rightarrow \\text{pick standard } \\mathbf{150\\,\\Omega}\\]\nVerify branch current with chosen resistor\n\\[I_{Eye1} = \\frac{3V}{150\\,\\Omega} = \\mathbf{20\\,mA}, \\quad I_{Eye2} = \\frac{3V}{150\\,\\Omega} = \\mathbf{20\\,mA} \\quad \\text{(safe ✓)}\\]\nTotal current drawn (KCL at junction)\n\\[I_{total} = I_{Eye1} + I_{Eye2} = 20 + 20 = \\mathbf{40\\,mA}\\]"
   }
 ]

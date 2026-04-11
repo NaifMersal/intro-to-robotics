@@ -2,7 +2,7 @@
 
 ## Macro Circuit Simulation {background-color="#f7f9fc"}
 
-<iframe src="../simulations/water_circuit/index.html"
+<iframe loading="lazy" src="../simulations/water_circuit/index.html"
         width="100%" height="520px"
         style="border:none; border-radius:12px;"></iframe>
 
@@ -47,7 +47,7 @@ You cannot change one without affecting the others.
 
 ::: {.fragment}
 
-![](assets/water_circuit_concept.png){width="100%"}
+![](assets/water_circuit_concept.webp){width="100%" loading="lazy"}
 
 :::
 
@@ -90,7 +90,7 @@ You cannot change one without affecting the others.
 
 :::: {.column width="45%"}
 
-![](assets/series_parallel.png){width="100%"}
+![](assets/series_parallel.webp){width="100%" loading="lazy"}
 
 ::::
 

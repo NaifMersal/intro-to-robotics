@@ -62,12 +62,12 @@ with schemdraw.Drawing() as d:
 
 | Component | Symbol | Role |
 |-----------|--------|-----------------|
-| **Power (+V)**  | ![](assets/battery_sym.svg){width="35px"} | Energy Source |
-| **Ground (GND)** | ![](assets/gnd_sym.svg){width="35px"} | 0V Reference |
-| **Resistor**    | ![](assets/resistor_sym.svg){width="40px"} | Current Limiter |
-| **LED**         | ![](assets/led_sym.svg){width="40px"} | Light Emitter |
-| **Switch**      | ![](assets/switch_sym.svg){width="40px"} | Path Control |
-| **Capacitor**   | ![](assets/capacitor_sym.svg){width="40px"} | Energy Storage *(like a water tank — stores charge briefly; covered in Session 2)* |
+| **Power (+V)**  | ![](assets/battery_sym.svg){width="35px" loading="lazy"} | Energy Source |
+| **Ground (GND)** | ![](assets/gnd_sym.svg){width="35px" loading="lazy"} | 0V Reference |
+| **Resistor**    | ![](assets/resistor_sym.svg){width="40px" loading="lazy"} | Current Limiter |
+| **LED**         | ![](assets/led_sym.svg){width="40px" loading="lazy"} | Light Emitter |
+| **Switch**      | ![](assets/switch_sym.svg){width="40px" loading="lazy"} | Path Control |
+| **Capacitor**   | ![](assets/capacitor_sym.svg){width="40px" loading="lazy"} | Energy Storage *(like a water tank — stores charge briefly; covered in Session 2)* |
 
 ## Schematic Layout Rules
 
@@ -105,7 +105,7 @@ Always draw your "GND" symbols pointing down. It makes the schematic instantly r
 
 ## Interactive: Series Flow
 
-<iframe src="../simulations/water_resistors/index.html?topo=series&mode=electric"
+<iframe loading="lazy" src="../simulations/water_resistors/index.html?topo=series&mode=electric"
   style="width:100%;height:450px;border:none;border-radius:12px;"
   allowfullscreen>
 </iframe>
@@ -130,7 +130,7 @@ Every volt provided by the power source must be "dropped" (used up) by the compo
 $$V_{total} = V_1 + V_2 + \dots$$
 
 ::: {.fragment .callout-note appearance="simple"}
-**For engineers:** this is written as $\sum V_{loop} = 0$. Every electron must lose all its potential energy before returning to the source.
+**For engineers:** this is written as $V_1 + V_2 + \dots = V_{total}$. Every electron must lose all its potential energy before returning to the source.
 :::
 
 :::::
@@ -200,7 +200,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 
 ## Interactive: Parallel Flow
 
-<iframe src="../simulations/water_resistors/index.html?topo=parallel&mode=water"
+<iframe loading="lazy" src="../simulations/water_resistors/index.html?topo=parallel&mode=water"
   style="width:100%;height:450px;border:none;border-radius:12px;"
   allowfullscreen>
 </iframe>
@@ -225,7 +225,7 @@ Electric charge cannot be created or destroyed. Whatever current flows into a ju
 $$I_{total} = I_1 + I_2 + \dots$$
 
 ::: {.fragment .callout-note appearance="simple"}
-**For engineers:** this is written as $\sum I_{in} = \sum I_{out}$. Nodes are just distribution points for charge; electricity doesn't "pile up."
+**For engineers:** this is written as $I_{in} = I_1 + I_2 + \dots$. Nodes are just distribution points for charge; electricity doesn't "pile up."
 :::
 
 
@@ -305,8 +305,8 @@ with schemdraw.Drawing(canvas='svg') as d:
 
 | Connection | Constant Value | Physical Law Used | Resulting Formula |
 |:---|:---|:---|:---|
-| **Series** | Current ($I$) | KVL ($\sum V = 0$) | $R_{eq} = \sum R_i$ |
-| **Parallel** | Voltage ($V$) | KCL ($\sum I = 0$) | $\frac{1}{R_{eq}} = \sum \frac{1}{R_i}$ |
+| **Series** | Current ($I$) | KVL ($V_1 + V_2 + \dots = V_{total}$) | $R_{eq} = R_1 + R_2 + \dots$ |
+| **Parallel** | Voltage ($V$) | KCL ($I_{in} = I_1 + I_2 + \dots$) | $\frac{1}{R_{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots$ |
 
 ::: {.callout-important}
 
@@ -315,56 +315,284 @@ In parallel, the total resistance is ALWAYS **smaller** than the smallest indivi
 
 :::
 
-## Engineering Math: The Safe LED {background-color="#00C9A7" .sdaia-dark}
+## Case Study 1: The Robot's Eyes {background-color="#1C355E" .sdaia-dark}
 
-Why do we need a resistor? 
+**The Problem:** You want to add **two Red LEDs** as a robot's eyes.
 
-**KVL says:** $V_{supply} = V_{resistor} + V_{LED}$.
+::: {.columns}
 
-The LED will consume a 2V drop and the maximum current it can handle is 20 mA.
+::: {.column width="55%"}
 
-:::::: {.columns}
+### Given Information
 
-::::: {.column width="60%"}
+| Parameter | Value |
+|:---|:---|
+| Supply Voltage | **5V** battery |
+| LED Forward Voltage | **2V** each |
+| LED Target Current | **20 mA** each |
 
-:::: {.incremental}
+**Your decision:** Wire them in **Series** or **Parallel**?
 
-1. **Find the "Leftover" Voltage**  
-   $V_{resistor} = V_{supply} - V_{led} 
-                 = 3.3V - 2.0V = \mathbf{1.3V}$
+:::
 
-2. **Calculate Resistance (Ohm's Law)**  
-   $R = V / I = 1.3V / 0.02A = \mathbf{65 \Omega}$
+::: {.column width="45%"}
 
-3. **Select Standard Value**  
-   Nearest standard: **68 $\Omega$**. (Always round UP for safety).
+::: {.callout-note}
+## The Goal
+For each wiring option, we need to:
 
-::::
+1. **Find the correct resistor** to protect each LED.
+2. **Analyse** the voltage across each component and the total current drawn.
+:::
 
-:::::
+:::
 
-::::: {.column width="40%"}
+:::
+
+## Case Study 1 — Option A: Series (Circuit) {background-color="#1C355E" .sdaia-dark}
+
+::: {.columns}
+
+::: {.column width="50%"}
 
 ```{python}
 #| echo: false
 #| fig-align: center
+#| fig-width: 3.5
+#| fig-height: 3.5
 import schemdraw
 import schemdraw.elements as elm
 
 with schemdraw.Drawing(canvas='svg') as d:
-    d += elm.BatteryCell().up().label('3.3V')
-    d += elm.Line().right()
-    d += elm.Resistor().down().label('?')
-    d += elm.LED().down().label('Safe LED')
-    d += elm.Line().left()
-    d += elm.Line().up()
-    d.draw()
+    d += (bat := elm.BatteryCell().up().label('5V', loc='left'))
+    d += elm.Line().at(bat.end).right().length(2)
+    d += elm.Resistor().down().label('R = ?', loc='right')
+    d += elm.LED().down().label('Eye 1 (2V)', loc='right')
+    d += elm.LED().down().label('Eye 2 (2V)', loc='right')
+    d += elm.Line().left().length(2)
+    d += elm.Line().to(bat.start)
 ```
 
+:::
 
-:::::
+::: {.column width="50%"}
 
-::::::
+### The Topology
+
+*   **KVL:** Total voltage supplied (5V) must be shared.
+*   **KCL:** Only one path exists; current ($I$) is constant.
+*   **Goal:** First find the resistor $R$, then analyse the circuit.
+
+:::
+
+:::
+
+## Case Study 1 — Option A: Series (Calculation) {background-color="#1C355E" .sdaia-dark .smaller}
+
+### Step-by-Step Calculation
+
+::: {.incremental}
+
+1. **Apply KVL — How much voltage is left for the resistor?**
+
+   $$V_R = V_{supply} - V_{Eye1} - V_{Eye2} = 5V - 2V - 2V = \mathbf{1V}$$
+
+2. **Apply Ohm's Law — Find the required resistor**
+
+   We want $I = 20\,\text{mA}$ (the LED's rated current) flowing through the loop:
+   $$R = \frac{V_R}{I} = \frac{1V}{0.02\,A} = \mathbf{50\,\Omega} \rightarrow \text{pick standard } \mathbf{68\,\Omega}$$
+
+3. **Verify — Actual current with chosen resistor**
+
+   $$I = \frac{V_R}{R} = \frac{1V}{68\,\Omega} \approx \mathbf{14.7\,mA} \quad \text{(safe ✓)}$$
+
+4. **Voltage at each point in the loop**
+
+   *   After resistor: $5V - 1V = \mathbf{4V}$ remaining
+   *   After Eye 1: $4V - 2V = \mathbf{2V}$ remaining
+   *   After Eye 2: $2V - 2V = \mathbf{0V}$ (back to GND ✓)
+
+:::
+
+## Case Study 1 — Option B: Parallel (Circuit) {background-color="#1C355E" .sdaia-dark}
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+```{python}
+#| echo: false
+#| fig-align: center
+#| fig-width: 3.5
+#| fig-height: 3.5
+import schemdraw
+import schemdraw.elements as elm
+
+with schemdraw.Drawing(canvas='svg') as d:
+    d += (bat := elm.BatteryCell().up().label('5V', loc='left'))
+    d += (main := elm.Line().at(bat.end).right().length(1))
+    
+    # Upper Branch
+    d += elm.Line().at(main.end).up().length(1)
+    d += elm.Resistor().right().label('R = ?', loc='top')
+    d += elm.LED().right().label('Eye 1', loc='top')
+    d += (j_top := elm.Line().down().length(1))
+    
+    # Lower Branch
+    d += elm.Line().at(main.end).down().length(1)
+    d += elm.Resistor().right().label('R = ?', loc='bottom')
+    d += elm.LED().right().label('Eye 2', loc='bottom')
+    d += (j_bot := elm.Line().up().length(1))
+    
+    # Close Loop
+    d += elm.Line().at(j_top.end).down().length(1)
+    d += elm.Line().down().length(2)
+    d += elm.Line().left().to(bat.start)
+```
+
+:::
+
+::: {.column width="50%"}
+
+### The Topology
+
+*   **KVL:** Each branch gets full pressure (5V).
+*   **KCL:** Total current splits among branches.
+*   **Goal:** First find the resistor $R$ for each branch, then sum the currents.
+
+:::
+
+:::
+
+## Case Study 1 — Option B: Parallel (Calculation) {background-color="#1C355E" .sdaia-dark .smaller}
+
+### Step-by-Step Calculation
+
+::: {.incremental}
+
+1. **Apply KVL — How much voltage falls across each resistor?**
+
+   Each branch sees the full 5V, and the LED drops 2V:
+   $$V_R = V_{supply} - V_{LED} = 5V - 2V = \mathbf{3V}$$
+
+2. **Apply Ohm's Law — Find the required resistor per branch**
+
+   We want $I = 20\,\text{mA}$ through each LED:
+   $$R = \frac{V_R}{I} = \frac{3V}{0.02\,A} = \mathbf{150\,\Omega} \rightarrow \text{pick standard } \mathbf{150\,\Omega}$$
+
+3. **Verify branch current with chosen resistor**
+
+   $$I_{Eye1} = \frac{3V}{150\,\Omega} = \mathbf{20\,mA}, \quad I_{Eye2} = \frac{3V}{150\,\Omega} = \mathbf{20\,mA} \quad \text{(safe ✓)}$$
+
+4. **Total current drawn (KCL at junction)**
+
+   $$I_{total} = I_{Eye1} + I_{Eye2} = 20 + 20 = \mathbf{40\,mA}$$
+
+:::
+
+## Case Study 1 — The Verdict {background-color="#1C355E" .sdaia-dark}
+
+| | **Series** | **Parallel** |
+|:---|:---|:---|
+| **Voltage per LED** | 2V each (shared from 5V) | 2V each (full 5V available) |
+| **Current per LED** | ~6.7 mA (dimmer) | 20 mA (full brightness) |
+| **Total Current** | ~6.7 mA | 40 mA |
+| **Battery Life** | ✅ Longer | ❌ Drains 6× faster |
+| **If one LED breaks** | ❌ Both go dark | ✅ Other stays on |
+
+::: {.callout-important appearance="simple"}
+**Pick Series** for battery life. **Pick Parallel** for reliability and full brightness.
+:::
+
+## Why do we care? The Predictor {.sdaia-dark background-gradient="linear-gradient(135deg, #00C9A7, #1C355E)"}
+
+Without these laws, engineering is just **guessing**. With them, you are a **Predictor**.
+
+::: {.incremental}
+- **KVL** predicts if you have enough "pressure" to turn things on.
+- **KCL** predicts how long your battery will last.
+- **Ohm's Law** predicts if your component will survive or explode.
+:::
+
+## Case Study 2: The Safe LED — Setup {background-color="#00C9A7" .sdaia-dark}
+
+**The Problem:** An Arduino pin outputs **5V**. A Red LED needs **2V** and max **20 mA**. What resistor protects it?
+
+::: {.callout-important appearance="simple"}
+**KVL says:** $V_{supply} = V_{resistor} + V_{LED}$
+
+The resistor must "absorb" whatever voltage the LED doesn't use.
+:::
+
+::: {.columns}
+
+::: {.column width="55%"}
+
+```{python}
+#| echo: false
+#| fig-align: center
+#| fig-width: 3.5
+#| fig-height: 3.5
+import schemdraw
+import schemdraw.elements as elm
+
+with schemdraw.Drawing(canvas='svg') as d:
+    d += (bat := elm.BatteryCell().up().label('5V', loc='left'))
+    d += elm.Line().at(bat.end).right().length(2)
+    d += elm.Resistor().down().label('R = ?', loc='right')
+    d += elm.LED().down().label('2V / 20mA', loc='right')
+    d += elm.Line().left().length(2)
+    d += elm.Line().to(bat.start)
+```
+
+:::
+
+::: {.column width="45%"}
+
+### What We Know
+
+| Quantity | Value |
+|:---|:---|
+| $V_{supply}$ | 5V |
+| $V_{LED}$ | 2V |
+| $I_{target}$ | 20 mA |
+| **$R = ?$** | ❓ |
+
+:::
+
+:::
+
+## Case Study 2: Calculating the Resistor (Part 1) {background-color="#00C9A7" .sdaia-dark}
+
+::: {.incremental}
+
+1. **Step 1 — Apply KVL (voltage across the resistor)**
+
+   $$V_{R} = V_{supply} - V_{LED} = 5V - 2V = \mathbf{3V}$$
+
+2. **Step 2 — Apply Ohm's Law (find resistance)**
+
+   $$R = \frac{V_R}{I} = \frac{3V}{0.02\,A} = \mathbf{150\,\Omega}$$
+
+:::
+
+## Case Study 2: Calculating the Resistor (Part 2) {background-color="#00C9A7" .sdaia-dark}
+
+::: {.incremental}
+
+3. **Step 3 — Verify current through the circuit**
+
+   $$I = \frac{V_R}{R} = \frac{3V}{150\,\Omega} = \mathbf{20\,mA} \checkmark$$
+
+4. **Step 4 — The Engineering Choice**
+
+   Standard resistors: $150\,\Omega$, $220\,\Omega$, $330\,\Omega$
+
+   → Pick **$220\,\Omega$** to be safe *(slightly lower current → longer LED life)*
+
+   $$I_{actual} = \frac{3V}{220\,\Omega} \approx \mathbf{13.6\,mA} \quad \text{(safe ✓)}$$
+
+:::
 
 ## DANGER: The Short Circuit {.sdaia-dark background-gradient="radial-gradient(circle at 70% 30%, #450a0a 0%, #020617 100%)"}
 
@@ -391,7 +619,7 @@ This generates intense heat and will **fry your Arduino's chip** or your laptop'
 
 ::::: {.column width="35%"}
 
-![](assets/short_circuit_danger_icon.png){width="100%"}
+![](assets/short_circuit_danger_icon.webp){width="100%" loading="lazy"}
 
 :::::
 
@@ -447,6 +675,33 @@ Something is wired incorrectly, or a resistor is too small, allowing too much "f
 
 :::
 
+## The Detective: Troubleshooting with Laws {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #450a0a)"}
+
+When a circuit doesn't work, don't just "wiggle the wires." Use the laws to find the culprit:
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+### The Case of the Dead LED
+**Clue**: You connected everything, but there is no light.
+
+1. **The KVL Scan**: Measure voltage across the Battery. 
+   - *Result*: **5V**. (Energy is entrying).
+2. **The KVL Scan**: Measure voltage across the LED.
+   - *Result*: **0V**. (Wait! Where did the pressure go?)
+3. **The Conclusion**: If $V_{led} = 0$, then according to KVL, the "pressure" is hanging out somewhere else—likely a **broken wire** or a **bad connection** that has "Infinite Resistance."
+::::
+
+:::: {.column width="40%"}
+::: {.callout-tip}
+## Scientific Luck
+Troubleshooting without laws is **luck**.
+Troubleshooting with laws is **science**.
+:::
+::::
+
+:::::
+
 ## Meet the Breadboard
 
 A breadboard lets you build circuits **without soldering**.
@@ -469,7 +724,7 @@ A breadboard lets you build circuits **without soldering**.
 
 ::::: {.column width="50%"}
 
-![](assets/breadboard_400_xray.png){width="100%"}
+![](assets/breadboard_400_xray.webp){width="100%" loading="lazy"}
 
 :::::
 
@@ -507,7 +762,7 @@ Think of it as the **water level in the drain** — everything flows toward it.
 
 ::::: {.column width="45%"}
 
-![](assets/breadboard_diagram.png){width="100%"}
+![](assets/breadboard_diagram.webp){width="100%" loading="lazy"}
 
 :::: {.callout-tip}
 

@@ -45,7 +45,7 @@ Every pin is a **software-defined switch**.
 
 :::: {.column width="45%"}
 
-![](assets/arduino_pins_glow.png){width="100%" style="border-radius: 12px;"}
+![](assets/arduino_pins_glow.webp){width="100%" style="border-radius: 12px;" loading="lazy"}
 
 ::::
 
