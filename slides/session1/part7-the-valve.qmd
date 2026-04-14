@@ -1,19 +1,19 @@
 # Part 7 — The Valve {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
-## Variable Resistance: The Potentiometer
+## Variable Resistance: The Volume Knob
 
-- A **valve** in cross-section: a disc with a hole — rotate it to partially block flow
-- In electronics: a **potentiometer** has a resistive strip + sliding wiper
-- Move the wiper → change the resistance → change the current
+- Think of a **volume knob** on a speaker — turn it to control how loud it gets
+- In electronics, this is called a **potentiometer** — it adjusts resistance smoothly
+- More resistance → less current → dimmer LED / slower motor
 
-**Where you see this:**
-Volume knobs · Brightness dimmers · Steering sensitivity controls
+**You can find this in:**
+Volume knobs · Brightness dimmers · Fan speed controls
 
-| Position | Resistance | Current |
-|----------|-----------|---------|
-| Fully open | 0 Ω | Maximum |
-| Midpoint | ~250 Ω | Medium |
-| Fully closed | Max (e.g. 10 kΩ) | Zero |
+| Position | What happens |
+|----------|-------------|
+| Fully turned one way | Maximum resistance → minimum current |
+| Middle | Medium resistance → medium current |
+| Fully the other way | Zero resistance → maximum current |
 
 ## The Valve Simulation {background-color="#f7f9fc"}
 
@@ -23,206 +23,116 @@ Volume knobs · Brightness dimmers · Steering sensitivity controls
 
 *Manually rotate the valve. Watch the current change in real time.*
 
-## The Automatic Valve: The Transistor
+## From Analog to Digital
 
 ::::: {.columns}
 
 :::: {.column width="50%"}
 
-**Manual Valve (Potentiometer)**
+**Potentiometer (Analog)**
 
-- You turn it by hand
-- Analog: smooth range of values
-- Input: your hand
+- Smooth range of values
+- Like a dimmer switch — infinite steps between off and fully on
 
 ::::
 
 :::: {.column width="50%"}
 
-**Transistor**
+**A GPIO Pin (Digital)**
 
-- *Electricity* turns it — automatically
-- A tiny **Base** current controls a huge **Collector** current
-- **1 mA Base → 200 mA Collector** (gain = 200×)
-- Input: another electron signal
+- Only two states: HIGH or LOW, ON or OFF
+- Like a light switch — no in-between
 
 ::::
 
 :::::
 
-> "A tiny trickle opens the main floodgate."
-> This is **amplification** — and it is also **logic**.
+::: {.fragment}
 
-## Transistors Make Logic
+> Your robot uses **both**: analog sensors (like the LDR) that give smooth values, and digital pins that decide HIGH or LOW.
 
-- Transistor **fully ON** → effectively zero resistance → current flows → **"1"**
-- Transistor **fully OFF** → enormous resistance → no current → **"0"**
+:::
 
-A billion of these = a CPU.
+---
 
-## Exercise 9 — Q1: Potentiometer at 0 Ω {background-color="#00C9A7" .sdaia-dark}
+## 🔥 Bonus — The Automatic Valve: The Transistor {background-color="#1C355E" .sdaia-dark}
 
-You have: **5 V** supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor
+> For curious students: what if the *valve* could open itself?
 
-*(recall)* Potentiometer at **0 Ω**: what current flows through the LED?
-*(Use V = 3 V; derived from 5 V supply − 2 V LED drop)*
+::::: {.columns}
+
+:::: {.column width="55%"}
+
+Remember the valve that controls water flow?
+
+A **transistor** is like a **magic valve** — instead of turning it with your hand, you open it with a **tiny electrical signal**.
+
+- 🤏 **Tiny signal in** → 💧 **Big current out**
+- The bigger the signal, the more it opens
+- No signal at all → it stays completely **closed**
+
+::::
+
+:::: {.column width="45%"}
+
+```{python}
+#| echo: false
+#| fig-align: center
+import schemdraw
+import schemdraw.elements as elm
+
+with schemdraw.Drawing() as d:
+    # The "Magic Valve" (Transistor)
+    Q = d.add(elm.BjtNpn(reverse=True).anchor('base'))
+    
+    # Tiny Control Signal
+    d += elm.Line().right().at(Q.base).length(0.5).label('Tiny Signal\n(Control)', loc='right')
+    
+    # Big Flow Path
+    d += elm.Line().up().at(Q.collector).length(1).label('Big Power\n(Main Flow)', loc='top')
+    d += elm.Line().down().at(Q.emitter).length(1).label('Out to Robot', loc='bottom')
+    
+    d.draw()
+```
+
+::::
+
+:::::
 
 ::: {.fragment}
-**Answer:** I = V / R = 3 / (0 + 150) = **0.02 A = 20 mA** — LED at rated maximum brightness.
-
+> 💡 Your Arduino sends a tiny signal — the transistor uses it to switch a **motor** or **LED** that needs far more power than the Arduino can provide directly.
 :::
 
-
-## Exercise 9 — Q2: Potentiometer at 500 Ω {background-color="#00C9A7" .sdaia-dark}
-
-You have: **5 V** supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor
-
-*(apply)* Potentiometer at **500 Ω**: what current flows?
-
-::: {.fragment}
-**Answer:** I = 3 / (500 + 150) = 3 / 650 ≈ **4.6 mA** — LED is very dim, just below usable threshold.
-
-:::
-
-
-## Exercise 9 — Q3: Rotating from 0 to 500 Ω {background-color="#00C9A7" .sdaia-dark}
-
-You have: **5 V** supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor
-
-*(apply)* What does the LED *do* as you slowly rotate from 0 to 500 Ω?
-
-::: {.fragment}
-**Answer:** The LED **dims gradually** — from 20 mA (full brightness) down to ~4.6 mA (barely visible). The potentiometer acts as a variable brightness (dimmer) control.
-
-:::
-
-
-## Exercise 9 — Q4: Find the Cut-off {background-color="#00C9A7" .sdaia-dark}
-
-You have: **5 V** supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor
-
-*(design)* At what potentiometer value does current drop below the LED's minimum threshold (**5 mA**)?
-
-::: {.fragment}
-**Answer:** I = 3 / (R + 150) < 0.005 → R + 150 > 600 → **R > 450 Ω**
-
-At 450 Ω the LED falls below 5 mA and effectively goes out.
-
-:::
-
-
-## Exercise 10 — Q1: Transistor Gain {background-color="#00C9A7" .sdaia-dark}
-
-*(recall)* A transistor has a **gain of 200**. You apply **0.5 mA** to the Base. How much current flows through the Collector?
-
-::: {.fragment}
-**Answer:** I_C = Gain × I_B = 200 × 0.5 mA = **100 mA**
-
-A tiny 0.5 mA signal controls a 100 mA load — that is amplification.
-
-:::
-
-
-## Exercise 10 — Q2: Controlling a Motor {background-color="#00C9A7" .sdaia-dark}
-
-*(apply)* You want to control a **500 mA motor** using an Arduino GPIO pin (**max 40 mA**). Is this possible? What is the transistor's role?
-
-::: {.fragment}
-**Answer:** **Yes** — but not directly. The GPIO cannot source 500 mA safely. A transistor with gain ≥ 13 driven by the GPIO switches the 500 mA motor current from a separate supply. The GPIO controls the *gate*; the transistor carries the *load*.
-
-:::
-
-
-## Exercise 10 — Q3: ON vs OFF = 1 vs 0 {background-color="#00C9A7" .sdaia-dark}
-
-*(apply)* A transistor is either fully ON (0.1 Ω) or fully OFF (1 000 000 Ω). Which state is "1" and which is "0"?
-
-::: {.fragment}
-**Answer:**
-
-- Fully **ON** (0.1 Ω) → near-zero resistance → current flows → **"1"**
-- Fully **OFF** (1 MΩ) → near-infinite resistance → no current → **"0"**
-
-:::
-
-
-## A Quick Question... {background-color="#1C355E" .sdaia-dark}
-
-<br/>
-
-::: {.r-fit-text}
-How many numbers are there between **0** and **1**?
-:::
-
-::: {.fragment .r-fit-text}
-### **Can't be counted... Infinity!**
-*(0.1, 0.11, 0.111, 0.5000001...)*
-:::
-
-## Two Worlds: Analog vs. Digital
+## 🔥 Bonus — Transistors = The Brain of Everything {background-color="#1C355E" .sdaia-dark}
 
 ::::: {.columns}
 
 :::: {.column width="50%"}
 
-**Analog — Infinite Steps**
+**Fully OPEN** → current flows freely
 
-::: {.fragment}
+→ we call this **"1"** (ON)
 
-- **Dimmer switch**: 0% to 100% brightness
-- **Thermometer**: any value in a continuous range
-- **LDR sensor**: variable (1 kΩ to 100 kΩ)
+**Fully CLOSED** → no current at all
 
-:::
+→ we call this **"0"** (OFF)
 
 ::::
 
 :::: {.column width="50%"}
 
-**Digital — Two States Only**
-
-::: {.fragment}
-
-- A **light switch**: ON or OFF
-- A **transistor**: fully ON or fully OFF
-- A **GPIO pin**: HIGH (3.3 V) or LOW (0 V)
-
-:::
-
-::::
-
-:::::
-::::: {.columns .smaller}
-
-:::: {.column width="50%"}
-
-::: {.callout-note .fragment appearance="simple" icon=false}
-
-**Analog = continuous**  
-Infinite possible values between any two points.
-
-:::
-
-::::
-
-:::: {.column width="50%"}
-
-::: {.callout-tip .fragment appearance="simple" icon=false}
-
-**Digital = discrete**  
-Only two possible states. No in-between.
-
-:::
+| Signal | Valve | Meaning |
+|--------|-------|---------|
+| Strong | Open  | **1**   |
+| None   | Closed| **0**   |
 
 ::::
 
 :::::
 
-
 ::: {.fragment}
 
-> **The bridge:** A transistor *collapses* an analog input voltage into a digital decision —
-> above a threshold → **1**, below it → **0**.
-> A billion of these decisions per second = a CPU.
+> 🤯 A modern computer chip has **billions** of tiny transistors — each one switching between **0** and **1** billions of times per second.
+> That is how your phone runs games, videos, and apps — all from billions of tiny automatic valves!
 
 :::

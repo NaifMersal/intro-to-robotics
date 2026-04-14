@@ -21,32 +21,37 @@
 | Binary | Open / closed valve | HIGH / LOW voltage states |
 | C++ | Instructions to the processor | High-level language the compiler translates |
 
-## Homework {background-color="#1C355E" .sdaia-dark}
+## 💡 Curiosity Challenges *(Optional — try at home!)* {background-color="#1C355E" .sdaia-dark}
 
-**Part A — Calculations**
+These are **not homework**. Try them if you're curious — there's no deadline and no grade.
 
-1. A 9V battery + 270Ω resistor. What current flows?
-2. A circuit draws 50mA from 5V. What is the total resistance?
-3. Dim an LED to 10mA using a 5V Digital pin (LED drops 2V). What resistor do you need?
-4. A motor needs 500mA. Can an Arduino Digital pin (max 20–40mA) drive it directly? Use AI to explain the transistor solution.
+::: {.incremental}
 
-**Part B — Observation**
+1. 🚦 Can you make your traffic light change speed based on the LDR reading? *(brighter room = faster cycle)*
+2. 💡 Find **3 places** in your home where something turns on/off automatically. What is the sensor? What is the action?
+3. 🔥 **Bonus challenge:** Ask AI *"How do I add a button to my traffic light that keeps green on longer when pressed?"* — try it in Wokwi first!
 
-Find **3 places** in your home where a reactive system turns on/off based on a sensor. For each: What is the sensor? What is the action? Write 3-line C++ pseudo-code for how it might work.
-
+:::
 
 # AI Onboarding — Your Lab Partner {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## 4 Ways to Use AI in This Course
 
-In this course, AI is a **senior engineer sitting next to you** — not a replacement for thinking.
+In this course, AI is like a **knowledgeable friend** — it can help you think, but you still need to test the robot yourself.
 
-1. **Explain** — *"What does `pinMode(13, OUTPUT)` actually do? Use the water analogy."*
-2. **Debug** — *"I'm getting `expected ';' before '}'`. Here is my code and wiring description. What did I miss?"*
-3. **Extend** — *"My traffic light works. How do I make the yellow light pulse slowly like a heartbeat?"*
-4. **Generate** — *"Write the boilerplate to set up 3 output pins on an Arduino Uno."*
+1. **Explain** — *"What does `pinMode(13, OUTPUT)` actually do? Explain it simply."*
+2. **Debug** — *"My LED won't light up. Here is my code. What might be wrong?"*
+3. **Extend** — *"My traffic light works. How do I make the yellow light blink slowly?"*
+4. **Generate** — *"Write code to set up 3 LED pins on an Arduino Uno."*
 
-**Setup:** Open Antigravity · Log in to your assigned account · First prompt: introduce yourself and ask it to help verify your Ohm's Law calculations.
+::: {.callout-warning}
+
+## Always Test It!
+AI can make mistakes. **Never trust AI code without uploading it and seeing it run.**
+
+:::
+
+**Setup:** Open Claude or ChatGPT · Log in to your assigned account · First prompt: *"I'm learning Arduino. Can you explain what `digitalWrite` does using a simple analogy?"*
 
 ## Questions? {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 

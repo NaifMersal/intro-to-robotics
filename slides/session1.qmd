@@ -1,6 +1,6 @@
 ---
-title: "Session 1: Circuits Basics"
-subtitle: "From Water Pipes to Computer Logic"
+title: "Session 1: Electricity is Magic"
+subtitle: "Until You Know the Trick"
 date: today
 format:
   revealjs:
@@ -11,7 +11,7 @@ format:
     controls: true
     progress: true
     center-title-slide: true
-    view-distance: 4
+    view-distance: 6
     preload-iframes: false
     title-slide-attributes:
       data-background-image: "../slides_template/assets/anim.svg"
@@ -21,21 +21,25 @@ format:
 
 # Session 1 {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
-Circuits Basics — From Water Pipes to Computer Logic
+Electricity is Magic — Until You Know the Trick
 
 ## Agenda
 
+- **Intro** — What is a Robot?
 - **Part 1** — The Water World
 - **Part 2** — Zooming In
 - **Part 3** — The Bridge (Water ↔ Electrons)
 - **Part 4** — But They Don't Touch
-- **Part 5** — Ohm's Law: V = I × R
+- **Part 5** — The Rules of Electricity *(+ 🔥 Ohm's Law for the curious)*
 - **Part 6** — Components: Bulb, Motor, Switch
-- **Part 7** — Variable Resistance & The Transistor
-- **Part 8** — Designing Circuits: From Goal to Schematic
-- **Part 9** — 0s, 1s, and Arduino
-- **Part 10** — The Lab: Traffic Light & Automatic Light
-- **Part 11** — Summary, Homework & AI Onboarding
+- **Part 7** — The Valve & The Transistor *(+ 🔥 Transistor math for the curious)*
+- **Part 8** — 0s, 1s, and Arduino *(+ 🔥 Binary counting for the curious)*
+- **Part 9** — The Lab: Traffic Light & Automatic Light
+- **Part 10** — Summary & AI Onboarding
+
+> 🔥 **Bonus sections** are for students who want to go deeper — they are optional and skippable.
+
+{{< include session1/part0-what-is-a-robot.qmd >}}
 
 {{< include session1/part1-water-world.qmd >}}
 

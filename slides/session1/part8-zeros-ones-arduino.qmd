@@ -4,7 +4,7 @@
 
 From transistors to C++ — five rungs:
 
-1. **Voltage** — above ~3V = HIGH (1), below ~1V = LOW (0) *(voltages between 1V–3V are undefined — the pin may read 0 or 1 unpredictably; always drive pins to exactly 5V or 0V)*
+1. **Voltage** — above ~3V = HIGH (1), below ~1V = LOW (0)
 2. **Binary** — 1 bit = on/off · 8 bits = 1 byte = 256 values
 3. **Machine Code** — patterns of 0s and 1s the processor reads directly
 4. **Assembly** — human-readable commands, *assembled* to machine code
@@ -86,7 +86,23 @@ void loop() {
 
 > **Precision is the machine's strength. Common sense is yours.**
 
-## Common Code Mistakes {.sdaia-dark background-color="#1C355E"}
+## ✋ Check-In {background-color="#00C9A7" .sdaia-dark}
+
+::: {.r-fit-text}
+
+How are you feeling about Arduino pins?
+
+👍 Got it! &nbsp;&nbsp; 🤔 A bit confused &nbsp;&nbsp; 🤯 Very lost
+
+:::
+
+*Tell the instructor before we move to the lab.*
+
+---
+
+## 🔥 Bonus — Common Code Mistakes {.sdaia-dark background-color="#1C355E"}
+
+> For students who want to go deeper into C++ syntax.
 
 C++ is very picky. Watch out for these:
 
@@ -97,7 +113,7 @@ C++ is very picky. Watch out for these:
 
 ::: {.callout-tip}
 ## Error messages are your friends
-If your code won't upload, read the red text at the bottom. It usually tells you exactly which line has the "expected ';'" or "was not declared in this scope."
+If your code won't upload, read the red text at the bottom. It usually tells you exactly which line has the problem.
 
 :::
 

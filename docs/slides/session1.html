@@ -9,8 +9,8 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <meta name="dcterms.date" content="2026-04-11">
-  <title>Session 1: Circuits Basics</title>
+  <meta name="dcterms.date" content="2026-04-14">
+  <title>Session 1: Electricity is Magic</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -195,34 +195,120 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../slides_template/assets/anim.svg" data-background-opacity="0.08" data-background-size="cover" class="quarto-title-block center">
-  <h1 class="title">Session 1: Circuits Basics</h1>
-  <p class="subtitle">From Water Pipes to Computer Logic</p>
+  <h1 class="title">Session 1: Electricity is Magic</h1>
+  <p class="subtitle">Until You Know the Trick</p>
 
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-04-11</p>
+  <p class="date">2026-04-14</p>
 </section>
 <section>
 <section id="session-1" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
 <h1>Session 1</h1>
-<p>Circuits Basics — From Water Pipes to Computer Logic</p>
+<p>Electricity is Magic — Until You Know the Trick</p>
 </section>
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
+<li><strong>Intro</strong> — What is a Robot?</li>
 <li><strong>Part 1</strong> — The Water World</li>
 <li><strong>Part 2</strong> — Zooming In</li>
 <li><strong>Part 3</strong> — The Bridge (Water ↔︎ Electrons)</li>
 <li><strong>Part 4</strong> — But They Don’t Touch</li>
-<li><strong>Part 5</strong> — Ohm’s Law: V = I × R</li>
+<li><strong>Part 5</strong> — The Rules of Electricity <em>(+ 🔥 Ohm’s Law for the curious)</em></li>
 <li><strong>Part 6</strong> — Components: Bulb, Motor, Switch</li>
-<li><strong>Part 7</strong> — Variable Resistance &amp; The Transistor</li>
-<li><strong>Part 8</strong> — Designing Circuits: From Goal to Schematic</li>
-<li><strong>Part 9</strong> — 0s, 1s, and Arduino</li>
-<li><strong>Part 10</strong> — The Lab: Traffic Light &amp; Automatic Light</li>
-<li><strong>Part 11</strong> — Summary, Homework &amp; AI Onboarding</li>
+<li><strong>Part 7</strong> — The Valve &amp; The Transistor <em>(+ 🔥 Transistor math for the curious)</em></li>
+<li><strong>Part 8</strong> — 0s, 1s, and Arduino <em>(+ 🔥 Binary counting for the curious)</em></li>
+<li><strong>Part 9</strong> — The Lab: Traffic Light &amp; Automatic Light</li>
+<li><strong>Part 10</strong> — Summary &amp; AI Onboarding</li>
 </ul>
+<blockquote>
+<p>🔥 <strong>Bonus sections</strong> are for students who want to go deeper — they are optional and skippable.</p>
+</blockquote>
+</section></section>
+<section>
+<section id="intro-what-is-a-robot" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Intro — What is a Robot?</h1>
+
+</section>
+<section id="quick-vote" class="slide level2" data-background-color="#f7f9fc">
+<h2>Quick Vote!</h2>
+<p>Is each of these a robot?</p>
+<ul>
+<li class="fragment">🚗 A self-driving car — <strong>Robot or Not?</strong></li>
+<li class="fragment">🦾 A factory arm that welds car parts — <strong>Robot or Not?</strong></li>
+<li class="fragment">📱 A smartphone — <strong>Robot or Not?</strong></li>
+<li class="fragment">🤖 The Keyestudio 4WD car you’ll build today — <strong>Robot or Not?</strong></li>
+</ul>
+<div class="fragment">
+<blockquote>
+<p>A robot is anything that <strong>senses</strong> its environment, <strong>thinks</strong> (runs code), and <strong>acts</strong> on the world.<br>
+Your 4WD car will do all three. 🎉</p>
+</blockquote>
+</div>
+</section>
+<section id="the-three-things-every-robot-does" class="slide level2">
+<h2>The Three Things Every Robot Does</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>👁️ Sense</strong></p>
+</div>
+<div class="callout-content">
+<p>Ultrasonic sensor, IR receiver, light sensor — the robot <em>feels</em> the world.</p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="callout callout-tip callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>🧠 Think</strong></p>
+</div>
+<div class="callout-content">
+<p>The Arduino runs your C++ code — it <em>decides</em> what to do.</p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="callout callout-important callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>💪 Act</strong></p>
+</div>
+<div class="callout-content">
+<p>Motors spin, LEDs light up, buzzers beep — the robot <em>does</em> something.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="but-first-why-electricity" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>But First — Why Electricity?</h2>
+<div class="r-fit-text">
+<p>Everything in your robot runs on <strong>electricity</strong>.</p>
+</div>
+<div class="fragment">
+<p>To build a robot, you need to understand <strong>one big idea</strong>:</p>
+<blockquote>
+<p>Electricity is like water flowing through pipes.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>Let’s see how.</p>
+</div>
 </section></section>
 <section>
 <section id="part-1-the-water-world" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -574,18 +660,79 @@
 </div>
 </section></section>
 <section>
-<section id="part-5-the-math" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 5 — The Math</h1>
+<section id="part-5-the-rules-of-electricity" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 5 — The Rules of Electricity</h1>
 
 </section>
-<section id="ohms-law" class="slide level2 sdaia-dark" data-background-color="#1C355E">
-<h2>Ohm’s Law</h2>
+<section id="the-two-safety-rules" class="slide level2" data-background-color="#f7f9fc">
+<h2>The Two Safety Rules</h2>
+<p>Before we touch anything, two rules that will save your robot every time:</p>
+<ol type="1">
+<li class="fragment">🛡️ <strong>Always use a resistor with an LED</strong> — without one, too much current flows and the LED burns out</li>
+<li class="fragment">⚡ <strong>Never connect 5V to GND with a bare wire</strong> — it’s called a short circuit and it can fry your Arduino</li>
+</ol>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Finger Test</strong></p>
+</div>
+<div class="callout-content">
+<p>If a component feels <strong>hot to the touch</strong> — unplug immediately. Too much current is flowing somewhere.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-narrow-pipe-rule" class="slide level2" data-background-color="#f7f9fc">
+<h2>The Narrow Pipe Rule</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li class="fragment">A narrow pipe <strong>slows down</strong> water flow</li>
+<li class="fragment">A <strong>resistor</strong> does the same thing for electricity</li>
+<li class="fragment">The narrower (higher resistance) → the less current flows</li>
+<li class="fragment">This <em>protects</em> LEDs from getting too much</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>In the Kit</strong></p>
+</div>
+<div class="callout-content">
+<p>Your Keyestudio kit comes with <strong>pre-selected resistors</strong> for each LED. You don’t need to calculate — just use the right colour band!</p>
+<p>For the traffic light: <strong>330 Ω</strong> (orange-orange-brown) ✓</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="check-in" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>✋ Check-In</h2>
+<div class="r-fit-text">
+<p>How are you feeling?</p>
+<p>👍 Got it! &nbsp;&nbsp; 🤔 A bit confused &nbsp;&nbsp; 🤯 Very lost</p>
+</div>
+<p><em>Tell the instructor — we’ll move on when everyone’s good.</em></p>
+</section>
+<section id="bonus-ohms-law-v-i-r" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>🔥 Bonus — Ohm’s Law: V = I × R</h2>
+<blockquote>
+<p>This section is for <strong>students who want to go deeper</strong>. Skip it if you’re good with the rules above.</p>
+</blockquote>
 <div class="r-fit-text">
 <p><strong>V = I × R</strong></p>
 </div>
 </section>
-<section id="three-forms-of-the-same-truth" class="slide level2">
-<h2>Three Forms of the Same Truth</h2>
+<section id="bonus-three-forms-of-the-same-truth" class="slide level2">
+<h2>🔥 Bonus — Three Forms of the Same Truth</h2>
 <p>You only need one formula — rearrange for what you don’t know:</p>
 <table class="caption-top">
 <thead>
@@ -617,38 +764,25 @@
 <p>If pressure goes up and resistance stays the same, flow increases. Same physics. Same formula.</p>
 </blockquote>
 </section>
-<section id="ohms-law-sandbox" class="slide level2" data-background-color="#f7f9fc">
-<h2>Ohm’s Law Sandbox</h2>
+<section id="bonus-ohms-law-sandbox" class="slide level2" data-background-color="#f7f9fc">
+<h2>🔥 Bonus — Ohm’s Law Sandbox</h2>
 <iframe data-src="../simulations/water_circuit/index.html" width="100%" height="520px" style="border:none; border-radius:12px;">
 </iframe>
 <p><em>Calculate a target Current first. Then adjust the Voltage and Resistance sliders — does the gauge match your math?</em></p>
 </section>
-<section id="exercise-6-q1-calculate-current" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 6 — Q1: Calculate Current</h2>
+<section id="bonus-exercise-calculate-current" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>🔥 Bonus — Exercise: Calculate Current</h2>
 <p><em>(recall)</em> A battery provides <strong>5 V</strong>. A resistor of <strong>100 Ω</strong> is connected. How much current flows?</p>
 <p>Show your calculation.</p>
 <div class="fragment">
 <p><strong>Answer:</strong> I = V / R = 5 / 100 = <strong>0.05 A (50 mA)</strong></p>
 </div>
 </section>
-<section id="exercise-6-q2-calculate-resistance" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 6 — Q2: Calculate Resistance</h2>
-<p><em>(apply)</em> A circuit has <strong>12 V</strong> and the current is <strong>0.1 A</strong>. What is the resistance?</p>
-<p>Show your calculation.</p>
+<section id="bonus-exercise-find-the-resistor" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>🔥 Bonus — Exercise: Find the Resistor</h2>
+<p><em>(apply)</em> An LED needs <strong>2 V</strong> and <strong>20 mA</strong>. Your Arduino gives <strong>5 V</strong>. What resistor do you need?</p>
 <div class="fragment">
-<p><strong>Answer:</strong> R = V / I = 12 / 0.1 = <strong>120 Ω</strong></p>
-</div>
-</section>
-<section id="exercise-6-q3-halve-or-double-resistance" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 6 — Q3: Halve or Double Resistance</h2>
-<p><em>(design)</em> <strong>Challenge:</strong> If you <em>halve</em> the resistance in a circuit with fixed voltage, what happens to the current? If you <em>double</em> the resistance — what happens?</p>
-<div class="fragment">
-<p><strong>Answer:</strong> Since I = V / R and V is fixed:</p>
-<ul>
-<li><strong>Halve R</strong> → current <strong>doubles</strong></li>
-<li><strong>Double R</strong> → current <strong>halves</strong></li>
-</ul>
-<p>Current and resistance are inversely proportional.</p>
+<p><strong>Answer:</strong> V_resistor = 5 − 2 = <strong>3 V</strong> · R = 3 / 0.02 = <strong>150 Ω</strong> → pick <strong>150 Ω or 220 Ω</strong> ✓</p>
 </div>
 </section></section>
 <section>
@@ -909,37 +1043,33 @@ Loop broken    → Current = 0</code></pre>
 <h1>Part 7 — The Valve</h1>
 
 </section>
-<section id="variable-resistance-the-potentiometer" class="slide level2">
-<h2>Variable Resistance: The Potentiometer</h2>
+<section id="variable-resistance-the-volume-knob" class="slide level2">
+<h2>Variable Resistance: The Volume Knob</h2>
 <ul>
-<li>A <strong>valve</strong> in cross-section: a disc with a hole — rotate it to partially block flow</li>
-<li>In electronics: a <strong>potentiometer</strong> has a resistive strip + sliding wiper</li>
-<li>Move the wiper → change the resistance → change the current</li>
+<li>Think of a <strong>volume knob</strong> on a speaker — turn it to control how loud it gets</li>
+<li>In electronics, this is called a <strong>potentiometer</strong> — it adjusts resistance smoothly</li>
+<li>More resistance → less current → dimmer LED / slower motor</li>
 </ul>
-<p><strong>Where you see this:</strong> Volume knobs · Brightness dimmers · Steering sensitivity controls</p>
+<p><strong>You can find this in:</strong> Volume knobs · Brightness dimmers · Fan speed controls</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
 <th>Position</th>
-<th>Resistance</th>
-<th>Current</th>
+<th>What happens</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Fully open</td>
-<td>0 Ω</td>
-<td>Maximum</td>
+<td>Fully turned one way</td>
+<td>Maximum resistance → minimum current</td>
 </tr>
 <tr class="even">
-<td>Midpoint</td>
-<td>~250 Ω</td>
-<td>Medium</td>
+<td>Middle</td>
+<td>Medium resistance → medium current</td>
 </tr>
 <tr class="odd">
-<td>Fully closed</td>
-<td>Max (e.g.&nbsp;10 kΩ)</td>
-<td>Zero</td>
+<td>Fully the other way</td>
+<td>Zero resistance → maximum current</td>
 </tr>
 </tbody>
 </table>
@@ -950,156 +1080,93 @@ Loop broken    → Current = 0</code></pre>
 </iframe>
 <p><em>Manually rotate the valve. Watch the current change in real time.</em></p>
 </section>
-<section id="the-automatic-valve-the-transistor" class="slide level2">
-<h2>The Automatic Valve: The Transistor</h2>
+<section id="from-analog-to-digital" class="slide level2">
+<h2>From Analog to Digital</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>Manual Valve (Potentiometer)</strong></p>
+<p><strong>Potentiometer (Analog)</strong></p>
 <ul>
-<li>You turn it by hand</li>
-<li>Analog: smooth range of values</li>
-<li>Input: your hand</li>
+<li>Smooth range of values</li>
+<li>Like a dimmer switch — infinite steps between off and fully on</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p><strong>Transistor</strong></p>
+<p><strong>A GPIO Pin (Digital)</strong></p>
 <ul>
-<li><em>Electricity</em> turns it — automatically</li>
-<li>A tiny <strong>Base</strong> current controls a huge <strong>Collector</strong> current</li>
-<li><strong>1 mA Base → 200 mA Collector</strong> (gain = 200×)</li>
-<li>Input: another electron signal</li>
+<li>Only two states: HIGH or LOW, ON or OFF</li>
+<li>Like a light switch — no in-between</li>
 </ul>
 </div></div>
+<div class="fragment">
 <blockquote>
-<p>“A tiny trickle opens the main floodgate.” This is <strong>amplification</strong> — and it is also <strong>logic</strong>.</p>
+<p>Your robot uses <strong>both</strong>: analog sensors (like the LDR) that give smooth values, and digital pins that decide HIGH or LOW.</p>
 </blockquote>
-</section>
-<section id="transistors-make-logic" class="slide level2">
-<h2>Transistors Make Logic</h2>
-<ul>
-<li>Transistor <strong>fully ON</strong> → effectively zero resistance → current flows → <strong>“1”</strong></li>
-<li>Transistor <strong>fully OFF</strong> → enormous resistance → no current → <strong>“0”</strong></li>
-</ul>
-<p>A billion of these = a CPU.</p>
-</section>
-<section id="exercise-9-q1-potentiometer-at-0-ω" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 9 — Q1: Potentiometer at 0 Ω</h2>
-<p>You have: <strong>5 V</strong> supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor</p>
-<p><em>(recall)</em> Potentiometer at <strong>0 Ω</strong>: what current flows through the LED? <em>(Use V = 3 V; derived from 5 V supply − 2 V LED drop)</em></p>
-<div class="fragment">
-<p><strong>Answer:</strong> I = V / R = 3 / (0 + 150) = <strong>0.02 A = 20 mA</strong> — LED at rated maximum brightness.</p>
 </div>
 </section>
-<section id="exercise-9-q2-potentiometer-at-500-ω" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 9 — Q2: Potentiometer at 500 Ω</h2>
-<p>You have: <strong>5 V</strong> supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor</p>
-<p><em>(apply)</em> Potentiometer at <strong>500 Ω</strong>: what current flows?</p>
-<div class="fragment">
-<p><strong>Answer:</strong> I = 3 / (500 + 150) = 3 / 650 ≈ <strong>4.6 mA</strong> — LED is very dim, just below usable threshold.</p>
-</div>
-</section>
-<section id="exercise-9-q3-rotating-from-0-to-500-ω" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 9 — Q3: Rotating from 0 to 500 Ω</h2>
-<p>You have: <strong>5 V</strong> supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor</p>
-<p><em>(apply)</em> What does the LED <em>do</em> as you slowly rotate from 0 to 500 Ω?</p>
-<div class="fragment">
-<p><strong>Answer:</strong> The LED <strong>dims gradually</strong> — from 20 mA (full brightness) down to ~4.6 mA (barely visible). The potentiometer acts as a variable brightness (dimmer) control.</p>
-</div>
-</section>
-<section id="exercise-9-q4-find-the-cut-off" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 9 — Q4: Find the Cut-off</h2>
-<p>You have: <strong>5 V</strong> supply · LED (20 mA, 2 V drop) · Potentiometer (0–500 Ω) · Fixed 150 Ω resistor</p>
-<p><em>(design)</em> At what potentiometer value does current drop below the LED’s minimum threshold (<strong>5 mA</strong>)?</p>
-<div class="fragment">
-<p><strong>Answer:</strong> I = 3 / (R + 150) &lt; 0.005 → R + 150 &gt; 600 → <strong>R &gt; 450 Ω</strong></p>
-<p>At 450 Ω the LED falls below 5 mA and effectively goes out.</p>
-</div>
-</section>
-<section id="exercise-10-q1-transistor-gain" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 10 — Q1: Transistor Gain</h2>
-<p><em>(recall)</em> A transistor has a <strong>gain of 200</strong>. You apply <strong>0.5 mA</strong> to the Base. How much current flows through the Collector?</p>
-<div class="fragment">
-<p><strong>Answer:</strong> I_C = Gain × I_B = 200 × 0.5 mA = <strong>100 mA</strong></p>
-<p>A tiny 0.5 mA signal controls a 100 mA load — that is amplification.</p>
-</div>
-</section>
-<section id="exercise-10-q2-controlling-a-motor" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 10 — Q2: Controlling a Motor</h2>
-<p><em>(apply)</em> You want to control a <strong>500 mA motor</strong> using an Arduino GPIO pin (<strong>max 40 mA</strong>). Is this possible? What is the transistor’s role?</p>
-<div class="fragment">
-<p><strong>Answer:</strong> <strong>Yes</strong> — but not directly. The GPIO cannot source 500 mA safely. A transistor with gain ≥ 13 driven by the GPIO switches the 500 mA motor current from a separate supply. The GPIO controls the <em>gate</em>; the transistor carries the <em>load</em>.</p>
-</div>
-</section>
-<section id="exercise-10-q3-on-vs-off-1-vs-0" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise 10 — Q3: ON vs OFF = 1 vs 0</h2>
-<p><em>(apply)</em> A transistor is either fully ON (0.1 Ω) or fully OFF (1 000 000 Ω). Which state is “1” and which is “0”?</p>
-<div class="fragment">
-<p><strong>Answer:</strong></p>
-<ul>
-<li>Fully <strong>ON</strong> (0.1 Ω) → near-zero resistance → current flows → <strong>“1”</strong></li>
-<li>Fully <strong>OFF</strong> (1 MΩ) → near-infinite resistance → no current → <strong>“0”</strong></li>
-</ul>
-</div>
-</section>
-<section id="a-quick-question" class="slide level2 sdaia-dark" data-background-color="#1C355E">
-<h2>A Quick Question…</h2>
-<p><br></p>
-<div class="r-fit-text">
-<p>How many numbers are there between <strong>0</strong> and <strong>1</strong>?</p>
-</div>
-<div class="fragment r-fit-text">
-<h3 id="cant-be-counted-infinity"><strong>Can’t be counted… Infinity!</strong></h3>
-<p><em>(0.1, 0.11, 0.111, 0.5000001…)</em></p>
-</div>
-</section>
-<section id="two-worlds-analog-vs.-digital" class="slide level2">
-<h2>Two Worlds: Analog vs.&nbsp;Digital</h2>
+<section id="bonus-the-automatic-valve-the-transistor" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>🔥 Bonus — The Automatic Valve: The Transistor</h2>
+<blockquote>
+<p>For curious students: what if the <em>valve</em> could open itself?</p>
+</blockquote>
 <div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Analog — Infinite Steps</strong></p>
-<div class="fragment">
+<div class="column" style="width:55%;">
+<p>Remember the valve that controls water flow?</p>
+<p>A <strong>transistor</strong> is like a <strong>magic valve</strong> — instead of turning it with your hand, you open it with a <strong>tiny electrical signal</strong>.</p>
 <ul>
-<li><strong>Dimmer switch</strong>: 0% to 100% brightness</li>
-<li><strong>Thermometer</strong>: any value in a continuous range</li>
-<li><strong>LDR sensor</strong>: variable (1 kΩ to 100 kΩ)</li>
+<li>🤏 <strong>Tiny signal in</strong> → 💧 <strong>Big current out</strong></li>
+<li>The bigger the signal, the more it opens</li>
+<li>No signal at all → it stays completely <strong>closed</strong></li>
 </ul>
-</div>
-</div><div class="column" style="width:50%;">
-<p><strong>Digital — Two States Only</strong></p>
-<div class="fragment">
-<ul>
-<li>A <strong>light switch</strong>: ON or OFF</li>
-<li>A <strong>transistor</strong>: fully ON or fully OFF</li>
-<li>A <strong>GPIO pin</strong>: HIGH (3.3 V) or LOW (0 V)</li>
-</ul>
-</div>
-</div></div>
-<div class="columns smaller">
-<div class="column" style="width:50%;">
-<div class="fragment">
-<div class="callout callout-note no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p><strong>Analog = continuous</strong><br>
-Infinite possible values between any two points.</p>
-</div>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="fragment">
-<div class="callout callout-tip no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p><strong>Digital = discrete</strong><br>
-Only two possible states. No in-between.</p>
-</div>
+</div><div class="column" style="width:45%;">
+<div id="2ff779d9" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="session1_files/figure-revealjs/cell-2-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
 </div>
 </div>
 </div>
 </div></div>
 <div class="fragment">
 <blockquote>
-<p><strong>The bridge:</strong> A transistor <em>collapses</em> an analog input voltage into a digital decision — above a threshold → <strong>1</strong>, below it → <strong>0</strong>. A billion of these decisions per second = a CPU.</p>
+<p>💡 Your Arduino sends a tiny signal — the transistor uses it to switch a <strong>motor</strong> or <strong>LED</strong> that needs far more power than the Arduino can provide directly.</p>
+</blockquote>
+</div>
+</section>
+<section id="bonus-transistors-the-brain-of-everything" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>🔥 Bonus — Transistors = The Brain of Everything</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Fully OPEN</strong> → current flows freely</p>
+<p>→ we call this <strong>“1”</strong> (ON)</p>
+<p><strong>Fully CLOSED</strong> → no current at all</p>
+<p>→ we call this <strong>“0”</strong> (OFF)</p>
+</div><div class="column" style="width:50%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Valve</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Strong</td>
+<td>Open</td>
+<td><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td>Closed</td>
+<td><strong>0</strong></td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<div class="fragment">
+<blockquote>
+<p>🤯 A modern computer chip has <strong>billions</strong> of tiny transistors — each one switching between <strong>0</strong> and <strong>1</strong> billions of times per second. That is how your phone runs games, videos, and apps — all from billions of tiny automatic valves!</p>
 </blockquote>
 </div>
 </section></section>
@@ -1133,11 +1200,11 @@ Only two possible states. No in-between.</p>
 <li class="fragment"><strong>Fast</strong>: Optimized for drafting.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="65c50f55" class="cell" data-execution_count="1">
+<div id="3eda87d3" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="session1_files/figure-revealjs/cell-2-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="session1_files/figure-revealjs/cell-3-output-1.svg" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 </div>
@@ -1148,9 +1215,9 @@ Only two possible states. No in-between.</p>
 <h2>Standard Symbols</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 30%">
-<col style="width: 22%">
-<col style="width: 47%">
+<col style="width: 28%">
+<col style="width: 20%">
+<col style="width: 51%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1188,7 +1255,7 @@ Only two possible states. No in-between.</p>
 <tr class="even">
 <td><strong>Capacitor</strong></td>
 <td><img data-src="assets/capacitor_sym.svg" width="40"></td>
-<td>Energy Storage <em>(like a water tank — stores charge briefly; covered in Session 2)</em></td>
+<td>Energy Storage <em>(like a water tank — stores charge briefly)</em></td>
 </tr>
 </tbody>
 </table>
@@ -1244,23 +1311,11 @@ Only two possible states. No in-between.</p>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p><strong>Key Concept</strong>: In a single loop (Series), the <strong>Current (<span class="math inline">\(I\)</span>)</strong> is constant everywhere (<span class="math inline">\(I_{in} = I_{out}\)</span>), but the <strong>Voltage (<span class="math inline">\(V\)</span>)</strong> is shared among components.</p>
+<p><strong>Key Concept</strong>: In a single loop (Series), the <strong>Current (<span class="math inline">\(I\)</span>)</strong> is constant everywhere, but the <strong>Voltage (<span class="math inline">\(V\)</span>)</strong> is shared among components.</p>
 </div>
 </div>
 </div>
 <p><span class="math display">\[V_{total} = V_1 + V_2 + \dots\]</span></p>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>For engineers:</strong> this is written as <span class="math inline">\(V_1 + V_2 + \dots = V_{total}\)</span>. Every electron must lose all its potential energy before returning to the source.</p>
-</div>
-</div>
-</div>
-</div>
 </div><div class="column" style="width:40%;">
 <div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -1279,16 +1334,19 @@ Only two possible states. No in-between.</p>
 </div>
 </div></div>
 </section>
-<section id="the-math-series-resistance" class="slide level2">
-<h2>The Math: Series Resistance</h2>
+<section id="bonus-the-math-series-resistance" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>🔥 Bonus — The Math: Series Resistance</h2>
+<blockquote>
+<p>For students who want to go deeper into the derivation.</p>
+</blockquote>
 <p>In a series circuit, components are connected end-to-end, forming a single path.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div id="8e8c968a" class="cell" data-execution_count="2">
+<div id="dd3ec59d" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="session1_files/figure-revealjs/cell-3-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="session1_files/figure-revealjs/cell-4-output-1.svg" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 </div>
@@ -1343,18 +1401,6 @@ Only two possible states. No in-between.</p>
 </div>
 </div>
 <p><span class="math display">\[I_{total} = I_1 + I_2 + \dots\]</span></p>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>For engineers:</strong> this is written as <span class="math inline">\(I_{in} = I_1 + I_2 + \dots\)</span>. Nodes are just distribution points for charge; electricity doesn’t “pile up.”</p>
-</div>
-</div>
-</div>
-</div>
 </div><div class="column" style="width:40%;">
 <div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -1373,16 +1419,19 @@ Only two possible states. No in-between.</p>
 </div>
 </div></div>
 </section>
-<section id="the-math-parallel-resistance" class="slide level2">
-<h2>The Math: Parallel Resistance</h2>
+<section id="bonus-the-math-parallel-resistance" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>🔥 Bonus — The Math: Parallel Resistance</h2>
+<blockquote>
+<p>For students who want to go deeper into the derivation.</p>
+</blockquote>
 <p>In a parallel circuit, resistors are connected across the same two nodes.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div id="c3cb7dbe" class="cell" data-execution_count="3">
+<div id="3f189ab0" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="session1_files/figure-revealjs/cell-4-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="session1_files/figure-revealjs/cell-5-output-1.svg" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 </div>
@@ -1512,11 +1561,11 @@ Only two possible states. No in-between.</p>
 <h2>Case Study 1 — Option A: Series (Circuit)</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="64a1a99c" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="4">
+<div id="5398bcce" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="session1_files/figure-revealjs/cell-5-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="session1_files/figure-revealjs/cell-6-output-1.svg" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 </div>
@@ -1530,8 +1579,8 @@ Only two possible states. No in-between.</p>
 </ul>
 </div></div>
 </section>
-<section id="case-study-1-option-a-series-calculation" class="slide level2 sdaia-dark smaller" data-background-color="#1C355E">
-<h2>Case Study 1 — Option A: Series (Calculation)</h2>
+<section id="bonus-case-study-1-series-calculation" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>🔥 Bonus — Case Study 1: Series Calculation</h2>
 <h3 id="step-by-step-calculation">Step-by-Step Calculation</h3>
 <ol type="1">
 <li class="fragment"><p><strong>Apply KVL — How much voltage is left for the resistor?</strong></p>
@@ -1552,11 +1601,11 @@ Only two possible states. No in-between.</p>
 <h2>Case Study 1 — Option B: Parallel (Circuit)</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="20ffb736" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="5">
+<div id="f322526c" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="session1_files/figure-revealjs/cell-6-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="session1_files/figure-revealjs/cell-7-output-1.svg" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 </div>
@@ -1570,8 +1619,8 @@ Only two possible states. No in-between.</p>
 </ul>
 </div></div>
 </section>
-<section id="case-study-1-option-b-parallel-calculation" class="slide level2 sdaia-dark smaller" data-background-color="#1C355E">
-<h2>Case Study 1 — Option B: Parallel (Calculation)</h2>
+<section id="bonus-case-study-1-parallel-calculation" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>🔥 Bonus — Case Study 1: Parallel Calculation</h2>
 <h3 id="step-by-step-calculation-1">Step-by-Step Calculation</h3>
 <ol type="1">
 <li class="fragment"><p><strong>Apply KVL — How much voltage falls across each resistor?</strong></p>
@@ -1663,11 +1712,11 @@ Only two possible states. No in-between.</p>
 </div>
 <div class="columns">
 <div class="column" style="width:55%;">
-<div id="a44f3ffb" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="6">
+<div id="c292d255" class="cell" data-fig-height="3.5" data-fig-width="3.5" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="session1_files/figure-revealjs/cell-7-output-1.svg" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="session1_files/figure-revealjs/cell-8-output-1.svg" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 </div>
@@ -1702,18 +1751,13 @@ Only two possible states. No in-between.</p>
 </table>
 </div></div>
 </section>
-<section id="case-study-2-calculating-the-resistor-part-1" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Case Study 2: Calculating the Resistor (Part 1)</h2>
+<section id="bonus-case-study-2-calculating-the-resistor" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>🔥 Bonus — Case Study 2: Calculating the Resistor</h2>
 <ol type="1">
 <li class="fragment"><p><strong>Step 1 — Apply KVL (voltage across the resistor)</strong></p>
 <p><span class="math display">\[V_{R} = V_{supply} - V_{LED} = 5V - 2V = \mathbf{3V}\]</span></p></li>
 <li class="fragment"><p><strong>Step 2 — Apply Ohm’s Law (find resistance)</strong></p>
 <p><span class="math display">\[R = \frac{V_R}{I} = \frac{3V}{0.02\,A} = \mathbf{150\,\Omega}\]</span></p></li>
-</ol>
-</section>
-<section id="case-study-2-calculating-the-resistor-part-2" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Case Study 2: Calculating the Resistor (Part 2)</h2>
-<ol start="3" type="1">
 <li class="fragment"><p><strong>Step 3 — Verify current through the circuit</strong></p>
 <p><span class="math display">\[I = \frac{V_R}{R} = \frac{3V}{150\,\Omega} = \mathbf{20\,mA} \checkmark\]</span></p></li>
 <li class="fragment"><p><strong>Step 4 — The Engineering Choice</strong></p>
@@ -1780,7 +1824,7 @@ Only two possible states. No in-between.</p>
 </div>
 </div></div>
 </section>
-<section id="the-finger-test" class="slide level2">
+<section id="the-finger-test-1" class="slide level2">
 <h2>The “Finger Test”</h2>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -1919,7 +1963,7 @@ Troubleshooting with laws is <strong>science</strong>.”</p>
 <h2>The Ladder of Abstraction</h2>
 <p>From transistors to C++ — five rungs:</p>
 <ol type="1">
-<li><strong>Voltage</strong> — above ~3V = HIGH (1), below ~1V = LOW (0) <em>(voltages between 1V–3V are undefined — the pin may read 0 or 1 unpredictably; always drive pins to exactly 5V or 0V)</em></li>
+<li><strong>Voltage</strong> — above ~3V = HIGH (1), below ~1V = LOW (0)</li>
 <li><strong>Binary</strong> — 1 bit = on/off · 8 bits = 1 byte = 256 values</li>
 <li><strong>Machine Code</strong> — patterns of 0s and 1s the processor reads directly</li>
 <li><strong>Assembly</strong> — human-readable commands, <em>assembled</em> to machine code</li>
@@ -2031,8 +2075,19 @@ Troubleshooting with laws is <strong>science</strong>.”</p>
 <p><strong>Precision is the machine’s strength. Common sense is yours.</strong></p>
 </blockquote>
 </section>
-<section id="common-code-mistakes" class="slide level2 sdaia-dark" data-background-color="#1C355E">
-<h2>Common Code Mistakes</h2>
+<section id="check-in-1" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>✋ Check-In</h2>
+<div class="r-fit-text">
+<p>How are you feeling about Arduino pins?</p>
+<p>👍 Got it! &nbsp;&nbsp; 🤔 A bit confused &nbsp;&nbsp; 🤯 Very lost</p>
+</div>
+<p><em>Tell the instructor before we move to the lab.</em></p>
+</section>
+<section id="bonus-common-code-mistakes" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>🔥 Bonus — Common Code Mistakes</h2>
+<blockquote>
+<p>For students who want to go deeper into C++ syntax.</p>
+</blockquote>
 <p>C++ is very picky. Watch out for these:</p>
 <ol type="1">
 <li><strong>The Missing Semicolon (<code>;</code>)</strong> — Every instruction must end with one. It’s like a period at the end of a sentence.</li>
@@ -2049,7 +2104,7 @@ Troubleshooting with laws is <strong>science</strong>.”</p>
 <p><strong>Error messages are your friends</strong></p>
 </div>
 <div class="callout-content">
-<p>If your code won’t upload, read the red text at the bottom. It usually tells you exactly which line has the “expected ‘;’” or “was not declared in this scope.”</p>
+<p>If your code won’t upload, read the red text at the bottom. It usually tells you exactly which line has the problem.</p>
 </div>
 </div>
 </div>
@@ -2576,17 +2631,14 @@ Troubleshooting with laws is <strong>science</strong>.”</p>
 </tbody>
 </table>
 </section>
-<section id="homework" class="slide level2 sdaia-dark" data-background-color="#1C355E">
-<h2>Homework</h2>
-<p><strong>Part A — Calculations</strong></p>
+<section id="curiosity-challenges-optional-try-at-home" class="slide level2 sdaia-dark" data-background-color="#1C355E">
+<h2>💡 Curiosity Challenges <em>(Optional — try at home!)</em></h2>
+<p>These are <strong>not homework</strong>. Try them if you’re curious — there’s no deadline and no grade.</p>
 <ol type="1">
-<li>A 9V battery + 270Ω resistor. What current flows?</li>
-<li>A circuit draws 50mA from 5V. What is the total resistance?</li>
-<li>Dim an LED to 10mA using a 5V Digital pin (LED drops 2V). What resistor do you need?</li>
-<li>A motor needs 500mA. Can an Arduino Digital pin (max 20–40mA) drive it directly? Use AI to explain the transistor solution.</li>
+<li class="fragment">🚦 Can you make your traffic light change speed based on the LDR reading? <em>(brighter room = faster cycle)</em></li>
+<li class="fragment">💡 Find <strong>3 places</strong> in your home where something turns on/off automatically. What is the sensor? What is the action?</li>
+<li class="fragment">🔥 <strong>Bonus challenge:</strong> Ask AI <em>“How do I add a button to my traffic light that keeps green on longer when pressed?”</em> — try it in Wokwi first!</li>
 </ol>
-<p><strong>Part B — Observation</strong></p>
-<p>Find <strong>3 places</strong> in your home where a reactive system turns on/off based on a sensor. For each: What is the sensor? What is the action? Write 3-line C++ pseudo-code for how it might work.</p>
 </section></section>
 <section>
 <section id="ai-onboarding-your-lab-partner" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -2595,14 +2647,27 @@ Troubleshooting with laws is <strong>science</strong>.”</p>
 </section>
 <section id="ways-to-use-ai-in-this-course" class="slide level2">
 <h2>4 Ways to Use AI in This Course</h2>
-<p>In this course, AI is a <strong>senior engineer sitting next to you</strong> — not a replacement for thinking.</p>
+<p>In this course, AI is like a <strong>knowledgeable friend</strong> — it can help you think, but you still need to test the robot yourself.</p>
 <ol type="1">
-<li><strong>Explain</strong> — <em>“What does <code>pinMode(13, OUTPUT)</code> actually do? Use the water analogy.”</em></li>
-<li><strong>Debug</strong> — <em>“I’m getting <code>expected ';' before '}'</code>. Here is my code and wiring description. What did I miss?”</em></li>
-<li><strong>Extend</strong> — <em>“My traffic light works. How do I make the yellow light pulse slowly like a heartbeat?”</em></li>
-<li><strong>Generate</strong> — <em>“Write the boilerplate to set up 3 output pins on an Arduino Uno.”</em></li>
+<li><strong>Explain</strong> — <em>“What does <code>pinMode(13, OUTPUT)</code> actually do? Explain it simply.”</em></li>
+<li><strong>Debug</strong> — <em>“My LED won’t light up. Here is my code. What might be wrong?”</em></li>
+<li><strong>Extend</strong> — <em>“My traffic light works. How do I make the yellow light blink slowly?”</em></li>
+<li><strong>Generate</strong> — <em>“Write code to set up 3 LED pins on an Arduino Uno.”</em></li>
 </ol>
-<p><strong>Setup:</strong> Open Antigravity · Log in to your assigned account · First prompt: introduce yourself and ask it to help verify your Ohm’s Law calculations.</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Always Test It!</strong></p>
+</div>
+<div class="callout-content">
+<p>AI can make mistakes. <strong>Never trust AI code without uploading it and seeing it run.</strong></p>
+</div>
+</div>
+</div>
+<p><strong>Setup:</strong> Open Claude or ChatGPT · Log in to your assigned account · First prompt: <em>“I’m learning Arduino. Can you explain what <code>digitalWrite</code> does using a simple analogy?”</em></p>
 </section>
 <section id="questions" class="slide level2 sdaia-dark" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
 <h2>Questions?</h2>
@@ -2784,7 +2849,7 @@ Troubleshooting with laws is <strong>science</strong>.”</p>
         backgroundTransition: 'fade',
 
         // Number of slides away from the current that are visible
-        viewDistance: 4,
+        viewDistance: 6,
 
         // Number of slides away from the current that are visible on mobile
         // devices. It is advisable to set this to a lower number than

@@ -1,6 +1,76 @@
-# Part 5 — The Math {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 5 — The Rules of Electricity {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
-## Ohm's Law {.sdaia-dark background-color="#1C355E"}
+## The Two Safety Rules {background-color="#f7f9fc"}
+
+Before we touch anything, two rules that will save your robot every time:
+
+::: {.incremental}
+
+1. 🛡️ **Always use a resistor with an LED** — without one, too much current flows and the LED burns out
+2. ⚡ **Never connect 5V to GND with a bare wire** — it's called a short circuit and it can fry your Arduino
+
+:::
+
+::: {.fragment}
+
+::: {.callout-warning}
+
+## The Finger Test
+If a component feels **hot to the touch** — unplug immediately. Too much current is flowing somewhere.
+
+:::
+
+:::
+
+## The Narrow Pipe Rule {background-color="#f7f9fc"}
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+::: {.incremental}
+
+- A narrow pipe **slows down** water flow
+- A **resistor** does the same thing for electricity
+- The narrower (higher resistance) → the less current flows
+- This *protects* LEDs from getting too much
+
+:::
+
+::::
+
+:::: {.column width="50%"}
+
+::: {.callout-tip}
+
+## In the Kit
+Your Keyestudio kit comes with **pre-selected resistors** for each LED. You don't need to calculate — just use the right colour band!
+
+For the traffic light: **330 Ω** (orange-orange-brown) ✓
+
+:::
+
+::::
+
+:::::
+
+## ✋ Check-In {background-color="#00C9A7" .sdaia-dark}
+
+::: {.r-fit-text}
+
+How are you feeling?
+
+👍 Got it! &nbsp;&nbsp; 🤔 A bit confused &nbsp;&nbsp; 🤯 Very lost
+
+:::
+
+*Tell the instructor — we'll move on when everyone's good.*
+
+---
+
+## 🔥 Bonus — Ohm's Law: V = I × R {background-color="#1C355E" .sdaia-dark}
+
+> This section is for **students who want to go deeper**. Skip it if you're good with the rules above.
 
 ::: {.r-fit-text}
 
@@ -8,7 +78,7 @@
 
 :::
 
-## Three Forms of the Same Truth
+## 🔥 Bonus — Three Forms of the Same Truth
 
 You only need one formula — rearrange for what you don't know:
 
@@ -21,7 +91,7 @@ You only need one formula — rearrange for what you don't know:
 > If pressure goes up and resistance stays the same, flow increases.
 > Same physics. Same formula.
 
-## Ohm's Law Sandbox {background-color="#f7f9fc"}
+## 🔥 Bonus — Ohm's Law Sandbox {background-color="#f7f9fc"}
 
 <iframe data-src="../simulations/water_circuit/index.html"
         width="100%" height="520px"
@@ -29,7 +99,7 @@ You only need one formula — rearrange for what you don't know:
 
 *Calculate a target Current first. Then adjust the Voltage and Resistance sliders — does the gauge match your math?*
 
-## Exercise 6 — Q1: Calculate Current {background-color="#00C9A7" .sdaia-dark}
+## 🔥 Bonus — Exercise: Calculate Current {background-color="#00C9A7" .sdaia-dark}
 
 *(recall)* A battery provides **5 V**. A resistor of **100 Ω** is connected. How much current flows?
 
@@ -39,25 +109,10 @@ Show your calculation.
 **Answer:** I = V / R = 5 / 100 = **0.05 A (50 mA)**
 :::
 
-## Exercise 6 — Q2: Calculate Resistance {background-color="#00C9A7" .sdaia-dark}
+## 🔥 Bonus — Exercise: Find the Resistor {background-color="#00C9A7" .sdaia-dark}
 
-*(apply)* A circuit has **12 V** and the current is **0.1 A**. What is the resistance?
-
-Show your calculation.
+*(apply)* An LED needs **2 V** and **20 mA**. Your Arduino gives **5 V**. What resistor do you need?
 
 ::: {.fragment}
-**Answer:** R = V / I = 12 / 0.1 = **120 Ω**
-:::
-
-## Exercise 6 — Q3: Halve or Double Resistance {background-color="#00C9A7" .sdaia-dark}
-
-*(design)* **Challenge:** If you *halve* the resistance in a circuit with fixed voltage, what happens to the current? If you *double* the resistance — what happens?
-
-::: {.fragment}
-**Answer:** Since I = V / R and V is fixed:
-
-- **Halve R** → current **doubles**
-- **Double R** → current **halves**
-
-Current and resistance are inversely proportional.
+**Answer:** V_resistor = 5 − 2 = **3 V** · R = 3 / 0.02 = **150 Ω** → pick **150 Ω or 220 Ω** ✓
 :::

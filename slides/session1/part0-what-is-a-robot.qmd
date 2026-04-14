@@ -1,0 +1,82 @@
+# Intro — What is a Robot? {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Quick Vote! {background-color="#f7f9fc"}
+
+Is each of these a robot?
+
+::: {.incremental}
+
+- 🚗 A self-driving car — **Robot or Not?**
+- 🦾 A factory arm that welds car parts — **Robot or Not?**
+- 📱 A smartphone — **Robot or Not?**
+- 🤖 The Keyestudio 4WD car you'll build today — **Robot or Not?**
+
+:::
+
+::: {.fragment}
+
+> A robot is anything that **senses** its environment, **thinks** (runs code), and **acts** on the world.  
+> Your 4WD car will do all three. 🎉
+
+:::
+
+## The Three Things Every Robot Does
+
+::::: {.columns}
+
+:::: {.column width="33%"}
+
+::: {.callout-note appearance="simple"}
+
+## 👁️ Sense
+Ultrasonic sensor, IR receiver, light sensor — the robot *feels* the world.
+
+:::
+
+::::
+
+:::: {.column width="33%"}
+
+::: {.callout-tip appearance="simple"}
+
+## 🧠 Think
+The Arduino runs your C++ code — it *decides* what to do.
+
+:::
+
+::::
+
+:::: {.column width="33%"}
+
+::: {.callout-important appearance="simple"}
+
+## 💪 Act
+Motors spin, LEDs light up, buzzers beep — the robot *does* something.
+
+:::
+
+::::
+
+:::::
+
+## But First — Why Electricity? {.sdaia-dark background-color="#1C355E"}
+
+::: {.r-fit-text}
+
+Everything in your robot runs on **electricity**.
+
+:::
+
+::: {.fragment}
+
+To build a robot, you need to understand **one big idea**:
+
+> Electricity is like water flowing through pipes.
+
+:::
+
+::: {.fragment}
+
+Let's see how.
+
+:::

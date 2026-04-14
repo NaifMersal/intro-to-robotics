@@ -61,13 +61,13 @@ with schemdraw.Drawing() as d:
 ## Standard Symbols
 
 | Component | Symbol | Role |
-|-----------|--------|-----------------|
+|-----------|--------|--------------------|
 | **Power (+V)**  | ![](assets/battery_sym.svg){width="35px" data-src="assets/battery_sym.svg"} | Energy Source |
 | **Ground (GND)** | ![](assets/gnd_sym.svg){width="35px" data-src="assets/gnd_sym.svg"} | 0V Reference |
 | **Resistor**    | ![](assets/resistor_sym.svg){width="40px" data-src="assets/resistor_sym.svg"} | Current Limiter |
 | **LED**         | ![](assets/led_sym.svg){width="40px" data-src="assets/led_sym.svg"} | Light Emitter |
 | **Switch**      | ![](assets/switch_sym.svg){width="40px" data-src="assets/switch_sym.svg"} | Path Control |
-| **Capacitor**   | ![](assets/capacitor_sym.svg){width="40px" data-src="assets/capacitor_sym.svg"} | Energy Storage *(like a water tank — stores charge briefly; covered in Session 2)* |
+| **Capacitor**   | ![](assets/capacitor_sym.svg){width="40px" data-src="assets/capacitor_sym.svg"} | Energy Storage *(like a water tank — stores charge briefly)* |
 
 ## Schematic Layout Rules
 
@@ -112,7 +112,7 @@ Always draw your "GND" symbols pointing down. It makes the schematic instantly r
 
 **Observation:** In a series path, current (flow) has nowhere else to go. It must pass through every component in sequence.
 
-## Kirchhoff’s Voltage Law (KVL)
+## Kirchhoff's Voltage Law (KVL)
 
 :::::: {.columns}
 
@@ -124,14 +124,10 @@ Always draw your "GND" symbols pointing down. It makes the schematic instantly r
 Every volt provided by the power source must be "dropped" (used up) by the components.
 
 ::: {.callout-important appearance="simple"}
-**Key Concept**: In a single loop (Series), the **Current ($I$)** is constant everywhere ($I_{in} = I_{out}$), but the **Voltage ($V$)** is shared among components.
+**Key Concept**: In a single loop (Series), the **Current ($I$)** is constant everywhere, but the **Voltage ($V$)** is shared among components.
 :::
 
 $$V_{total} = V_1 + V_2 + \dots$$
-
-::: {.fragment .callout-note appearance="simple"}
-**For engineers:** this is written as $V_1 + V_2 + \dots = V_{total}$. Every electron must lose all its potential energy before returning to the source.
-:::
 
 :::::
 
@@ -147,7 +143,9 @@ Think of a waterfall. If you start at height $H$, you must drop a total of $H$ d
 :::::
 ::::::
 
-## The Math: Series Resistance
+## 🔥 Bonus — The Math: Series Resistance {background-color="#1C355E" .sdaia-dark}
+
+> For students who want to go deeper into the derivation.
 
 In a series circuit, components are connected end-to-end, forming a single path.
 
@@ -184,7 +182,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 ### The Derivation
 
 ::: {.incremental}
-1. Apply **Ohm’s Law** ($V = IR$) to each:
+1. Apply **Ohm's Law** ($V = IR$) to each:
    $V_1 = I \cdot R_1, \quad V_2 = I \cdot R_2 \dots$
 2. Substitute into KVL:
    $V_{total} = (I \cdot R_1) + (I \cdot R_2) \dots$
@@ -207,7 +205,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 
 **Observation:** Notice that while the flow (current) splits, the "pressure" (voltage) is available to all branches equally.
 
-## Kirchhoff’s Current Law (KCL)
+## Kirchhoff's Current Law (KCL)
 
 :::::: {.columns}
 
@@ -224,11 +222,6 @@ Electric charge cannot be created or destroyed. Whatever current flows into a ju
 
 $$I_{total} = I_1 + I_2 + \dots$$
 
-::: {.fragment .callout-note appearance="simple"}
-**For engineers:** this is written as $I_{in} = I_1 + I_2 + \dots$. Nodes are just distribution points for charge; electricity doesn't "pile up."
-:::
-
-
 :::::
 
 ::::: {.column width="40%"}
@@ -243,7 +236,9 @@ Think of parallel pipes. If 1 liter per second enters a T-junction, exactly 1 li
 :::::
 ::::::
 
-## The Math: Parallel Resistance
+## 🔥 Bonus — The Math: Parallel Resistance {background-color="#1C355E" .sdaia-dark}
+
+> For students who want to go deeper into the derivation.
 
 In a parallel circuit, resistors are connected across the same two nodes.
 
@@ -287,7 +282,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 ### The Derivation
 
 ::: {.incremental}
-1. Apply **Ohm’s Law** ($I = V/R$):
+1. Apply **Ohm's Law** ($I = V/R$):
    $I_1 = V/R_1, \quad I_2 = V/R_2 \dots$
 2. Substitute into KCL:
    $I_{total} = \frac{V}{R_1} + \frac{V}{R_2} \dots$
@@ -387,7 +382,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 
 :::
 
-## Case Study 1 — Option A: Series (Calculation) {background-color="#1C355E" .sdaia-dark .smaller}
+## 🔥 Bonus — Case Study 1: Series Calculation {background-color="#1C355E" .sdaia-dark}
 
 ### Step-by-Step Calculation
 
@@ -464,7 +459,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 
 :::
 
-## Case Study 1 — Option B: Parallel (Calculation) {background-color="#1C355E" .sdaia-dark .smaller}
+## 🔥 Bonus — Case Study 1: Parallel Calculation {background-color="#1C355E" .sdaia-dark}
 
 ### Step-by-Step Calculation
 
@@ -562,7 +557,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 
 :::
 
-## Case Study 2: Calculating the Resistor (Part 1) {background-color="#00C9A7" .sdaia-dark}
+## 🔥 Bonus — Case Study 2: Calculating the Resistor {background-color="#00C9A7" .sdaia-dark}
 
 ::: {.incremental}
 
@@ -573,12 +568,6 @@ with schemdraw.Drawing(canvas='svg') as d:
 2. **Step 2 — Apply Ohm's Law (find resistance)**
 
    $$R = \frac{V_R}{I} = \frac{3V}{0.02\,A} = \mathbf{150\,\Omega}$$
-
-:::
-
-## Case Study 2: Calculating the Resistor (Part 2) {background-color="#00C9A7" .sdaia-dark}
-
-::: {.incremental}
 
 3. **Step 3 — Verify current through the circuit**
 
@@ -680,7 +669,7 @@ Something is wired incorrectly, or a resistor is too small, allowing too much "f
 When a circuit doesn't work, don't just "wiggle the wires." Use the laws to find the invisible culprit.
 
 
-You’ve connected everything perfectly—or so you think—but the LED remains dark. 
+You've connected everything perfectly—or so you think—but the LED remains dark. 
 
 ::: {.incremental}
 1. **The KVL Scan (Source)**: Measure voltage at the battery. 
@@ -793,4 +782,3 @@ Wire the Rails first! Then you can pull power for your components from anywhere 
 :::::
 
 ::::::
-
