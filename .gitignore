@@ -3,3 +3,5 @@
 content/
 /.quarto/
 **/*.quarto_ipynb
+exports
+create_ai_context.py

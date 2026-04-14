@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(mkdir -p /c/Users/nayef/Desktop/intro-to-robotics/simulations/kirchhoff)",
+      "Bash(mkdir -p /c/Users/nayef/Desktop/intro-to-robotics/docs/simulations/kirchhoff)"
     ]
   }
 }
