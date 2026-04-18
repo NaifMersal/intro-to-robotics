@@ -4,7 +4,7 @@
         turbinePos: null,
         turbineAngle: 0,
         PARTICLE_COUNT: 650,
-        PARTICLE_RADIUS: 7,
+        PARTICLE_RADIUS: 5,
 
         start: function () {
             this.initEngine();

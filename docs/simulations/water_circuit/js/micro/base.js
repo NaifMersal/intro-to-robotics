@@ -16,7 +16,7 @@ const MicroBase = {
     VISIBLE_WIDTH: 800,   // Visually rendered area
     PIPE_THICKNESS: 200,
     WALL_VISUAL: 40,
-    PARTICLE_RADIUS: 9,
+    PARTICLE_RADIUS: 6,
     PARTICLE_COUNT: 650,
 
     initEngine: function() {

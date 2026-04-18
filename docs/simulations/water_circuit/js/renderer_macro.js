@@ -4,7 +4,7 @@
 
 const MacroRenderer = {
     particles: [],
-    NUM_PARTICLES: 50,
+    NUM_PARTICLES: 70,
     initialized: false,
 
     // ── Initialise flow particles ──────────────────────────────
@@ -13,9 +13,9 @@ const MacroRenderer = {
         for (let i = 0; i < this.NUM_PARTICLES; i++) {
             this.particles.push({
                 t: i / this.NUM_PARTICLES,
-                size: 2.5 + Math.random() * 3,
+                size: 1.5 + Math.random() * 2,
                 alpha: 0.55 + Math.random() * 0.45,
-                glow: 7 + Math.random() * 6,
+                glow: 4 + Math.random() * 4,
             });
         }
         this.initialized = true;

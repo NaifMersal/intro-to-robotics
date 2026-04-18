@@ -1902,5 +1902,145 @@
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Installing the Dabble Library",
     "text": "Installing the Dabble Library\nBefore we can write our code, we need to add the Dabble library to the Arduino IDE:\n\n📥 Download: Dabble-Arduino.zip\n\nIn the Arduino IDE, go to Sketch → Include Library → Add .ZIP Library… and select the file you just downloaded.\n\nAdding the Library"
+  },
+  {
+    "objectID": "slides/session3.html#todays-agenda",
+    "href": "slides/session3.html#todays-agenda",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Today’s Agenda",
+    "text": "Today’s Agenda\nPhase 1: Ultrasonic Sensors - Seeing like a bat 🦇 - Measuring distance & Reacting with LEDs\nPhase 2: Challenge 1: The Distance Indicator - Creating a 3-LED distance meter\nPhase 3: Potentiometers & Encoders - Reading the dial - The position encoder idea\nPhase 4: Servo Motor Basics - The precise turning machine - Wiring and sweeping\nPhase 5: Sensor + Servo Fusion - Building the “Radar” - Sweeping and sensing simultaneously\nPhase 6: Final Challenge - The Smart Alarm / Scanner"
+  },
+  {
+    "objectID": "slides/session3.html#what-is-a-servo-motor",
+    "href": "slides/session3.html#what-is-a-servo-motor",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "What is a Servo Motor?",
+    "text": "What is a Servo Motor?\nUnlike the DC motors that spin continuously round and round, a Servo Motor can be told to point at a specific angle (usually 0° to 180°).\n\nUse cases: Steering wheels, robotic arms, radar sweeps.\nInside: A tiny DC motor, gears, and a potentiometer to know its exact position."
+  },
+  {
+    "objectID": "slides/session3.html#wiring-the-servo",
+    "href": "slides/session3.html#wiring-the-servo",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Wiring the Servo 🔌",
+    "text": "Wiring the Servo 🔌\nThe SG90 micro-servo has 3 wires:\n\nBrown / Black Line: Ground (GND)\nRed Line: Power (5V)\nOrange / Yellow Line: Signal (Connect to a PWM pin like ~9)\n\n\n\n\n\n\n\nWarning\n\n\nAlways double-check the wire colors! Plugging power into the signal pin might damage the servo."
+  },
+  {
+    "objectID": "slides/session3.html#coding-the-servo-setup",
+    "href": "slides/session3.html#coding-the-servo-setup",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Coding the Servo: Setup",
+    "text": "Coding the Servo: Setup\nArduino has a built-in library for Servos! We don’t have to control the exact electrical pulses manually.\n#include &lt;Servo.h&gt;  // Include the library\n\nServo myServo;  // Create a servo object\n\nvoid setup() {\n  myServo.attach(9); // Tell Arduino the servo is on pin 9\n}\n\nvoid loop() {\n  // We'll add angles here\n}"
+  },
+  {
+    "objectID": "slides/session3.html#pointing-at-angles",
+    "href": "slides/session3.html#pointing-at-angles",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Pointing at Angles 📐",
+    "text": "Pointing at Angles 📐\nTo make it point, we use myServo.write(angle). The angle is between 0 and 180.\nvoid loop() {\n  myServo.write(0);      // Turn all the way right\n  delay(1000);           // Wait 1 second\n  \n  myServo.write(90);     // Turn to the middle\n  delay(1000);\n  \n  myServo.write(180);    // Turn all the way left\n  delay(1000);\n}\nActivity: Let’s wire this up and try making it point in 3 directions!"
+  },
+  {
+    "objectID": "slides/session3.html#the-sweep",
+    "href": "slides/session3.html#the-sweep",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "The “Sweep” 🧹",
+    "text": "The “Sweep” 🧹\nWhat if we want it to move smoothly from 0 to 180? We use a for loop to increase the angle slowly.\nvoid loop() {\n  // Sweep from 0 to 180 degrees\n  for (int pos = 0; pos &lt;= 180; pos += 1) { \n    myServo.write(pos);              \n    delay(15); // Wait 15ms for servo to reach position                      \n  }\n}"
+  },
+  {
+    "objectID": "slides/session3.html#how-does-it-work",
+    "href": "slides/session3.html#how-does-it-work",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "How does it work? 🦇",
+    "text": "How does it work? 🦇\nThe Ultrasonic Sensor (HC-SR04) works like a bat’s echolocation.\n\nIt sends out a high-frequency sound wave (Trigger).\nThe sound wave travels until it bounces off an object.\nThe sensor listens for the returning echo (Echo).\n\nBy measuring how long the sound takes to return, we calculate the exact distance!"
+  },
+  {
+    "objectID": "slides/session3.html#wiring-the-sensor",
+    "href": "slides/session3.html#wiring-the-sensor",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Wiring the Sensor 🔌",
+    "text": "Wiring the Sensor 🔌\nThe sensor has 4 pins:\n\nVCC: 5V Power\nGND: Ground\nTrig: Connect to digital pin (e.g., 10) - Sends the sound!\nEcho: Connect to digital pin (e.g., 11) - Hears the sound!"
+  },
+  {
+    "objectID": "slides/session3.html#coding-distance-the-logic",
+    "href": "slides/session3.html#coding-distance-the-logic",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Coding Distance: The Logic",
+    "text": "Coding Distance: The Logic\nconst int trigPin = 10;\nconst int echoPin = 11;\n\nvoid setup() {\n  Serial.begin(9600); // Start serial monitor\n  pinMode(trigPin, OUTPUT);\n  pinMode(echoPin, INPUT);\n}\n\nvoid loop() {\n  // We will add the logic here!\n}"
+  },
+  {
+    "objectID": "slides/session3.html#coding-distance-the-math",
+    "href": "slides/session3.html#coding-distance-the-math",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Coding Distance: The Math",
+    "text": "Coding Distance: The Math\nvoid loop() {\n  // Send a 10 microsecond pulse\n  digitalWrite(trigPin, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trigPin, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trigPin, LOW);\n\n  // Measure how long the Echo pin stays HIGH\n  long duration = pulseIn(echoPin, HIGH);\n\n  // Calculate distance in cm (Speed of sound)\n  int distance = duration * 0.034 / 2;\n  \n  Serial.print(\"Distance: \");\n  Serial.print(distance);\n  Serial.println(\" cm\");\n  \n  delay(500);\n}"
+  },
+  {
+    "objectID": "slides/session3.html#the-radar-build",
+    "href": "slides/session3.html#the-radar-build",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "The Radar Build 📡",
+    "text": "The Radar Build 📡\nNow, let’s physically attach the Ultrasonic Sensor to the top of the Servo horn.\n\nUse a small bracket or simply some double-sided tape/rubber band if needed.\nThis creates a rotating head that can “look around” the room without moving the whole base!"
+  },
+  {
+    "objectID": "slides/session3.html#the-radar-code-structure",
+    "href": "slides/session3.html#the-radar-code-structure",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "The Radar Code Structure",
+    "text": "The Radar Code Structure\nWe need to combine our two codes!\n\n#include &lt;Servo.h&gt;\nSetup Trigger, Echo, and Servo pins.\nIn loop(), command the servo to point to an angle (e.g., 30°), then pulse the sensor, and print the resulting distance!"
+  },
+  {
+    "objectID": "slides/session3.html#taking-readings-in-3-directions",
+    "href": "slides/session3.html#taking-readings-in-3-directions",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Taking Readings in 3 Directions",
+    "text": "Taking Readings in 3 Directions\nvoid loop() {\n  // Look Left\n  myServo.write(150); \n  delay(500);\n  // int leftDist = measureDistance(); ...\n  \n  // Look Center\n  myServo.write(90); \n  delay(500);\n  // int centerDist = measureDistance(); ...\n  \n  // Look Right\n  myServo.write(30); \n  delay(500);\n  // int rightDist = measureDistance(); ...\n}\n(Hint: Make the distance math a separate Helper Function!)"
+  },
+  {
+    "objectID": "slides/session3.html#the-smart-radar-challenge",
+    "href": "slides/session3.html#the-smart-radar-challenge",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "The Smart Radar Challenge 🚨",
+    "text": "The Smart Radar Challenge 🚨\nGoal: Create a security scanner!\n\nYour radar should continuously sweep back and forth (or check 3 main positions).\nIf it detects an object closer than 15 cm, it should “sound the alarm”!\nSimulate the alarm by lighting up an LED on Pin 13 or printing “INTRUDER ALERT” to the Serial Monitor rapidly.\n\nBonus (If you finish early)\n\nPrint where the intruder is! “Intruder detected on the LEFT!”"
+  },
+  {
+    "objectID": "slides/session3.html#reacting-to-distance",
+    "href": "slides/session3.html#reacting-to-distance",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Reacting to Distance 💡",
+    "text": "Reacting to Distance 💡\nLet’s add an LED to Pin 13 and turn it ON if an object gets closer than 10 cm!\nvoid loop() {\n  // ... (Distance Math code here) ...\n  \n  if (distance &lt; 10) {\n    digitalWrite(13, HIGH); // Turn LED ON\n  } else {\n    digitalWrite(13, LOW);  // Turn LED OFF\n  }\n  delay(100); // Wait a bit before next reading\n}"
+  },
+  {
+    "objectID": "slides/session3.html#the-3-led-distance-indicator",
+    "href": "slides/session3.html#the-3-led-distance-indicator",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "The 3-LED Distance Indicator 🚦",
+    "text": "The 3-LED Distance Indicator 🚦\nGoal: Create a visual distance indicator using 3 LEDs (e.g., Green, Yellow, Red).\n\nGreen LED: Turns on if the object is far (&gt; 20 cm)\nYellow LED: Turns on if the object is medium distance (between 10 cm and 20 cm)\nRed LED: Turns on if the object is very close (&lt; 10 cm)\n\nActivity: Wire 3 LEDs to different pins and write the if / else if / else logic!"
+  },
+  {
+    "objectID": "slides/session3.html#what-is-a-potentiometer",
+    "href": "slides/session3.html#what-is-a-potentiometer",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "What is a Potentiometer? 🎛️",
+    "text": "What is a Potentiometer? 🎛️\nBefore we make things move, we need to understand how machines “know” where they are.\nA Potentiometer (or “Pot”) is a dial or knob with a resistor inside. As you turn it, it changes the electrical resistance.\n\nThe Encoder Idea: By reading the voltage from the middle pin, Arduino knows exactly what angle the dial is at!\nDevices use this simple trick to encode physical position into data."
+  },
+  {
+    "objectID": "slides/session3.html#wiring-a-potentiometer",
+    "href": "slides/session3.html#wiring-a-potentiometer",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Wiring a Potentiometer",
+    "text": "Wiring a Potentiometer\nIt has 3 pins:\n\nVCC (5V) - One side\nGND - The other side\nSignal (Analog Out) - The middle pin. (Connect to A0)"
+  },
+  {
+    "objectID": "slides/session3.html#reading-the-position",
+    "href": "slides/session3.html#reading-the-position",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Reading the Position 👩‍💻",
+    "text": "Reading the Position 👩‍💻\nvoid setup() {\n  Serial.begin(9600); // Start the serial monitor\n}\n\nvoid loop() {\n  int position = analogRead(A0); // Read the pin\n  Serial.print(\"Dial Position: \");\n  Serial.println(position);      // Will show a number from 0 to 1023\n  delay(100);\n}\nThis exact mechanism is hidden inside our next component…"
+  },
+  {
+    "objectID": "slides/session3.html#the-distance-formula",
+    "href": "slides/session3.html#the-distance-formula",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "The Distance Formula 🧮",
+    "text": "The Distance Formula 🧮\nWhy is the calculation duration * 0.034 / 2 ?\n\nSpeed of Sound: Sound travels at about 343 meters per second (or 0.034 centimeters per microsecond).\nRound Trip: The sound pulse travels to the object AND bounces back. So, we must divide the total time by 2 to find just the distance to the object!"
   }
 ]

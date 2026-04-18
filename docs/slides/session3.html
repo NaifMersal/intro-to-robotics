@@ -9,8 +9,8 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <meta name="dcterms.date" content="2026-04-15">
-  <title>Session 3: IR Remote Control</title>
+  <meta name="dcterms.date" content="2026-04-18">
+  <title>Session 3: Building the Smart Radar</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -195,273 +195,304 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../slides_template/assets/anim.svg" data-background-opacity="0.08" data-background-size="cover" class="quarto-title-block center">
-  <h1 class="title">Session 3: IR Remote Control</h1>
-  <p class="subtitle">You Are the Controller</p>
+  <h1 class="title">Session 3: Building the Smart Radar</h1>
+  <p class="subtitle">Giving your project eyes and movement</p>
 
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-04-15</p>
+  <p class="date">2026-04-18</p>
 </section>
 <section>
 <section id="session-3" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
 <h1>Session 3</h1>
-<p>IR Remote Control — You Are the Controller 🎮</p>
+<p>The Smarter Machine: Sensors &amp; Servos 🧠🦾</p>
 </section>
-<section id="agenda" class="slide level2">
-<h2>Agenda</h2>
-<ul>
-<li><strong>Part 1</strong> — How Does a TV Remote Work?</li>
-<li><strong>Part 2</strong> — Decoding the Remote</li>
-<li><strong>Part 3</strong> — Mapping Buttons to Directions</li>
-<li><strong>Part 4</strong> — Make It Drive!</li>
-<li><strong>Part 5</strong> — Button-Map Worksheet</li>
-</ul>
+<section id="todays-agenda" class="slide level2">
+<h2>Today’s Agenda</h2>
+<p><strong>Phase 1: Ultrasonic Sensors</strong> - Seeing like a bat 🦇 - Measuring distance &amp; Reacting with LEDs</p>
+<p><strong>Phase 2: Challenge 1: The Distance Indicator</strong> - Creating a 3-LED distance meter</p>
+<p><strong>Phase 3: Potentiometers &amp; Encoders</strong> - Reading the dial - The position encoder idea</p>
+<p><strong>Phase 4: Servo Motor Basics</strong> - The precise turning machine - Wiring and sweeping</p>
+<p><strong>Phase 5: Sensor + Servo Fusion</strong> - Building the “Radar” - Sweeping and sensing simultaneously</p>
+<p><strong>Phase 6: Final Challenge</strong> - The Smart Alarm / Scanner</p>
 </section></section>
 <section>
-<section id="part-1-how-does-a-tv-remote-work" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 1 — How Does a TV Remote Work?</h1>
-
+<section id="phase-1-ultrasonic-sensors" class="title-slide slide level1 sdaia-dark center" data-background-color="#00C9A7">
+<h1>Phase 1: Ultrasonic Sensors</h1>
+<p>Giving your machine “eyes”.</p>
 </section>
-<section id="invisible-control" class="slide level2">
-<h2>Invisible Control</h2>
-<p>How does a TV remote talk to the TV? It blinks a light that we can’t see!</p>
+<section id="how-does-it-work" class="slide level2">
+<h2>How does it work? 🦇</h2>
+<p>The <strong>Ultrasonic Sensor (HC-SR04)</strong> works like a bat’s echolocation.</p>
+<ol type="1">
+<li>It sends out a high-frequency sound wave (<strong>Trigger</strong>).</li>
+<li>The sound wave travels until it bounces off an object.</li>
+<li>The sensor listens for the returning echo (<strong>Echo</strong>).</li>
+</ol>
+<p>By measuring <strong>how long</strong> the sound takes to return, we calculate the exact distance!</p>
+
+<img data-src="assets/ultrasonic_simple_diagram.png" style="width:50.0%" class="r-stretch"></section>
+<section id="wiring-the-sensor" class="slide level2">
+<h2>Wiring the Sensor 🔌</h2>
+<p>The sensor has 4 pins:</p>
 <ul>
-<li><strong>Infrared (IR)</strong> is light with a frequency lower than red light.</li>
-<li>Our eyes can’t see it, but the robot’s secondary “electronic eye” can.</li>
-<li>It’s like a flashlight sending a secret <strong>Morse code</strong> at high speed.</li>
+<li><strong>VCC:</strong> 5V Power</li>
+<li><strong>GND:</strong> Ground</li>
+<li><strong>Trig:</strong> Connect to digital pin (e.g., <code>10</code>) - Sends the sound!</li>
+<li><strong>Echo:</strong> Connect to digital pin (e.g., <code>11</code>) - Hears the sound!</li>
 </ul>
 </section>
-<section id="the-hardware" class="slide level2">
-<h2>The Hardware</h2>
-<p>To receive signals, we use an <strong>IR Receiver Module</strong>.</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Connections:</strong></p>
-<ol type="1">
-<li><strong>GND</strong> → GND</li>
-<li><strong>VCC</strong> → 5V</li>
-<li><strong>Signal</strong> → <strong>Pin 2</strong> (Digital)</li>
-</ol>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../../assets/ir_remote.png"></p>
-<figcaption>IR Receiver Attachment</figcaption>
-</figure>
-</div>
-</div></div>
+<section id="coding-distance-the-logic" class="slide level2">
+<h2>Coding Distance: The Logic</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="at">const</span> <span class="dt">int</span> trigPin <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb1-2"><a></a><span class="at">const</span> <span class="dt">int</span> echoPin <span class="op">=</span> <span class="dv">11</span><span class="op">;</span></span>
+<span id="cb1-3"><a></a></span>
+<span id="cb1-4"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-5"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> <span class="co">// Start serial monitor</span></span>
+<span id="cb1-6"><a></a>  pinMode<span class="op">(</span>trigPin<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb1-7"><a></a>  pinMode<span class="op">(</span>echoPin<span class="op">,</span> INPUT<span class="op">);</span></span>
+<span id="cb1-8"><a></a><span class="op">}</span></span>
+<span id="cb1-9"><a></a></span>
+<span id="cb1-10"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-11"><a></a>  <span class="co">// We will add the logic here!</span></span>
+<span id="cb1-12"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="activity-ir-intuition" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Activity: IR Intuition</h2>
-<p><strong>Can you see the invisible light?</strong></p>
+<section id="the-distance-formula" class="slide level2">
+<h2>The Distance Formula 🧮</h2>
+<p>Why is the calculation <code>duration * 0.034 / 2</code> ?</p>
 <ol type="1">
-<li>Take your phone camera.</li>
-<li>Point the IR Remote at the camera lens.</li>
-<li>Press a button.</li>
-<li><strong>Look at the screen!</strong> Do you see a purple/pink blink?</li>
+<li><strong>Speed of Sound:</strong> Sound travels at about <strong>343 meters per second</strong> (or <strong>0.034 centimeters per microsecond</strong>).</li>
+<li><strong>Round Trip:</strong> The sound pulse travels to the object AND bounces back. So, we must divide the total time by <strong>2</strong> to find just the distance <em>to</em> the object!</li>
 </ol>
-<blockquote>
-<p><strong>Why?</strong> Digital cameras can “see” slightly more of the spectrum than human eyes.</p>
-</blockquote>
+
+<img data-src="assets/ultrasonic_sensor_logic.png" style="width:60.0%" class="r-stretch"></section>
+<section id="coding-distance-the-math" class="slide level2">
+<h2>Coding Distance: The Math</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-2"><a></a>  <span class="co">// Send a 10 microsecond pulse</span></span>
+<span id="cb2-3"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb2-4"><a></a>  delayMicroseconds<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb2-5"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb2-6"><a></a>  delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb2-7"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb2-8"><a></a></span>
+<span id="cb2-9"><a></a>  <span class="co">// Measure how long the Echo pin stays HIGH</span></span>
+<span id="cb2-10"><a></a>  <span class="dt">long</span> duration <span class="op">=</span> pulseIn<span class="op">(</span>echoPin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb2-11"><a></a></span>
+<span id="cb2-12"><a></a>  <span class="co">// Calculate distance in cm (Speed of sound)</span></span>
+<span id="cb2-13"><a></a>  <span class="dt">int</span> distance <span class="op">=</span> duration <span class="op">*</span> <span class="fl">0.034</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-14"><a></a>  </span>
+<span id="cb2-15"><a></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Distance: "</span><span class="op">);</span></span>
+<span id="cb2-16"><a></a>  Serial<span class="op">.</span>print<span class="op">(</span>distance<span class="op">);</span></span>
+<span id="cb2-17"><a></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">" cm"</span><span class="op">);</span></span>
+<span id="cb2-18"><a></a>  </span>
+<span id="cb2-19"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb2-20"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="reacting-to-distance" class="slide level2">
+<h2>Reacting to Distance 💡</h2>
+<p>Let’s add an LED to Pin <code>13</code> and turn it ON if an object gets closer than 10 cm!</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-2"><a></a>  <span class="co">// ... (Distance Math code here) ...</span></span>
+<span id="cb3-3"><a></a>  </span>
+<span id="cb3-4"><a></a>  <span class="cf">if</span> <span class="op">(</span>distance <span class="op">&lt;</span> <span class="dv">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-5"><a></a>    digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Turn LED ON</span></span>
+<span id="cb3-6"><a></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-7"><a></a>    digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span>  <span class="co">// Turn LED OFF</span></span>
+<span id="cb3-8"><a></a>  <span class="op">}</span></span>
+<span id="cb3-9"><a></a>  delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span> <span class="co">// Wait a bit before next reading</span></span>
+<span id="cb3-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
-<section id="part-2-decoding-the-remote" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 2 — Decoding the Remote</h1>
-
+<section id="phase-2-challenge-1" class="title-slide slide level1 sdaia-dark center" data-background-color="#E84A5F">
+<h1>Phase 2: Challenge 1</h1>
+<p>The Proximity Meter 🚥</p>
 </section>
-<section id="setup-the-library" class="slide level2">
-<h2>Setup the Library</h2>
-<p>Every robot needs a “dictionary” to understand IR. We use the <strong>IRremote</strong> library.</p>
-<ol type="1">
-<li>Go to <strong>Tools &gt; Manage Libraries…</strong></li>
-<li>Search for: <strong>IRremote</strong></li>
-<li>Install the version by <strong>Armin Joachimsmeyer</strong> (v3.0 or higher).</li>
-</ol>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Protocol Check</strong></p>
-</div>
-<div class="callout-content">
-<p>The Keyestudio remote uses the <strong>NEC Protocol</strong>. The library will handle this for us automatically!</p>
-</div>
-</div>
-</div>
-</section>
-<section id="activity-scanning-for-codes" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Activity: Scanning for Codes</h2>
-<p>Before we control the car, we need to know what “numbers” your buttons send.</p>
-<ol type="1">
-<li>Open Arduino IDE.</li>
-<li>Go to <strong>File &gt; Examples &gt; IRremote &gt; SimpleReceiver</strong>.</li>
-<li>Change <code>IR_RECEIVE_PIN</code> to <strong>2</strong>.</li>
-<li>Open the <strong>Serial Monitor</strong> (115200 baud).</li>
-<li>Press buttons and <strong>write down the HEX codes</strong> for:
+<section id="the-3-led-distance-indicator" class="slide level2">
+<h2>The 3-LED Distance Indicator 🚦</h2>
+<p><strong>Goal:</strong> Create a visual distance indicator using 3 LEDs (e.g., Green, Yellow, Red).</p>
 <ul>
-<li>Up Arrow (▲)</li>
-<li>Down Arrow (▼)</li>
-<li>Left Arrow (◄)</li>
-<li>Right Arrow (►)</li>
-<li>OK / Stop</li>
-</ul></li>
-</ol>
-</section>
-<section id="what-are-those-codes" class="slide level2">
-<h2>What are those codes?</h2>
-<p>When you press a button, the remote sends a number like <code>0xFF18E7</code>.</p>
-<ul>
-<li>This is a <strong>HEXADECIMAL</strong> number (Base-16).</li>
-<li>It’s like a unique ID for that specific button.</li>
-<li>If you use a different remote, the numbers will be different!</li>
+<li><strong>Green LED:</strong> Turns on if the object is far (&gt; 20 cm)</li>
+<li><strong>Yellow LED:</strong> Turns on if the object is medium distance (between 10 cm and 20 cm)</li>
+<li><strong>Red LED:</strong> Turns on if the object is very close (&lt; 10 cm)</li>
 </ul>
+<p><strong>Activity:</strong> Wire 3 LEDs to different pins and write the <code>if / else if / else</code> logic!</p>
 </section></section>
 <section>
-<section id="part-3-mapping-buttons-to-directions" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 3 — Mapping Buttons to Directions</h1>
+<section id="phase-3-potentiometers-encoders" class="title-slide slide level1 sdaia-dark center" data-background-color="#1C355E">
+<h1>Phase 3: Potentiometers &amp; Encoders</h1>
+<p>Understanding how machines know their position.</p>
+</section>
+<section id="what-is-a-potentiometer" class="slide level2">
+<h2>What is a Potentiometer? 🎛️</h2>
+<p>Before we make things move, we need to understand how machines “know” where they are.</p>
+<p>A <strong>Potentiometer</strong> (or “Pot”) is a dial or knob with a resistor inside. As you turn it, it changes the electrical resistance.</p>
+<ul>
+<li><strong>The Encoder Idea:</strong> By reading the voltage from the middle pin, Arduino knows exactly what angle the dial is at!</li>
+<li>Devices use this simple trick to encode physical position into data.</li>
+</ul>
 
+<img data-src="assets/potentiometer_simple_diagram.png" style="width:60.0%" class="r-stretch"></section>
+<section id="wiring-a-potentiometer" class="slide level2">
+<h2>Wiring a Potentiometer</h2>
+<p>It has 3 pins:</p>
+<ol type="1">
+<li><strong>VCC (5V)</strong> - One side</li>
+<li><strong>GND</strong> - The other side</li>
+<li><strong>Signal (Analog Out)</strong> - The middle pin. (Connect to <code>A0</code>)</li>
+</ol>
 </section>
-<section id="the-logic-switch-statements" class="slide level2">
-<h2>The Logic: <code>switch</code> Statements</h2>
-<p>Instead of using many <code>if</code> statements, we use a <code>switch</code> to handle many buttons easily.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="dt">void</span> handleCommand<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">long</span> cmd<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-2"><a></a>  <span class="cf">switch</span> <span class="op">(</span>cmd<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-3"><a></a>    <span class="cf">case</span> <span class="bn">0xFF18E7</span><span class="op">:</span> <span class="co">// Replace with YOUR 'UP' code</span></span>
-<span id="cb1-4"><a></a>      forward<span class="op">();</span></span>
-<span id="cb1-5"><a></a>      <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb1-6"><a></a>    <span class="cf">case</span> <span class="bn">0xFF4AB5</span><span class="op">:</span> <span class="co">// Replace with YOUR 'DOWN' code</span></span>
-<span id="cb1-7"><a></a>      backward<span class="op">();</span></span>
-<span id="cb1-8"><a></a>      <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb1-9"><a></a>    <span class="cf">case</span> <span class="bn">0xFF38C7</span><span class="op">:</span> <span class="co">// Replace with YOUR 'OK' code</span></span>
-<span id="cb1-10"><a></a>      stopCar<span class="op">();</span></span>
-<span id="cb1-11"><a></a>      <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb1-12"><a></a>  <span class="op">}</span></span>
-<span id="cb1-13"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="reading-the-position" class="slide level2">
+<h2>Reading the Position 👩‍💻</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-2"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> <span class="co">// Start the serial monitor</span></span>
+<span id="cb4-3"><a></a><span class="op">}</span></span>
+<span id="cb4-4"><a></a></span>
+<span id="cb4-5"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-6"><a></a>  <span class="dt">int</span> position <span class="op">=</span> analogRead<span class="op">(</span>A0<span class="op">);</span> <span class="co">// Read the pin</span></span>
+<span id="cb4-7"><a></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Dial Position: "</span><span class="op">);</span></span>
+<span id="cb4-8"><a></a>  Serial<span class="op">.</span>println<span class="op">(</span>position<span class="op">);</span>      <span class="co">// Will show a number from 0 to 1023</span></span>
+<span id="cb4-9"><a></a>  delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
+<span id="cb4-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This <em>exact</em> mechanism is hidden inside our next component…</p>
+</section></section>
+<section>
+<section id="phase-4-servo-motor-basics" class="title-slide slide level1 sdaia-dark center" data-background-color="#1C355E">
+<h1>Phase 4: Servo Motor Basics</h1>
+<p>Precise, angle-based movement.</p>
 </section>
-<section id="setup-loop" class="slide level2">
-<h2>Setup &amp; Loop</h2>
-<p>We need to tell the robot to “listen” at the start and “resume” after every signal.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="pp">#include </span><span class="im">&lt;IRremote.hpp&gt;</span></span>
-<span id="cb2-2"><a></a><span class="pp">#define IR_RECEIVE_PIN </span><span class="dv">2</span></span>
-<span id="cb2-3"><a></a></span>
-<span id="cb2-4"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-5"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
-<span id="cb2-6"><a></a>  IrReceiver<span class="op">.</span>begin<span class="op">(</span>IR_RECEIVE_PIN<span class="op">,</span> ENABLE_LED_FEEDBACK<span class="op">);</span></span>
-<span id="cb2-7"><a></a>  <span class="co">// ... usual motor setup goes here ...</span></span>
-<span id="cb2-8"><a></a><span class="op">}</span></span>
-<span id="cb2-9"><a></a></span>
-<span id="cb2-10"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-11"><a></a>  <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decode<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb2-12"><a></a>    <span class="dt">unsigned</span> <span class="dt">long</span> cmd <span class="op">=</span> IrReceiver<span class="op">.</span>decodedIRData<span class="op">.</span>decodedRawData<span class="op">;</span></span>
-<span id="cb2-13"><a></a>    Serial<span class="op">.</span>println<span class="op">(</span>cmd<span class="op">,</span> HEX<span class="op">);</span> </span>
-<span id="cb2-14"><a></a>    </span>
-<span id="cb2-15"><a></a>    handleCommand<span class="op">(</span>cmd<span class="op">);</span> <span class="co">// Run our logic</span></span>
-<span id="cb2-16"><a></a>    </span>
-<span id="cb2-17"><a></a>    IrReceiver<span class="op">.</span>resume<span class="op">();</span> <span class="co">// Ready for next signal</span></span>
-<span id="cb2-18"><a></a>  <span class="op">}</span></span>
-<span id="cb2-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="brainstorming-the-stickiness-problem" class="slide level2">
-<h2>Brainstorming: The “Stickiness” Problem</h2>
+<section id="what-is-a-servo-motor" class="slide level2">
+<h2>What is a Servo Motor?</h2>
+<p>Unlike the DC motors that spin continuously round and round, a <strong>Servo Motor</strong> can be told to point at a specific angle (usually 0° to 180°).</p>
+<ul>
+<li><strong>Use cases:</strong> Steering wheels, robotic arms, radar sweeps.</li>
+<li><strong>Inside:</strong> A tiny DC motor, gears, and a potentiometer to know its exact position.</li>
+</ul>
+
+<img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Servo_motor_%28SG90%29.jpg/800px-Servo_motor_%28SG90%29.jpg" style="width:40.0%" class="r-stretch"></section>
+<section id="wiring-the-servo" class="slide level2">
+<h2>Wiring the Servo 🔌</h2>
+<p>The SG90 micro-servo has 3 wires:</p>
+<ol type="1">
+<li><strong>Brown / Black Line:</strong> Ground (GND)</li>
+<li><strong>Red Line:</strong> Power (5V)</li>
+<li><strong>Orange / Yellow Line:</strong> Signal (Connect to a PWM pin like <code>~9</code>)</li>
+</ol>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Problem</strong></p>
+<p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
-<p>If you press “Forward” once, the robot starts moving. But if you let go, it <strong>keeps moving</strong>! Why?</p>
+<p>Always double-check the wire colors! Plugging power into the signal pin might damage the servo.</p>
 </div>
 </div>
 </div>
-<ul>
-<li>The IR remote only sends a signal when it’s pressed.</li>
-<li>The Robot doesn’t know you let go unless you tell it.</li>
-<li><strong>Solution Ideas:</strong>
-<ol type="1">
-<li>Add a dedicated “Stop” button.</li>
-<li>Use a timer (if no signal for 0.5s, stop).</li>
-<li>(Advanced) Check for the “Repeat” code (<code>0xFFFFFFFF</code>).</li>
-</ol></li>
-</ul>
+</section>
+<section id="coding-the-servo-setup" class="slide level2">
+<h2>Coding the Servo: Setup</h2>
+<p>Arduino has a built-in library for Servos! We don’t have to control the exact electrical pulses manually.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a></a><span class="pp">#include </span><span class="im">&lt;Servo.h&gt;</span><span class="pp">  </span><span class="co">// Include the library</span></span>
+<span id="cb5-2"><a></a></span>
+<span id="cb5-3"><a></a>Servo myServo<span class="op">;</span>  <span class="co">// Create a servo object</span></span>
+<span id="cb5-4"><a></a></span>
+<span id="cb5-5"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-6"><a></a>  myServo<span class="op">.</span>attach<span class="op">(</span><span class="dv">9</span><span class="op">);</span> <span class="co">// Tell Arduino the servo is on pin 9</span></span>
+<span id="cb5-7"><a></a><span class="op">}</span></span>
+<span id="cb5-8"><a></a></span>
+<span id="cb5-9"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-10"><a></a>  <span class="co">// We'll add angles here</span></span>
+<span id="cb5-11"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pointing-at-angles" class="slide level2">
+<h2>Pointing at Angles 📐</h2>
+<p>To make it point, we use <code>myServo.write(angle)</code>. The angle is between 0 and 180.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-2"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">0</span><span class="op">);</span>      <span class="co">// Turn all the way right</span></span>
+<span id="cb6-3"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span>           <span class="co">// Wait 1 second</span></span>
+<span id="cb6-4"><a></a>  </span>
+<span id="cb6-5"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">90</span><span class="op">);</span>     <span class="co">// Turn to the middle</span></span>
+<span id="cb6-6"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb6-7"><a></a>  </span>
+<span id="cb6-8"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">180</span><span class="op">);</span>    <span class="co">// Turn all the way left</span></span>
+<span id="cb6-9"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb6-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Activity:</strong> Let’s wire this up and try making it point in 3 directions!</p>
+</section>
+<section id="the-sweep" class="slide level2">
+<h2>The “Sweep” 🧹</h2>
+<p>What if we want it to move smoothly from 0 to 180? We use a <strong><code>for</code> loop</strong> to increase the angle slowly.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-2"><a></a>  <span class="co">// Sweep from 0 to 180 degrees</span></span>
+<span id="cb7-3"><a></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> pos <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> pos <span class="op">&lt;=</span> <span class="dv">180</span><span class="op">;</span> pos <span class="op">+=</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span> </span>
+<span id="cb7-4"><a></a>    myServo<span class="op">.</span>write<span class="op">(</span>pos<span class="op">);</span>              </span>
+<span id="cb7-5"><a></a>    delay<span class="op">(</span><span class="dv">15</span><span class="op">);</span> <span class="co">// Wait 15ms for servo to reach position                      </span></span>
+<span id="cb7-6"><a></a>  <span class="op">}</span></span>
+<span id="cb7-7"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
-<section id="part-4-make-it-drive" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 4 — Make It Drive!</h1>
-
+<section id="phase-5-sensor-servo-fusion" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Phase 5: Sensor + Servo Fusion</h1>
+<p>Building our Radar!</p>
 </section>
-<section id="activity-full-control" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Activity: Full Control</h2>
-<p>Integrate your code from Session 2!</p>
+<section id="the-radar-build" class="slide level2">
+<h2>The Radar Build 📡</h2>
+<p>Now, let’s physically attach the Ultrasonic Sensor to the top of the Servo horn.</p>
+<ul>
+<li>Use a small bracket or simply some double-sided tape/rubber band if needed.</li>
+<li>This creates a rotating head that can “look around” the room without moving the whole base!</li>
+</ul>
+</section>
+<section id="the-radar-code-structure" class="slide level2">
+<h2>The Radar Code Structure</h2>
+<p>We need to combine our two codes!</p>
 <ol type="1">
-<li>Copy your <code>forward()</code>, <code>backward()</code>, <code>left()</code>, <code>right()</code>, and <code>stopCar()</code> functions.</li>
-<li>Put them in your IR sketch.</li>
-<li>Map them in your <code>switch</code> statement.</li>
-<li><strong>Challenge:</strong> Try to drive your car around a chair using ONLY the remote.</li>
+<li><code>#include &lt;Servo.h&gt;</code></li>
+<li>Setup Trigger, Echo, and Servo pins.</li>
+<li>In <code>loop()</code>, command the servo to point to an angle (e.g., <code>30°</code>), then pulse the sensor, and print the resulting distance!</li>
 </ol>
 </section>
-<section id="bonus-activity-speed-modes" class="slide level2">
-<h2>🔥 Bonus Activity: Speed Modes</h2>
-<p>What if you want to go slow for careful turns and fast for the straightaways?</p>
-<ol type="1">
-<li>Map button <strong>1</strong> to “Slow” and button <strong>2</strong> to “Fast”.</li>
-<li>Create a global variable: <code>int currentSpeed = 150;</code></li>
-<li>Update your <code>handleCommand</code>:</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a></a><span class="cf">case</span> <span class="bn">0xFF30CF</span><span class="op">:</span> <span class="co">// Button 1</span></span>
-<span id="cb3-2"><a></a>  currentSpeed <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> <span class="co">// Slow</span></span>
-<span id="cb3-3"><a></a>  <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb3-4"><a></a><span class="cf">case</span> <span class="bn">0xFF18E7</span><span class="op">:</span> <span class="co">// Button 2</span></span>
-<span id="cb3-5"><a></a>  currentSpeed <span class="op">=</span> <span class="dv">255</span><span class="op">;</span> <span class="co">// FAST!</span></span>
-<span id="cb3-6"><a></a>  <span class="cf">break</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="4" type="1">
-<li>Change your movement functions to use <code>currentSpeed</code> instead of a fixed number: <code>analogWrite(ENA, currentSpeed);</code></li>
-</ol>
+<section id="taking-readings-in-3-directions" class="slide level2">
+<h2>Taking Readings in 3 Directions</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-2"><a></a>  <span class="co">// Look Left</span></span>
+<span id="cb8-3"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">150</span><span class="op">);</span> </span>
+<span id="cb8-4"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb8-5"><a></a>  <span class="co">// int leftDist = measureDistance(); ...</span></span>
+<span id="cb8-6"><a></a>  </span>
+<span id="cb8-7"><a></a>  <span class="co">// Look Center</span></span>
+<span id="cb8-8"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">90</span><span class="op">);</span> </span>
+<span id="cb8-9"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb8-10"><a></a>  <span class="co">// int centerDist = measureDistance(); ...</span></span>
+<span id="cb8-11"><a></a>  </span>
+<span id="cb8-12"><a></a>  <span class="co">// Look Right</span></span>
+<span id="cb8-13"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">30</span><span class="op">);</span> </span>
+<span id="cb8-14"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb8-15"><a></a>  <span class="co">// int rightDist = measureDistance(); ...</span></span>
+<span id="cb8-16"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>(Hint: Make the distance math a separate Helper Function!)</em></p>
 </section></section>
 <section>
-<section id="part-5-button-map-worksheet" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 5 — Button-Map Worksheet</h1>
-
+<section id="phase-6-final-challenge" class="title-slide slide level1 sdaia-dark center" data-background-color="#E84A5F">
+<h1>Phase 6: Final Challenge</h1>
+<p>The Smart Alarm</p>
 </section>
-<section id="documentation-mapping-your-controls" class="slide level2">
-<h2>Documentation: Mapping Your Controls</h2>
-<p>For your <strong>Home Showcase</strong>, you need to be able to tell your family how to drive your robot!</p>
+<section id="the-smart-radar-challenge" class="slide level2">
+<h2>The Smart Radar Challenge 🚨</h2>
+<p><strong>Goal:</strong> Create a security scanner!</p>
 <ol type="1">
-<li>Take your physical <strong>Button-Map Worksheet</strong>.</li>
-<li>For every button you programmed, write down:
-<ul>
-<li>The Hex Code (e.g., <code>0xFF38C7</code>)</li>
-<li>The Action (e.g., <code>Stop</code>)</li>
-<li>The Button Symbol (e.g., <code>OK</code>)</li>
-</ul></li>
+<li>Your radar should continuously sweep back and forth (or check 3 main positions).</li>
+<li>If it detects an object closer than <strong>15 cm</strong>, it should “sound the alarm”!</li>
+<li><em>Simulate the alarm by lighting up an LED on Pin 13 or printing “INTRUDER ALERT” to the Serial Monitor rapidly.</em></li>
 </ol>
-<blockquote>
-<p><strong>Why?</strong> Good engineers always document their work so others can use it.</p>
-</blockquote>
-</section>
-<section id="curiosity-challenge-the-horn" class="slide level2">
-<h2>💡 Curiosity Challenge: The Horn</h2>
-<p>Can you make one button trigger a “Beep” like a car horn?</p>
+<h3 id="bonus-if-you-finish-early">Bonus (If you finish early)</h3>
 <ul>
-<li><strong>Hardware:</strong> Connect a buzzer to Pin 13 (built-in LED pin works too!).</li>
-<li><strong>Goal:</strong> Press button “0” to make the car honk.</li>
-<li><strong>AI Help:</strong> Ask AI: <em>“How do I make a buzzer beep for 0.5 seconds on pin 13 using the tone command?”</em></li>
+<li>Print where the intruder is! “Intruder detected on the LEFT!”</li>
 </ul>
-</section>
-<section id="closing-whats-next" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Closing: What’s Next?</h2>
-<p><strong>Congratulations!</strong> You now have a remote-controlled robot.</p>
-<ul>
-<li>What other buttons could we use?</li>
-<li>Could we make the car do a “Victory Dance” when we press a special button?</li>
-<li>Could we turn lights on and off remotely?</li>
-</ul>
-<p><strong>Next Session:</strong> We give the car “Eyes” (Ultrasonic sensors) so it can see obstacles!</p>
 
 
 </section></section>
