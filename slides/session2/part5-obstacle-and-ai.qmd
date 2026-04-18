@@ -1,0 +1,48 @@
+# Part 7 — Obstacle Course & AI Demo {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Obstacle Course Challenge
+
+There is a maze taped out on the floor.
+
+**Your Mission:**
+
+1. Place your car at the START line.
+2. Use your newly built **IR Remote Control** program to navigate the maze.
+3. If you crash, you have to start over!
+4. Who can get the fastest time?
+
+## Automating with AI {background-color="#00C9A7" .sdaia-dark}
+
+What if you didn't *want* to use the remote? We can ask AI to write a hardcoded path for us.
+
+**Instructor Demo:** Using AI to generate a "Complex Movement Sequence."
+
+Watch as your instructor types: 
+*"Write an Arduino loop that makes my car drive in a Figure-8 pattern. It should go forward, curve right, go forward, curve left, and repeat."*
+
+::: {.callout-tip}
+## What to notice
+Does the AI-generated code work on the first try? Usually we need to tweak the `delay()` timings for our specific floor!
+:::
+
+## 🔥 Bonus: Custom Movement Patterns {background-color="#1C355E" .sdaia-dark}
+
+Can you combine remote control with automatic patterns?
+
+**Challenge:** Map the "OK" button on your remote to trigger an automatic victory dance!
+
+- **Example Pattern:** Quick spin right, reverse, then spin left.
+- Use `delay()` to control how long each movement lasts during the dance.
+- When you press OK, the car temporarily ignores other buttons and performs the sequence.
+
+::: {.callout-tip}
+## Example Code
+```cpp
+void victoryDance() {
+  turnRight(); delay(300);  // Quick spin right
+  backward();  delay(500);  // Back it up
+  turnLeft();  delay(300);  // Quick spin left
+  stopCar();
+}
+```
+:::

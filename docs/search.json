@@ -550,7 +550,7 @@
     "href": "slides/session1.html#ways-to-use-ai-in-this-course",
     "title": "Session 1: Electricity is Magic",
     "section": "4 Ways to Use AI in This Course",
-    "text": "4 Ways to Use AI in This Course\nIn this course, AI is like a knowledgeable friend — it can help you think, but you still need to test the robot yourself.\n\nExplain — “What does pinMode(13, OUTPUT) actually do? Explain it simply.”\nDebug — “My LED won’t light up. Here is my code. What might be wrong?”\nExtend — “My traffic light works. How do I make the yellow light blink slowly?”\nGenerate — “Write code to set up 3 LED pins on an Arduino Uno.”\n\n\n\n\n\n\n\nAlways Test It!\n\n\nAI can make mistakes. Never trust AI code without uploading it and seeing it run.\n\n\n\nSetup: Open Claude or ChatGPT · Log in to your assigned account · First prompt: “I’m learning Arduino. Can you explain what digitalWrite does using a simple analogy?”"
+    "text": "4 Ways to Use AI in This Course\n\nExplain — “What does pinMode(13, OUTPUT) actually do? Explain it simply.”\nDebug — “My LED won’t light up. Here is my code. What might be wrong?”\nExtend — “My traffic light works. How do I make the yellow light blink slowly?”\nGenerate — “Write code to set up 3 LED pins on an Arduino Uno.”\n\n\n\n\n\n\n\nAlways Test It!\n\n\nAI can make mistakes. Never trust AI code without uploading it and seeing it run.\n\n\n\nSetup: Open Claude or ChatGPT · Log in to your assigned account · First prompt: “I’m learning Arduino. Can you explain what digitalWrite does using a simple analogy?”"
   },
   {
     "objectID": "slides/session1.html#questions",
@@ -968,21 +968,21 @@
   {
     "objectID": "slides/session2.html#agenda",
     "href": "slides/session2.html#agenda",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Agenda",
-    "text": "Agenda\n\nPart 1 — The Danger of Motors\nPart 2 — Tinkercad Simulation\nPart 3 — The Physical Build\nPart 4 — Programming Movement\nPart 5 — The IR Remote\nPart 6 — Obstacle Course & AI Demo\nPart 7 — Problem Patterns (Closing)"
+    "text": "Agenda\nPhase 1: Getting It Moving\n\nPart 1 — The Danger of Motors\nPart 2 — The Physical Build\nPart 3 — Programming Movement\n\nPhase 2: Adding the Remote\n\nPart 4 (BT) — The Bluetooth Module\nPart 5 (BT) — App Driving\n\nPhase 3: The Challenge\n\nPart 7/8 — Obstacle Course Challenge\nPart 8/9 — Problem Patterns (Closing)"
   },
   {
     "objectID": "slides/session2.html#the-muscle-vs-the-brain",
     "href": "slides/session2.html#the-muscle-vs-the-brain",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "The “Muscle” vs The “Brain”",
     "text": "The “Muscle” vs The “Brain”\nWe learned that the Arduino is the Brain (it sends 0s and 1s using low-voltage signals).\nMotors are the Muscles. They require a large flow of electricity (current) to generate magnetic fields strong enough to spin wheels.\n\nLED Requires: ~20 milliAmps (mA)\nArduino Pin Maximum: ~40 milliAmps (mA)\nDC Motor Requires: ~500 to 1,000+ milliAmps (mA)"
   },
   {
     "objectID": "slides/session2.html#rule-1-of-robotics",
     "href": "slides/session2.html#rule-1-of-robotics",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Rule #1 of Robotics",
     "text": "Rule #1 of Robotics\n\n\n\n\n\n\nNever Power a Motor Directly From an Arduino Pin!\n\n\nIf you try to draw 1,000 mA from a pin designed to supply only 40 mA, you will instantly melt the internal circuitry of the Arduino chip.\n\n\n\n\nThink of it like trying to fill a swimming pool using a drinking straw. The pressure will destroy the straw."
   },
@@ -996,107 +996,107 @@
   {
     "objectID": "slides/session2.html#why-we-simulate-before-we-build",
     "href": "slides/session2.html#why-we-simulate-before-we-build",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move",
     "section": "Why we simulate before we build",
     "text": "Why we simulate before we build\nWiring a motor driver wrong can short-circuit the battery or blow up components. We will use Tinkercad to wire our first virtual motor driver. If we make a mistake, we only blow up pixels!\n\n\n\n\n\n\nYour Task\n\n\nGo to tinkercad.com/circuits and start a new project."
   },
   {
     "objectID": "slides/session2.html#wiring-the-l298n-motor-driver",
     "href": "slides/session2.html#wiring-the-l298n-motor-driver",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move",
     "section": "Wiring the L298N Motor Driver",
     "text": "Wiring the L298N Motor Driver\n\n\nWe need to connect 3 types of wires:\n\nPower In: Battery + to 12V, Battery - to GND.\nMotor Out: Motor wires to OUT1 and OUT2.\nLogic In: IN1 (Pin 9), IN2 (Pin 10), and ENA (Pin 11).\n\nAnd crucially, Arduino GND must connect to the Battery GND so they share the same 0V reference!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWait, what is 12V vs 5V?\n\n\nThe driver takes the strong battery power (up to 12V) on one side, and the safe 5V logic signals from the Arduino on the other side."
   },
   {
     "objectID": "slides/session2.html#writing-the-tinkercad-code",
     "href": "slides/session2.html#writing-the-tinkercad-code",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move",
     "section": "Writing the Tinkercad Code",
     "text": "Writing the Tinkercad Code\nOnce wired, let’s write the code to spin the motor. We use the exact same digitalWrite commands we learned for LEDs.\nvoid setup() {\n  pinMode(9, OUTPUT);  // IN1\n  pinMode(10, OUTPUT); // IN2\n  pinMode(11, OUTPUT); // ENA (Speed)\n}\n\nvoid loop() {\n  // Spin Forward at half speed\n  digitalWrite(9, HIGH);\n  digitalWrite(10, LOW);\n  analogWrite(11, 150); \n  delay(1000);\n\n  // Stop completely\n  digitalWrite(9, LOW);\n  digitalWrite(10, LOW);\n  analogWrite(11, 0);\n  delay(1000);\n}"
   },
   {
     "objectID": "slides/session2.html#testing-the-simulation",
     "href": "slides/session2.html#testing-the-simulation",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move",
     "section": "Testing the Simulation",
     "text": "Testing the Simulation\nClick “Start Simulation” in Tinkercad.\nObserve the virtual motor: 1. Does it spin? What RPM is indicated? 2. Change the Code: Make IN1 LOW and IN2 HIGH. What happens to the spin direction?\n\nWe reverse the direction of a DC motor by swapping the HIGH and LOW signals!"
   },
   {
     "objectID": "slides/session2.html#transition-to-reality",
     "href": "slides/session2.html#transition-to-reality",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Transition to Reality",
-    "text": "Transition to Reality\nYou proved your logic in Tinkercad. Now it’s time to build the real thing.\n\n\n\n\n\n\nSafety First\n\n\nDo not plug in the battery pack until the instructor inspects your wiring. A short circuit on the battery pack can cause it to overheat."
+    "text": "Transition to Reality\nNow it’s time to build the real thing.\n\n\n\n\n\n\nSafety First\n\n\nDo not plug in the battery pack until the instructor inspects your wiring. A short circuit on the battery pack can cause it to overheat."
   },
   {
     "objectID": "slides/session2.html#step-1-chassis-assembly",
     "href": "slides/session2.html#step-1-chassis-assembly",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Step 1: Chassis Assembly",
     "text": "Step 1: Chassis Assembly\nThe chassis is the physical body of the robot.\n\nMount the DC motors to the frame using the provided brackets.\nAttach the wheels to the motor shafts.\nSecure the caster wheel (the tiny front wheel) to the front of the frame.\nMount the Arduino and the L298N Motor Driver to the top deck."
   },
   {
     "objectID": "slides/session2.html#step-2-power-connections",
     "href": "slides/session2.html#step-2-power-connections",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Step 2: Power Connections",
     "text": "Step 2: Power Connections\nWe must route the power carefully.\n\n\nFrom the Battery Pack:\n\nRed wire (+) \\(\\rightarrow\\) Motor Driver 12V\nBlack wire (-) \\(\\rightarrow\\) Motor Driver GND\n\nFrom the Arduino:\n\nArduino GND \\(\\rightarrow\\) Motor Driver GND\nDo not connect Arduino 5V to the motor power!\n\n\n\n\n\nPower & Common Ground"
   },
   {
     "objectID": "slides/session2.html#step-3-wiring-the-motors",
     "href": "slides/session2.html#step-3-wiring-the-motors",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Step 3: Wiring the Motors",
     "text": "Step 3: Wiring the Motors\nConnect the physical motor wires.\n\nLeft motor red/black wires \\(\\rightarrow\\) Motor Driver OUT1 & OUT2.\nRight motor red/black wires \\(\\rightarrow\\) Motor Driver OUT3 & OUT4.\n\n(Don’t worry too much about matching red and black perfectly here; if a motor spins backward later, we can fix it by simply swapping the wires or changing our code!)"
   },
   {
     "objectID": "slides/session2.html#step-4-the-logic-wires",
     "href": "slides/session2.html#step-4-the-logic-wires",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Step 4: The Logic Wires",
     "text": "Step 4: The Logic Wires\nFinally, connect the Arduino pins to the Motor Driver inputs. Use jumper wires:\n\nLeft Motor: Pin 9 \\(\\rightarrow\\) IN1, Pin 10 \\(\\rightarrow\\) IN2, Pin 11 \\(\\rightarrow\\) ENA\nRight Motor: Pin 5 \\(\\rightarrow\\) IN3, Pin 6 \\(\\rightarrow\\) IN4, Pin 3 \\(\\rightarrow\\) ENB\n\n\n\n\n\n\n\nSpeed Control\n\n\nThe ENA and ENB pins control how fast the motors spin. By connecting them to PWM pins (marked with a ~), we can change the speed in our code!"
   },
   {
     "objectID": "slides/session2.html#the-base-code",
     "href": "slides/session2.html#the-base-code",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "The Base Code",
     "text": "The Base Code\nTo drive a car, we must manage 4 pins simultaneously.\n// Define our pins\nint IN1 = 9;   // Left Forward\nint IN2 = 10;  // Left Backward\nint ENA = 11;  // Left Speed\n\nint IN3 = 5;   // Right Forward\nint IN4 = 6;   // Right Backward\nint ENB = 3;   // Right Speed\n\nvoid setup() {\n  pinMode(IN1, OUTPUT);\n  pinMode(IN2, OUTPUT);\n  pinMode(IN3, OUTPUT);\n  pinMode(IN4, OUTPUT);\n  pinMode(ENA, OUTPUT);\n  pinMode(ENB, OUTPUT);\n}"
   },
   {
     "objectID": "slides/session2.html#functions-organizing-logic",
     "href": "slides/session2.html#functions-organizing-logic",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Functions: Organizing Logic",
     "text": "Functions: Organizing Logic\nTyping digitalWrite four times just to move forward is tedious. In C++, we can create custom functions to bundle commands together.\nvoid forward() {\n  digitalWrite(IN1, HIGH);\n  digitalWrite(IN2, LOW);\n  analogWrite(ENA, 150); // Set speed (0-255)\n\n  digitalWrite(IN3, HIGH);\n  digitalWrite(IN4, LOW);\n  analogWrite(ENB, 150);\n}\n\nvoid stopCar() {\n  digitalWrite(IN1, LOW);\n  digitalWrite(IN2, LOW);\n  analogWrite(ENA, 0);\n\n  digitalWrite(IN3, LOW);\n  digitalWrite(IN4, LOW);\n  analogWrite(ENB, 0);\n}"
   },
   {
     "objectID": "slides/session2.html#driving-the-car",
     "href": "slides/session2.html#driving-the-car",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Driving the Car",
     "text": "Driving the Car\nNow, our loop() becomes very simple and easy to read!\nvoid loop() {\n  forward();\n  delay(2000); // Drive for 2 seconds\n  \n  stopCar();\n  delay(1000); // Wait 1 second\n}\n\n\n\n\n\n\nInstructor Checkpoint\n\n\nUpload this code to your Arduino. Put the car on the floor. Does it move forward? If it spins in a circle, one of your motors is wired backward! How can you fix it? (Hint: Swap the physical wires, or swap HIGH and LOW in the code)."
   },
   {
     "objectID": "slides/session2.html#exercise-turning",
     "href": "slides/session2.html#exercise-turning",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Exercise: Turning",
     "text": "Exercise: Turning\nHow does a tank turn? It spins its tracks in opposite directions!\n(Apply): Write the code for a turnRight() function.\n\nSolution: To turn Right, the Left wheels must go Forward, and the Right wheels must go Backward.\nvoid turnRight() {\n  digitalWrite(IN1, HIGH); // Left Forward\n  digitalWrite(IN2, LOW);\n  analogWrite(ENA, 150);\n  \n  digitalWrite(IN3, LOW);\n  digitalWrite(IN4, HIGH); // Right Backward (Reverse!)\n  analogWrite(ENB, 150);\n}"
   },
   {
     "objectID": "slides/session2.html#the-obstacle-course-challenge",
     "href": "slides/session2.html#the-obstacle-course-challenge",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "The Obstacle Course Challenge",
-    "text": "The Obstacle Course Challenge\nThere is a maze taped out on the floor.\nYour Mission:\n\nPlace your car at the START line.\nWrite a single sequence of commands in your loop() to navigate the maze.\nYou cannot touch the car once it starts!\n\nHint: Timing is everything. If your turn is exactly 90 degrees, how many milliseconds should you delay()? You must experiment to find the perfect number!"
+    "text": "The Obstacle Course Challenge\nThere is a maze taped out on the floor.\nYour Mission:\n\nPlace your car at the START line.\nUse your newly built IR Remote Control program to navigate the maze.\nIf you crash, you have to start over!\nWho can get the fastest time?"
   },
   {
     "objectID": "slides/session2.html#automating-with-ai",
     "href": "slides/session2.html#automating-with-ai",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Automating with AI",
-    "text": "Automating with AI\nWriting hundreds of lines of forward(); delay(); turnRight(); takes a long time. What if we asked AI to write a complex sequence for us?\nInstructor Demo: Using Cursor to generate a “Dance Routine.”\nWatch as your instructor types: “Write an Arduino loop that makes my car drive in a Figure-8 pattern. It should go forward, curve right, go forward, curve left, and repeat.”"
+    "text": "Automating with AI\nWhat if you didn’t want to use the remote? We can ask AI to write a hardcoded path for us.\nInstructor Demo: Using AI to generate a “Complex Movement Sequence.”\nWatch as your instructor types: “Write an Arduino loop that makes my car drive in a Figure-8 pattern. It should go forward, curve right, go forward, curve left, and repeat.”\n\n\n\n\n\n\nWhat to notice\n\n\nDoes the AI-generated code work on the first try? Usually we need to tweak the delay() timings for our specific floor!"
   },
   {
     "objectID": "slides/session2.html#closing-problem-patterns",
@@ -1108,21 +1108,21 @@
   {
     "objectID": "slides/session2.html#motor-logic-polarity-direction",
     "href": "slides/session2.html#motor-logic-polarity-direction",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "Motor Logic: Polarity & Direction",
     "text": "Motor Logic: Polarity & Direction"
   },
   {
     "objectID": "slides/session2.html#the-manual-problem",
     "href": "slides/session2.html#the-manual-problem",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "The Manual Problem",
     "text": "The Manual Problem\n\n\n\n\n\n\nCan we swap wires while driving?\n\n\nTo make a robot reverse, we would have to stop it, unplug the wires, swap them, and plug them back in.\n\n\n\nThis is impossible for a computer to do by itself… unless we use electronic switches."
   },
   {
     "objectID": "slides/session2.html#the-solution-the-h-bridge",
     "href": "slides/session2.html#the-solution-the-h-bridge",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "The Solution: The H-Bridge",
     "text": "The Solution: The H-Bridge\nAn H-Bridge is a circuit of 4 electronic switches. By opening and closing different pairs, we can “redirect” the electricity flow without touching a single wire!\n\n\n\nTo go Forward: Close S1 and S4.\nTo go Backward: Close S2 and S3.\nTo Stop: Open all switches.\n\nCaution: Never close S1 and S3 at the same time (Short Circuit!)"
   },
@@ -1136,23 +1136,23 @@
   {
     "objectID": "slides/session2.html#invisible-control",
     "href": "slides/session2.html#invisible-control",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & IR Remote Control",
     "section": "Invisible Control",
-    "text": "Invisible Control\nHow does a TV remote talk to the TV? It blinks a light that we can’t see!\n\nInfrared (IR) is light with a frequency lower than red.\nOur eyes can’t see it, but the robot’s receiver can.\nIt’s like a flashlight sending a secret Morse code."
+    "text": "Invisible Control\nHow does a TV remote talk to the TV? It blinks a light that we can’t see!\n\nInfrared (IR) is light with a frequency lower than red light.\nOur eyes can’t see it, but the robot’s secondary “electronic eye” can.\nIt’s like a flashlight sending a secret Morse code at high speed."
   },
   {
     "objectID": "slides/session2.html#the-hardware",
     "href": "slides/session2.html#the-hardware",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & IR Remote Control",
     "section": "The Hardware",
-    "text": "The Hardware\nTo receive signals, we use an IR Receiver Module.\n\n\nConnections:\n\nGND → GND\nVCC → 5V\nSignal → Pin 2 (Digital)\n\n\n\n\n\nIR System"
+    "text": "The Hardware\nTo receive signals, we use an IR Receiver Module.\n\n\nConnections:\n\nGND → GND\nVCC → 5V\nSignal → Pin 2 (Digital)\n\n\n\n\n\nIR Receiver Attachment"
   },
   {
     "objectID": "slides/session2.html#activity-scanning-for-codes",
     "href": "slides/session2.html#activity-scanning-for-codes",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & IR Remote Control",
     "section": "Activity: Scanning for Codes",
-    "text": "Activity: Scanning for Codes\nEvery remote is different. Before we control the car, we need to know what “Language” your remote speaks.\n\nOpen Arduino IDE.\nGo to File &gt; Examples &gt; IRremote &gt; SimpleReceiver.\nChange IR_RECEIVE_PIN to 2.\nOpen the Serial Monitor (115200 baud).\nPress buttons and write down the HEX codes for:\n\nUp Arrow\nDown Arrow\nLeft Arrow\nRight Arrow\nOK / Stop"
+    "text": "Activity: Scanning for Codes\nBefore we control the car, we need to know what “numbers” your buttons send.\n\nOpen Arduino IDE.\nGo to File &gt; Examples &gt; IRremote &gt; SimpleReceiver.\nChange IR_RECEIVE_PIN to 2.\nOpen the Serial Monitor (115200 baud).\nPress buttons and write down the HEX codes for:\n\nUp Arrow (▲)\nDown Arrow (▼)\nLeft Arrow (◄)\nRight Arrow (►)\nOK / Stop"
   },
   {
     "objectID": "slides/session2.html#the-logic-decoding",
@@ -1206,7 +1206,7 @@
   {
     "objectID": "slides/session2.html#the-real-h-bridge",
     "href": "slides/session2.html#the-real-h-bridge",
-    "title": "Session 2: Movement + Problem Patterns",
+    "title": "Session 2: Make It Move & Remote Control",
     "section": "The Real H-Bridge",
     "text": "The Real H-Bridge\n\n\nBuilding an H-Bridge from tiny transistors is hard.\nInstead, we use the L298N Module. It’s a “dual” driver that can control two motors.\nIt gives us 3 types of pins:\n\nIN Pins: Controls Direction (Forward/Backward)\nEN Pins: Controls Speed (The Gas Pedal!)\n\n\n\n\n\nThe L298N Motor Driver\n\n\n\n\n\n\n\n\nTinkercad Note\n\n\nTinkercad does not have the L298N “Red Board.” Instead, we will use the L293D chip, which is the H-Bridge “brain” inside these modules. The logic is exactly the same!"
   },
@@ -1565,14 +1565,14 @@
     "href": "slides/session1.html#bonus-the-math-series-resistance",
     "title": "Session 1: Electricity is Magic",
     "section": "🔥 Bonus — The Math: Series Resistance",
-    "text": "🔥 Bonus — The Math: Series Resistance\n\nFor students who want to go deeper into the derivation.\n\nIn a series circuit, components are connected end-to-end, forming a single path.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Assumptions\n\n\n\nKCL: Current (\\(I\\)) is the same everywhere. \\(I_{total} = I_1 = I_2 = \\dots\\)\nKVL: Total voltage equals the sum of drops. \\(V_{total} = V_1 + V_2 + \\dots\\)\n\n\n\n\n\nThe Derivation\n\nApply Ohm’s Law (\\(V = IR\\)) to each: \\(V_1 = I \\cdot R_1, \\quad V_2 = I \\cdot R_2 \\dots\\)\nSubstitute into KVL: \\(V_{total} = (I \\cdot R_1) + (I \\cdot R_2) \\dots\\)\nUse Equivalent Resistance (\\(R_{eq}\\)): \\(I \\cdot R_{eq} = I(R_1 + R_2 + \\dots)\\)\nDivide by \\(I\\): \\(\\mathbf{R_{eq} = R_1 + R_2 + \\dots + R_n}\\)"
+    "text": "🔥 Bonus — The Math: Series Resistance\nIn a series circuit, components are connected end-to-end, forming a single path.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Assumptions\n\n\n\nKCL: Current (\\(I\\)) is the same everywhere. \\(I_{total} = I_1 = I_2 = \\dots\\)\nKVL: Total voltage equals the sum of drops. \\(V_{total} = V_1 + V_2 + \\dots\\)\n\n\n\n\n\nThe Derivation\n\nApply Ohm’s Law (\\(V = IR\\)) to each: \\(V_1 = I \\cdot R_1, \\quad V_2 = I \\cdot R_2 \\dots\\)\nSubstitute into KVL: \\(V_{total} = (I \\cdot R_1) + (I \\cdot R_2) \\dots\\)\nUse Equivalent Resistance (\\(R_{eq}\\)): \\(I \\cdot R_{eq} = I(R_1 + R_2 + \\dots)\\)\nDivide by \\(I\\): \\(\\mathbf{R_{eq} = R_1 + R_2 + \\dots + R_n}\\)"
   },
   {
     "objectID": "slides/session1.html#bonus-the-math-parallel-resistance",
     "href": "slides/session1.html#bonus-the-math-parallel-resistance",
     "title": "Session 1: Electricity is Magic",
     "section": "🔥 Bonus — The Math: Parallel Resistance",
-    "text": "🔥 Bonus — The Math: Parallel Resistance\n\nFor students who want to go deeper into the derivation.\n\nIn a parallel circuit, resistors are connected across the same two nodes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Assumptions\n\n\n\nKVL: Voltage (\\(V\\)) is identical across all. \\(V_{total} = V_1 = V_2 = \\dots\\)\nKCL: Total current splits among branches. \\(I_{total} = I_1 + I_2 + \\dots\\)\n\n\n\n\n\nThe Derivation\n\nApply Ohm’s Law (\\(I = V/R\\)): \\(I_1 = V/R_1, \\quad I_2 = V/R_2 \\dots\\)\nSubstitute into KCL: \\(I_{total} = \\frac{V}{R_1} + \\frac{V}{R_2} \\dots\\)\nUse Equivalent Resistance (\\(R_{eq}\\)): \\(\\frac{V}{R_{eq}} = V \\left( \\frac{1}{R_1} + \\frac{1}{R_2} \\dots \\right)\\)\nDivide by \\(V\\): \\(\\mathbf{\\frac{1}{R_{eq}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\dots + \\frac{1}{R_n}}\\)"
+    "text": "🔥 Bonus — The Math: Parallel Resistance\nIn a parallel circuit, resistors are connected across the same two nodes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Assumptions\n\n\n\nKVL: Voltage (\\(V\\)) is identical across all. \\(V_{total} = V_1 = V_2 = \\dots\\)\nKCL: Total current splits among branches. \\(I_{total} = I_1 + I_2 + \\dots\\)\n\n\n\n\n\nThe Derivation\n\nApply Ohm’s Law (\\(I = V/R\\)): \\(I_1 = V/R_1, \\quad I_2 = V/R_2 \\dots\\)\nSubstitute into KCL: \\(I_{total} = \\frac{V}{R_1} + \\frac{V}{R_2} \\dots\\)\nUse Equivalent Resistance (\\(R_{eq}\\)): \\(\\frac{V}{R_{eq}} = V \\left( \\frac{1}{R_1} + \\frac{1}{R_2} \\dots \\right)\\)\nDivide by \\(V\\): \\(\\mathbf{\\frac{1}{R_{eq}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\dots + \\frac{1}{R_n}}\\)"
   },
   {
     "objectID": "slides/session1.html#bonus-case-study-1-series-calculation",
@@ -1608,5 +1608,299 @@
     "title": "Session 1: Electricity is Magic",
     "section": "🔥 Bonus — Transistors = The Brain of Everything",
     "text": "🔥 Bonus — Transistors = The Brain of Everything\n\n\nFully OPEN → current flows freely\n→ we call this “1” (ON)\nFully CLOSED → no current at all\n→ we call this “0” (OFF)\n\n\n\n\nSignal\nValve\nMeaning\n\n\n\n\nStrong\nOpen\n1\n\n\nNone\nClosed\n0\n\n\n\n\n\n\n🤯 A modern computer chip has billions of tiny transistors — each one switching between 0 and 1 billions of times per second. That is how your phone runs games, videos, and apps — all from billions of tiny automatic valves!"
+  },
+  {
+    "objectID": "slides/session2.html#bonus-choreograph-a-dance",
+    "href": "slides/session2.html#bonus-choreograph-a-dance",
+    "title": "Session 2: Make It Move",
+    "section": "🔥 Bonus: Choreograph a Dance",
+    "text": "🔥 Bonus: Choreograph a Dance\nYou’ve mastered forward, backward, left, and right. Now let’s be creative!\nChallenge: Write a loop() that makes the car perform a dance routine:\n\nUse at least 4 different moves\nUse delay() to control the timing and rhythm\nGive your routine a name (e.g., robotDisco())\n\n\n\n\n\n\n\nHint\n\n\nThink of it like choreography. What happens if you spin first, then go forward, then spin the other way?\nvoid robotDisco() {\n  forward();   delay(500);\n  turnRight(); delay(300);\n  backward();  delay(500);\n  turnLeft();  delay(300);\n  stopCar();\n}"
+  },
+  {
+    "objectID": "slides/session2.html#what-can-a-moving-robot-actually-do",
+    "href": "slides/session2.html#what-can-a-moving-robot-actually-do",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "What can a moving robot actually do?",
+    "text": "What can a moving robot actually do?\nA remote-controlled car is incredibly fun — but useful robots solve real problems on their own.\n\n💊 Deliver medicine inside a hospital\n🔍 Inspect dangerous pipes underground\n📦 Move boxes in a warehouse\n🚜 Navigate a farm autonomously\n\n\nTo do this safely, they need more than a human holding a remote control!"
+  },
+  {
+    "objectID": "slides/session2.html#the-pattern-behind-every-robot",
+    "href": "slides/session2.html#the-pattern-behind-every-robot",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "The Pattern Behind Every Robot",
+    "text": "The Pattern Behind Every Robot\nEvery robot program follows the same 3-step loop:\n\n\n1️⃣ Sense\nRead the world — buttons, sensors, signals.\n\n2️⃣ Decide\nRun logic — if, switch, functions.\n\n3️⃣ Act\nDrive motors, blink LEDs, make sounds.\n\n\nToday you completed Act (Motors) and basic Sense (IR Receiver)."
+  },
+  {
+    "objectID": "slides/session2.html#curiosity-challenge",
+    "href": "slides/session2.html#curiosity-challenge",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "💡 Curiosity Challenge",
+    "text": "💡 Curiosity Challenge\n\n\n\n\n\n\nTry This at Home (totally optional, totally fun!)\n\n\nCan you improve your remote control?\n\nWhat happens if you press a button on a regular TV remote pointing at the car?\nCan you change the speed of the motors so “Up” is fast and “Down” is slow?\nCan you add code to make the car automatically brake if you hold “OK”?\n\nExperiment, break things, and bring your findings next session!"
+  },
+  {
+    "objectID": "slides/session2.html#whats-coming-next",
+    "href": "slides/session2.html#whats-coming-next",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "What’s Coming Next?",
+    "text": "What’s Coming Next?\n\nSession 3: The Smarter Car — Sensors 🧠\nGive your car “eyes” using Ultrasonic Sound (like a bat!).\nMake the car drive itself and dodge obstacles automatically.\nStart brainstorming ideas for the WRO Future Innovators project!\n\n\nSee you next time! 🚗💨"
+  },
+  {
+    "objectID": "slides/session3.html#agenda",
+    "href": "slides/session3.html#agenda",
+    "title": "Session 3: IR Remote Control",
+    "section": "Agenda",
+    "text": "Agenda\n\nPart 1 — How Does a TV Remote Work?\nPart 2 — Decoding the Remote\nPart 3 — Mapping Buttons to Directions\nPart 4 — Make It Drive!\nPart 5 — Button-Map Worksheet"
+  },
+  {
+    "objectID": "slides/session3.html#invisible-control",
+    "href": "slides/session3.html#invisible-control",
+    "title": "Session 3: IR Remote Control",
+    "section": "Invisible Control",
+    "text": "Invisible Control\nHow does a TV remote talk to the TV? It blinks a light that we can’t see!\n\nInfrared (IR) is light with a frequency lower than red light.\nOur eyes can’t see it, but the robot’s secondary “electronic eye” can.\nIt’s like a flashlight sending a secret Morse code at high speed."
+  },
+  {
+    "objectID": "slides/session3.html#the-hardware",
+    "href": "slides/session3.html#the-hardware",
+    "title": "Session 3: IR Remote Control",
+    "section": "The Hardware",
+    "text": "The Hardware\nTo receive signals, we use an IR Receiver Module.\n\n\nConnections:\n\nGND → GND\nVCC → 5V\nSignal → Pin 2 (Digital)\n\n\n\n\n\nIR Receiver Attachment"
+  },
+  {
+    "objectID": "slides/session3.html#activity-ir-intuition",
+    "href": "slides/session3.html#activity-ir-intuition",
+    "title": "Session 3: IR Remote Control",
+    "section": "Activity: IR Intuition",
+    "text": "Activity: IR Intuition\nCan you see the invisible light?\n\nTake your phone camera.\nPoint the IR Remote at the camera lens.\nPress a button.\nLook at the screen! Do you see a purple/pink blink?\n\n\nWhy? Digital cameras can “see” slightly more of the spectrum than human eyes."
+  },
+  {
+    "objectID": "slides/session3.html#setup-the-library",
+    "href": "slides/session3.html#setup-the-library",
+    "title": "Session 3: IR Remote Control",
+    "section": "Setup the Library",
+    "text": "Setup the Library\nEvery robot needs a “dictionary” to understand IR. We use the IRremote library.\n\nGo to Tools &gt; Manage Libraries…\nSearch for: IRremote\nInstall the version by Armin Joachimsmeyer (v3.0 or higher).\n\n\n\n\n\n\n\nProtocol Check\n\n\nThe Keyestudio remote uses the NEC Protocol. The library will handle this for us automatically!"
+  },
+  {
+    "objectID": "slides/session3.html#activity-scanning-for-codes",
+    "href": "slides/session3.html#activity-scanning-for-codes",
+    "title": "Session 3: IR Remote Control",
+    "section": "Activity: Scanning for Codes",
+    "text": "Activity: Scanning for Codes\nBefore we control the car, we need to know what “numbers” your buttons send.\n\nOpen Arduino IDE.\nGo to File &gt; Examples &gt; IRremote &gt; SimpleReceiver.\nChange IR_RECEIVE_PIN to 2.\nOpen the Serial Monitor (115200 baud).\nPress buttons and write down the HEX codes for:\n\nUp Arrow (▲)\nDown Arrow (▼)\nLeft Arrow (◄)\nRight Arrow (►)\nOK / Stop"
+  },
+  {
+    "objectID": "slides/session3.html#what-are-those-codes",
+    "href": "slides/session3.html#what-are-those-codes",
+    "title": "Session 3: IR Remote Control",
+    "section": "What are those codes?",
+    "text": "What are those codes?\nWhen you press a button, the remote sends a number like 0xFF18E7.\n\nThis is a HEXADECIMAL number (Base-16).\nIt’s like a unique ID for that specific button.\nIf you use a different remote, the numbers will be different!"
+  },
+  {
+    "objectID": "slides/session3.html#the-logic-switch-statements",
+    "href": "slides/session3.html#the-logic-switch-statements",
+    "title": "Session 3: IR Remote Control",
+    "section": "The Logic: switch Statements",
+    "text": "The Logic: switch Statements\nInstead of using many if statements, we use a switch to handle many buttons easily.\nvoid handleCommand(unsigned long cmd) {\n  switch (cmd) {\n    case 0xFF18E7: // Replace with YOUR 'UP' code\n      forward();\n      break;\n    case 0xFF4AB5: // Replace with YOUR 'DOWN' code\n      backward();\n      break;\n    case 0xFF38C7: // Replace with YOUR 'OK' code\n      stopCar();\n      break;\n  }\n}"
+  },
+  {
+    "objectID": "slides/session3.html#setup-loop",
+    "href": "slides/session3.html#setup-loop",
+    "title": "Session 3: IR Remote Control",
+    "section": "Setup & Loop",
+    "text": "Setup & Loop\nWe need to tell the robot to “listen” at the start and “resume” after every signal.\n#include &lt;IRremote.hpp&gt;\n#define IR_RECEIVE_PIN 2\n\nvoid setup() {\n  Serial.begin(115200);\n  IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);\n  // ... usual motor setup goes here ...\n}\n\nvoid loop() {\n  if (IrReceiver.decode()) {\n    unsigned long cmd = IrReceiver.decodedIRData.decodedRawData;\n    Serial.println(cmd, HEX); \n    \n    handleCommand(cmd); // Run our logic\n    \n    IrReceiver.resume(); // Ready for next signal\n  }\n}"
+  },
+  {
+    "objectID": "slides/session3.html#brainstorming-the-stickiness-problem",
+    "href": "slides/session3.html#brainstorming-the-stickiness-problem",
+    "title": "Session 3: IR Remote Control",
+    "section": "Brainstorming: The “Stickiness” Problem",
+    "text": "Brainstorming: The “Stickiness” Problem\n\n\n\n\n\n\nProblem\n\n\nIf you press “Forward” once, the robot starts moving. But if you let go, it keeps moving! Why?\n\n\n\n\nThe IR remote only sends a signal when it’s pressed.\nThe Robot doesn’t know you let go unless you tell it.\nSolution Ideas:\n\nAdd a dedicated “Stop” button.\nUse a timer (if no signal for 0.5s, stop).\n(Advanced) Check for the “Repeat” code (0xFFFFFFFF)."
+  },
+  {
+    "objectID": "slides/session3.html#activity-full-control",
+    "href": "slides/session3.html#activity-full-control",
+    "title": "Session 3: IR Remote Control",
+    "section": "Activity: Full Control",
+    "text": "Activity: Full Control\nIntegrate your code from Session 2!\n\nCopy your forward(), backward(), left(), right(), and stopCar() functions.\nPut them in your IR sketch.\nMap them in your switch statement.\nChallenge: Try to drive your car around a chair using ONLY the remote."
+  },
+  {
+    "objectID": "slides/session3.html#bonus-activity-speed-modes",
+    "href": "slides/session3.html#bonus-activity-speed-modes",
+    "title": "Session 3: IR Remote Control",
+    "section": "🔥 Bonus Activity: Speed Modes",
+    "text": "🔥 Bonus Activity: Speed Modes\nWhat if you want to go slow for careful turns and fast for the straightaways?\n\nMap button 1 to “Slow” and button 2 to “Fast”.\nCreate a global variable: int currentSpeed = 150;\nUpdate your handleCommand:\n\ncase 0xFF30CF: // Button 1\n  currentSpeed = 100; // Slow\n  break;\ncase 0xFF18E7: // Button 2\n  currentSpeed = 255; // FAST!\n  break;\n\nChange your movement functions to use currentSpeed instead of a fixed number: analogWrite(ENA, currentSpeed);"
+  },
+  {
+    "objectID": "slides/session3.html#documentation-mapping-your-controls",
+    "href": "slides/session3.html#documentation-mapping-your-controls",
+    "title": "Session 3: IR Remote Control",
+    "section": "Documentation: Mapping Your Controls",
+    "text": "Documentation: Mapping Your Controls\nFor your Home Showcase, you need to be able to tell your family how to drive your robot!\n\nTake your physical Button-Map Worksheet.\nFor every button you programmed, write down:\n\nThe Hex Code (e.g., 0xFF38C7)\nThe Action (e.g., Stop)\nThe Button Symbol (e.g., OK)\n\n\n\nWhy? Good engineers always document their work so others can use it."
+  },
+  {
+    "objectID": "slides/session3.html#curiosity-challenge-the-horn",
+    "href": "slides/session3.html#curiosity-challenge-the-horn",
+    "title": "Session 3: IR Remote Control",
+    "section": "💡 Curiosity Challenge: The Horn",
+    "text": "💡 Curiosity Challenge: The Horn\nCan you make one button trigger a “Beep” like a car horn?\n\nHardware: Connect a buzzer to Pin 13 (built-in LED pin works too!).\nGoal: Press button “0” to make the car honk.\nAI Help: Ask AI: “How do I make a buzzer beep for 0.5 seconds on pin 13 using the tone command?”"
+  },
+  {
+    "objectID": "slides/session3.html#closing-whats-next",
+    "href": "slides/session3.html#closing-whats-next",
+    "title": "Session 3: IR Remote Control",
+    "section": "Closing: What’s Next?",
+    "text": "Closing: What’s Next?\nCongratulations! You now have a remote-controlled robot.\n\nWhat other buttons could we use?\nCould we make the car do a “Victory Dance” when we press a special button?\nCould we turn lights on and off remotely?\n\nNext Session: We give the car “Eyes” (Ultrasonic sensors) so it can see obstacles!"
+  },
+  {
+    "objectID": "slides/session2.html#bonus-custom-movement-patterns",
+    "href": "slides/session2.html#bonus-custom-movement-patterns",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "🔥 Bonus: Custom Movement Patterns",
+    "text": "🔥 Bonus: Custom Movement Patterns\nCan you combine remote control with automatic patterns?\nChallenge: Map the “OK” button on your remote to trigger an automatic victory dance!\n\nExample Pattern: Quick spin right, reverse, then spin left.\nUse delay() to control how long each movement lasts during the dance.\nWhen you press OK, the car temporarily ignores other buttons and performs the sequence.\n\n\n\n\n\n\n\nExample Code\n\n\nvoid victoryDance() {\n  turnRight(); delay(300);  // Quick spin right\n  backward();  delay(500);  // Back it up\n  turnLeft();  delay(300);  // Quick spin left\n  stopCar();\n}"
+  },
+  {
+    "objectID": "slides/session2.html#activity-ir-intuition",
+    "href": "slides/session2.html#activity-ir-intuition",
+    "title": "Session 2: Make It Move & IR Remote Control",
+    "section": "Activity: IR Intuition",
+    "text": "Activity: IR Intuition\nCan you see the invisible light?\n\nTake your phone camera.\nPoint the IR Remote at the camera lens.\nPress a button.\nLook at the screen! Do you see a purple/pink blink?\n\n\nWhy? Digital cameras can “see” slightly more of the spectrum than human eyes."
+  },
+  {
+    "objectID": "slides/session2.html#setup-the-library",
+    "href": "slides/session2.html#setup-the-library",
+    "title": "Session 2: Make It Move & IR Remote Control",
+    "section": "Setup the Library",
+    "text": "Setup the Library\nEvery robot needs a “dictionary” to understand IR. We use the IRremote library.\n\nGo to Tools &gt; Manage Libraries…\nSearch for: IRremote\nInstall the version by Armin Joachimsmeyer (v3.0 or higher).\n\n\n\n\n\n\n\nProtocol Check\n\n\nThe Keyestudio remote uses the NEC Protocol. The library will handle this for us automatically!"
+  },
+  {
+    "objectID": "slides/session2.html#what-are-those-codes",
+    "href": "slides/session2.html#what-are-those-codes",
+    "title": "Session 2: Make It Move & IR Remote Control",
+    "section": "What are those codes?",
+    "text": "What are those codes?\nWhen you press a button, the remote sends a number like 0xFF18E7.\n\nThis is a HEXADECIMAL number (Base-16).\nIt’s like a unique ID for that specific button.\nIf you use a different remote, the numbers will be different!"
+  },
+  {
+    "objectID": "slides/session2.html#the-logic-switch-statements",
+    "href": "slides/session2.html#the-logic-switch-statements",
+    "title": "Session 2: Make It Move & IR Remote Control",
+    "section": "The Logic: switch Statements",
+    "text": "The Logic: switch Statements\nInstead of using many if statements, we use a switch to handle many buttons easily.\nvoid handleCommand(unsigned long cmd) {\n  switch (cmd) {\n    case 0xFF18E7: // Replace with YOUR 'UP' code\n      forward();\n      break;\n    case 0xFF4AB5: // Replace with YOUR 'DOWN' code\n      backward();\n      break;\n    case 0xFF38C7: // Replace with YOUR 'OK' code\n      stopCar();\n      break;\n  }\n}"
+  },
+  {
+    "objectID": "slides/session2.html#setup-loop",
+    "href": "slides/session2.html#setup-loop",
+    "title": "Session 2: Make It Move & IR Remote Control",
+    "section": "Setup & Loop",
+    "text": "Setup & Loop\nWe need to tell the robot to “listen” at the start and “resume” after every signal.\n#include &lt;IRremote.hpp&gt;\n#define IR_RECEIVE_PIN 2\n\nvoid setup() {\n  Serial.begin(115200);\n  IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);\n  // ... usual motor setup goes here ...\n}\n\nvoid loop() {\n  if (IrReceiver.decode()) {\n    unsigned long cmd = IrReceiver.decodedIRData.decodedRawData;\n    Serial.println(cmd, HEX); \n    \n    handleCommand(cmd); // Run our logic\n    \n    IrReceiver.resume(); // Ready for next signal\n  }\n}"
+  },
+  {
+    "objectID": "slides/session2.html#brainstorming-the-stickiness-problem",
+    "href": "slides/session2.html#brainstorming-the-stickiness-problem",
+    "title": "Session 2: Make It Move & IR Remote Control",
+    "section": "Brainstorming: The “Stickiness” Problem",
+    "text": "Brainstorming: The “Stickiness” Problem\n\n\n\n\n\n\nProblem\n\n\nIf you press “Forward” once, the robot starts moving. But if you let go, it keeps moving! Why?\n\n\n\n\nThe IR remote only sends a signal when it’s pressed.\nThe Robot doesn’t know you let go unless you tell it.\nSolution Ideas:\n\nAdd a dedicated “Stop” button.\nUse a timer (if no signal for 0.5s, stop).\n(Advanced) Check for the “Repeat” code (0xFFFFFFFF)."
+  },
+  {
+    "objectID": "slides/session2.html#activity-full-control",
+    "href": "slides/session2.html#activity-full-control",
+    "title": "Session 2: Make It Move & IR Remote Control",
+    "section": "Activity: Full Control",
+    "text": "Activity: Full Control\nIntegrate your code from Session 2!\n\nCopy your forward(), backward(), left(), right(), and stopCar() functions.\nPut them in your IR sketch.\nMap them in your switch statement.\nChallenge: Try to drive your car around a chair using ONLY the remote."
+  },
+  {
+    "objectID": "slides/session2.html#bonus-activity-speed-modes",
+    "href": "slides/session2.html#bonus-activity-speed-modes",
+    "title": "Session 2: Make It Move & IR Remote Control",
+    "section": "🔥 Bonus Activity: Speed Modes",
+    "text": "🔥 Bonus Activity: Speed Modes\nWhat if you want to go slow for careful turns and fast for the straightaways?\n\nMap button 1 to “Slow” and button 2 to “Fast”.\nCreate a global variable: int currentSpeed = 150;\nUpdate your handleCommand:\n\ncase 0xFF30CF: // Button 1\n  currentSpeed = 100; // Slow\n  break;\ncase 0xFF18E7: // Button 2\n  currentSpeed = 255; // FAST!\n  break;\n\nChange your movement functions to use currentSpeed instead of a fixed number: analogWrite(ENA, currentSpeed);"
+  },
+  {
+    "objectID": "slides/session2.html#cutting-the-cord",
+    "href": "slides/session2.html#cutting-the-cord",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Cutting the Cord",
+    "text": "Cutting the Cord\nInstead of an infrared remote, we are going to use Bluetooth! This means we can control our robot using a smartphone app, just like a real RC car or a drone.\nWe will use an HC-05 Bluetooth module and the Dabble App, which transforms your smartphone into a virtual controller."
+  },
+  {
+    "objectID": "slides/session2.html#the-hc-05-module",
+    "href": "slides/session2.html#the-hc-05-module",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "The HC-05 Module",
+    "text": "The HC-05 Module\nThe HC-05 has four main pins we need to use:\n\nVCC: Power (5V from Arduino)\nGND: Ground\nTXD: Transmit (Sends data to the Arduino)\nRXD: Receive (Receives data from the Arduino)"
+  },
+  {
+    "objectID": "slides/session2.html#wiring-the-module",
+    "href": "slides/session2.html#wiring-the-module",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Wiring the Module",
+    "text": "Wiring the Module\nHere is the trick with communication pins: TX must talk to RX.\n\n\n\nConnect VCC to Arduino 5V.\nConnect GND to Arduino GND.\nConnect TXD to Arduino Pin 2.\nConnect RXD to Arduino Pin 3.\n\n\n\n\n\n\n\n\n\n\n\nThe 3.3V Rule\n\n\nThe RXD pin on the HC-05 expects 3.3V, but the Arduino sends 5V. For a perfect build, we use a voltage divider (two resistors) to lower the voltage."
+  },
+  {
+    "objectID": "slides/session2.html#softwareserial-creating-a-second-mouth",
+    "href": "slides/session2.html#softwareserial-creating-a-second-mouth",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "SoftwareSerial: Creating a Second Mouth",
+    "text": "SoftwareSerial: Creating a Second Mouth\nThe Arduino Uno only has one main communication port (Pins 0 and 1), which it uses to talk to your computer via USB.\nIf we attach the Bluetooth module to Pins 0 and 1, we can’t upload code!\nInstead, we use SoftwareSerial to create a “virtual” communication port on Pins 2 and 3.\n#include &lt;SoftwareSerial.h&gt;\n\n// RX on Arduino (Pin 2) connects to TX on Bluetooth\n// TX on Arduino (Pin 3) connects to RX on Bluetooth\nSoftwareSerial BTSerial(2, 3); // RX, TX\n\nvoid setup() {\n  Serial.begin(9600);   // Talk to Computer\n  BTSerial.begin(9600); // Talk to Phone App\n}"
+  },
+  {
+    "objectID": "slides/session2.html#the-dabble-app-or-rc-app",
+    "href": "slides/session2.html#the-dabble-app-or-rc-app",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "The Dabble App (Or RC App)",
+    "text": "The Dabble App (Or RC App)\nWe will use an app on our phone to send characters to the Bluetooth module.\nOften, RC Control apps send simple letters when you press buttons:\n\nPress Forward \\(\\rightarrow\\) sends 'F'\nPress Reverse \\(\\rightarrow\\) sends 'B'\nPress Left \\(\\rightarrow\\) sends 'L'\nPress Right \\(\\rightarrow\\) sends 'R'\nLet go of a button \\(\\rightarrow\\) sends 'S' (Stop)"
+  },
+  {
+    "objectID": "slides/session2.html#reading-the-signal",
+    "href": "slides/session2.html#reading-the-signal",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Reading the Signal",
+    "text": "Reading the Signal\nWe need the Arduino to listen continuously. If the phone sends an 'F', we turn on the motors.\nvoid loop() {\n  // If the Bluetooth module hears something...\n  if (BTSerial.available()) {\n    // Read the character!\n    char command = BTSerial.read();\n    \n    // Check what the character is\n    if (command == 'F') {\n      moveForward();\n    } \n    else if (command == 'S') {\n      stopCar();\n    }\n    // Add more if/else statements for B, L, R!\n  }\n}"
+  },
+  {
+    "objectID": "slides/session2.html#creating-the-helper-functions",
+    "href": "slides/session2.html#creating-the-helper-functions",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Creating the Helper Functions",
+    "text": "Creating the Helper Functions\nTo keep our code clean, we use custom functions like moveForward().\nvoid moveForward() {\n  // Left Motor Forward\n  digitalWrite(IN1, HIGH);\n  digitalWrite(IN2, LOW);\n  \n  // Right Motor Forward\n  digitalWrite(IN3, HIGH);\n  digitalWrite(IN4, LOW);\n}\n\nvoid stopCar() {\n  digitalWrite(IN1, LOW);\n  digitalWrite(IN2, LOW);\n  digitalWrite(IN3, LOW);\n  digitalWrite(IN4, LOW);\n}"
+  },
+  {
+    "objectID": "slides/session2.html#the-driving-challenge",
+    "href": "slides/session2.html#the-driving-challenge",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "The Driving Challenge",
+    "text": "The Driving Challenge\nNow it’s time to test!\n\nUpload the code to your Arduino Uno.\nDisconnect the USB cable (very important!).\nTurn on the battery pack.\nPair your phone via Bluetooth to your HC-05 (Password is usually 1234 or 0000).\nOpen the Dabble app, select Gamepad, and drive!"
+  },
+  {
+    "objectID": "slides/session2.html#connecting-with-dabble",
+    "href": "slides/session2.html#connecting-with-dabble",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Connecting with Dabble",
+    "text": "Connecting with Dabble\nTo make the Arduino talk to the Dabble app, we just need to include the library and start it in our code. Dabble automatically knows to use Pins 2 and 3!\n#define CUSTOM_SETTINGS\n#define INCLUDE_GAMEPAD_MODULE\n#include &lt;Dabble.h&gt;\n\nvoid setup() {\n  Serial.begin(9600); \n  Dabble.begin(9600); // Start Bluetooth communication\n}"
+  },
+  {
+    "objectID": "slides/session2.html#install-dabble-in-your-smartphone",
+    "href": "slides/session2.html#install-dabble-in-your-smartphone",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Install Dabble in your Smartphone",
+    "text": "Install Dabble in your Smartphone\nDownload the Dabble App from your App Store. Once installed, open the app, click the connect icon, and pair it with your HC-05 module (Password is usually 1234 or 0000)."
+  },
+  {
+    "objectID": "slides/session2.html#the-dabble-gamepad",
+    "href": "slides/session2.html#the-dabble-gamepad",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "The Dabble Gamepad",
+    "text": "The Dabble Gamepad\nWe will use the Gamepad Module in the Dabble app to drive our robot. The Gamepad has buttons like Up, Down, Left, and Right.\n\nDabble Gamepad Module"
+  },
+  {
+    "objectID": "slides/session2.html#reading-the-gamepad",
+    "href": "slides/session2.html#reading-the-gamepad",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Reading the Gamepad",
+    "text": "Reading the Gamepad\nIn our loop(), we need to continuously check if the Dabble app is sending any button presses:\nvoid loop() {\n  Dabble.processInput(); // Refresh data from the smartphone\n  \n  if (GamePad.isUpPressed()) {\n    moveForward();\n  } \n  else if (GamePad.isDownPressed()) {\n    moveBackward(); // Assuming we have this function\n  }\n  else if (GamePad.isLeftPressed()) {\n    moveLeft(); // Assuming we have this function\n  }\n  else if (GamePad.isRightPressed()) {\n    moveRight(); // Assuming we have this function\n  }\n  else {\n    stopCar();\n  }\n}"
+  },
+  {
+    "objectID": "slides/session2.html#installing-the-dabble-library",
+    "href": "slides/session2.html#installing-the-dabble-library",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Installing the Dabble Library",
+    "text": "Installing the Dabble Library\nBefore we can write our code, we need to add the Dabble library to the Arduino IDE:\n\n📥 Download: Dabble-Arduino.zip\n\nIn the Arduino IDE, go to Sketch → Include Library → Add .ZIP Library… and select the file you just downloaded.\n\nAdding the Library"
   }
 ]

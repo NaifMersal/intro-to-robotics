@@ -1,0 +1,31 @@
+# Part 5 — Button-Map Worksheet {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Documentation: Mapping Your Controls
+
+For your **Home Showcase**, you need to be able to tell your family how to drive your robot!
+
+1. Take your physical **Button-Map Worksheet**.
+2. For every button you programmed, write down:
+   - The Hex Code (e.g., `0xFF38C7`)
+   - The Action (e.g., `Stop`)
+   - The Button Symbol (e.g., `OK`)
+
+> **Why?** Good engineers always document their work so others can use it.
+
+## 💡 Curiosity Challenge: The Horn
+
+Can you make one button trigger a "Beep" like a car horn?
+
+- **Hardware:** Connect a buzzer to Pin 13 (built-in LED pin works too!).
+- **Goal:** Press button "0" to make the car honk.
+- **AI Help:** Ask AI: *"How do I make a buzzer beep for 0.5 seconds on pin 13 using the tone command?"*
+
+## Closing: What's Next? {background-color="#00C9A7" .sdaia-dark}
+
+**Congratulations!** You now have a remote-controlled robot.
+
+- What other buttons could we use?
+- Could we make the car do a "Victory Dance" when we press a special button?
+- Could we turn lights on and off remotely?
+
+**Next Session:** We give the car "Eyes" (Ultrasonic sensors) so it can see obstacles!

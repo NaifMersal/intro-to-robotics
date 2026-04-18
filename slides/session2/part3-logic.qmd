@@ -1,0 +1,61 @@
+# Part 3 — Mapping Buttons to Directions {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Logic: `switch` Statements
+
+Instead of using many `if` statements, we use a `switch` to handle many buttons easily.
+
+```cpp
+void handleCommand(unsigned long cmd) {
+  switch (cmd) {
+    case 0xFF18E7: // Replace with YOUR 'UP' code
+      forward();
+      break;
+    case 0xFF4AB5: // Replace with YOUR 'DOWN' code
+      backward();
+      break;
+    case 0xFF38C7: // Replace with YOUR 'OK' code
+      stopCar();
+      break;
+  }
+}
+```
+
+## Setup & Loop
+
+We need to tell the robot to "listen" at the start and "resume" after every signal.
+
+```cpp
+#include <IRremote.hpp>
+#define IR_RECEIVE_PIN 2
+
+void setup() {
+  Serial.begin(115200);
+  IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
+  // ... usual motor setup goes here ...
+}
+
+void loop() {
+  if (IrReceiver.decode()) {
+    unsigned long cmd = IrReceiver.decodedIRData.decodedRawData;
+    Serial.println(cmd, HEX); 
+    
+    handleCommand(cmd); // Run our logic
+    
+    IrReceiver.resume(); // Ready for next signal
+  }
+}
+```
+
+## Brainstorming: The "Stickiness" Problem
+
+::: {.callout-warning}
+## Problem
+If you press "Forward" once, the robot starts moving. But if you let go, it **keeps moving**! Why?
+:::
+
+- The IR remote only sends a signal when it's pressed.
+- The Robot doesn't know you let go unless you tell it.
+- **Solution Ideas:**
+  1. Add a dedicated "Stop" button.
+  2. Use a timer (if no signal for 0.5s, stop).
+  3. (Advanced) Check for the "Repeat" code (`0xFFFFFFFF`).

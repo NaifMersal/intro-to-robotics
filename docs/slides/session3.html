@@ -9,8 +9,8 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <meta name="dcterms.date" content="2026-04-18">
-  <title>Session 2: Make It Move &amp; Remote Control</title>
+  <meta name="dcterms.date" content="2026-04-15">
+  <title>Session 3: IR Remote Control</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -195,587 +195,273 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../slides_template/assets/anim.svg" data-background-opacity="0.08" data-background-size="cover" class="quarto-title-block center">
-  <h1 class="title">Session 2: Make It Move &amp; Remote Control</h1>
-  <p class="subtitle">Build the body and become the controller</p>
+  <h1 class="title">Session 3: IR Remote Control</h1>
+  <p class="subtitle">You Are the Controller</p>
 
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-04-18</p>
+  <p class="date">2026-04-15</p>
 </section>
 <section>
-<section id="session-2" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Session 2</h1>
-<p>Make It Move &amp; Remote Control 🚗🎮</p>
+<section id="session-3" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Session 3</h1>
+<p>IR Remote Control — You Are the Controller 🎮</p>
 </section>
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
-<p><strong>Phase 1: Getting It Moving</strong></p>
 <ul>
-<li><strong>Part 1</strong> — The Danger of Motors</li>
-<li><strong>Part 2</strong> — The Physical Build</li>
-<li><strong>Part 3</strong> — Programming Movement</li>
-</ul>
-<p><strong>Phase 2: Adding the Remote</strong></p>
-<ul>
-<li><strong>Part 4 (BT)</strong> — The Bluetooth Module</li>
-<li><strong>Part 5 (BT)</strong> — App Driving</li>
-</ul>
-<p><strong>Phase 3: The Challenge</strong></p>
-<ul>
-<li><strong>Part 7/8</strong> — Obstacle Course Challenge</li>
-<li><strong>Part 8/9</strong> — Problem Patterns (Closing)</li>
+<li><strong>Part 1</strong> — How Does a TV Remote Work?</li>
+<li><strong>Part 2</strong> — Decoding the Remote</li>
+<li><strong>Part 3</strong> — Mapping Buttons to Directions</li>
+<li><strong>Part 4</strong> — Make It Drive!</li>
+<li><strong>Part 5</strong> — Button-Map Worksheet</li>
 </ul>
 </section></section>
 <section>
-<section id="part-1-the-danger-of-motors" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 1 — The Danger of Motors</h1>
+<section id="part-1-how-does-a-tv-remote-work" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 1 — How Does a TV Remote Work?</h1>
 
 </section>
-<section id="the-muscle-vs-the-brain" class="slide level2">
-<h2>The “Muscle” vs The “Brain”</h2>
-<p>We learned that the Arduino is the <strong>Brain</strong> (it sends 0s and 1s using low-voltage signals).</p>
-<p>Motors are the <strong>Muscles</strong>. They require a large flow of electricity (current) to generate magnetic fields strong enough to spin wheels.</p>
+<section id="invisible-control" class="slide level2">
+<h2>Invisible Control</h2>
+<p>How does a TV remote talk to the TV? It blinks a light that we can’t see!</p>
 <ul>
-<li class="fragment"><strong>LED Requires:</strong> ~20 milliAmps (mA)</li>
-<li class="fragment"><strong>Arduino Pin Maximum:</strong> ~40 milliAmps (mA)</li>
-<li class="fragment"><strong>DC Motor Requires:</strong> ~500 to 1,000+ milliAmps (mA)</li>
+<li><strong>Infrared (IR)</strong> is light with a frequency lower than red light.</li>
+<li>Our eyes can’t see it, but the robot’s secondary “electronic eye” can.</li>
+<li>It’s like a flashlight sending a secret <strong>Morse code</strong> at high speed.</li>
 </ul>
 </section>
-<section id="rule-1-of-robotics" class="slide level2 sdaia-dark" data-background-gradient="radial-gradient(circle at 70% 30%, #450a0a 0%, #020617 100%)">
-<h2>Rule #1 of Robotics</h2>
+<section id="the-hardware" class="slide level2">
+<h2>The Hardware</h2>
+<p>To receive signals, we use an <strong>IR Receiver Module</strong>.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Connections:</strong></p>
+<ol type="1">
+<li><strong>GND</strong> → GND</li>
+<li><strong>VCC</strong> → 5V</li>
+<li><strong>Signal</strong> → <strong>Pin 2</strong> (Digital)</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/ir_remote.png"></p>
+<figcaption>IR Receiver Attachment</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="activity-ir-intuition" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Activity: IR Intuition</h2>
+<p><strong>Can you see the invisible light?</strong></p>
+<ol type="1">
+<li>Take your phone camera.</li>
+<li>Point the IR Remote at the camera lens.</li>
+<li>Press a button.</li>
+<li><strong>Look at the screen!</strong> Do you see a purple/pink blink?</li>
+</ol>
+<blockquote>
+<p><strong>Why?</strong> Digital cameras can “see” slightly more of the spectrum than human eyes.</p>
+</blockquote>
+</section></section>
+<section>
+<section id="part-2-decoding-the-remote" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 2 — Decoding the Remote</h1>
+
+</section>
+<section id="setup-the-library" class="slide level2">
+<h2>Setup the Library</h2>
+<p>Every robot needs a “dictionary” to understand IR. We use the <strong>IRremote</strong> library.</p>
+<ol type="1">
+<li>Go to <strong>Tools &gt; Manage Libraries…</strong></li>
+<li>Search for: <strong>IRremote</strong></li>
+<li>Install the version by <strong>Armin Joachimsmeyer</strong> (v3.0 or higher).</li>
+</ol>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Never Power a Motor Directly From an Arduino Pin!</strong></p>
+<p><strong>Protocol Check</strong></p>
 </div>
 <div class="callout-content">
-<p>If you try to draw 1,000 mA from a pin designed to supply only 40 mA, you will <strong>instantly melt</strong> the internal circuitry of the Arduino chip.</p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Think of it like trying to fill a swimming pool using a drinking straw. The pressure will destroy the straw.</p>
-</div>
-</section>
-<section id="motor-logic-polarity-direction" class="slide level2">
-<h2>Motor Logic: Polarity &amp; Direction</h2>
-<iframe src="../simulations/motor_polarity/index.html" style="width:100%;height:600px;border:none;border-radius:12px;" allowfullscreen="">
-</iframe>
-</section>
-<section id="the-manual-problem" class="slide level2">
-<h2>The Manual Problem</h2>
-<div class="callout callout-caution callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Can we swap wires while driving?</strong></p>
-</div>
-<div class="callout-content">
-<p>To make a robot reverse, we would have to stop it, unplug the wires, swap them, and plug them back in.</p>
-</div>
-</div>
-</div>
-<p><strong>This is impossible for a computer to do by itself… unless we use electronic switches.</strong></p>
-</section>
-<section id="the-solution-the-h-bridge" class="slide level2">
-<h2>The Solution: The H-Bridge</h2>
-<p>An <strong>H-Bridge</strong> is a circuit of 4 electronic switches. By opening and closing different pairs, we can “redirect” the electricity flow without touching a single wire!</p>
-<div class="columns">
-<div class="column" style="width:60%;">
-<ul>
-<li><strong>To go Forward:</strong> Close <strong>S1</strong> and <strong>S4</strong>.</li>
-<li><strong>To go Backward:</strong> Close <strong>S2</strong> and <strong>S3</strong>.</li>
-<li><strong>To Stop:</strong> Open all switches.</li>
-</ul>
-<p><em>Caution: Never close S1 and S3 at the same time (Short Circuit!)</em></p>
-</div><div class="column" style="width:40%;">
-<div id="bd285c6e" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="session2_files/figure-revealjs/cell-2-output-1.svg" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="the-real-h-bridge" class="slide level2 sdaia-dark" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h2>The Real H-Bridge</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>Building an H-Bridge from tiny transistors is hard.</p>
-<p>Instead, we use the <strong>L298N Module</strong>. It’s a “dual” driver that can control <strong>two motors</strong>.</p>
-<p>It gives us 3 types of pins:</p>
-<ul>
-<li><strong>IN Pins</strong>: Controls <strong>Direction</strong> (Forward/Backward)</li>
-<li><strong>EN Pins</strong>: Controls <strong>Speed</strong> (The Gas Pedal!)</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/L298n.png"></p>
-<figcaption>The L298N Motor Driver</figcaption>
-</figure>
-</div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Tinkercad Note</strong></p>
-</div>
-<div class="callout-content">
-<p>Tinkercad does not have the L298N “Red Board.” Instead, we will use the <strong>L293D chip</strong>, which is the H-Bridge “brain” inside these modules. The logic is exactly the same!</p>
-</div>
-</div>
-</div>
-</div></div>
-</section></section>
-<section>
-<section id="part-3-the-physical-build" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 3 — The Physical Build</h1>
-
-</section>
-<section id="transition-to-reality" class="slide level2">
-<h2>Transition to Reality</h2>
-<p>Now it’s time to build the real thing.</p>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Safety First</strong></p>
-</div>
-<div class="callout-content">
-<p>Do not plug in the battery pack until <strong>the instructor inspects your wiring</strong>. A short circuit on the battery pack can cause it to overheat.</p>
+<p>The Keyestudio remote uses the <strong>NEC Protocol</strong>. The library will handle this for us automatically!</p>
 </div>
 </div>
 </div>
 </section>
-<section id="step-1-chassis-assembly" class="slide level2">
-<h2>Step 1: Chassis Assembly</h2>
-<p>The chassis is the physical body of the robot.</p>
+<section id="activity-scanning-for-codes" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Activity: Scanning for Codes</h2>
+<p>Before we control the car, we need to know what “numbers” your buttons send.</p>
 <ol type="1">
-<li>Mount the DC motors to the frame using the provided brackets.</li>
-<li>Attach the wheels to the motor shafts.</li>
-<li>Secure the caster wheel (the tiny front wheel) to the front of the frame.</li>
-<li>Mount the Arduino and the L298N Motor Driver to the top deck.</li>
+<li>Open Arduino IDE.</li>
+<li>Go to <strong>File &gt; Examples &gt; IRremote &gt; SimpleReceiver</strong>.</li>
+<li>Change <code>IR_RECEIVE_PIN</code> to <strong>2</strong>.</li>
+<li>Open the <strong>Serial Monitor</strong> (115200 baud).</li>
+<li>Press buttons and <strong>write down the HEX codes</strong> for:
+<ul>
+<li>Up Arrow (▲)</li>
+<li>Down Arrow (▼)</li>
+<li>Left Arrow (◄)</li>
+<li>Right Arrow (►)</li>
+<li>OK / Stop</li>
+</ul></li>
 </ol>
 </section>
-<section id="step-2-power-connections" class="slide level2">
-<h2>Step 2: Power Connections</h2>
-<p>We must route the power carefully.</p>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><strong>From the Battery Pack:</strong></p>
+<section id="what-are-those-codes" class="slide level2">
+<h2>What are those codes?</h2>
+<p>When you press a button, the remote sends a number like <code>0xFF18E7</code>.</p>
 <ul>
-<li>Red wire (+) <span class="math inline">\(\rightarrow\)</span> Motor Driver <code>12V</code></li>
-<li>Black wire (-) <span class="math inline">\(\rightarrow\)</span> Motor Driver <code>GND</code></li>
+<li>This is a <strong>HEXADECIMAL</strong> number (Base-16).</li>
+<li>It’s like a unique ID for that specific button.</li>
+<li>If you use a different remote, the numbers will be different!</li>
 </ul>
-<p><strong>From the Arduino:</strong></p>
-<ul>
-<li>Arduino <code>GND</code> <span class="math inline">\(\rightarrow\)</span> Motor Driver <code>GND</code></li>
-<li><em>Do not connect Arduino 5V to the motor power!</em></li>
-</ul>
-</div><div class="column" style="width:40%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/Motor_drive_wiring.png"></p>
-<figcaption>Power &amp; Common Ground</figcaption>
-</figure>
-</div>
-</div></div>
-</section>
-<section id="step-3-wiring-the-motors" class="slide level2">
-<h2>Step 3: Wiring the Motors</h2>
-<p>Connect the physical motor wires.</p>
-<ul>
-<li>Left motor red/black wires <span class="math inline">\(\rightarrow\)</span> Motor Driver <code>OUT1</code> &amp; <code>OUT2</code>.</li>
-<li>Right motor red/black wires <span class="math inline">\(\rightarrow\)</span> Motor Driver <code>OUT3</code> &amp; <code>OUT4</code>.</li>
-</ul>
-<p><em>(Don’t worry too much about matching red and black perfectly here; if a motor spins backward later, we can fix it by simply swapping the wires or changing our code!)</em></p>
-</section>
-<section id="step-4-the-logic-wires" class="slide level2">
-<h2>Step 4: The Logic Wires</h2>
-<p>Finally, connect the Arduino pins to the Motor Driver inputs. Use jumper wires:</p>
-<ul>
-<li><strong>Left Motor:</strong> Pin 9 <span class="math inline">\(\rightarrow\)</span> <code>IN1</code>, Pin 10 <span class="math inline">\(\rightarrow\)</span> <code>IN2</code>, <strong>Pin 11 <span class="math inline">\(\rightarrow\)</span> <code>ENA</code></strong></li>
-<li><strong>Right Motor:</strong> Pin 5 <span class="math inline">\(\rightarrow\)</span> <code>IN3</code>, Pin 6 <span class="math inline">\(\rightarrow\)</span> <code>IN4</code>, <strong>Pin 3 <span class="math inline">\(\rightarrow\)</span> <code>ENB</code></strong></li>
-</ul>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Speed Control</strong></p>
-</div>
-<div class="callout-content">
-<p>The <code>ENA</code> and <code>ENB</code> pins control how fast the motors spin. By connecting them to PWM pins (marked with a <code>~</code>), we can change the speed in our code!</p>
-</div>
-</div>
-</div>
 </section></section>
 <section>
-<section id="part-4-programming-movement" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 4 — Programming Movement</h1>
+<section id="part-3-mapping-buttons-to-directions" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 3 — Mapping Buttons to Directions</h1>
 
 </section>
-<section id="the-base-code" class="slide level2">
-<h2>The Base Code</h2>
-<p>To drive a car, we must manage 4 pins simultaneously.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="co">// Define our pins</span></span>
-<span id="cb1-2"><a></a><span class="dt">int</span> IN1 <span class="op">=</span> <span class="dv">9</span><span class="op">;</span>   <span class="co">// Left Forward</span></span>
-<span id="cb1-3"><a></a><span class="dt">int</span> IN2 <span class="op">=</span> <span class="dv">10</span><span class="op">;</span>  <span class="co">// Left Backward</span></span>
-<span id="cb1-4"><a></a><span class="dt">int</span> ENA <span class="op">=</span> <span class="dv">11</span><span class="op">;</span>  <span class="co">// Left Speed</span></span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a><span class="dt">int</span> IN3 <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>   <span class="co">// Right Forward</span></span>
-<span id="cb1-7"><a></a><span class="dt">int</span> IN4 <span class="op">=</span> <span class="dv">6</span><span class="op">;</span>   <span class="co">// Right Backward</span></span>
-<span id="cb1-8"><a></a><span class="dt">int</span> ENB <span class="op">=</span> <span class="dv">3</span><span class="op">;</span>   <span class="co">// Right Speed</span></span>
-<span id="cb1-9"><a></a></span>
-<span id="cb1-10"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-11"><a></a>  pinMode<span class="op">(</span>IN1<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-12"><a></a>  pinMode<span class="op">(</span>IN2<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-13"><a></a>  pinMode<span class="op">(</span>IN3<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-14"><a></a>  pinMode<span class="op">(</span>IN4<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-15"><a></a>  pinMode<span class="op">(</span>ENA<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-16"><a></a>  pinMode<span class="op">(</span>ENB<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-17"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="the-logic-switch-statements" class="slide level2">
+<h2>The Logic: <code>switch</code> Statements</h2>
+<p>Instead of using many <code>if</code> statements, we use a <code>switch</code> to handle many buttons easily.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="dt">void</span> handleCommand<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">long</span> cmd<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a></a>  <span class="cf">switch</span> <span class="op">(</span>cmd<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a></a>    <span class="cf">case</span> <span class="bn">0xFF18E7</span><span class="op">:</span> <span class="co">// Replace with YOUR 'UP' code</span></span>
+<span id="cb1-4"><a></a>      forward<span class="op">();</span></span>
+<span id="cb1-5"><a></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb1-6"><a></a>    <span class="cf">case</span> <span class="bn">0xFF4AB5</span><span class="op">:</span> <span class="co">// Replace with YOUR 'DOWN' code</span></span>
+<span id="cb1-7"><a></a>      backward<span class="op">();</span></span>
+<span id="cb1-8"><a></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb1-9"><a></a>    <span class="cf">case</span> <span class="bn">0xFF38C7</span><span class="op">:</span> <span class="co">// Replace with YOUR 'OK' code</span></span>
+<span id="cb1-10"><a></a>      stopCar<span class="op">();</span></span>
+<span id="cb1-11"><a></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb1-12"><a></a>  <span class="op">}</span></span>
+<span id="cb1-13"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="functions-organizing-logic" class="slide level2">
-<h2>Functions: Organizing Logic</h2>
-<p>Typing <code>digitalWrite</code> four times just to move forward is tedious. In C++, we can create custom <strong>functions</strong> to bundle commands together.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="dt">void</span> forward<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-2"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb2-3"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-4"><a></a>  analogWrite<span class="op">(</span>ENA<span class="op">,</span> <span class="dv">150</span><span class="op">);</span> <span class="co">// Set speed (0-255)</span></span>
-<span id="cb2-5"><a></a></span>
-<span id="cb2-6"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb2-7"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-8"><a></a>  analogWrite<span class="op">(</span>ENB<span class="op">,</span> <span class="dv">150</span><span class="op">);</span></span>
-<span id="cb2-9"><a></a><span class="op">}</span></span>
-<span id="cb2-10"><a></a></span>
-<span id="cb2-11"><a></a><span class="dt">void</span> stopCar<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-12"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-13"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-14"><a></a>  analogWrite<span class="op">(</span>ENA<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
-<span id="cb2-15"><a></a></span>
-<span id="cb2-16"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-17"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-18"><a></a>  analogWrite<span class="op">(</span>ENB<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<section id="setup-loop" class="slide level2">
+<h2>Setup &amp; Loop</h2>
+<p>We need to tell the robot to “listen” at the start and “resume” after every signal.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="pp">#include </span><span class="im">&lt;IRremote.hpp&gt;</span></span>
+<span id="cb2-2"><a></a><span class="pp">#define IR_RECEIVE_PIN </span><span class="dv">2</span></span>
+<span id="cb2-3"><a></a></span>
+<span id="cb2-4"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-5"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb2-6"><a></a>  IrReceiver<span class="op">.</span>begin<span class="op">(</span>IR_RECEIVE_PIN<span class="op">,</span> ENABLE_LED_FEEDBACK<span class="op">);</span></span>
+<span id="cb2-7"><a></a>  <span class="co">// ... usual motor setup goes here ...</span></span>
+<span id="cb2-8"><a></a><span class="op">}</span></span>
+<span id="cb2-9"><a></a></span>
+<span id="cb2-10"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-11"><a></a>  <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decode<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb2-12"><a></a>    <span class="dt">unsigned</span> <span class="dt">long</span> cmd <span class="op">=</span> IrReceiver<span class="op">.</span>decodedIRData<span class="op">.</span>decodedRawData<span class="op">;</span></span>
+<span id="cb2-13"><a></a>    Serial<span class="op">.</span>println<span class="op">(</span>cmd<span class="op">,</span> HEX<span class="op">);</span> </span>
+<span id="cb2-14"><a></a>    </span>
+<span id="cb2-15"><a></a>    handleCommand<span class="op">(</span>cmd<span class="op">);</span> <span class="co">// Run our logic</span></span>
+<span id="cb2-16"><a></a>    </span>
+<span id="cb2-17"><a></a>    IrReceiver<span class="op">.</span>resume<span class="op">();</span> <span class="co">// Ready for next signal</span></span>
+<span id="cb2-18"><a></a>  <span class="op">}</span></span>
 <span id="cb2-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="driving-the-car" class="slide level2">
-<h2>Driving the Car</h2>
-<p>Now, our <code>loop()</code> becomes very simple and easy to read!</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-2"><a></a>  forward<span class="op">();</span></span>
-<span id="cb3-3"><a></a>  delay<span class="op">(</span><span class="dv">2000</span><span class="op">);</span> <span class="co">// Drive for 2 seconds</span></span>
-<span id="cb3-4"><a></a>  </span>
-<span id="cb3-5"><a></a>  stopCar<span class="op">();</span></span>
-<span id="cb3-6"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span> <span class="co">// Wait 1 second</span></span>
-<span id="cb3-7"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Instructor Checkpoint</strong></p>
-</div>
-<div class="callout-content">
-<p>Upload this code to your Arduino. Put the car on the floor. Does it move forward? If it spins in a circle, one of your motors is wired backward! How can you fix it? (Hint: Swap the physical wires, or swap <code>HIGH</code> and <code>LOW</code> in the code).</p>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-turning" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Exercise: Turning</h2>
-<p>How does a tank turn? It spins its tracks in opposite directions!</p>
-<p><em>(Apply)</em>: Write the code for a <code>turnRight()</code> function.</p>
-<div class="fragment">
-<p><strong>Solution:</strong> To turn Right, the Left wheels must go Forward, and the Right wheels must go Backward.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">void</span> turnRight<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb4-2"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Left Forward</span></span>
-<span id="cb4-3"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb4-4"><a></a>  analogWrite<span class="op">(</span>ENA<span class="op">,</span> <span class="dv">150</span><span class="op">);</span></span>
-<span id="cb4-5"><a></a>  </span>
-<span id="cb4-6"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb4-7"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Right Backward (Reverse!)</span></span>
-<span id="cb4-8"><a></a>  analogWrite<span class="op">(</span>ENB<span class="op">,</span> <span class="dv">150</span><span class="op">);</span></span>
-<span id="cb4-9"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section></section>
-<section>
-<section id="part-4-bt-the-bluetooth-module" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 4 (BT) — The Bluetooth Module</h1>
-
-</section>
-<section id="cutting-the-cord" class="slide level2">
-<h2>Cutting the Cord</h2>
-<p>Instead of an infrared remote, we are going to use <strong>Bluetooth</strong>! This means we can control our robot using a smartphone app, just like a real RC car or a drone.</p>
-<p>We will use an <strong>HC-05</strong> Bluetooth module and the <strong>Dabble App</strong>, which transforms your smartphone into a virtual controller.</p>
-</section>
-<section id="wiring-the-module" class="slide level2">
-<h2>Wiring the Module</h2>
-<p>Here is the trick with communication pins: <strong>TX must talk to RX</strong>.</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ol type="1">
-<li>Connect <strong>VCC</strong> to Arduino <code>5V</code>.</li>
-<li>Connect <strong>GND</strong> to Arduino <code>GND</code>.</li>
-<li>Connect <strong>TXD</strong> to Arduino <strong>Pin 2</strong>.</li>
-<li>Connect <strong>RXD</strong> to Arduino <strong>Pin 3</strong>.</li>
-</ol>
-</div><div class="column" style="width:50%;">
-<p><img data-src="assets/Arduino_BT.png"></p>
-</div></div>
-<div class="simple">
+<section id="brainstorming-the-stickiness-problem" class="slide level2">
+<h2>Brainstorming: The “Stickiness” Problem</h2>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>The 3.3V Rule</strong></p>
+<p><strong>Problem</strong></p>
 </div>
 <div class="callout-content">
-<p>The RXD pin on the HC-05 expects <strong>3.3V</strong>, but the Arduino sends <strong>5V</strong>. For a perfect build, we use a <em>voltage divider</em> (two resistors) to lower the voltage.</p>
+<p>If you press “Forward” once, the robot starts moving. But if you let go, it <strong>keeps moving</strong>! Why?</p>
 </div>
 </div>
 </div>
-</div>
+<ul>
+<li>The IR remote only sends a signal when it’s pressed.</li>
+<li>The Robot doesn’t know you let go unless you tell it.</li>
+<li><strong>Solution Ideas:</strong>
+<ol type="1">
+<li>Add a dedicated “Stop” button.</li>
+<li>Use a timer (if no signal for 0.5s, stop).</li>
+<li>(Advanced) Check for the “Repeat” code (<code>0xFFFFFFFF</code>).</li>
+</ol></li>
+</ul>
+</section></section>
+<section>
+<section id="part-4-make-it-drive" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 4 — Make It Drive!</h1>
+
 </section>
-<section id="installing-the-dabble-library" class="slide level2">
-<h2>Installing the Dabble Library</h2>
-<p>Before we can write our code, we need to add the Dabble library to the Arduino IDE:</p>
+<section id="activity-full-control" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Activity: Full Control</h2>
+<p>Integrate your code from Session 2!</p>
+<ol type="1">
+<li>Copy your <code>forward()</code>, <code>backward()</code>, <code>left()</code>, <code>right()</code>, and <code>stopCar()</code> functions.</li>
+<li>Put them in your IR sketch.</li>
+<li>Map them in your <code>switch</code> statement.</li>
+<li><strong>Challenge:</strong> Try to drive your car around a chair using ONLY the remote.</li>
+</ol>
+</section>
+<section id="bonus-activity-speed-modes" class="slide level2">
+<h2>🔥 Bonus Activity: Speed Modes</h2>
+<p>What if you want to go slow for careful turns and fast for the straightaways?</p>
+<ol type="1">
+<li>Map button <strong>1</strong> to “Slow” and button <strong>2</strong> to “Fast”.</li>
+<li>Create a global variable: <code>int currentSpeed = 150;</code></li>
+<li>Update your <code>handleCommand</code>:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a></a><span class="cf">case</span> <span class="bn">0xFF30CF</span><span class="op">:</span> <span class="co">// Button 1</span></span>
+<span id="cb3-2"><a></a>  currentSpeed <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> <span class="co">// Slow</span></span>
+<span id="cb3-3"><a></a>  <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-4"><a></a><span class="cf">case</span> <span class="bn">0xFF18E7</span><span class="op">:</span> <span class="co">// Button 2</span></span>
+<span id="cb3-5"><a></a>  currentSpeed <span class="op">=</span> <span class="dv">255</span><span class="op">;</span> <span class="co">// FAST!</span></span>
+<span id="cb3-6"><a></a>  <span class="cf">break</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="4" type="1">
+<li>Change your movement functions to use <code>currentSpeed</code> instead of a fixed number: <code>analogWrite(ENA, currentSpeed);</code></li>
+</ol>
+</section></section>
+<section>
+<section id="part-5-button-map-worksheet" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 5 — Button-Map Worksheet</h1>
+
+</section>
+<section id="documentation-mapping-your-controls" class="slide level2">
+<h2>Documentation: Mapping Your Controls</h2>
+<p>For your <strong>Home Showcase</strong>, you need to be able to tell your family how to drive your robot!</p>
+<ol type="1">
+<li>Take your physical <strong>Button-Map Worksheet</strong>.</li>
+<li>For every button you programmed, write down:
+<ul>
+<li>The Hex Code (e.g., <code>0xFF38C7</code>)</li>
+<li>The Action (e.g., <code>Stop</code>)</li>
+<li>The Button Symbol (e.g., <code>OK</code>)</li>
+</ul></li>
+</ol>
 <blockquote>
-<p>📥 <strong>Download:</strong> <a href="https://thestempedia.com/download/28488/">Dabble-Arduino.zip</a></p>
+<p><strong>Why?</strong> Good engineers always document their work so others can use it.</p>
 </blockquote>
-<p>In the Arduino IDE, go to <strong>Sketch</strong> → <strong>Include Library</strong> → <strong>Add .ZIP Library…</strong> and select the file you just downloaded.</p>
-
-<img data-src="https://ai.thestempedia.com/wp-content/uploads/2022/08/Library-Installation.png" class="r-stretch quarto-figure-center"><p class="caption">Adding the Library</p></section>
-<section id="connecting-with-dabble" class="slide level2">
-<h2>Connecting with Dabble</h2>
-<p>To make the Arduino talk to the Dabble app, we just need to include the library and start it in our code. Dabble automatically knows to use Pins 2 and 3!</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a></a><span class="pp">#define CUSTOM_SETTINGS</span></span>
-<span id="cb5-2"><a></a><span class="pp">#define INCLUDE_GAMEPAD_MODULE</span></span>
-<span id="cb5-3"><a></a><span class="pp">#include </span><span class="im">&lt;Dabble.h&gt;</span></span>
-<span id="cb5-4"><a></a></span>
-<span id="cb5-5"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-6"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> </span>
-<span id="cb5-7"><a></a>  Dabble<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> <span class="co">// Start Bluetooth communication</span></span>
-<span id="cb5-8"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="install-dabble-in-your-smartphone" class="slide level2">
-<h2>Install Dabble in your Smartphone</h2>
-<p>Download the <strong>Dabble App</strong> from your App Store. Once installed, open the app, click the connect icon, and pair it with your HC-05 module (Password is usually <code>1234</code> or <code>0000</code>).</p>
-</section></section>
-<section>
-<section id="part-5-bt-app-driving" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 5 (BT) — App Driving</h1>
-
-</section>
-<section id="the-dabble-gamepad" class="slide level2">
-<h2>The Dabble Gamepad</h2>
-<p>We will use the <strong>Gamepad Module</strong> in the Dabble app to drive our robot. The Gamepad has buttons like Up, Down, Left, and Right.</p>
-
-<img data-src="https://ai.thestempedia.com/wp-content/uploads/2022/07/Game-Pad.jpg" class="r-stretch quarto-figure-center"><p class="caption">Dabble Gamepad Module</p></section>
-<section id="reading-the-gamepad" class="slide level2">
-<h2>Reading the Gamepad</h2>
-<p>In our <code>loop()</code>, we need to continuously check if the Dabble app is sending any button presses:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb6-2"><a></a>  Dabble<span class="op">.</span>processInput<span class="op">();</span> <span class="co">// Refresh data from the smartphone</span></span>
-<span id="cb6-3"><a></a>  </span>
-<span id="cb6-4"><a></a>  <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isUpPressed<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb6-5"><a></a>    moveForward<span class="op">();</span></span>
-<span id="cb6-6"><a></a>  <span class="op">}</span> </span>
-<span id="cb6-7"><a></a>  <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isDownPressed<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb6-8"><a></a>    moveBackward<span class="op">();</span> <span class="co">// Assuming we have this function</span></span>
-<span id="cb6-9"><a></a>  <span class="op">}</span></span>
-<span id="cb6-10"><a></a>  <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isLeftPressed<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb6-11"><a></a>    moveLeft<span class="op">();</span> <span class="co">// Assuming we have this function</span></span>
-<span id="cb6-12"><a></a>  <span class="op">}</span></span>
-<span id="cb6-13"><a></a>  <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isRightPressed<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb6-14"><a></a>    moveRight<span class="op">();</span> <span class="co">// Assuming we have this function</span></span>
-<span id="cb6-15"><a></a>  <span class="op">}</span></span>
-<span id="cb6-16"><a></a>  <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb6-17"><a></a>    stopCar<span class="op">();</span></span>
-<span id="cb6-18"><a></a>  <span class="op">}</span></span>
-<span id="cb6-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="creating-the-helper-functions" class="slide level2">
-<h2>Creating the Helper Functions</h2>
-<p>To keep our code clean, we use custom functions like <code>moveForward()</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a></a><span class="dt">void</span> moveForward<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-2"><a></a>  <span class="co">// Left Motor Forward</span></span>
-<span id="cb7-3"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb7-4"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-5"><a></a>  </span>
-<span id="cb7-6"><a></a>  <span class="co">// Right Motor Forward</span></span>
-<span id="cb7-7"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb7-8"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-9"><a></a><span class="op">}</span></span>
-<span id="cb7-10"><a></a></span>
-<span id="cb7-11"><a></a><span class="dt">void</span> stopCar<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-12"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-13"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-14"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-15"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-16"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="the-driving-challenge" class="slide level2">
-<h2>The Driving Challenge</h2>
-<p>Now it’s time to test!</p>
-<ol type="1">
-<li>Upload the code to your Arduino Uno.</li>
-<li>Disconnect the USB cable (very important!).</li>
-<li>Turn on the battery pack.</li>
-<li>Pair your phone via Bluetooth to your HC-05 (Password is usually <code>1234</code> or <code>0000</code>).</li>
-<li>Open the Dabble app, select Gamepad, and drive!</li>
-</ol>
-</section></section>
-<section>
-<section id="part-7-obstacle-course-ai-demo" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 7 — Obstacle Course &amp; AI Demo</h1>
-
-</section>
-<section id="the-obstacle-course-challenge" class="slide level2">
-<h2>The Obstacle Course Challenge</h2>
-<p>There is a maze taped out on the floor.</p>
-<p><strong>Your Mission:</strong></p>
-<ol type="1">
-<li>Place your car at the START line.</li>
-<li>Use your newly built <strong>IR Remote Control</strong> program to navigate the maze.</li>
-<li>If you crash, you have to start over!</li>
-<li>Who can get the fastest time?</li>
-</ol>
-</section>
-<section id="automating-with-ai" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
-<h2>Automating with AI</h2>
-<p>What if you didn’t <em>want</em> to use the remote? We can ask AI to write a hardcoded path for us.</p>
-<p><strong>Instructor Demo:</strong> Using AI to generate a “Complex Movement Sequence.”</p>
-<p>Watch as your instructor types: <em>“Write an Arduino loop that makes my car drive in a Figure-8 pattern. It should go forward, curve right, go forward, curve left, and repeat.”</em></p>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>What to notice</strong></p>
-</div>
-<div class="callout-content">
-<p>Does the AI-generated code work on the first try? Usually we need to tweak the <code>delay()</code> timings for our specific floor!</p>
-</div>
-</div>
-</div>
-</section>
-<section id="bonus-custom-movement-patterns" class="slide level2 sdaia-dark" data-background-color="#1C355E">
-<h2>🔥 Bonus: Custom Movement Patterns</h2>
-<p>Can you combine remote control with automatic patterns?</p>
-<p><strong>Challenge:</strong> Map the “OK” button on your remote to trigger an automatic victory dance!</p>
+<section id="curiosity-challenge-the-horn" class="slide level2">
+<h2>💡 Curiosity Challenge: The Horn</h2>
+<p>Can you make one button trigger a “Beep” like a car horn?</p>
 <ul>
-<li><strong>Example Pattern:</strong> Quick spin right, reverse, then spin left.</li>
-<li>Use <code>delay()</code> to control how long each movement lasts during the dance.</li>
-<li>When you press OK, the car temporarily ignores other buttons and performs the sequence.</li>
+<li><strong>Hardware:</strong> Connect a buzzer to Pin 13 (built-in LED pin works too!).</li>
+<li><strong>Goal:</strong> Press button “0” to make the car honk.</li>
+<li><strong>AI Help:</strong> Ask AI: <em>“How do I make a buzzer beep for 0.5 seconds on pin 13 using the tone command?”</em></li>
 </ul>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Example Code</strong></p>
-</div>
-<div class="callout-content">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a></a><span class="dt">void</span> victoryDance<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb8-2"><a></a>  turnRight<span class="op">();</span> delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span>  <span class="co">// Quick spin right</span></span>
-<span id="cb8-3"><a></a>  backward<span class="op">();</span>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span>  <span class="co">// Back it up</span></span>
-<span id="cb8-4"><a></a>  turnLeft<span class="op">();</span>  delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span>  <span class="co">// Quick spin left</span></span>
-<span id="cb8-5"><a></a>  stopCar<span class="op">();</span></span>
-<span id="cb8-6"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="part-8-problem-patterns" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 8 — Problem Patterns</h1>
-
 </section>
-<section id="what-can-a-moving-robot-actually-do" class="slide level2">
-<h2>What can a moving robot <em>actually do</em>?</h2>
-<p>A remote-controlled car is incredibly fun — but <strong>useful robots solve real problems on their own</strong>.</p>
+<section id="closing-whats-next" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Closing: What’s Next?</h2>
+<p><strong>Congratulations!</strong> You now have a remote-controlled robot.</p>
 <ul>
-<li class="fragment">💊 Deliver medicine inside a hospital</li>
-<li class="fragment">🔍 Inspect dangerous pipes underground</li>
-<li class="fragment">📦 Move boxes in a warehouse</li>
-<li class="fragment">🚜 Navigate a farm autonomously</li>
+<li>What other buttons could we use?</li>
+<li>Could we make the car do a “Victory Dance” when we press a special button?</li>
+<li>Could we turn lights on and off remotely?</li>
 </ul>
-<div class="fragment">
-<p><strong>To do this safely, they need more than a human holding a remote control!</strong></p>
-</div>
-</section>
-<section id="the-pattern-behind-every-robot" class="slide level2 sdaia-dark" data-background-gradient="radial-gradient(circle at 30% 70%, #0f172a 0%, #1C355E 100%)">
-<h2>The Pattern Behind Every Robot</h2>
-<p>Every robot program follows the same 3-step loop:</p>
-<div class="columns">
-<div class="column" style="width:33%;">
-<h3 id="sense">1️⃣ Sense</h3>
-<p>Read the world — buttons, sensors, signals.</p>
-</div><div class="column" style="width:33%;">
-<h3 id="decide">2️⃣ Decide</h3>
-<p>Run logic — <code>if</code>, <code>switch</code>, functions.</p>
-</div><div class="column" style="width:33%;">
-<h3 id="act">3️⃣ Act</h3>
-<p>Drive motors, blink LEDs, make sounds.</p>
-</div></div>
-<div class="fragment">
-<p>Today you completed <strong>Act</strong> (Motors) and basic <strong>Sense</strong> (IR Receiver).</p>
-</div>
-</section>
-<section id="curiosity-challenge" class="slide level2">
-<h2>💡 Curiosity Challenge</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Try This at Home (totally optional, totally fun!)</strong></p>
-</div>
-<div class="callout-content">
-<p><strong>Can you improve your remote control?</strong></p>
-<ul>
-<li>What happens if you press a button on a regular TV remote pointing at the car?</li>
-<li>Can you change the speed of the motors so “Up” is fast and “Down” is slow?</li>
-<li>Can you add code to make the car automatically brake if you hold “OK”?</li>
-</ul>
-<p><em>Experiment, break things, and bring your findings next session!</em></p>
-</div>
-</div>
-</div>
-</section>
-<section id="whats-coming-next" class="slide level2">
-<h2>What’s Coming Next?</h2>
-<ul>
-<li class="fragment"><strong>Session 3:</strong> The Smarter Car — <strong>Sensors</strong> 🧠</li>
-<li class="fragment">Give your car “eyes” using Ultrasonic Sound (like a bat!).</li>
-<li class="fragment">Make the car drive itself and dodge obstacles automatically.</li>
-<li class="fragment">Start brainstorming ideas for the WRO Future Innovators project!</li>
-</ul>
-<div class="fragment">
-<h3 id="see-you-next-time">See you next time! 🚗💨</h3>
-</div>
+<p><strong>Next Session:</strong> We give the car “Eyes” (Ultrasonic sensors) so it can see obstacles!</p>
 
 
 </section></section>

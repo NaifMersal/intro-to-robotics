@@ -1,0 +1,25 @@
+---
+title: "Session 3: The Smarter Car — Sensors"
+subtitle: "Give your car eyes"
+date: today
+format:
+  revealjs:
+    theme: [default, ../slides_template/assets/sdaia.scss]
+    transition: slide
+    background-transition: fade
+    slide-number: true
+    controls: true
+    progress: true
+    center-title-slide: true
+    title-slide-attributes:
+      data-background-image: "../slides_template/assets/anim.svg"
+      data-background-opacity: "0.08"
+      data-background-size: "cover"
+---
+
+# Session 3 {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+The Smarter Car — Give your car eyes 🧠
+
+## Agenda
+

@@ -37,8 +37,6 @@ These are **not homework**. Try them if you're curious — there's no deadline a
 
 ## 4 Ways to Use AI in This Course
 
-In this course, AI is like a **knowledgeable friend** — it can help you think, but you still need to test the robot yourself.
-
 1. **Explain** — *"What does `pinMode(13, OUTPUT)` actually do? Explain it simply."*
 2. **Debug** — *"My LED won't light up. Here is my code. What might be wrong?"*
 3. **Extend** — *"My traffic light works. How do I make the yellow light blink slowly?"*

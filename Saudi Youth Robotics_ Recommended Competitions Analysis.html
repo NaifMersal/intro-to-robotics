@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style=""><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Competition Options for the Saudi Youth Robotics Cohort (Ages 8–12)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+      body {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 28px 24px 48px;
+        position: relative;
+        box-sizing: border-box;
+        font-family: 'Arial', 'Helvetica', sans-serif;
+        color: #333333;
+        line-height: 1.6;
+        background-color: #ffffff;
+      }
+      h1 {
+        font-size: 2.2em;
+        margin-bottom: 0.2em;
+        color: #111111;
+        text-align: left;
+        line-height: 1.2;
+      }
+      h2.subtitle {
+        font-size: 1.25em;
+        color: #555555;
+        font-weight: normal;
+        margin-top: 0;
+        margin-bottom: 1.2em;
+        border-bottom: 2px solid #333333;
+        padding-bottom: 10px;
+      }
+      h3 {
+        font-size: 1.35em;
+        color: #222222;
+        margin-top: 1.5em;
+        margin-bottom: 0.8em;
+        border-bottom: 1px solid #dddddd;
+        padding-bottom: 5px;
+      }
+      h4 {
+        font-size: 1.12em;
+        color: #333333;
+        margin-top: 1.1em;
+        margin-bottom: 0.6em;
+      }
+      p,
+      li {
+        font-size: 11pt;
+        margin-bottom: 0.8em;
+      }
+      .date-note {
+        font-style: italic;
+        color: #666666;
+        margin-bottom: 1.2em;
+      }
+      table {
+        width: 100%;
+        margin: 1.25em 0 1.5em;
+        font-size: 10pt;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid #d9dee7;
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: #ffffff;
+      }
+      th,
+      td {
+        border: none;
+        border-bottom: 1px solid #e6eaf0;
+        padding: 10px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+      th {
+        background-color: #f5f7fa;
+        font-weight: bold;
+        color: #1f2937;
+        font-size: 0.95em;
+      }
+      tbody tr:nth-child(even) {
+        background-color: #fbfcfd;
+      }
+      .callout-box {
+        border: 1px solid #d9dee7;
+        padding: 15px 20px;
+        margin: 1.5em 0;
+        background-color: #fafafa;
+        border-radius: 12px;
+      }
+      .callout-box h4 {
+        margin-top: 0;
+      }
+      .status-label {
+        display: inline-block;
+        border: 1px solid #c7cfdb;
+        padding: 2px 8px;
+        font-weight: bold;
+        font-size: 0.85em;
+        background-color: #f5f7fa;
+        margin-left: 8px;
+        border-radius: 999px;
+      }
+      a {
+        color: #0056b3;
+        text-decoration: underline;
+        overflow-wrap: anywhere;
+      }
+      ul {
+        padding-left: 20px;
+        margin-bottom: 1em;
+      }
+      .hierarchy-list {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .hierarchy-list li {
+        margin-bottom: 12px;
+        padding: 12px 14px;
+        border: 1px solid #d7dde5;
+        border-radius: 12px;
+        background-color: #ffffff;
+      }
+      .hierarchy-list strong {
+        font-size: 1.05em;
+      }
+      .hero {
+        border: 1px solid #d7dde5;
+        background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        padding: 24px 28px;
+        margin-bottom: 1.8em;
+        border-radius: 14px;
+      }
+      .hero p:last-child {
+        margin-bottom: 0;
+      }
+      .summary-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin: 1.2em 0 1.8em;
+      }
+      .summary-card {
+        display: grid;
+        grid-template-columns: 110px 1fr 130px;
+        gap: 16px;
+        align-items: center;
+        border: 1px solid #d6d6d6;
+        background: linear-gradient(90deg, #edf8ee 0%, #f8fbf4 55%, #fff8e7 100%);
+        padding: 16px 18px;
+        border-radius: 14px;
+      }
+      .summary-card h4 {
+        margin-top: 0;
+        margin-bottom: 0.35em;
+      }
+      .card-rank {
+        font-size: 0.9em;
+        font-weight: bold;
+        color: #245224;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .card-stars {
+        font-size: 1.05em;
+        font-weight: bold;
+        color: #b38716;
+        text-align: right;
+        white-space: nowrap;
+      }
+      .card-stars span {
+        display: block;
+        font-size: 0.8em;
+        color: #5b6472;
+        margin-top: 4px;
+      }
+      .badge {
+        display: inline-block;
+        padding: 3px 8px;
+        font-size: 0.82em;
+        font-weight: bold;
+        border: 1px solid #666666;
+        margin-bottom: 8px;
+        border-radius: 999px;
+      }
+      .badge-strong {
+        background-color: #eaf6ea;
+        border-color: #4f7f4f;
+        color: #245224;
+      }
+      .badge-conditional {
+        background-color: #fff5dd;
+        border-color: #a17a1a;
+        color: #7a5600;
+      }
+      .badge-watch {
+        background-color: #fff6db;
+        border-color: #ad8a2a;
+        color: #7a5600;
+      }
+      .section-note {
+        font-size: 10pt;
+        color: #555555;
+        margin-top: -0.2em;
+      }
+      .criteria-list li,
+      .analysis-list li {
+        margin-bottom: 0.5em;
+      }
+      .event-block {
+        border: 1px solid #d7dde5;
+        padding: 18px 20px;
+        margin: 1.4em 0;
+        background-color: #ffffff;
+        border-radius: 14px;
+      }
+      .event-block h3,
+      .event-block h4 {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .subgrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+        margin: 0.8em 0 1em;
+      }
+      .subcard {
+        border: 1px solid #e0e0e0;
+        background-color: #fafafa;
+        padding: 12px 14px;
+        border-radius: 12px;
+      }
+      .subcard p:last-child {
+        margin-bottom: 0;
+      }
+      .elimination-item {
+        border: 1px solid #d8d8d8;
+        padding: 14px 16px;
+        margin-bottom: 12px;
+        background-color: #fcfcfc;
+        border-radius: 12px;
+      }
+      .source-list li {
+        margin-bottom: 0.55em;
+      }
+      .fit-pill {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 0.82em;
+        font-weight: bold;
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .fit-good {
+        background: #e8f7ec;
+        color: #1f6b36;
+        border-color: #a8d5b3;
+      }
+      .fit-medium {
+        background: #fff6da;
+        color: #8a6500;
+        border-color: #e7cb74;
+      }
+      .fit-risk {
+        background: #fdeaea;
+        color: #9a2f2f;
+        border-color: #efb2b2;
+      }
+      td.cell-good {
+        background: #f3fbf5;
+        box-shadow: inset 4px 0 0 #93c5a4;
+      }
+      td.cell-medium {
+        background: #fff8e7;
+        box-shadow: inset 4px 0 0 #e7cb74;
+      }
+      td.cell-risk {
+        background: #fff1f1;
+        box-shadow: inset 4px 0 0 #efb2b2;
+      }
+      .table-summary {
+        margin: -0.4em 0 1.4em;
+        padding: 12px 14px;
+        border: 1px solid #d9dee7;
+        background: #fafbfd;
+        border-radius: 10px;
+        font-size: 10pt;
+      }
+      .table-summary strong {
+        color: #1f2937;
+      }
+      .stars-inline {
+        color: #b38716;
+        font-weight: bold;
+        letter-spacing: 0.04em;
+      }
+      .muted-note {
+        color: #5b6472;
+        font-size: 0.95em;
+      }
+      @media (max-width: 768px) {
+        body {
+          padding: 16px 14px 36px;
+        }
+        h1 {
+          font-size: 1.7em;
+        }
+        h2.subtitle {
+          font-size: 1.05em;
+          margin-bottom: 1em;
+        }
+        h3 {
+          font-size: 1.2em;
+        }
+        .hero,
+        .callout-box,
+        .event-block,
+        .summary-card,
+        .subcard,
+        .elimination-item,
+        .hierarchy-list li {
+          padding: 14px;
+        }
+        .summary-grid,
+        .subgrid {
+          grid-template-columns: 1fr;
+        }
+        .summary-card {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+        .card-stars {
+          text-align: left;
+        }
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+          width: 100%;
+        }
+        thead {
+          display: none;
+        }
+        table {
+          border: none;
+          background: transparent;
+        }
+        tbody tr {
+          border: 1px solid #d9dee7;
+          border-radius: 12px;
+          overflow: hidden;
+          margin-bottom: 12px;
+          background: #ffffff;
+        }
+        tbody tr:nth-child(even) {
+          background-color: #ffffff;
+        }
+        td {
+          position: relative;
+          padding: 10px 12px 10px 42%;
+          border-bottom: 1px solid #e6eaf0;
+          min-height: 44px;
+        }
+        td:last-child {
+          border-bottom: none;
+        }
+        td::before {
+          position: absolute;
+          left: 12px;
+          top: 10px;
+          width: 28%;
+          font-weight: bold;
+          color: #4b5563;
+          white-space: normal;
+          content: attr(data-label);
+        }
+      }
+    </style>
+  </head>
+  <body style="">
+    <div class="hero">
+      <h1>International Competition Options for the Saudi Youth Robotics Cohort (Ages 8–12)</h1>
+      <h2 class="subtitle">Strategic alternatives to ITEX/WYIE for the 2026 cohort</h2>
+      <p class="date-note">Prepared on 15 April 2026</p>
+      <p>
+        This report revises and strengthens the original recommendation framework so it more fully matches the requested
+        decision structure: clear recommendation hierarchy, stronger comparison logic, more complete timing analysis,
+        and a fuller elimination appendix for stakeholder review.
+      </p>
+    </div>
+
+    <div class="callout-box">
+      <h4>Executive Summary</h4>
+      <p>
+        The central question is not merely which event is prestigious, but which event offers the best combination of
+        <strong>international reputation, age fit, domain alignment, and realistic timing</strong> for a Saudi youth
+        robotics cohort now preparing after ITEX/WYIE timing has effectively become too near.
+      </p>
+      <p>
+        After reviewing leading global robotics and AI youth competitions, the strongest answer remains:
+        <strong>prioritize WRO Future Innovators</strong>, maintain <strong>IRO 2026</strong> as a serious secondary path
+        subject to rule confirmation, and treat <strong>Robotics for Good</strong> as a valuable but timing-constrained
+        opportunity for this cycle.
+      </p>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="card-rank">#1 Ranked Choice</div>
+        <div>
+          <div class="badge badge-strong">Primary Recommendation</div>
+          <h4>WRO Future Innovators</h4>
+          <p>
+            Best overall match for ages 8–12, strongest alignment with prototype-and-presentation outcomes, and clearest
+            Saudi qualification pathway.
+          </p>
+        </div>
+        <div class="card-stars">★★★★★<span>5.0 / 5 fit</span></div>
+      </div>
+      <div class="summary-card">
+        <div class="card-rank">#2 Ranked Choice</div>
+        <div>
+          <div class="badge badge-conditional">Secondary Recommendation</div>
+          <h4>IRO 2026</h4>
+          <p>
+            Strong international Olympiad option with flexible timing, but category and age structure for 2026 must be
+            validated before committing the cohort.
+          </p>
+        </div>
+        <div class="card-stars">★★★★☆<span>4.0 / 5 fit</span></div>
+      </div>
+      <div class="summary-card">
+        <div class="card-rank">#3 Ranked Choice</div>
+        <div>
+          <div class="badge badge-watch">Watchlist / Late-Cycle Option</div>
+          <h4>Robotics for Good</h4>
+          <p>
+            Excellent thematic fit for AI and social impact, but the direct submission route for the current cycle has
+            already passed.
+          </p>
+        </div>
+        <div class="card-stars">★★★☆☆<span>3.0 / 5 fit</span></div>
+      </div>
+    </div>
+
+    <h3>Recommendation Hierarchy</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Event</th>
+          <th>Why It Ranks Here</th>
+          <th>Current Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Rank" class="cell-good"><strong>#1</strong></td>
+          <td data-label="Event"><strong>WRO Future Innovators</strong></td>
+          <td data-label="Why It Ranks Here" class="cell-good">Best age fit, strongest course match, clearest Saudi path</td>
+          <td data-label="Current Status" class="cell-good"><span class="fit-pill fit-good">Strong Fit</span> ★★★★★</td>
+        </tr>
+        <tr>
+          <td data-label="Rank" class="cell-medium"><strong>#2</strong></td>
+          <td data-label="Event"><strong>IRO 2026</strong></td>
+          <td data-label="Why It Ranks Here" class="cell-medium">Strong prestige and timing flexibility, pending rule confirmation</td>
+          <td data-label="Current Status" class="cell-medium"><span class="fit-pill fit-medium">Conditional Fit</span> ★★★★☆</td>
+        </tr>
+        <tr>
+          <td data-label="Rank" class="cell-medium"><strong>#3</strong></td>
+          <td data-label="Event"><strong>Robotics for Good</strong></td>
+          <td data-label="Why It Ranks Here" class="cell-risk">Excellent theme fit, but current-cycle timing is weak</td>
+          <td data-label="Current Status" class="cell-risk"><span class="fit-pill fit-risk">Timing Risk</span> ★★★☆☆</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Selection Criteria</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Criterion</th>
+          <th>What We Tested</th>
+          <th>Why It Matters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Criterion"><strong>Reputation</strong></td>
+          <td data-label="What We Tested">Global standing and seriousness relative to ITEX/WYIE</td>
+          <td data-label="Why It Matters">Ensures international credibility</td>
+        </tr>
+        <tr>
+          <td data-label="Criterion"><strong>Age Fit</strong></td>
+          <td data-label="What We Tested">Direct suitability for ages 8–12</td>
+          <td data-label="Why It Matters">Reduces developmental mismatch</td>
+        </tr>
+        <tr>
+          <td data-label="Criterion"><strong>Skills Match</strong></td>
+          <td data-label="What We Tested">Robotics, sensors, prototyping, AI literacy, presentation</td>
+          <td data-label="Why It Matters">Keeps learning aligned to the event</td>
+        </tr>
+        <tr>
+          <td data-label="Criterion"><strong>Timing</strong></td>
+          <td data-label="What We Tested">Whether 2026 dates still allow credible preparation</td>
+          <td data-label="Why It Matters">Avoids rushed participation</td>
+        </tr>
+        <tr>
+          <td data-label="Criterion"><strong>Entry Route</strong></td>
+          <td data-label="What We Tested">National qualification, direct submission, or organizer pathway</td>
+          <td data-label="Why It Matters">Determines practical access</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Shortlist Comparison</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Age Fit</th>
+          <th>Course Match</th>
+          <th>Timing</th>
+          <th>Entry Route</th>
+          <th>Key Advantage</th>
+          <th>Key Watchout</th>
+          <th>Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Event"><strong>WRO Future Innovators</strong><br><span class="muted-note">Best route: FI Elementary</span></td>
+          <td data-label="Age Fit" class="cell-good"><span class="fit-pill fit-good">Excellent</span><br>Direct 8–12 fit</td>
+          <td data-label="Course Match" class="cell-good"><span class="fit-pill fit-good">Very High</span><br>Build + sensors + pitch</td>
+          <td data-label="Timing" class="cell-good"><span class="fit-pill fit-good">Works Well</span><br>Dec 2026 final</td>
+          <td data-label="Entry Route" class="cell-good"><span class="fit-pill fit-good">Clear</span><br>Saudi pathway</td>
+          <td data-label="Key Advantage" class="cell-good">Best balance of fit, prestige, and access</td>
+          <td data-label="Key Watchout" class="cell-medium"><span class="fit-pill fit-medium">Check</span><br>Confirm Saudi 2026 mechanics</td>
+          <td data-label="Verdict" class="cell-good"><span class="fit-pill fit-good">Primary</span><br><span class="stars-inline">★★★★★</span></td>
+        </tr>
+        <tr>
+          <td data-label="Event"><strong>IRO 2026</strong><br><span class="muted-note">Best route: category to confirm</span></td>
+          <td data-label="Age Fit" class="cell-medium"><span class="fit-pill fit-medium">Promising</span><br>Validate 2026 age fit</td>
+          <td data-label="Course Match" class="cell-good"><span class="fit-pill fit-good">High</span><br>Strong technical match</td>
+          <td data-label="Timing" class="cell-good"><span class="fit-pill fit-good">Flexible</span><br>Aug 2026 / Jan 2027</td>
+          <td data-label="Entry Route" class="cell-medium"><span class="fit-pill fit-medium">Confirm</span><br>IROC or local organizer</td>
+          <td data-label="Key Advantage" class="cell-good">Strong Olympiad brand and schedule flexibility</td>
+          <td data-label="Key Watchout" class="cell-medium"><span class="fit-pill fit-medium">Rule Change</span><br>Age + judging revised</td>
+          <td data-label="Verdict" class="cell-medium"><span class="fit-pill fit-medium">Secondary</span><br><span class="stars-inline">★★★★☆</span></td>
+        </tr>
+        <tr>
+          <td data-label="Event"><strong>Robotics for Good</strong><br><span class="muted-note">Best route: junior if still open</span></td>
+          <td data-label="Age Fit" class="cell-good"><span class="fit-pill fit-good">Strong</span><br>Broad junior fit</td>
+          <td data-label="Course Match" class="cell-good"><span class="fit-pill fit-good">High</span><br>AI + impact + robotics</td>
+          <td data-label="Timing" class="cell-risk"><span class="fit-pill fit-risk">Late</span><br>Direct phase passed</td>
+          <td data-label="Entry Route" class="cell-risk"><span class="fit-pill fit-risk">Unclear</span><br>Only if partner route remains</td>
+          <td data-label="Key Advantage" class="cell-good">Excellent AI and social-impact framing</td>
+          <td data-label="Key Watchout" class="cell-risk"><span class="fit-pill fit-risk">Timing Risk</span><br>Current-cycle access is weak</td>
+          <td data-label="Verdict" class="cell-medium"><span class="fit-pill fit-medium">Watchlist</span><br><span class="stars-inline">★★★☆☆</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-summary">
+      <strong>Executive summary:</strong> <span class="stars-inline">★★★★★</span> WRO is the clearest operational match. <span class="stars-inline">★★★★☆</span> IRO is strong but needs rule confirmation. <span class="stars-inline">★★★☆☆</span> Robotics for Good is academically strong but late for this cycle.
+    </div>
+
+    <h3>Event Snapshot Table</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Factor</th>
+          <th>WRO</th>
+          <th>IRO</th>
+          <th>Robotics for Good</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Factor"><strong>Best-fit route</strong></td>
+          <td data-label="WRO" class="cell-good"><span class="fit-pill fit-good">Clear</span><br>FI Elementary</td>
+          <td data-label="IRO" class="cell-medium"><span class="fit-pill fit-medium">Pending</span><br>2026 category to confirm</td>
+          <td data-label="Robotics for Good" class="cell-medium"><span class="fit-pill fit-medium">Conditional</span><br>Junior route if open</td>
+        </tr>
+        <tr>
+          <td data-label="Factor"><strong>Timing window</strong></td>
+          <td data-label="WRO" class="cell-good"><span class="fit-pill fit-good">Good</span><br>8–10 Dec 2026</td>
+          <td data-label="IRO" class="cell-good"><span class="fit-pill fit-good">Good</span><br>Aug 2026 / Jan 2027</td>
+          <td data-label="Robotics for Good" class="cell-risk"><span class="fit-pill fit-risk">Weak</span><br>Direct phase passed</td>
+        </tr>
+        <tr>
+          <td data-label="Factor"><strong>Main strength</strong></td>
+          <td data-label="WRO" class="cell-good">Best balance of fit, prestige, and access</td>
+          <td data-label="IRO" class="cell-good">Prestige plus timing flexibility</td>
+          <td data-label="Robotics for Good" class="cell-good">Strong AI + social-impact framing</td>
+        </tr>
+        <tr>
+          <td data-label="Factor"><strong>Main caution</strong></td>
+          <td data-label="WRO" class="cell-medium">Confirm Saudi category mechanics</td>
+          <td data-label="IRO" class="cell-medium">Confirm final 2026 rules</td>
+          <td data-label="Robotics for Good" class="cell-risk">Late for the current cycle</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Course-Skill Alignment Tables</h3>
+    <p class="section-note">Topic-by-topic mapping below. Green = strong match, yellow = partial fit or rule-dependent area.</p>
+
+    <h4>WRO Future Innovators — Detailed Course-to-Competition Alignment</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Course Topic / Skill</th>
+          <th>Course Focus</th>
+          <th>Competition Fit</th>
+          <th>Alignment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Electronics Logic &amp; Cause-and-Effect</strong></td>
+          <td data-label="Course Focus">Circuits, outputs, hardware response to code</td>
+          <td data-label="Competition Fit">Supports explanation, debugging, and engineering credibility</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Traffic-Light / Sequential Programming</strong></td>
+          <td data-label="Course Focus">Timing, flow, state changes, output control</td>
+          <td data-label="Competition Fit">Base for automation and demo logic</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Mechanical Assembly</strong></td>
+          <td data-label="Course Focus">Chassis build, integration, structural quality</td>
+          <td data-label="Competition Fit">Direct fit for a real working robotic model</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Movement Programming</strong></td>
+          <td data-label="Course Focus">Forward, turn, reverse, controlled motion</td>
+          <td data-label="Competition Fit">Supports mobility, actuation, and automated task completion</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Sensor Integration</strong></td>
+          <td data-label="Course Focus">Ultrasonic, line following, reactive logic</td>
+          <td data-label="Competition Fit">Supports autonomy, engineering quality, and smart behavior</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Autonomous Decision Logic</strong></td>
+          <td data-label="Course Focus">Collision avoidance, rule-based independent action</td>
+          <td data-label="Competition Fit">Maps directly to code efficiency, software automation, and technical judging</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>User Interviews / Problem Validation</strong></td>
+          <td data-label="Course Focus">Need finding, validation, real-user relevance</td>
+          <td data-label="Competition Fit">Core to innovation and social-impact explanation in Future Innovators</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>AI Features</strong></td>
+          <td data-label="Course Focus">Detection, tracking, AI-assisted development concepts</td>
+          <td data-label="Competition Fit">Useful enhancement, but not a core requirement</td>
+          <td data-label="Alignment" class="cell-medium"><span class="fit-pill fit-medium">Moderate–Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>3D Design / CAD / Fabrication</strong></td>
+          <td data-label="Course Focus">Custom parts, attachments, refinement</td>
+          <td data-label="Competition Fit">Strengthens originality and engineering maturity</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Testing &amp; Reliability Improvement</strong></td>
+          <td data-label="Course Focus">Debugging, repeated trials, performance improvement</td>
+          <td data-label="Competition Fit">Supports stable demos and technical confidence</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Pitching / Poster / Demo Video</strong></td>
+          <td data-label="Course Focus">Project explanation, evidence, communication assets</td>
+          <td data-label="Competition Fit">Central to presentation, booth, and report</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Teamwork</strong></td>
+          <td data-label="Course Focus">3-person team collaboration around a validated problem</td>
+          <td data-label="Competition Fit">Direct match to team structure and judging</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-summary">
+      <strong>WRO alignment summary:</strong> <span class="stars-inline">★★★★★</span> Strongest overall fit. Best matches: prototyping, sensing, validation, presentation, and teamwork. AI is helpful but not essential.
+    </div>
+
+    <h4>IRO 2026 — Detailed Course-to-Competition Alignment</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Course Topic / Skill</th>
+          <th>Course Focus</th>
+          <th>Competition Fit</th>
+          <th>Alignment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Electronics Logic &amp; Cause-and-Effect</strong></td>
+          <td data-label="Course Focus">How code drives physical hardware behavior</td>
+          <td data-label="Competition Fit">Supports technical robot construction and task execution</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Sequential Programming</strong></td>
+          <td data-label="Course Focus">Flow control, timing, repeatable outputs</td>
+          <td data-label="Competition Fit">Useful for repeatable robotic behavior in challenge tasks</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Mechanical Assembly</strong></td>
+          <td data-label="Course Focus">Robot structure, motor integration, stability</td>
+          <td data-label="Competition Fit">Highly relevant because IRO is strongly performance-oriented</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Movement Programming</strong></td>
+          <td data-label="Course Focus">Precision movement and route control</td>
+          <td data-label="Competition Fit">Likely central in many robotics event formats</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Sensor Integration</strong></td>
+          <td data-label="Course Focus">Distance and environmental sensing</td>
+          <td data-label="Competition Fit">Strong fit for line tracing, response logic, and navigation tasks</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Autonomous Decision Logic</strong></td>
+          <td data-label="Course Focus">Independent decision-making and avoidance logic</td>
+          <td data-label="Competition Fit">Useful in autonomous categories; rules still pending</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>User Interviews / Problem Validation</strong></td>
+          <td data-label="Course Focus">Connecting technology to real needs</td>
+          <td data-label="Competition Fit">Less central than in WRO Future Innovators</td>
+          <td data-label="Alignment" class="cell-medium"><span class="fit-pill fit-medium">Moderate</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>AI Features</strong></td>
+          <td data-label="Course Focus">Applied AI in behavior or perception</td>
+          <td data-label="Competition Fit">Useful in some categories; not clearly universal</td>
+          <td data-label="Alignment" class="cell-medium"><span class="fit-pill fit-medium">Moderate</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>3D Design / CAD / Fabrication</strong></td>
+          <td data-label="Course Focus">Custom design and refinement</td>
+          <td data-label="Competition Fit">Useful where originality and tuning matter</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Testing &amp; Reliability Improvement</strong></td>
+          <td data-label="Course Focus">Repeated trials and consistency improvement</td>
+          <td data-label="Competition Fit">Important because Olympiad formats reward stable performance</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Pitching / Poster / Demo Video</strong></td>
+          <td data-label="Course Focus">Project explanation and communication assets</td>
+          <td data-label="Competition Fit">Useful, but less central than WRO-style judging</td>
+          <td data-label="Alignment" class="cell-medium"><span class="fit-pill fit-medium">Moderate</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Teamwork</strong></td>
+          <td data-label="Course Focus">Collaborative build, coding, and troubleshooting</td>
+          <td data-label="Competition Fit">Essential for execution under competition conditions</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-summary">
+      <strong>IRO alignment summary:</strong> <span class="stars-inline">★★★★☆</span> Strong technical fit for build, motion, sensing, and reliability. Weaker on validation and presentation, and 2026 rules still need confirmation.
+    </div>
+
+    <h4>Robotics for Good — Detailed Course-to-Competition Alignment</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Course Topic / Skill</th>
+          <th>Course Focus</th>
+          <th>Competition Fit</th>
+          <th>Alignment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Electronics Logic &amp; Cause-and-Effect</strong></td>
+          <td data-label="Course Focus">Robot response to code and hardware signals</td>
+          <td data-label="Competition Fit">Supports mission-based robot design and execution</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Sequential Programming</strong></td>
+          <td data-label="Course Focus">Ordered actions and clear logic structure</td>
+          <td data-label="Competition Fit">Supports reliable challenge completion</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Mechanical Assembly</strong></td>
+          <td data-label="Course Focus">Building a robot platform for real tasks</td>
+          <td data-label="Competition Fit">Direct fit for functional, challenge-based builds</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Movement Programming</strong></td>
+          <td data-label="Course Focus">Driving, routing, and controlled motion</td>
+          <td data-label="Competition Fit">Useful for navigation, targeting, transport, and mission execution</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Sensor Integration</strong></td>
+          <td data-label="Course Focus">Responsive behavior from environmental input</td>
+          <td data-label="Competition Fit">Strong fit for practical, robust execution</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Autonomous Decision Logic</strong></td>
+          <td data-label="Course Focus">Independent robot response without manual intervention</td>
+          <td data-label="Competition Fit">Supports meaningful robotics capability in challenge completion</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>User Interviews / Problem Validation</strong></td>
+          <td data-label="Course Focus">Linking projects to real human or community needs</td>
+          <td data-label="Competition Fit">Direct fit for real-world impact challenges</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>AI Features</strong></td>
+          <td data-label="Course Focus">AI-enhanced sensing, recognition, and decision support</td>
+          <td data-label="Competition Fit">One of the clearest AI-to-robotics matches</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>3D Design / CAD / Fabrication</strong></td>
+          <td data-label="Course Focus">Task-specific parts and functional refinement</td>
+          <td data-label="Competition Fit">Useful for purpose-built, more credible challenge solutions</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Testing &amp; Reliability Improvement</strong></td>
+          <td data-label="Course Focus">Accuracy, reliability, and confidence building</td>
+          <td data-label="Competition Fit">Important for credible challenge completion and judging strength</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Pitching / Poster / Demo Video</strong></td>
+          <td data-label="Course Focus">Solution explanation, documentation, communication of impact</td>
+          <td data-label="Competition Fit">Highly relevant for submission, explanation, and mission framing</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Strong</span></td>
+        </tr>
+        <tr>
+          <td data-label="Course Topic / Skill"><strong>Teamwork</strong></td>
+          <td data-label="Course Focus">Collaborative building, testing, and shared decision-making</td>
+          <td data-label="Competition Fit">Strong match for team-based impact challenges</td>
+          <td data-label="Alignment" class="cell-good"><span class="fit-pill fit-good">Excellent</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-summary">
+      <strong>Robotics for Good alignment summary:</strong> <span class="stars-inline">★★★★☆</span> Excellent fit for AI, impact framing, and real-world problem solving. The main constraint is timing, not curriculum fit.
+    </div>
+
+    <h3>Final Decision</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Decision Layer</th>
+          <th>Recommendation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Decision Layer" class="cell-good"><strong>Primary pathway</strong></td>
+          <td data-label="Recommendation" class="cell-good"><span class="fit-pill fit-good">Proceed</span> WRO Future Innovators; keep RoboMission only as a secondary WRO route</td>
+        </tr>
+        <tr>
+          <td data-label="Decision Layer" class="cell-medium"><strong>Secondary pathway</strong></td>
+          <td data-label="Recommendation" class="cell-medium"><span class="fit-pill fit-medium">Conditional</span> IRO 2026 after 2026 category-age rules are confirmed</td>
+        </tr>
+        <tr>
+          <td data-label="Decision Layer" class="cell-medium"><strong>Third option</strong></td>
+          <td data-label="Recommendation" class="cell-risk"><span class="fit-pill fit-risk">Late-Cycle</span> Robotics for Good only if a still-open partner route exists</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Eliminated or Secondary Alternatives</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Why Reviewed</th>
+          <th>Why Not Selected Now</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Option"><strong>ITEX / WYIE</strong></td>
+          <td data-label="Why Reviewed" class="cell-good">Strong invention and presentation fit</td>
+          <td data-label="Why Not Selected Now" class="cell-risk"><span class="fit-pill fit-risk">Timing</span> May is too near for a credible entry</td>
+        </tr>
+        <tr>
+          <td data-label="Option"><strong>WAICY</strong></td>
+          <td data-label="Why Reviewed" class="cell-good">Strong AI exposure and visibility</td>
+          <td data-label="Why Not Selected Now" class="cell-medium"><span class="fit-pill fit-medium">Lower Match</span> Less robotics-centered for this cohort</td>
+        </tr>
+        <tr>
+          <td data-label="Option"><strong>FIRST LEGO League</strong></td>
+          <td data-label="Why Reviewed" class="cell-good">Highly respected and age-appropriate</td>
+          <td data-label="Why Not Selected Now" class="cell-medium"><span class="fit-pill fit-medium">Format + Timing</span> More LEGO-specific and season is close</td>
+        </tr>
+        <tr>
+          <td data-label="Option"><strong>RoboCupJunior</strong></td>
+          <td data-label="Why Reviewed" class="cell-good">Serious robotics pathway and credibility</td>
+          <td data-label="Why Not Selected Now" class="cell-medium"><span class="fit-pill fit-medium">Complexity</span> Harder path and weaker showcase fit</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Sources and References</h3>
+    <ul class="source-list">
+      <li>
+        <a href="https://wro-association.org/competition/2026-season/" target="_blank">World Robot Olympiad (WRO) 2026 Season</a>
+      </li>
+      <li>
+        <a href="https://wro-association.org/competition/categories/" target="_blank">WRO Categories, including Future Innovators and RoboMission</a>
+      </li>
+      <li>
+        <a href="https://wro-association.org/wp-content/uploads/WRO-2026-Future-Innovators-General-Rules.pdf" target="_blank">WRO Future Innovators 2026 General Rules</a>
+      </li>
+      <li>
+        <a href="https://wro-association.org/wp-content/uploads/WRO-2026-Future-Innovators-Information-for-Teams-Coaches.pdf" target="_blank">WRO Future Innovators 2026 Information for Teams and Coaches</a>
+      </li>
+      <li>
+        <a href="https://wro-association.org/competition/international-events/" target="_blank">WRO 2026 International Events and Open Championships</a>
+      </li>
+      <li>
+        <a href="https://wrosaudi.com/" target="_blank">WRO Saudi</a>
+      </li>
+      <li>
+        <a href="https://www.moe.gov.sa/en/mediacenter/MOEnews/Pages/news1_26102025.aspx" target="_blank">Saudi Arabia Ministry of Education: WRO National Finals</a>
+      </li>
+      <li>
+        <a href="https://iroc.org/iro2026/" target="_blank">International Robot Olympiad (IRO) 2026 Official Schedule</a>
+      </li>
+      <li>
+        <a href="https://iroc.kr/notice/10046?l=en&amp;listStyle=gallery&amp;page=1" target="_blank">IRO Official Notice: 2026 Category and Age Rule Changes</a>
+      </li>
+      <li>
+        <a href="https://iroc.org/" target="_blank">International Robot Olympiad Official Portal</a>
+      </li>
+      <li>
+        <a href="https://aiforgood.itu.int/robotics-for-good-youth-challenge/" target="_blank">ITU AI for Good: Robotics for Good Youth Challenge</a>
+      </li>
+      <li>
+        <a href="https://itex.com.my/events-highlights/" target="_blank">ITEX / WYIE Events Highlights</a>
+      </li>
+      <li><a href="https://www.waicy.org/" target="_blank">WAICY Official Portal</a></li>
+      <li><a href="https://www.firstlegoleague.org/" target="_blank">FIRST LEGO League Global Program</a></li>
+      <li>
+        <a href="https://junior.robocup.org/gettingstarted/" target="_blank">RoboCupJunior Getting Started</a>
+      </li>
+    </ul>
+  
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body></html>

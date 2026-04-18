@@ -1,0 +1,59 @@
+# Part 4 (BT) — The Bluetooth Module {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Cutting the Cord
+
+Instead of an infrared remote, we are going to use **Bluetooth**! This means we can control our robot using a smartphone app, just like a real RC car or a drone.
+
+We will use an **HC-05** Bluetooth module and the **Dabble App**, which transforms your smartphone into a virtual controller.
+
+
+## Wiring the Module
+
+Here is the trick with communication pins: **TX must talk to RX**.
+
+:::: {.columns}
+::: {.column width="50%"}
+1. Connect **VCC** to Arduino `5V`.
+2. Connect **GND** to Arduino `GND`.
+3. Connect **TXD** to Arduino **Pin 2**.
+4. Connect **RXD** to Arduino **Pin 3**.
+:::
+
+::: {.column width="50%"}
+![](assets/Arduino_BT.png)
+:::
+::::
+
+::: {.callout-warning .simple}
+## The 3.3V Rule
+The RXD pin on the HC-05 expects **3.3V**, but the Arduino sends **5V**. For a perfect build, we use a *voltage divider* (two resistors) to lower the voltage. 
+:::
+
+## Installing the Dabble Library
+
+Before we can write our code, we need to add the Dabble library to the Arduino IDE:
+
+> 📥 **Download:** [Dabble-Arduino.zip](https://thestempedia.com/download/28488/)
+
+In the Arduino IDE, go to **Sketch** → **Include Library** → **Add .ZIP Library...** and select the file you just downloaded.
+
+![Adding the Library](https://ai.thestempedia.com/wp-content/uploads/2022/08/Library-Installation.png)
+
+## Connecting with Dabble
+
+To make the Arduino talk to the Dabble app, we just need to include the library and start it in our code. Dabble automatically knows to use Pins 2 and 3!
+
+```cpp
+#define CUSTOM_SETTINGS
+#define INCLUDE_GAMEPAD_MODULE
+#include <Dabble.h>
+
+void setup() {
+  Serial.begin(9600); 
+  Dabble.begin(9600); // Start Bluetooth communication
+}
+```
+
+## Install Dabble in your Smartphone
+
+Download the **Dabble App** from your App Store. Once installed, open the app, click the connect icon, and pair it with your HC-05 module (Password is usually `1234` or `0000`).

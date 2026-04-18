@@ -1,0 +1,66 @@
+# Part 5 (BT) — App Driving {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## The Dabble Gamepad
+
+We will use the **Gamepad Module** in the Dabble app to drive our robot. The Gamepad has buttons like Up, Down, Left, and Right.
+
+![Dabble Gamepad Module](https://ai.thestempedia.com/wp-content/uploads/2022/07/Game-Pad.jpg)
+
+## Reading the Gamepad
+
+In our `loop()`, we need to continuously check if the Dabble app is sending any button presses:
+
+```cpp
+void loop() {
+  Dabble.processInput(); // Refresh data from the smartphone
+  
+  if (GamePad.isUpPressed()) {
+    moveForward();
+  } 
+  else if (GamePad.isDownPressed()) {
+    moveBackward(); // Assuming we have this function
+  }
+  else if (GamePad.isLeftPressed()) {
+    moveLeft(); // Assuming we have this function
+  }
+  else if (GamePad.isRightPressed()) {
+    moveRight(); // Assuming we have this function
+  }
+  else {
+    stopCar();
+  }
+}
+```
+
+## Creating the Helper Functions
+
+To keep our code clean, we use custom functions like `moveForward()`.
+
+```cpp
+void moveForward() {
+  // Left Motor Forward
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  
+  // Right Motor Forward
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void stopCar() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+}
+```
+
+## The Driving Challenge
+
+Now it's time to test! 
+
+1. Upload the code to your Arduino Uno.
+2. Disconnect the USB cable (very important!).
+3. Turn on the battery pack.
+4. Pair your phone via Bluetooth to your HC-05 (Password is usually `1234` or `0000`).
+5. Open the Dabble app, select Gamepad, and drive!

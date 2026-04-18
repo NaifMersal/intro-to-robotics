@@ -145,8 +145,6 @@ Think of a waterfall. If you start at height $H$, you must drop a total of $H$ d
 
 ## 🔥 Bonus — The Math: Series Resistance {background-color="#1C355E" .sdaia-dark}
 
-> For students who want to go deeper into the derivation.
-
 In a series circuit, components are connected end-to-end, forming a single path.
 
 :::::: {.columns}
@@ -237,8 +235,6 @@ Think of parallel pipes. If 1 liter per second enters a T-junction, exactly 1 li
 ::::::
 
 ## 🔥 Bonus — The Math: Parallel Resistance {background-color="#1C355E" .sdaia-dark}
-
-> For students who want to go deeper into the derivation.
 
 In a parallel circuit, resistors are connected across the same two nodes.
 
@@ -382,7 +378,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 
 :::
 
-## 🔥 Bonus — Case Study 1: Series Calculation {background-color="#1C355E" .sdaia-dark}
+## 🔥 Bonus — Case Study 1: Series Calculation {background-color="#1C355E" .sdaia-dark .smaller}
 
 ### Step-by-Step Calculation
 
@@ -459,7 +455,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 
 :::
 
-## 🔥 Bonus — Case Study 1: Parallel Calculation {background-color="#1C355E" .sdaia-dark}
+## 🔥 Bonus — Case Study 1: Parallel Calculation {background-color="#1C355E" .sdaia-dark .smaller}
 
 ### Step-by-Step Calculation
 
@@ -557,7 +553,7 @@ with schemdraw.Drawing(canvas='svg') as d:
 
 :::
 
-## 🔥 Bonus — Case Study 2: Calculating the Resistor {background-color="#00C9A7" .sdaia-dark}
+## 🔥 Bonus — Case Study 2: Calculating the Resistor {background-color="#00C9A7" .sdaia-dark .smaller}
 
 ::: {.incremental}
 

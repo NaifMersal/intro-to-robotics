@@ -1,0 +1,70 @@
+# Part 8 — Problem Patterns {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## What can a moving robot *actually do*?
+
+A remote-controlled car is incredibly fun — but **useful robots solve real problems on their own**.
+
+::: {.incremental}
+- 💊 Deliver medicine inside a hospital
+- 🔍 Inspect dangerous pipes underground
+- 📦 Move boxes in a warehouse
+- 🚜 Navigate a farm autonomously
+:::
+
+::: {.fragment}
+**To do this safely, they need more than a human holding a remote control!**
+:::
+
+## The Pattern Behind Every Robot {.sdaia-dark background-gradient="radial-gradient(circle at 30% 70%, #0f172a 0%, #1C355E 100%)"}
+
+Every robot program follows the same 3-step loop:
+
+:::::: {.columns}
+
+::::: {.column width="33%"}
+### 1️⃣ Sense
+Read the world — buttons, sensors, signals.
+:::::
+
+::::: {.column width="33%"}
+### 2️⃣ Decide
+Run logic — `if`, `switch`, functions.
+:::::
+
+::::: {.column width="33%"}
+### 3️⃣ Act
+Drive motors, blink LEDs, make sounds.
+:::::
+
+::::::
+
+::: {.fragment}
+Today you completed **Act** (Motors) and basic **Sense** (IR Receiver).
+:::
+
+## 💡 Curiosity Challenge
+
+::: {.callout-tip}
+## Try This at Home (totally optional, totally fun!)
+
+**Can you improve your remote control?**
+
+- What happens if you press a button on a regular TV remote pointing at the car?
+- Can you change the speed of the motors so "Up" is fast and "Down" is slow?
+- Can you add code to make the car automatically brake if you hold "OK"?
+
+*Experiment, break things, and bring your findings next session!*
+:::
+
+## What's Coming Next?
+
+::: {.incremental}
+- **Session 3:** The Smarter Car — **Sensors** 🧠
+- Give your car "eyes" using Ultrasonic Sound (like a bat!).
+- Make the car drive itself and dodge obstacles automatically.
+- Start brainstorming ideas for the WRO Future Innovators project!
+:::
+
+::: {.fragment}
+### See you next time! 🚗💨
+:::

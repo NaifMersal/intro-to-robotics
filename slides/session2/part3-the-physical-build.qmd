@@ -2,7 +2,7 @@
 
 ## Transition to Reality
 
-You proved your logic in Tinkercad. Now it's time to build the real thing.
+Now it's time to build the real thing.
 
 ::: {.callout-warning}
 ## Safety First
