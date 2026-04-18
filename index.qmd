@@ -42,6 +42,16 @@ From physical assembly to autonomous movement. Mastering the basics of robot loc
 :::
 :::
 
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100 .slide-card}
+::: {.card-body}
+### [Session 3: Building the Smart Radar](slides/session3.qmd)
+Giving your project eyes and movement. Building a radar system using an ultrasonic sensor and a servo motor.
+[View Slides →](slides/session3.qmd){.btn .btn-outline-primary .btn-sm}
+:::
+:::
+:::
+
 :::
 
 ## 🚀 Interactive Simulations
