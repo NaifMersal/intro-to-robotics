@@ -4,7 +4,7 @@
         wheelBody: null,
         nozzle: [],
         shroud: null,
-        subSteps: 8, // Ultra-precision for high-speed streaks
+        subSteps: 4, // Reduced from 8 to improve performance
         rpm: 0,
         smoothedRpm: 0,
 
@@ -26,7 +26,8 @@
 
             Matter.Events.on(this.engine, 'beforeUpdate', () => {
                 this.applyWheelForce(canvas.width, canvas.height / 2);
-                this.applyFluidCohesion(); // NEW: Surface Tension / Cohesion
+                this.applyBackEMF(canvas.width / 2); 
+                // Removed applyFluidCohesion() as it causes O(N^2) lag
                 this.wrapAndTurbulateParticles(canvas.width, canvas.height / 2);
                 this.tuneParticlePhysics();
                 this.updateStats();
@@ -116,54 +117,27 @@
 
         createWheelBody: function (cx, wheelY) {
             const { Bodies, Body, Composite, Constraint } = Matter;
-            const NUM_BLADES = 6;
+            const NUM_BLADES = 4;
             const INNER_RADIUS = 35;
             const BLADE_LENGTH = 55;
-            const BLADE_WIDTH_BASE = 8;
-            const BLADE_WIDTH_TIP = 32; // Slightly wider for Pelton tips
+            const BLADE_WIDTH = 16;
 
             const parts = [];
             parts.push(Bodies.circle(cx, wheelY, INNER_RADIUS, {}));
 
             for (let i = 0; i < NUM_BLADES; i++) {
-                const baseAngle = (i / NUM_BLADES) * Math.PI * 2;
-                const vertices = [];
-                const res = 12; // Higher resolution for tip curvature
+                const angle = (i / NUM_BLADES) * Math.PI * 2;
                 
-                for (let j = 0; j <= res; j++) {
-                    const t = j / res;
-                    const r = INNER_RADIUS + t * BLADE_LENGTH;
-                    const sweep = t * t * 0.85;
-                    const width = BLADE_WIDTH_BASE + t * (BLADE_WIDTH_TIP - BLADE_WIDTH_BASE);
-                    
-                    // Pelton-Style "Tip Lip" curve at the end (t > 0.9)
-                    const lipOffset = t > 0.9 ? (t - 0.9) * 50 : 0;
-                    const angle = baseAngle + sweep + (lipOffset / 180 * Math.PI);
-                    
-                    vertices.push({
-                        x: cx + Math.cos(angle) * r + Math.cos(angle + Math.PI / 2) * (width / 2),
-                        y: wheelY + Math.sin(angle) * r + Math.sin(angle + Math.PI / 2) * (width / 2)
-                    });
-                }
-                for (let j = res; j >= 0; j--) {
-                    const t = j / res;
-                    const r = INNER_RADIUS + t * BLADE_LENGTH;
-                    const sweep = t * t * 0.85;
-                    const width = BLADE_WIDTH_BASE + t * (BLADE_WIDTH_TIP - BLADE_WIDTH_BASE);
-                    const lipOffset = t > 0.9 ? (t - 0.9) * 50 : 0;
-                    const angle = baseAngle + sweep + (lipOffset / 180 * Math.PI);
-                    
-                    vertices.push({
-                        x: cx + Math.cos(angle) * r - Math.cos(angle + Math.PI / 2) * (width / 2),
-                        y: wheelY + Math.sin(angle) * r - Math.sin(angle + Math.PI / 2) * (width / 2)
-                    });
-                }
-                const blade = Bodies.fromVertices(cx, wheelY, [vertices], {
+                const bx = cx + Math.cos(angle) * (INNER_RADIUS + BLADE_LENGTH / 2);
+                const by = wheelY + Math.sin(angle) * (INNER_RADIUS + BLADE_LENGTH / 2);
+                
+                const blade = Bodies.rectangle(bx, by, BLADE_LENGTH, BLADE_WIDTH, {
+                    angle: angle,
                     density: 0.025,
                     frictionAir: 0.005,
                     friction: 0.25
                 });
-                if (blade) parts.push(blade);
+                parts.push(blade);
             }
 
             const wheelBody = Body.create({
@@ -210,6 +184,36 @@
             }
         },
 
+        applyBackEMF: function (cx) {
+            const speed = Math.abs(this.wheelBody.angularVelocity);
+            if (speed < 0.02) return;
+            
+            // The back-EMF force scales with how fast the wheel is spinning
+            const backForceBase = speed * 0.0022 / this.subSteps;
+
+            for (const p of this.particles) {
+                // Apply push-back to particles approaching the wheel
+                const dx = cx - p.position.x;
+                if (dx > 40 && dx < 300) {
+                    const proximity = 1 - ((dx - 40) / 260); // 0 at 300, 1 at 40
+                    
+                    // Push them left (against the pump)
+                    const fx = -backForceBase * proximity;
+                    
+                    // Add slight vertical turbulence to simulate 'bouncing off' the back-pressure
+                    const dy = p.position.y - this.wheelBody.position.y;
+                    const fy = Math.sign(dy) * backForceBase * proximity * 0.15;
+
+                    Matter.Body.applyForce(p, p.position, { x: fx, y: fy });
+                    
+                    // Tag them for red visual rendering if they are actively being pushed backward
+                    p.isPushedBack = (p.velocity.x < 0 && proximity > 0.2);
+                } else {
+                    p.isPushedBack = false;
+                }
+            }
+        },
+
         draw: function (ctx, canvas, state) {
             this.drawBackground(ctx, canvas);
             this.drawPipe(ctx, canvas);
@@ -218,6 +222,55 @@
             this.drawNozzle(ctx);
             this.drawWheel(ctx, this.wheelBody.position.x, this.wheelBody.position.y);
             this.drawHUD(ctx, canvas);
+        },
+
+        drawParticles: function (ctx, canvas) {
+            const pipeY = canvas.height / 2;
+            const pt = this.PIPE_THICKNESS;
+            const wv = this.WALL_VISUAL;
+            const innerTop = pipeY - pt / 2 + wv / 2;
+            const innerBottom = pipeY + pt / 2 - wv / 2;
+            const visLeft = canvas.width / 2 - this.VISIBLE_WIDTH / 2;
+            const visRight = canvas.width / 2 + this.VISIBLE_WIDTH / 2;
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(visLeft, innerTop + wv / 2, this.VISIBLE_WIDTH, innerBottom - innerTop - wv);
+            ctx.clip();
+
+            // Removed shadowBlur to drastically improve canvas rendering performance
+
+            for (let p of this.particles) {
+                ctx.beginPath();
+                ctx.arc(p.position.x, p.position.y, p.circleRadius, 0, 2 * Math.PI);
+                
+                if (p.isPushedBack) {
+                    ctx.fillStyle = '#f87171'; // Red for back-EMF
+                } else {
+                    const speed = Math.sqrt(p.velocity.x ** 2 + p.velocity.y ** 2);
+                    if (speed > 4) ctx.fillStyle = '#bae6fd';
+                    else if (speed > 1.5) ctx.fillStyle = '#38bdf8';
+                    else ctx.fillStyle = '#0284c7';
+                }
+                ctx.fill();
+            }
+
+            ctx.restore();
+
+            // Edge fades
+            ctx.save();
+            const gradL = ctx.createLinearGradient(visLeft, 0, visLeft + 80, 0);
+            gradL.addColorStop(0, '#0a1e3d');
+            gradL.addColorStop(1, 'rgba(10,30,61,0)');
+            ctx.fillStyle = gradL;
+            ctx.fillRect(visLeft, innerTop + wv / 2, 80, innerBottom - innerTop - wv);
+
+            const gradR = ctx.createLinearGradient(visRight - 80, 0, visRight, 0);
+            gradR.addColorStop(0, 'rgba(10,30,61,0)');
+            gradR.addColorStop(1, '#0a1e3d');
+            ctx.fillStyle = gradR;
+            ctx.fillRect(visRight - 80, innerTop + wv / 2, 80, innerBottom - innerTop - wv);
+            ctx.restore();
         },
 
         drawHUD: function (ctx, canvas) {
@@ -304,19 +357,18 @@
             ctx.translate(x, y);
             ctx.rotate(this.wheelBody.angle);
 
-            const NUM_BLADES = 6;
+            const NUM_BLADES = 4;
             const INNER_RADIUS = 35;
             const BLADE_LENGTH = 55;
-            const BLADE_WIDTH_BASE = 8;
-            const BLADE_WIDTH_TIP = 32;
+            const BLADE_WIDTH = 16;
 
             for (let i = 0; i < NUM_BLADES; i++) {
-                const baseAngle = (i / NUM_BLADES) * Math.PI * 2;
+                const angle = (i / NUM_BLADES) * Math.PI * 2;
 
                 // High-Speed Motion Blur Arcs
                 if (speed > 0.05) {
                     ctx.save();
-                    ctx.rotate(baseAngle);
+                    ctx.rotate(angle);
                     ctx.beginPath();
                     const streakLen = speed * 1800;
                     ctx.arc(0, 0, INNER_RADIUS + BLADE_LENGTH + 6, -streakLen / 1000, 0, false);
@@ -326,33 +378,14 @@
                     ctx.restore();
                 }
 
+                ctx.save();
+                ctx.rotate(angle);
+                
+                // Draw simple rectangular blade
                 ctx.beginPath();
-                const res = 16;
-                for (let j = 0; j <= res; j++) {
-                    const t = j / res;
-                    const r = INNER_RADIUS + t * BLADE_LENGTH;
-                    const sweep = t * t * 0.85;
-                    const width = BLADE_WIDTH_BASE + t * (BLADE_WIDTH_TIP - BLADE_WIDTH_BASE);
-                    const lipOffset = t > 0.9 ? (t - 0.9) * 50 : 0;
-                    const angle = baseAngle + sweep + (lipOffset / 180 * Math.PI);
-                    const px = Math.cos(angle) * r + Math.cos(angle + Math.PI / 2) * (width / 2);
-                    const py = Math.sin(angle) * r + Math.sin(angle + Math.PI / 2) * (width / 2);
-                    if (j === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-                }
-                for (let j = res; j >= 0; j--) {
-                    const t = j / res;
-                    const r = INNER_RADIUS + t * BLADE_LENGTH;
-                    const sweep = t * t * 0.85;
-                    const width = BLADE_WIDTH_BASE + t * (BLADE_WIDTH_TIP - BLADE_WIDTH_BASE);
-                    const lipOffset = t > 0.9 ? (t - 0.9) * 50 : 0;
-                    const angle = baseAngle + sweep + (lipOffset / 180 * Math.PI);
-                    const px = Math.cos(angle) * r - Math.cos(angle + Math.PI / 2) * (width / 2);
-                    const py = Math.sin(angle) * r - Math.sin(angle + Math.PI / 2) * (width / 2);
-                    ctx.lineTo(px, py);
-                }
-                ctx.closePath();
-
-                const grad = ctx.createLinearGradient(0, 0, Math.cos(baseAngle) * 90, Math.sin(baseAngle) * 90);
+                ctx.roundRect(INNER_RADIUS, -BLADE_WIDTH/2, BLADE_LENGTH, BLADE_WIDTH, 4);
+                
+                const grad = ctx.createLinearGradient(INNER_RADIUS, 0, INNER_RADIUS + BLADE_LENGTH, 0);
                 grad.addColorStop(0, '#0369a1');
                 grad.addColorStop(0.6, '#0ea5e9');
                 grad.addColorStop(1, '#bae6fd');
@@ -362,19 +395,15 @@
                 ctx.lineWidth = 1;
                 ctx.stroke();
                 
-                // Impact Spark/Glow at Tip Pocket
+                // Impact Spark/Glow at Tip
                 if (speed > 0.08) {
-                    ctx.save();
-                    const tipAngle = baseAngle + 0.85 + (0.1 * 50 / 180 * Math.PI);
-                    const tx = Math.cos(tipAngle) * (INNER_RADIUS + BLADE_LENGTH);
-                    const ty = Math.sin(tipAngle) * (INNER_RADIUS + BLADE_LENGTH);
-                    ctx.translate(tx, ty);
+                    ctx.translate(INNER_RADIUS + BLADE_LENGTH, 0);
                     ctx.shadowBlur = 12 * speed;
                     ctx.shadowColor = '#38bdf8';
                     ctx.fillStyle = '#ffffff';
                     ctx.beginPath(); ctx.arc(0, 0, 3 * speed, 0, Math.PI * 2); ctx.fill();
-                    ctx.restore();
                 }
+                ctx.restore();
             }
 
             const hubGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, 42);

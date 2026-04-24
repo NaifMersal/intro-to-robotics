@@ -95,7 +95,7 @@ Why is the calculation `duration * 0.034 / 2` ?
 1. **Speed of Sound:** Sound travels at about **343 meters per second** (or **0.034 centimeters per microsecond**).
 2. **Round Trip:** The sound pulse travels to the object AND bounces back. So, we must divide the total time by **2** to find just the distance *to* the object!
 
-![](assets/ultrasonic_sensor_logic.png){width="60%"}
+![](assets/ultrasonic_sensor_logic_2.png){width="60%"}
 
 ## Coding Distance: The Math
 
