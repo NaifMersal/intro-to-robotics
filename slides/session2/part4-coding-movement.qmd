@@ -1,4 +1,4 @@
-# Part 4 — Programming Movement {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 3 — Programming Movement {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## The Base Code
 
@@ -6,21 +6,16 @@ To drive a car, we must manage 4 pins simultaneously.
 
 ```cpp
 // Define our pins
-int IN1 = 9;   // Left Forward
-int IN2 = 10;  // Left Backward
-int ENA = 11;  // Left Speed
-
-int IN3 = 5;   // Right Forward
-int IN4 = 6;   // Right Backward
-int ENB = 3;   // Right Speed
+#define ML_Ctrl 4    // Left Direction
+#define ML_PWM 5     // Left Speed
+#define MR_Ctrl 2    // Right Direction
+#define MR_PWM 6     // Right Speed
 
 void setup() {
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-  pinMode(IN3, OUTPUT);
-  pinMode(IN4, OUTPUT);
-  pinMode(ENA, OUTPUT);
-  pinMode(ENB, OUTPUT);
+  pinMode(ML_Ctrl, OUTPUT);
+  pinMode(ML_PWM, OUTPUT);
+  pinMode(MR_Ctrl, OUTPUT);
+  pinMode(MR_PWM, OUTPUT);
 }
 ```
 
@@ -29,24 +24,16 @@ void setup() {
 Typing `digitalWrite` four times just to move forward is tedious. In C++, we can create custom **functions** to bundle commands together.
 
 ```cpp
-void forward() {
-  digitalWrite(IN1, HIGH);
-  digitalWrite(IN2, LOW);
-  analogWrite(ENA, 150); // Set speed (0-255)
-
-  digitalWrite(IN3, HIGH);
-  digitalWrite(IN4, LOW);
-  analogWrite(ENB, 150);
+void car_front() {
+  digitalWrite(ML_Ctrl, HIGH);
+  analogWrite(ML_PWM, 150); // Set speed (0-255)
+  digitalWrite(MR_Ctrl, HIGH);
+  analogWrite(MR_PWM, 150);
 }
 
-void stopCar() {
-  digitalWrite(IN1, LOW);
-  digitalWrite(IN2, LOW);
-  analogWrite(ENA, 0);
-
-  digitalWrite(IN3, LOW);
-  digitalWrite(IN4, LOW);
-  analogWrite(ENB, 0);
+void car_Stop() {
+  analogWrite(ML_PWM, 0);
+  analogWrite(MR_PWM, 0);
 }
 ```
 
@@ -56,10 +43,10 @@ Now, our `loop()` becomes very simple and easy to read!
 
 ```cpp
 void loop() {
-  forward();
+  car_front();
   delay(2000); // Drive for 2 seconds
   
-  stopCar();
+  car_Stop();
   delay(1000); // Wait 1 second
 }
 ```
@@ -81,14 +68,12 @@ How does a tank turn? It spins its tracks in opposite directions!
 To turn Right, the Left wheels must go Forward, and the Right wheels must go Backward.
 
 ```cpp
-void turnRight() {
-  digitalWrite(IN1, HIGH); // Left Forward
-  digitalWrite(IN2, LOW);
-  analogWrite(ENA, 150);
+void car_right() {
+  digitalWrite(ML_Ctrl, HIGH); // Left Forward
+  analogWrite(ML_PWM, 150);
   
-  digitalWrite(IN3, LOW);
-  digitalWrite(IN4, HIGH); // Right Backward (Reverse!)
-  analogWrite(ENB, 150);
+  digitalWrite(MR_Ctrl, LOW); // Right Backward
+  analogWrite(MR_PWM, 150);
 }
 ```
 :::

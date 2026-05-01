@@ -1,4 +1,4 @@
-# Part 3 — The Physical Build {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 2 — The Physical Build {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## Transition to Reality
 
@@ -46,6 +46,35 @@ We must route the power carefully.
 
 ::::::
 
+## A Simpler Way to Drive the Motor
+
+:::::: {.columns}
+
+::::: {.column width="50%"}
+### Standard L298N
+- 2 Direction pins (`IN1`, `IN2`)
+- 1 Enable pin (Speed)
+- $\rightarrow$ **3 logic wires / motor**
+:::::
+
+::::: {.column width="50%"}
+### Our Kit's Driver
+- Built-in logic inverter
+- Signals are always opposite
+- $\rightarrow$ **2 logic wires / motor**
+:::::
+
+::::::
+
+### The 2-Wire Setup
+1. **Direction Pin (`Ctrl`):** `HIGH` = forward, `LOW` = backward
+2. **Speed Pin (`PWM`):** Controls motor speed (`0`–`255`)
+
+::: {.callout-note}
+## Trade-off
+Saves precious Arduino pins for sensors, but removes the H-bridge "brake" mode.
+:::
+
 ## Step 3: Wiring the Motors
 
 Connect the physical motor wires.
@@ -59,10 +88,15 @@ Connect the physical motor wires.
 
 Finally, connect the Arduino pins to the Motor Driver inputs. Use jumper wires:
 
-- **Left Motor:** Pin 9 $\rightarrow$ `IN1`, Pin 10 $\rightarrow$ `IN2`, **Pin 11 $\rightarrow$ `ENA`**
-- **Right Motor:** Pin 5 $\rightarrow$ `IN3`, Pin 6 $\rightarrow$ `IN4`, **Pin 3 $\rightarrow$ `ENB`**
+- **Left Motor:** Pin 4 $\rightarrow$ Direction (`ML_Ctrl`), **Pin 5 $\rightarrow$ Speed (`ML_PWM`)**
+- **Right Motor:** Pin 2 $\rightarrow$ Direction (`MR_Ctrl`), **Pin 6 $\rightarrow$ Speed (`MR_PWM`)**
+
+::: {.callout-warning}
+## Pin 3 is Reserved
+Do **not** use Pin 3 for the motor driver — it is reserved for the IR receiver in the next part.
+:::
 
 ::: {.callout-tip}
 ## Speed Control
-The `ENA` and `ENB` pins control how fast the motors spin. By connecting them to PWM pins (marked with a `~`), we can change the speed in our code!
+The PWM pins (`ML_PWM`, `MR_PWM`) control how fast each motor spins. They must be connected to PWM-capable pins (marked with a `~` on the Arduino), so we can change the speed in our code!
 :::

@@ -1,4 +1,4 @@
-# Part 1 — How Does a TV Remote Work? {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 4 — How Does a TV Remote Work? {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## Invisible Control
 
@@ -18,7 +18,7 @@ To receive signals, we use an **IR Receiver Module**.
 
 1. **GND** → GND
 2. **VCC** → 5V
-3. **Signal** → **Pin 2** (Digital)
+3. **Signal** → **Pin 3** (Digital)
 :::
 
 ::: {.column width="50%"}

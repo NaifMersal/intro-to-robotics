@@ -29,23 +29,23 @@ Make It Move & Remote Control 🚗🎮
 - **Part 2** — The Physical Build
 - **Part 3** — Programming Movement
 
-<!--
-**Phase 2: Adding the Remote**
+**Phase 2: Adding the Remote (IR)**
 
 - **Part 4** — How Does a TV Remote Work?
 - **Part 5** — Decoding the Remote
-- **Part 6** — Logic & Driving
--->
+- **Part 6** — Mapping Buttons to Directions
+- **Part 7** — Make It Drive!
+- **Part 8** — Complete IR Car Code
 
-**Phase 2: Adding the Remote**
+**Phase 3: Upgrading to Bluetooth**
 
-- **Part 4 (BT)** — The Bluetooth Module
-- **Part 5 (BT)** — App Driving
+- **Part 9** — The Bluetooth Module
+- **Part 10** — App Driving
 
-**Phase 3: The Challenge**
+**Phase 4: The Challenge**
 
-- **Part 7/8** — Obstacle Course Challenge
-- **Part 8/9** — Problem Patterns (Closing)
+- **Part 11** — Obstacle Course Challenge
+- **Part 12** — Problem Patterns (Closing)
 
 {{< include session2/part1-the-danger-of-motors.qmd >}}
 
@@ -53,7 +53,6 @@ Make It Move & Remote Control 🚗🎮
 
 {{< include session2/part4-coding-movement.qmd >}}
 
-<!--
 {{< include session2/part1-concept.qmd >}}
 
 {{< include session2/part2-decoding.qmd >}}
@@ -61,11 +60,11 @@ Make It Move & Remote Control 🚗🎮
 {{< include session2/part3-logic.qmd >}}
 
 {{< include session2/part4-driving.qmd >}}
--->
 
-<!-- ALTERNATIVE: BLUETOOTH APP CONTROL -->
-<!-- Uncomment the lines below, and comment out the 4 lines above this block, if you are using Bluetooth instead of IR -->
+{{< include session2/part7-complete-code.qmd >}}
+
 {{< include session2/part4bt-the-bluetooth-module.qmd >}}
+
 {{< include session2/part5bt-app-driving.qmd >}}
 
 {{< include session2/part5-obstacle-and-ai.qmd >}}

@@ -1,4 +1,4 @@
-# Part 8 — Problem Patterns {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 12 — Problem Patterns {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## What can a moving robot *actually do*?
 

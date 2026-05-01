@@ -126,3 +126,8 @@ Observe the virtual motor:
 ::: {.fragment}
 We reverse the direction of a DC motor by swapping the `HIGH` and `LOW` signals!
 :::
+
+::: {.callout-note}
+## From Simulation to Hardware
+The car kit you'll build with next uses a motor driver with a **simplified interface**: only one direction pin and one PWM (speed) pin per motor — no separate `IN1`/`IN2`. The concept is identical (one pin sets direction, one pin sets speed); only the pin numbers change. You'll see the kit's real pinout in the next part.
+:::

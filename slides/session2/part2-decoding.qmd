@@ -1,4 +1,4 @@
-# Part 2 — Decoding the Remote {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 5 — Decoding the Remote {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## Setup the Library
 
@@ -6,7 +6,7 @@ Every robot needs a "dictionary" to understand IR. We use the **IRremote** libra
 
 1. Go to **Tools > Manage Libraries...**
 2. Search for: **IRremote**
-3. Install the version by **Armin Joachimsmeyer** (v3.0 or higher).
+3. Install the version by **Armin Joachimsmeyer** (v4.0 or higher).
 
 ::: {.callout-important}
 ## Protocol Check
@@ -19,8 +19,8 @@ Before we control the car, we need to know what "numbers" your buttons send.
 
 1. Open Arduino IDE.
 2. Go to **File > Examples > IRremote > SimpleReceiver**.
-3. Change `IR_RECEIVE_PIN` to **2**.
-4. Open the **Serial Monitor** (115200 baud).
+3. Change `IR_RECEIVE_PIN` to **3**.
+4. Open the **Serial Monitor** (9600 baud).
 5. Press buttons and **write down the HEX codes** for:
    - Up Arrow (▲)
    - Down Arrow (▼)
@@ -30,7 +30,7 @@ Before we control the car, we need to know what "numbers" your buttons send.
 
 ## What are those codes?
 
-When you press a button, the remote sends a number like `0xFF18E7`.
+When you press a button, the remote sends a command number like `0x46`.
 
 - This is a **HEXADECIMAL** number (Base-16).
 - It's like a unique ID for that specific button.

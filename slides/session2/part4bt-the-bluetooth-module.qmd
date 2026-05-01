@@ -1,4 +1,4 @@
-# Part 4 (BT) — The Bluetooth Module {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 9 — The Bluetooth Module {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## Cutting the Cord
 

@@ -119,3 +119,10 @@ Tinkercad does not have the L298N "Red Board." Instead, we will use the **L293D 
 :::
 
 :::::
+
+## 🔍 BONUS: Under the Hood: Transistors & Diodes
+
+<iframe src="../simulations/hbridge_logic/index.html"
+  style="width:100%;height:600px;border:none;border-radius:12px;"
+  allowfullscreen>
+</iframe>

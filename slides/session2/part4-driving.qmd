@@ -1,10 +1,10 @@
-# Part 4 — Make It Drive! {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 7 — Make It Drive! {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## Activity: Full Control {background-color="#00C9A7" .sdaia-dark}
 
 Integrate your code from Session 2!
 
-1. Copy your `forward()`, `backward()`, `left()`, `right()`, and `stopCar()` functions.
+1. Copy your `car_front()`, `car_back()`, `car_left()`, `car_right()`, and `car_Stop()` functions.
 2. Put them in your IR sketch.
 3. Map them in your `switch` statement.
 4. **Challenge:** Try to drive your car around a chair using ONLY the remote.
@@ -13,18 +13,18 @@ Integrate your code from Session 2!
 
 What if you want to go slow for careful turns and fast for the straightaways?
 
-1. Map button **1** to "Slow" and button **2** to "Fast".
-2. Create a global variable: `int currentSpeed = 150;`
-3. Update your `handleCommand`:
+1. Map a button to "Speed Up" and another to "Speed Down".
+2. Create a global variable: `int carSpeed = 100;`
+3. Update your `switch` statement:
 
 ```cpp
-case 0xFF30CF: // Button 1
-  currentSpeed = 100; // Slow
+case 0x16: // Speed Up
+  carSpeed = min(carSpeed + 20, 255);
   break;
-case 0xFF18E7: // Button 2
-  currentSpeed = 255; // FAST!
+case 0x19: // Speed Down
+  carSpeed = max(carSpeed - 20, 0);
   break;
 ```
 
-4. Change your movement functions to use `currentSpeed` instead of a fixed number:
-`analogWrite(ENA, currentSpeed);`
+4. Change your movement functions to use `carSpeed` instead of a fixed number:
+`analogWrite(ML_PWM, carSpeed);`

@@ -1,4 +1,4 @@
-# Part 7 — Obstacle Course & AI Demo {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 11 — Obstacle Course & AI Demo {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## The Obstacle Course Challenge
 
@@ -39,10 +39,10 @@ Can you combine remote control with automatic patterns?
 ## Example Code
 ```cpp
 void victoryDance() {
-  turnRight(); delay(300);  // Quick spin right
-  backward();  delay(500);  // Back it up
-  turnLeft();  delay(300);  // Quick spin left
-  stopCar();
+  car_right(); delay(300);  // Quick spin right
+  car_back();  delay(500);  // Back it up
+  car_left();  delay(300);  // Quick spin left
+  car_Stop();
 }
 ```
 :::
