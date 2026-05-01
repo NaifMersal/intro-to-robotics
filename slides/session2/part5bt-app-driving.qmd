@@ -62,5 +62,5 @@ Now it's time to test!
 1. Upload the code to your Arduino Uno.
 2. Disconnect the USB cable (very important!).
 3. Turn on the battery pack.
-4. Pair your phone via Bluetooth to your HC-05 (Password is usually `1234` or `0000`).
+4. Pair your phone via Bluetooth to your HM-10 (Password is usually `1234` or `000000`).
 5. Open the Dabble app, select Gamepad, and drive!

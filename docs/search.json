@@ -1817,7 +1817,7 @@
     "href": "slides/session2.html#cutting-the-cord",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Cutting the Cord",
-    "text": "Cutting the Cord\nInstead of an infrared remote, we are going to use Bluetooth! This means we can control our robot using a smartphone app, just like a real RC car or a drone.\nWe will use an HC-05 Bluetooth module and the Dabble App, which transforms your smartphone into a virtual controller."
+    "text": "Cutting the Cord\nInstead of an infrared remote, we are going to use Bluetooth! This means we can control our robot using a smartphone app, just like a real RC car or a drone.\nWe will use an HM-10 Bluetooth module and the Dabble App, which transforms your smartphone into a virtual controller."
   },
   {
     "objectID": "slides/session2.html#the-hc-05-module",
@@ -1831,7 +1831,7 @@
     "href": "slides/session2.html#wiring-the-module",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Wiring the Module",
-    "text": "Wiring the Module\nHere is the trick with communication pins: TX must talk to RX.\n\n\n\nConnect VCC to Arduino 5V.\nConnect GND to Arduino GND.\nConnect TXD to Arduino Pin 2.\nConnect RXD to Arduino Pin 3.\n\n\n\n\n\n\n\n\n\n\n\nThe 3.3V Rule\n\n\nThe RXD pin on the HC-05 expects 3.3V, but the Arduino sends 5V. For a perfect build, we use a voltage divider (two resistors) to lower the voltage."
+    "text": "Wiring the Module\nHere is the trick with communication pins: TX must talk to RX.\n\n\n\nConnect VCC to Arduino 5V.\nConnect GND to Arduino GND.\nConnect TXD to Arduino Pin 2.\nConnect RXD to Arduino Pin 3.\n\n\n\n\n\n\n\n\n\n\n\nThe 3.3V Rule\n\n\nThe RXD pin on the HM-10 expects 3.3V, but the Arduino sends 5V. For a perfect build, we use a voltage divider (two resistors) to lower the voltage."
   },
   {
     "objectID": "slides/session2.html#softwareserial-creating-a-second-mouth",
@@ -1866,7 +1866,7 @@
     "href": "slides/session2.html#the-driving-challenge",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "The Driving Challenge",
-    "text": "The Driving Challenge\nNow it’s time to test!\n\nUpload the code to your Arduino Uno.\nDisconnect the USB cable (very important!).\nTurn on the battery pack.\nPair your phone via Bluetooth to your HC-05 (Password is usually 1234 or 0000).\nOpen the Dabble app, select Gamepad, and drive!"
+    "text": "The Driving Challenge\nNow it’s time to test!\n\nUpload the code to your Arduino Uno.\nDisconnect the USB cable (very important!).\nTurn on the battery pack.\nPair your phone via Bluetooth to your HM-10 (Password is usually 1234 or 000000).\nOpen the Dabble app, select Gamepad, and drive!"
   },
   {
     "objectID": "slides/session2.html#connecting-with-dabble",
@@ -1880,7 +1880,7 @@
     "href": "slides/session2.html#install-dabble-in-your-smartphone",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Install Dabble in your Smartphone",
-    "text": "Install Dabble in your Smartphone\nDownload the Dabble App from your App Store. Once installed, open the app, click the connect icon, and pair it with your HC-05 module (Password is usually 1234 or 0000)."
+    "text": "Install Dabble in your Smartphone\nDownload the Dabble App from your App Store. Once installed, open the app, click the connect icon, and pair it with your HM-10 module (Password is usually 1234 or 000000)."
   },
   {
     "objectID": "slides/session2.html#the-dabble-gamepad",

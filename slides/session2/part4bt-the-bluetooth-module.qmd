@@ -4,7 +4,7 @@
 
 Instead of an infrared remote, we are going to use **Bluetooth**! This means we can control our robot using a smartphone app, just like a real RC car or a drone.
 
-We will use an **HC-05** Bluetooth module and the **Dabble App**, which transforms your smartphone into a virtual controller.
+We will use an **HM-10** Bluetooth module and the **Dabble App**, which transforms your smartphone into a virtual controller.
 
 
 ## Wiring the Module
@@ -26,7 +26,7 @@ Here is the trick with communication pins: **TX must talk to RX**.
 
 ::: {.callout-warning .simple}
 ## The 3.3V Rule
-The RXD pin on the HC-05 expects **3.3V**, but the Arduino sends **5V**. For a perfect build, we use a *voltage divider* (two resistors) to lower the voltage. 
+The RXD pin on the HM-10 expects **3.3V**, but the Arduino sends **5V**. For a perfect build, we use a *voltage divider* (two resistors) to lower the voltage. 
 :::
 
 ## Installing the Dabble Library
@@ -56,4 +56,4 @@ void setup() {
 
 ## Install Dabble in your Smartphone
 
-Download the **Dabble App** from your App Store. Once installed, open the app, click the connect icon, and pair it with your HC-05 module (Password is usually `1234` or `0000`).
+Download the **Dabble App** from your App Store. Once installed, open the app, click the connect icon, and pair it with your HM-10 module (Password is usually `1234` or `000000`).

@@ -9,7 +9,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <meta name="dcterms.date" content="2026-04-18">
+  <meta name="dcterms.date" content="2026-04-25">
   <title>Session 2: Make It Move &amp; Remote Control</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -201,7 +201,7 @@
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-04-18</p>
+  <p class="date">2026-04-25</p>
 </section>
 <section>
 <section id="session-2" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -295,7 +295,7 @@
 </ul>
 <p><em>Caution: Never close S1 and S3 at the same time (Short Circuit!)</em></p>
 </div><div class="column" style="width:40%;">
-<div id="bd285c6e" class="cell" data-execution_count="1">
+<div id="fe2e0078" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -523,7 +523,7 @@
 <section id="cutting-the-cord" class="slide level2">
 <h2>Cutting the Cord</h2>
 <p>Instead of an infrared remote, we are going to use <strong>Bluetooth</strong>! This means we can control our robot using a smartphone app, just like a real RC car or a drone.</p>
-<p>We will use an <strong>HC-05</strong> Bluetooth module and the <strong>Dabble App</strong>, which transforms your smartphone into a virtual controller.</p>
+<p>We will use an <strong>HM-10</strong> Bluetooth module and the <strong>Dabble App</strong>, which transforms your smartphone into a virtual controller.</p>
 </section>
 <section id="wiring-the-module" class="slide level2">
 <h2>Wiring the Module</h2>
@@ -549,7 +549,7 @@
 <p><strong>The 3.3V Rule</strong></p>
 </div>
 <div class="callout-content">
-<p>The RXD pin on the HC-05 expects <strong>3.3V</strong>, but the Arduino sends <strong>5V</strong>. For a perfect build, we use a <em>voltage divider</em> (two resistors) to lower the voltage.</p>
+<p>The RXD pin on the HM-10 expects <strong>3.3V</strong>, but the Arduino sends <strong>5V</strong>. For a perfect build, we use a <em>voltage divider</em> (two resistors) to lower the voltage.</p>
 </div>
 </div>
 </div>
@@ -578,7 +578,7 @@
 </section>
 <section id="install-dabble-in-your-smartphone" class="slide level2">
 <h2>Install Dabble in your Smartphone</h2>
-<p>Download the <strong>Dabble App</strong> from your App Store. Once installed, open the app, click the connect icon, and pair it with your HC-05 module (Password is usually <code>1234</code> or <code>0000</code>).</p>
+<p>Download the <strong>Dabble App</strong> from your App Store. Once installed, open the app, click the connect icon, and pair it with your HM-10 module (Password is usually <code>1234</code> or <code>000000</code>).</p>
 </section></section>
 <section>
 <section id="part-5-bt-app-driving" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -640,7 +640,7 @@
 <li>Upload the code to your Arduino Uno.</li>
 <li>Disconnect the USB cable (very important!).</li>
 <li>Turn on the battery pack.</li>
-<li>Pair your phone via Bluetooth to your HC-05 (Password is usually <code>1234</code> or <code>0000</code>).</li>
+<li>Pair your phone via Bluetooth to your HM-10 (Password is usually <code>1234</code> or <code>000000</code>).</li>
 <li>Open the Dabble app, select Gamepad, and drive!</li>
 </ol>
 </section></section>
