@@ -9,7 +9,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <meta name="dcterms.date" content="2026-04-25">
+  <meta name="dcterms.date" content="2026-05-02">
   <title>Session 2: Make It Move &amp; Remote Control</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -201,7 +201,7 @@
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-04-25</p>
+  <p class="date">2026-05-02</p>
 </section>
 <section>
 <section id="session-2" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -216,15 +216,23 @@
 <li><strong>Part 2</strong> — The Physical Build</li>
 <li><strong>Part 3</strong> — Programming Movement</li>
 </ul>
-<p><strong>Phase 2: Adding the Remote</strong></p>
+<p><strong>Phase 2: Adding the Remote (IR)</strong></p>
 <ul>
-<li><strong>Part 4 (BT)</strong> — The Bluetooth Module</li>
-<li><strong>Part 5 (BT)</strong> — App Driving</li>
+<li><strong>Part 4</strong> — How Does a TV Remote Work?</li>
+<li><strong>Part 5</strong> — Decoding the Remote</li>
+<li><strong>Part 6</strong> — Mapping Buttons to Directions</li>
+<li><strong>Part 7</strong> — Make It Drive!</li>
+<li><strong>Part 8</strong> — Complete IR Car Code</li>
 </ul>
-<p><strong>Phase 3: The Challenge</strong></p>
+<p><strong>Phase 3: Upgrading to Bluetooth</strong></p>
 <ul>
-<li><strong>Part 7/8</strong> — Obstacle Course Challenge</li>
-<li><strong>Part 8/9</strong> — Problem Patterns (Closing)</li>
+<li><strong>Part 9</strong> — The Bluetooth Module</li>
+<li><strong>Part 10</strong> — App Driving</li>
+</ul>
+<p><strong>Phase 4: The Challenge</strong></p>
+<ul>
+<li><strong>Part 11</strong> — Obstacle Course Challenge</li>
+<li><strong>Part 12</strong> — Problem Patterns (Closing)</li>
 </ul>
 </section></section>
 <section>
@@ -295,7 +303,7 @@
 </ul>
 <p><em>Caution: Never close S1 and S3 at the same time (Short Circuit!)</em></p>
 </div><div class="column" style="width:40%;">
-<div id="fe2e0078" class="cell" data-execution_count="1">
+<div id="3200ca9f" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -338,10 +346,17 @@
 </div>
 </div>
 </div></div>
+</section>
+<section id="under-the-hood-transistors-diodes" class="slide level2">
+<h2>🔍 Under the Hood: Transistors &amp; Diodes</h2>
+<p>Building an H-Bridge from simple mechanical switches is helpful for understanding the logic, but real microchips use solid-state electronics.</p>
+<p>Inside the <strong>L298N</strong> (and similar drivers), those simple “switches” are actually <strong>MOSFET Transistors</strong>. The circuit also includes <strong>Flyback Diodes</strong> to protect the Arduino and the chip from high-voltage electrical spikes generated when the motor stops.</p>
+<iframe src="../simulations/hbridge_logic/index.html" style="width:100%;height:600px;border:none;border-radius:12px;" allowfullscreen="">
+</iframe>
 </section></section>
 <section>
-<section id="part-3-the-physical-build" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 3 — The Physical Build</h1>
+<section id="part-2-the-physical-build" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 2 — The Physical Build</h1>
 
 </section>
 <section id="transition-to-reality" class="slide level2">
@@ -395,6 +410,43 @@
 </div>
 </div></div>
 </section>
+<section id="a-simpler-way-to-drive-the-motor" class="slide level2">
+<h2>A Simpler Way to Drive the Motor</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="standard-l298n">Standard L298N</h3>
+<ul>
+<li>2 Direction pins (<code>IN1</code>, <code>IN2</code>)</li>
+<li>1 Enable pin (Speed)</li>
+<li><span class="math inline">\(\rightarrow\)</span> <strong>3 logic wires / motor</strong></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="our-kits-driver">Our Kit’s Driver</h3>
+<ul>
+<li>Built-in logic inverter</li>
+<li>Signals are always opposite</li>
+<li><span class="math inline">\(\rightarrow\)</span> <strong>2 logic wires / motor</strong></li>
+</ul>
+</div></div>
+<h3 id="the-2-wire-setup">The 2-Wire Setup</h3>
+<ol type="1">
+<li><strong>Direction Pin (<code>Ctrl</code>):</strong> <code>HIGH</code> = forward, <code>LOW</code> = backward</li>
+<li><strong>Speed Pin (<code>PWM</code>):</strong> Controls motor speed (<code>0</code>–<code>255</code>)</li>
+</ol>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Trade-off</strong></p>
+</div>
+<div class="callout-content">
+<p>Saves precious Arduino pins for sensors, but removes the H-bridge “brake” mode.</p>
+</div>
+</div>
+</div>
+</section>
 <section id="step-3-wiring-the-motors" class="slide level2">
 <h2>Step 3: Wiring the Motors</h2>
 <p>Connect the physical motor wires.</p>
@@ -408,9 +460,22 @@
 <h2>Step 4: The Logic Wires</h2>
 <p>Finally, connect the Arduino pins to the Motor Driver inputs. Use jumper wires:</p>
 <ul>
-<li><strong>Left Motor:</strong> Pin 9 <span class="math inline">\(\rightarrow\)</span> <code>IN1</code>, Pin 10 <span class="math inline">\(\rightarrow\)</span> <code>IN2</code>, <strong>Pin 11 <span class="math inline">\(\rightarrow\)</span> <code>ENA</code></strong></li>
-<li><strong>Right Motor:</strong> Pin 5 <span class="math inline">\(\rightarrow\)</span> <code>IN3</code>, Pin 6 <span class="math inline">\(\rightarrow\)</span> <code>IN4</code>, <strong>Pin 3 <span class="math inline">\(\rightarrow\)</span> <code>ENB</code></strong></li>
+<li><strong>Left Motor:</strong> Pin 4 <span class="math inline">\(\rightarrow\)</span> Direction (<code>ML_Ctrl</code>), <strong>Pin 5 <span class="math inline">\(\rightarrow\)</span> Speed (<code>ML_PWM</code>)</strong></li>
+<li><strong>Right Motor:</strong> Pin 2 <span class="math inline">\(\rightarrow\)</span> Direction (<code>MR_Ctrl</code>), <strong>Pin 6 <span class="math inline">\(\rightarrow\)</span> Speed (<code>MR_PWM</code>)</strong></li>
 </ul>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Pin 3 is Reserved</strong></p>
+</div>
+<div class="callout-content">
+<p>Do <strong>not</strong> use Pin 3 for the motor driver — it is reserved for the IR receiver in the next part.</p>
+</div>
+</div>
+</div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -420,68 +485,55 @@
 <p><strong>Speed Control</strong></p>
 </div>
 <div class="callout-content">
-<p>The <code>ENA</code> and <code>ENB</code> pins control how fast the motors spin. By connecting them to PWM pins (marked with a <code>~</code>), we can change the speed in our code!</p>
+<p>The PWM pins (<code>ML_PWM</code>, <code>MR_PWM</code>) control how fast each motor spins. They must be connected to PWM-capable pins (marked with a <code>~</code> on the Arduino), so we can change the speed in our code!</p>
 </div>
 </div>
 </div>
 </section></section>
 <section>
-<section id="part-4-programming-movement" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 4 — Programming Movement</h1>
+<section id="part-3-programming-movement" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 3 — Programming Movement</h1>
 
 </section>
 <section id="the-base-code" class="slide level2">
 <h2>The Base Code</h2>
 <p>To drive a car, we must manage 4 pins simultaneously.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="co">// Define our pins</span></span>
-<span id="cb1-2"><a></a><span class="dt">int</span> IN1 <span class="op">=</span> <span class="dv">9</span><span class="op">;</span>   <span class="co">// Left Forward</span></span>
-<span id="cb1-3"><a></a><span class="dt">int</span> IN2 <span class="op">=</span> <span class="dv">10</span><span class="op">;</span>  <span class="co">// Left Backward</span></span>
-<span id="cb1-4"><a></a><span class="dt">int</span> ENA <span class="op">=</span> <span class="dv">11</span><span class="op">;</span>  <span class="co">// Left Speed</span></span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a><span class="dt">int</span> IN3 <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>   <span class="co">// Right Forward</span></span>
-<span id="cb1-7"><a></a><span class="dt">int</span> IN4 <span class="op">=</span> <span class="dv">6</span><span class="op">;</span>   <span class="co">// Right Backward</span></span>
-<span id="cb1-8"><a></a><span class="dt">int</span> ENB <span class="op">=</span> <span class="dv">3</span><span class="op">;</span>   <span class="co">// Right Speed</span></span>
-<span id="cb1-9"><a></a></span>
-<span id="cb1-10"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-11"><a></a>  pinMode<span class="op">(</span>IN1<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-12"><a></a>  pinMode<span class="op">(</span>IN2<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-13"><a></a>  pinMode<span class="op">(</span>IN3<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-14"><a></a>  pinMode<span class="op">(</span>IN4<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-15"><a></a>  pinMode<span class="op">(</span>ENA<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-16"><a></a>  pinMode<span class="op">(</span>ENB<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb1-17"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a></a><span class="pp">#define ML_Ctrl </span><span class="dv">4</span><span class="pp">    </span><span class="co">// Left Direction</span></span>
+<span id="cb1-3"><a></a><span class="pp">#define ML_PWM </span><span class="dv">5</span><span class="pp">     </span><span class="co">// Left Speed</span></span>
+<span id="cb1-4"><a></a><span class="pp">#define MR_Ctrl </span><span class="dv">2</span><span class="pp">    </span><span class="co">// Right Direction</span></span>
+<span id="cb1-5"><a></a><span class="pp">#define MR_PWM </span><span class="dv">6</span><span class="pp">     </span><span class="co">// Right Speed</span></span>
+<span id="cb1-6"><a></a></span>
+<span id="cb1-7"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-8"><a></a>  pinMode<span class="op">(</span>ML_Ctrl<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb1-9"><a></a>  pinMode<span class="op">(</span>ML_PWM<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb1-10"><a></a>  pinMode<span class="op">(</span>MR_Ctrl<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb1-11"><a></a>  pinMode<span class="op">(</span>MR_PWM<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb1-12"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="functions-organizing-logic" class="slide level2">
 <h2>Functions: Organizing Logic</h2>
 <p>Typing <code>digitalWrite</code> four times just to move forward is tedious. In C++, we can create custom <strong>functions</strong> to bundle commands together.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="dt">void</span> forward<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-2"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb2-3"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-4"><a></a>  analogWrite<span class="op">(</span>ENA<span class="op">,</span> <span class="dv">150</span><span class="op">);</span> <span class="co">// Set speed (0-255)</span></span>
-<span id="cb2-5"><a></a></span>
-<span id="cb2-6"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb2-7"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-8"><a></a>  analogWrite<span class="op">(</span>ENB<span class="op">,</span> <span class="dv">150</span><span class="op">);</span></span>
-<span id="cb2-9"><a></a><span class="op">}</span></span>
-<span id="cb2-10"><a></a></span>
-<span id="cb2-11"><a></a><span class="dt">void</span> stopCar<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-12"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-13"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-14"><a></a>  analogWrite<span class="op">(</span>ENA<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
-<span id="cb2-15"><a></a></span>
-<span id="cb2-16"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-17"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-18"><a></a>  analogWrite<span class="op">(</span>ENB<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
-<span id="cb2-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="dt">void</span> car_front<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-2"><a></a>  digitalWrite<span class="op">(</span>ML_Ctrl<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb2-3"><a></a>  analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> <span class="dv">150</span><span class="op">);</span> <span class="co">// Set speed (0-255)</span></span>
+<span id="cb2-4"><a></a>  digitalWrite<span class="op">(</span>MR_Ctrl<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb2-5"><a></a>  analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> <span class="dv">150</span><span class="op">);</span></span>
+<span id="cb2-6"><a></a><span class="op">}</span></span>
+<span id="cb2-7"><a></a></span>
+<span id="cb2-8"><a></a><span class="dt">void</span> car_Stop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-9"><a></a>  analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb2-10"><a></a>  analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb2-11"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="driving-the-car" class="slide level2">
 <h2>Driving the Car</h2>
 <p>Now, our <code>loop()</code> becomes very simple and easy to read!</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-2"><a></a>  forward<span class="op">();</span></span>
+<span id="cb3-2"><a></a>  car_front<span class="op">();</span></span>
 <span id="cb3-3"><a></a>  delay<span class="op">(</span><span class="dv">2000</span><span class="op">);</span> <span class="co">// Drive for 2 seconds</span></span>
 <span id="cb3-4"><a></a>  </span>
-<span id="cb3-5"><a></a>  stopCar<span class="op">();</span></span>
+<span id="cb3-5"><a></a>  car_Stop<span class="op">();</span></span>
 <span id="cb3-6"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span> <span class="co">// Wait 1 second</span></span>
 <span id="cb3-7"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-important callout-titled callout-style-default">
@@ -504,20 +556,386 @@
 <p><em>(Apply)</em>: Write the code for a <code>turnRight()</code> function.</p>
 <div class="fragment">
 <p><strong>Solution:</strong> To turn Right, the Left wheels must go Forward, and the Right wheels must go Backward.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">void</span> turnRight<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb4-2"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Left Forward</span></span>
-<span id="cb4-3"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb4-4"><a></a>  analogWrite<span class="op">(</span>ENA<span class="op">,</span> <span class="dv">150</span><span class="op">);</span></span>
-<span id="cb4-5"><a></a>  </span>
-<span id="cb4-6"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb4-7"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Right Backward (Reverse!)</span></span>
-<span id="cb4-8"><a></a>  analogWrite<span class="op">(</span>ENB<span class="op">,</span> <span class="dv">150</span><span class="op">);</span></span>
-<span id="cb4-9"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">void</span> car_right<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-2"><a></a>  digitalWrite<span class="op">(</span>ML_Ctrl<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Left Forward</span></span>
+<span id="cb4-3"><a></a>  analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> <span class="dv">150</span><span class="op">);</span></span>
+<span id="cb4-4"><a></a>  </span>
+<span id="cb4-5"><a></a>  digitalWrite<span class="op">(</span>MR_Ctrl<span class="op">,</span> LOW<span class="op">);</span> <span class="co">// Right Backward</span></span>
+<span id="cb4-6"><a></a>  analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> <span class="dv">150</span><span class="op">);</span></span>
+<span id="cb4-7"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section></section>
 <section>
-<section id="part-4-bt-the-bluetooth-module" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 4 (BT) — The Bluetooth Module</h1>
+<section id="part-4-how-does-a-tv-remote-work" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 4 — How Does a TV Remote Work?</h1>
+
+</section>
+<section id="invisible-control" class="slide level2">
+<h2>Invisible Control</h2>
+<p>How does a TV remote talk to the TV? It blinks a light that we can’t see!</p>
+<ul>
+<li><strong>Infrared (IR)</strong> is light with a frequency lower than red light.</li>
+<li>Our eyes can’t see it, but the robot’s secondary “electronic eye” can.</li>
+<li>It’s like a flashlight sending a secret <strong>Morse code</strong> at high speed.</li>
+</ul>
+</section>
+<section id="the-hardware" class="slide level2">
+<h2>The Hardware</h2>
+<p>To receive signals, we use an <strong>IR Receiver Module</strong>.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Connections:</strong></p>
+<ol type="1">
+<li><strong>GND</strong> → GND</li>
+<li><strong>VCC</strong> → 5V</li>
+<li><strong>Signal</strong> → <strong>Pin 3</strong> (Digital)</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../assets/ir_remote.png"></p>
+<figcaption>IR Receiver Attachment</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="activity-ir-intuition" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Activity: IR Intuition</h2>
+<p><strong>Can you see the invisible light?</strong></p>
+<ol type="1">
+<li>Take your phone camera.</li>
+<li>Point the IR Remote at the camera lens.</li>
+<li>Press a button.</li>
+<li><strong>Look at the screen!</strong> Do you see a purple/pink blink?</li>
+</ol>
+<blockquote>
+<p><strong>Why?</strong> Digital cameras can “see” slightly more of the spectrum than human eyes.</p>
+</blockquote>
+</section></section>
+<section>
+<section id="part-5-decoding-the-remote" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 5 — Decoding the Remote</h1>
+
+</section>
+<section id="setup-the-library" class="slide level2">
+<h2>Setup the Library</h2>
+<p>Every robot needs a “dictionary” to understand IR. We use the <strong>IRremote</strong> library.</p>
+<ol type="1">
+<li>Go to <strong>Tools &gt; Manage Libraries…</strong></li>
+<li>Search for: <strong>IRremote</strong></li>
+<li>Install the version by <strong>Armin Joachimsmeyer</strong> (v4.0 or higher).</li>
+</ol>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Protocol Check</strong></p>
+</div>
+<div class="callout-content">
+<p>The Keyestudio remote uses the <strong>NEC Protocol</strong>. The library will handle this for us automatically!</p>
+</div>
+</div>
+</div>
+</section>
+<section id="activity-scanning-for-codes" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Activity: Scanning for Codes</h2>
+<p>Before we control the car, we need to know what “numbers” your buttons send.</p>
+<ol type="1">
+<li>Open Arduino IDE.</li>
+<li>Go to <strong>File &gt; Examples &gt; IRremote &gt; SimpleReceiver</strong>.</li>
+<li>Change <code>IR_RECEIVE_PIN</code> to <strong>3</strong>.</li>
+<li>Open the <strong>Serial Monitor</strong> (9600 baud).</li>
+<li>Press buttons and <strong>write down the HEX codes</strong> for:
+<ul>
+<li>Up Arrow (▲)</li>
+<li>Down Arrow (▼)</li>
+<li>Left Arrow (◄)</li>
+<li>Right Arrow (►)</li>
+<li>OK / Stop</li>
+</ul></li>
+</ol>
+</section>
+<section id="what-are-those-codes" class="slide level2">
+<h2>What are those codes?</h2>
+<p>When you press a button, the remote sends a command number like <code>0x46</code>.</p>
+<ul>
+<li>This is a <strong>HEXADECIMAL</strong> number (Base-16).</li>
+<li>It’s like a unique ID for that specific button.</li>
+<li>If you use a different remote, the numbers will be different!</li>
+</ul>
+</section></section>
+<section>
+<section id="part-6-mapping-buttons-to-directions" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 6 — Mapping Buttons to Directions</h1>
+
+</section>
+<section id="the-logic-switch-statements" class="slide level2">
+<h2>The Logic: <code>switch</code> Statements</h2>
+<p>Instead of using many <code>if</code> statements, we use a <code>switch</code> to handle many buttons easily.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a></a><span class="dt">void</span> handleCommand<span class="op">(</span><span class="dt">uint16_t</span> cmd<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a></a>  <span class="cf">switch</span> <span class="op">(</span>cmd<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-3"><a></a>    <span class="cf">case</span> <span class="bn">0x46</span><span class="op">:</span> <span class="co">// Replace with YOUR 'UP' code</span></span>
+<span id="cb5-4"><a></a>      car_front<span class="op">();</span></span>
+<span id="cb5-5"><a></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-6"><a></a>    <span class="cf">case</span> <span class="bn">0x15</span><span class="op">:</span> <span class="co">// Replace with YOUR 'DOWN' code</span></span>
+<span id="cb5-7"><a></a>      car_back<span class="op">();</span></span>
+<span id="cb5-8"><a></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-9"><a></a>    <span class="cf">case</span> <span class="bn">0x40</span><span class="op">:</span> <span class="co">// Replace with YOUR 'OK' code</span></span>
+<span id="cb5-10"><a></a>      car_Stop<span class="op">();</span></span>
+<span id="cb5-11"><a></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-12"><a></a>  <span class="op">}</span></span>
+<span id="cb5-13"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="setup-loop" class="slide level2">
+<h2>Setup &amp; Loop</h2>
+<p>We need to tell the robot to “listen” at the start and “resume” after every signal.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a></a><span class="pp">#include </span><span class="im">&lt;IRremote.hpp&gt;</span></span>
+<span id="cb6-2"><a></a><span class="dt">int</span> RECV_PIN <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb6-3"><a></a></span>
+<span id="cb6-4"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-5"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span></span>
+<span id="cb6-6"><a></a>  IrReceiver<span class="op">.</span>begin<span class="op">(</span>RECV_PIN<span class="op">,</span> ENABLE_LED_FEEDBACK<span class="op">);</span></span>
+<span id="cb6-7"><a></a>  <span class="co">// ... usual motor setup goes here ...</span></span>
+<span id="cb6-8"><a></a><span class="op">}</span></span>
+<span id="cb6-9"><a></a></span>
+<span id="cb6-10"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-11"><a></a>  <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decode<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb6-12"><a></a>    <span class="dt">uint16_t</span> cmd <span class="op">=</span> IrReceiver<span class="op">.</span>decodedIRData<span class="op">.</span>command<span class="op">;</span></span>
+<span id="cb6-13"><a></a>    Serial<span class="op">.</span>println<span class="op">(</span>cmd<span class="op">,</span> HEX<span class="op">);</span> </span>
+<span id="cb6-14"><a></a>    </span>
+<span id="cb6-15"><a></a>    handleCommand<span class="op">(</span>cmd<span class="op">);</span> <span class="co">// Run our logic</span></span>
+<span id="cb6-16"><a></a>    </span>
+<span id="cb6-17"><a></a>    IrReceiver<span class="op">.</span>resume<span class="op">();</span> <span class="co">// Ready for next signal</span></span>
+<span id="cb6-18"><a></a>  <span class="op">}</span></span>
+<span id="cb6-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="brainstorming-the-stickiness-problem" class="slide level2">
+<h2>Brainstorming: The “Stickiness” Problem</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Problem</strong></p>
+</div>
+<div class="callout-content">
+<p>If you press “Forward” once, the robot starts moving. But if you let go, it <strong>keeps moving</strong>! Why?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The IR remote only sends a signal when it’s pressed.</li>
+<li>The Robot doesn’t know you let go unless you tell it.</li>
+<li><strong>Solution Ideas:</strong>
+<ol type="1">
+<li>Add a dedicated “Stop” button.</li>
+<li>Use a timer (if no signal for 0.5s, stop).</li>
+<li>(Advanced) Check for the “Repeat” code (<code>0x00</code>).</li>
+</ol></li>
+</ul>
+</section></section>
+<section>
+<section id="part-7-make-it-drive" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 7 — Make It Drive!</h1>
+
+</section>
+<section id="activity-full-control" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
+<h2>Activity: Full Control</h2>
+<p>Integrate your code from Session 2!</p>
+<ol type="1">
+<li>Copy your <code>car_front()</code>, <code>car_back()</code>, <code>car_left()</code>, <code>car_right()</code>, and <code>car_Stop()</code> functions.</li>
+<li>Put them in your IR sketch.</li>
+<li>Map them in your <code>switch</code> statement.</li>
+<li><strong>Challenge:</strong> Try to drive your car around a chair using ONLY the remote.</li>
+</ol>
+</section>
+<section id="bonus-activity-speed-modes" class="slide level2">
+<h2>🔥 Bonus Activity: Speed Modes</h2>
+<p>What if you want to go slow for careful turns and fast for the straightaways?</p>
+<ol type="1">
+<li>Map a button to “Speed Up” and another to “Speed Down”.</li>
+<li>Create a global variable: <code>int carSpeed = 100;</code></li>
+<li>Update your <code>switch</code> statement:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a></a><span class="cf">case</span> <span class="bn">0x16</span><span class="op">:</span> <span class="co">// Speed Up</span></span>
+<span id="cb7-2"><a></a>  carSpeed <span class="op">=</span> min<span class="op">(</span>carSpeed <span class="op">+</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">255</span><span class="op">);</span></span>
+<span id="cb7-3"><a></a>  <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-4"><a></a><span class="cf">case</span> <span class="bn">0x19</span><span class="op">:</span> <span class="co">// Speed Down</span></span>
+<span id="cb7-5"><a></a>  carSpeed <span class="op">=</span> max<span class="op">(</span>carSpeed <span class="op">-</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-6"><a></a>  <span class="cf">break</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="4" type="1">
+<li>Change your movement functions to use <code>carSpeed</code> instead of a fixed number: <code>analogWrite(ML_PWM, carSpeed);</code></li>
+</ol>
+</section></section>
+<section>
+<section id="part-8-complete-ir-car-code" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 8 — Complete IR Car Code</h1>
+
+</section>
+<section id="code-listing" class="slide level2 scrollable">
+<h2>Code Listing</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a></a><span class="pp">#include </span><span class="im">&lt;IRremote.hpp&gt;</span><span class="pp"> </span><span class="co">// Use .hpp for version 4.x+</span></span>
+<span id="cb8-2"><a></a></span>
+<span id="cb8-3"><a></a><span class="dt">unsigned</span> <span class="dt">char</span> start01<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="bn">0x01</span><span class="op">,</span><span class="bn">0x02</span><span class="op">,</span><span class="bn">0x04</span><span class="op">,</span><span class="bn">0x08</span><span class="op">,</span><span class="bn">0x10</span><span class="op">,</span><span class="bn">0x20</span><span class="op">,</span><span class="bn">0x40</span><span class="op">,</span><span class="bn">0x80</span><span class="op">,</span><span class="bn">0x80</span><span class="op">,</span><span class="bn">0x40</span><span class="op">,</span><span class="bn">0x20</span><span class="op">,</span><span class="bn">0x10</span><span class="op">,</span><span class="bn">0x08</span><span class="op">,</span><span class="bn">0x04</span><span class="op">,</span><span class="bn">0x02</span><span class="op">,</span><span class="bn">0x01</span><span class="op">};</span></span>
+<span id="cb8-4"><a></a><span class="dt">unsigned</span> <span class="dt">char</span> front<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x24</span><span class="op">,</span><span class="bn">0x12</span><span class="op">,</span><span class="bn">0x09</span><span class="op">,</span><span class="bn">0x12</span><span class="op">,</span><span class="bn">0x24</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">};</span></span>
+<span id="cb8-5"><a></a><span class="dt">unsigned</span> <span class="dt">char</span> back<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x24</span><span class="op">,</span><span class="bn">0x48</span><span class="op">,</span><span class="bn">0x90</span><span class="op">,</span><span class="bn">0x48</span><span class="op">,</span><span class="bn">0x24</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">};</span></span>
+<span id="cb8-6"><a></a><span class="dt">unsigned</span> <span class="dt">char</span> left<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x44</span><span class="op">,</span><span class="bn">0x28</span><span class="op">,</span><span class="bn">0x10</span><span class="op">,</span><span class="bn">0x44</span><span class="op">,</span><span class="bn">0x28</span><span class="op">,</span><span class="bn">0x10</span><span class="op">,</span><span class="bn">0x44</span><span class="op">,</span><span class="bn">0x28</span><span class="op">,</span><span class="bn">0x10</span><span class="op">,</span><span class="bn">0x00</span><span class="op">};</span></span>
+<span id="cb8-7"><a></a><span class="dt">unsigned</span> <span class="dt">char</span> right<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x10</span><span class="op">,</span><span class="bn">0x28</span><span class="op">,</span><span class="bn">0x44</span><span class="op">,</span><span class="bn">0x10</span><span class="op">,</span><span class="bn">0x28</span><span class="op">,</span><span class="bn">0x44</span><span class="op">,</span><span class="bn">0x10</span><span class="op">,</span><span class="bn">0x28</span><span class="op">,</span><span class="bn">0x44</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">};</span></span>
+<span id="cb8-8"><a></a><span class="dt">unsigned</span> <span class="dt">char</span> STOP01<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="bn">0x2E</span><span class="op">,</span><span class="bn">0x2A</span><span class="op">,</span><span class="bn">0x3A</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x02</span><span class="op">,</span><span class="bn">0x3E</span><span class="op">,</span><span class="bn">0x02</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x3E</span><span class="op">,</span><span class="bn">0x22</span><span class="op">,</span><span class="bn">0x3E</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x3E</span><span class="op">,</span><span class="bn">0x0A</span><span class="op">,</span><span class="bn">0x0E</span><span class="op">,</span><span class="bn">0x00</span><span class="op">};</span></span>
+<span id="cb8-9"><a></a><span class="dt">unsigned</span> <span class="dt">char</span> clear<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">,</span><span class="bn">0x00</span><span class="op">};</span></span>
+<span id="cb8-10"><a></a></span>
+<span id="cb8-11"><a></a><span class="pp">#define SCL_Pin  </span>A5<span class="pp"> </span></span>
+<span id="cb8-12"><a></a><span class="pp">#define SDA_Pin  </span>A4<span class="pp"> </span></span>
+<span id="cb8-13"><a></a><span class="pp">#define ML_Ctrl </span><span class="dv">4</span><span class="pp">    </span></span>
+<span id="cb8-14"><a></a><span class="pp">#define ML_PWM </span><span class="dv">5</span><span class="pp">   </span></span>
+<span id="cb8-15"><a></a><span class="pp">#define MR_Ctrl </span><span class="dv">2</span><span class="pp">    </span></span>
+<span id="cb8-16"><a></a><span class="pp">#define MR_PWM </span><span class="dv">6</span><span class="pp">   </span></span>
+<span id="cb8-17"><a></a></span>
+<span id="cb8-18"><a></a><span class="dt">int</span> RECV_PIN <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb8-19"><a></a><span class="dt">int</span> carSpeed <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> </span>
+<span id="cb8-20"><a></a></span>
+<span id="cb8-21"><a></a><span class="co">// --- NEW VARIABLES FOR TIMEOUT ---</span></span>
+<span id="cb8-22"><a></a><span class="dt">unsigned</span> <span class="dt">long</span> lastSignalTime <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>   <span class="co">// Stores the time of the last IR signal</span></span>
+<span id="cb8-23"><a></a><span class="at">const</span> <span class="dt">int</span> timeoutThreshold <span class="op">=</span> <span class="dv">200</span><span class="op">;</span>   <span class="co">// Milliseconds to wait before stopping (IR repeats ~110ms)</span></span>
+<span id="cb8-24"><a></a></span>
+<span id="cb8-25"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-26"><a></a>    pinMode<span class="op">(</span>ML_Ctrl<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-27"><a></a>    pinMode<span class="op">(</span>ML_PWM<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-28"><a></a>    pinMode<span class="op">(</span>MR_Ctrl<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-29"><a></a>    pinMode<span class="op">(</span>MR_PWM<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-30"><a></a>    </span>
+<span id="cb8-31"><a></a>    Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span></span>
+<span id="cb8-32"><a></a>    IrReceiver<span class="op">.</span>begin<span class="op">(</span>RECV_PIN<span class="op">,</span> ENABLE_LED_FEEDBACK<span class="op">);</span> </span>
+<span id="cb8-33"><a></a></span>
+<span id="cb8-34"><a></a>    pinMode<span class="op">(</span>SCL_Pin<span class="op">,</span>OUTPUT<span class="op">);</span></span>
+<span id="cb8-35"><a></a>    pinMode<span class="op">(</span>SDA_Pin<span class="op">,</span>OUTPUT<span class="op">);</span></span>
+<span id="cb8-36"><a></a>    matrix_display<span class="op">(</span>clear<span class="op">);</span></span>
+<span id="cb8-37"><a></a>    matrix_display<span class="op">(</span>start01<span class="op">);</span></span>
+<span id="cb8-38"><a></a><span class="op">}</span></span>
+<span id="cb8-39"><a></a></span>
+<span id="cb8-40"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-41"><a></a>    <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decode<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb8-42"><a></a>        <span class="co">// If it's a repeat signal, just update the timer to keep the car moving</span></span>
+<span id="cb8-43"><a></a>        <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decodedIRData<span class="op">.</span>flags <span class="op">&amp;</span> IRDATA_FLAGS_IS_REPEAT<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-44"><a></a>            lastSignalTime <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb8-45"><a></a>        <span class="op">}</span> </span>
+<span id="cb8-46"><a></a>        <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb8-47"><a></a>            <span class="co">// It's a new button press</span></span>
+<span id="cb8-48"><a></a>            <span class="dt">uint16_t</span> command <span class="op">=</span> IrReceiver<span class="op">.</span>decodedIRData<span class="op">.</span>command<span class="op">;</span></span>
+<span id="cb8-49"><a></a>            lastSignalTime <span class="op">=</span> millis<span class="op">();</span> <span class="co">// Update timer</span></span>
+<span id="cb8-50"><a></a>            </span>
+<span id="cb8-51"><a></a>            <span class="cf">switch</span><span class="op">(</span>command<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-52"><a></a>                 <span class="cf">case</span> <span class="bn">0x46</span><span class="op">:</span> car_front<span class="op">();</span> matrix_display<span class="op">(</span>front<span class="op">);</span> <span class="cf">break</span><span class="op">;</span> </span>
+<span id="cb8-53"><a></a>                 <span class="cf">case</span> <span class="bn">0x15</span><span class="op">:</span> car_back<span class="op">();</span>  matrix_display<span class="op">(</span>back<span class="op">);</span>  <span class="cf">break</span><span class="op">;</span> </span>
+<span id="cb8-54"><a></a>                 <span class="cf">case</span> <span class="bn">0x44</span><span class="op">:</span> car_left<span class="op">();</span>  matrix_display<span class="op">(</span>left<span class="op">);</span>  <span class="cf">break</span><span class="op">;</span> </span>
+<span id="cb8-55"><a></a>                 <span class="cf">case</span> <span class="bn">0x43</span><span class="op">:</span> car_right<span class="op">();</span> matrix_display<span class="op">(</span>right<span class="op">);</span> <span class="cf">break</span><span class="op">;</span> </span>
+<span id="cb8-56"><a></a>                 <span class="cf">case</span> <span class="bn">0x40</span><span class="op">:</span> car_Stop<span class="op">();</span>  matrix_display<span class="op">(</span>STOP01<span class="op">);</span> <span class="cf">break</span><span class="op">;</span> </span>
+<span id="cb8-57"><a></a></span>
+<span id="cb8-58"><a></a>                 <span class="cf">case</span> <span class="bn">0x16</span><span class="op">:</span> <span class="co">// Speed Up</span></span>
+<span id="cb8-59"><a></a>                    carSpeed <span class="op">=</span> min<span class="op">(</span>carSpeed <span class="op">+</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">255</span><span class="op">);</span></span>
+<span id="cb8-60"><a></a>                    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb8-61"><a></a>                 <span class="cf">case</span> <span class="bn">0x19</span><span class="op">:</span> <span class="co">// Speed Down</span></span>
+<span id="cb8-62"><a></a>                    carSpeed <span class="op">=</span> max<span class="op">(</span>carSpeed <span class="op">-</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb8-63"><a></a>                    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb8-64"><a></a>            <span class="op">}</span></span>
+<span id="cb8-65"><a></a>        <span class="op">}</span></span>
+<span id="cb8-66"><a></a>        IrReceiver<span class="op">.</span>resume<span class="op">();</span> </span>
+<span id="cb8-67"><a></a>    <span class="op">}</span></span>
+<span id="cb8-68"><a></a></span>
+<span id="cb8-69"><a></a>    <span class="co">// --- AUTOMATIC STOP LOGIC ---</span></span>
+<span id="cb8-70"><a></a>    <span class="co">// If current time is 200ms past the last signal, stop the car</span></span>
+<span id="cb8-71"><a></a>    <span class="cf">if</span> <span class="op">(</span>millis<span class="op">()</span> <span class="op">-</span> lastSignalTime <span class="op">&gt;</span> timeoutThreshold<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-72"><a></a>        car_Stop<span class="op">();</span></span>
+<span id="cb8-73"><a></a>        <span class="co">// Optional: matrix_display(clear); </span></span>
+<span id="cb8-74"><a></a>    <span class="op">}</span></span>
+<span id="cb8-75"><a></a><span class="op">}</span></span>
+<span id="cb8-76"><a></a></span>
+<span id="cb8-77"><a></a><span class="co">// --- Movement Functions ---</span></span>
+<span id="cb8-78"><a></a><span class="dt">void</span> car_front<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-79"><a></a>    digitalWrite<span class="op">(</span>ML_Ctrl<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-80"><a></a>    analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> carSpeed<span class="op">);</span></span>
+<span id="cb8-81"><a></a>    digitalWrite<span class="op">(</span>MR_Ctrl<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-82"><a></a>    analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> carSpeed<span class="op">);</span></span>
+<span id="cb8-83"><a></a><span class="op">}</span></span>
+<span id="cb8-84"><a></a></span>
+<span id="cb8-85"><a></a><span class="dt">void</span> car_back<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-86"><a></a>    digitalWrite<span class="op">(</span>ML_Ctrl<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-87"><a></a>    analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> carSpeed<span class="op">);</span></span>
+<span id="cb8-88"><a></a>    digitalWrite<span class="op">(</span>MR_Ctrl<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-89"><a></a>    analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> carSpeed<span class="op">);</span></span>
+<span id="cb8-90"><a></a><span class="op">}</span></span>
+<span id="cb8-91"><a></a></span>
+<span id="cb8-92"><a></a><span class="dt">void</span> car_left<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-93"><a></a>    digitalWrite<span class="op">(</span>ML_Ctrl<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-94"><a></a>    analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> carSpeed<span class="op">);</span></span>
+<span id="cb8-95"><a></a>    digitalWrite<span class="op">(</span>MR_Ctrl<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-96"><a></a>    analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> carSpeed<span class="op">);</span></span>
+<span id="cb8-97"><a></a><span class="op">}</span></span>
+<span id="cb8-98"><a></a></span>
+<span id="cb8-99"><a></a><span class="dt">void</span> car_right<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-100"><a></a>    digitalWrite<span class="op">(</span>ML_Ctrl<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-101"><a></a>    analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> carSpeed<span class="op">);</span></span>
+<span id="cb8-102"><a></a>    digitalWrite<span class="op">(</span>MR_Ctrl<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-103"><a></a>    analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> carSpeed<span class="op">);</span></span>
+<span id="cb8-104"><a></a><span class="op">}</span></span>
+<span id="cb8-105"><a></a></span>
+<span id="cb8-106"><a></a><span class="dt">void</span> car_Stop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-107"><a></a>    analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb8-108"><a></a>    analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb8-109"><a></a><span class="op">}</span></span>
+<span id="cb8-110"><a></a></span>
+<span id="cb8-111"><a></a><span class="co">// --- Matrix Functions ---</span></span>
+<span id="cb8-112"><a></a><span class="dt">void</span> matrix_display<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span> matrix_value<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb8-113"><a></a>    IIC_start<span class="op">();</span></span>
+<span id="cb8-114"><a></a>    IIC_send<span class="op">(</span><span class="bn">0xc0</span><span class="op">);</span></span>
+<span id="cb8-115"><a></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">16</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb8-116"><a></a>        IIC_send<span class="op">(</span>matrix_value<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb8-117"><a></a>    <span class="op">}</span></span>
+<span id="cb8-118"><a></a>    IIC_end<span class="op">();</span></span>
+<span id="cb8-119"><a></a>    IIC_start<span class="op">();</span></span>
+<span id="cb8-120"><a></a>    IIC_send<span class="op">(</span><span class="bn">0x8A</span><span class="op">);</span></span>
+<span id="cb8-121"><a></a>    IIC_end<span class="op">();</span></span>
+<span id="cb8-122"><a></a><span class="op">}</span></span>
+<span id="cb8-123"><a></a></span>
+<span id="cb8-124"><a></a><span class="dt">void</span> IIC_start<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-125"><a></a>    digitalWrite<span class="op">(</span>SCL_Pin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-126"><a></a>    delayMicroseconds<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-127"><a></a>    digitalWrite<span class="op">(</span>SDA_Pin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-128"><a></a>    delayMicroseconds<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-129"><a></a>    digitalWrite<span class="op">(</span>SDA_Pin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-130"><a></a>    delayMicroseconds<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-131"><a></a><span class="op">}</span></span>
+<span id="cb8-132"><a></a></span>
+<span id="cb8-133"><a></a><span class="dt">void</span> IIC_send<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span> send_data<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-134"><a></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">char</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">8</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb8-135"><a></a>        digitalWrite<span class="op">(</span>SCL_Pin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-136"><a></a>        delayMicroseconds<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-137"><a></a>        <span class="cf">if</span><span class="op">(</span>send_data <span class="op">&amp;</span> <span class="bn">0x01</span><span class="op">)</span> digitalWrite<span class="op">(</span>SDA_Pin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-138"><a></a>        <span class="cf">else</span> digitalWrite<span class="op">(</span>SDA_Pin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-139"><a></a>        delayMicroseconds<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-140"><a></a>        digitalWrite<span class="op">(</span>SCL_Pin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-141"><a></a>        delayMicroseconds<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-142"><a></a>        send_data <span class="op">=</span> send_data <span class="op">&gt;&gt;</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb8-143"><a></a>    <span class="op">}</span></span>
+<span id="cb8-144"><a></a><span class="op">}</span></span>
+<span id="cb8-145"><a></a></span>
+<span id="cb8-146"><a></a><span class="dt">void</span> IIC_end<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-147"><a></a>    digitalWrite<span class="op">(</span>SCL_Pin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-148"><a></a>    delayMicroseconds<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-149"><a></a>    digitalWrite<span class="op">(</span>SDA_Pin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-150"><a></a>    delayMicroseconds<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-151"><a></a>    digitalWrite<span class="op">(</span>SCL_Pin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-152"><a></a>    delayMicroseconds<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-153"><a></a>    digitalWrite<span class="op">(</span>SDA_Pin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-154"><a></a>    delayMicroseconds<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-155"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section>
+<section>
+<section id="part-9-the-bluetooth-module" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 9 — The Bluetooth Module</h1>
 
 </section>
 <section id="cutting-the-cord" class="slide level2">
@@ -567,22 +985,22 @@
 <section id="connecting-with-dabble" class="slide level2">
 <h2>Connecting with Dabble</h2>
 <p>To make the Arduino talk to the Dabble app, we just need to include the library and start it in our code. Dabble automatically knows to use Pins 2 and 3!</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a></a><span class="pp">#define CUSTOM_SETTINGS</span></span>
-<span id="cb5-2"><a></a><span class="pp">#define INCLUDE_GAMEPAD_MODULE</span></span>
-<span id="cb5-3"><a></a><span class="pp">#include </span><span class="im">&lt;Dabble.h&gt;</span></span>
-<span id="cb5-4"><a></a></span>
-<span id="cb5-5"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-6"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> </span>
-<span id="cb5-7"><a></a>  Dabble<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> <span class="co">// Start Bluetooth communication</span></span>
-<span id="cb5-8"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb9-1"><a></a><span class="pp">#define CUSTOM_SETTINGS</span></span>
+<span id="cb9-2"><a></a><span class="pp">#define INCLUDE_GAMEPAD_MODULE</span></span>
+<span id="cb9-3"><a></a><span class="pp">#include </span><span class="im">&lt;Dabble.h&gt;</span></span>
+<span id="cb9-4"><a></a></span>
+<span id="cb9-5"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-6"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> </span>
+<span id="cb9-7"><a></a>  Dabble<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> <span class="co">// Start Bluetooth communication</span></span>
+<span id="cb9-8"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="install-dabble-in-your-smartphone" class="slide level2">
 <h2>Install Dabble in your Smartphone</h2>
 <p>Download the <strong>Dabble App</strong> from your App Store. Once installed, open the app, click the connect icon, and pair it with your HM-10 module (Password is usually <code>1234</code> or <code>000000</code>).</p>
 </section></section>
 <section>
-<section id="part-5-bt-app-driving" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 5 (BT) — App Driving</h1>
+<section id="part-10-app-driving" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 10 — App Driving</h1>
 
 </section>
 <section id="the-dabble-gamepad" class="slide level2">
@@ -593,45 +1011,45 @@
 <section id="reading-the-gamepad" class="slide level2">
 <h2>Reading the Gamepad</h2>
 <p>In our <code>loop()</code>, we need to continuously check if the Dabble app is sending any button presses:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb6-2"><a></a>  Dabble<span class="op">.</span>processInput<span class="op">();</span> <span class="co">// Refresh data from the smartphone</span></span>
-<span id="cb6-3"><a></a>  </span>
-<span id="cb6-4"><a></a>  <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isUpPressed<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb6-5"><a></a>    moveForward<span class="op">();</span></span>
-<span id="cb6-6"><a></a>  <span class="op">}</span> </span>
-<span id="cb6-7"><a></a>  <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isDownPressed<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb6-8"><a></a>    moveBackward<span class="op">();</span> <span class="co">// Assuming we have this function</span></span>
-<span id="cb6-9"><a></a>  <span class="op">}</span></span>
-<span id="cb6-10"><a></a>  <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isLeftPressed<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb6-11"><a></a>    moveLeft<span class="op">();</span> <span class="co">// Assuming we have this function</span></span>
-<span id="cb6-12"><a></a>  <span class="op">}</span></span>
-<span id="cb6-13"><a></a>  <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isRightPressed<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb6-14"><a></a>    moveRight<span class="op">();</span> <span class="co">// Assuming we have this function</span></span>
-<span id="cb6-15"><a></a>  <span class="op">}</span></span>
-<span id="cb6-16"><a></a>  <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb6-17"><a></a>    stopCar<span class="op">();</span></span>
-<span id="cb6-18"><a></a>  <span class="op">}</span></span>
-<span id="cb6-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-2"><a></a>  Dabble<span class="op">.</span>processInput<span class="op">();</span> <span class="co">// Refresh data from the smartphone</span></span>
+<span id="cb10-3"><a></a>  </span>
+<span id="cb10-4"><a></a>  <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isUpPressed<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb10-5"><a></a>    moveForward<span class="op">();</span></span>
+<span id="cb10-6"><a></a>  <span class="op">}</span> </span>
+<span id="cb10-7"><a></a>  <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isDownPressed<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb10-8"><a></a>    moveBackward<span class="op">();</span> <span class="co">// Assuming we have this function</span></span>
+<span id="cb10-9"><a></a>  <span class="op">}</span></span>
+<span id="cb10-10"><a></a>  <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isLeftPressed<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb10-11"><a></a>    moveLeft<span class="op">();</span> <span class="co">// Assuming we have this function</span></span>
+<span id="cb10-12"><a></a>  <span class="op">}</span></span>
+<span id="cb10-13"><a></a>  <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>GamePad<span class="op">.</span>isRightPressed<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb10-14"><a></a>    moveRight<span class="op">();</span> <span class="co">// Assuming we have this function</span></span>
+<span id="cb10-15"><a></a>  <span class="op">}</span></span>
+<span id="cb10-16"><a></a>  <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb10-17"><a></a>    stopCar<span class="op">();</span></span>
+<span id="cb10-18"><a></a>  <span class="op">}</span></span>
+<span id="cb10-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="creating-the-helper-functions" class="slide level2">
 <h2>Creating the Helper Functions</h2>
 <p>To keep our code clean, we use custom functions like <code>moveForward()</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a></a><span class="dt">void</span> moveForward<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-2"><a></a>  <span class="co">// Left Motor Forward</span></span>
-<span id="cb7-3"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb7-4"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-5"><a></a>  </span>
-<span id="cb7-6"><a></a>  <span class="co">// Right Motor Forward</span></span>
-<span id="cb7-7"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb7-8"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-9"><a></a><span class="op">}</span></span>
-<span id="cb7-10"><a></a></span>
-<span id="cb7-11"><a></a><span class="dt">void</span> stopCar<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-12"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-13"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-14"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-15"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb7-16"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb11-1"><a></a><span class="dt">void</span> moveForward<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-2"><a></a>  <span class="co">// Left Motor Forward</span></span>
+<span id="cb11-3"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb11-4"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb11-5"><a></a>  </span>
+<span id="cb11-6"><a></a>  <span class="co">// Right Motor Forward</span></span>
+<span id="cb11-7"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb11-8"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb11-9"><a></a><span class="op">}</span></span>
+<span id="cb11-10"><a></a></span>
+<span id="cb11-11"><a></a><span class="dt">void</span> stopCar<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-12"><a></a>  digitalWrite<span class="op">(</span>IN1<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb11-13"><a></a>  digitalWrite<span class="op">(</span>IN2<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb11-14"><a></a>  digitalWrite<span class="op">(</span>IN3<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb11-15"><a></a>  digitalWrite<span class="op">(</span>IN4<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb11-16"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="the-driving-challenge" class="slide level2">
 <h2>The Driving Challenge</h2>
@@ -645,8 +1063,8 @@
 </ol>
 </section></section>
 <section>
-<section id="part-7-obstacle-course-ai-demo" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 7 — Obstacle Course &amp; AI Demo</h1>
+<section id="part-11-obstacle-course-ai-demo" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 11 — Obstacle Course &amp; AI Demo</h1>
 
 </section>
 <section id="the-obstacle-course-challenge" class="slide level2">
@@ -697,19 +1115,19 @@
 <p><strong>Example Code</strong></p>
 </div>
 <div class="callout-content">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a></a><span class="dt">void</span> victoryDance<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb8-2"><a></a>  turnRight<span class="op">();</span> delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span>  <span class="co">// Quick spin right</span></span>
-<span id="cb8-3"><a></a>  backward<span class="op">();</span>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span>  <span class="co">// Back it up</span></span>
-<span id="cb8-4"><a></a>  turnLeft<span class="op">();</span>  delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span>  <span class="co">// Quick spin left</span></span>
-<span id="cb8-5"><a></a>  stopCar<span class="op">();</span></span>
-<span id="cb8-6"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb12-1"><a></a><span class="dt">void</span> victoryDance<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb12-2"><a></a>  car_right<span class="op">();</span> delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span>  <span class="co">// Quick spin right</span></span>
+<span id="cb12-3"><a></a>  car_back<span class="op">();</span>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span>  <span class="co">// Back it up</span></span>
+<span id="cb12-4"><a></a>  car_left<span class="op">();</span>  delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span>  <span class="co">// Quick spin left</span></span>
+<span id="cb12-5"><a></a>  car_Stop<span class="op">();</span></span>
+<span id="cb12-6"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 </section></section>
 <section>
-<section id="part-8-problem-patterns" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 8 — Problem Patterns</h1>
+<section id="part-12-problem-patterns" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 12 — Problem Patterns</h1>
 
 </section>
 <section id="what-can-a-moving-robot-actually-do" class="slide level2">
