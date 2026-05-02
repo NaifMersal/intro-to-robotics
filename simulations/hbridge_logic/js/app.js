@@ -44,43 +44,48 @@ function updateUI() {
     in1Btn.className = state.in1 ? "toggle-btn active" : "toggle-btn";
     in2Btn.className = state.in2 ? "toggle-btn active" : "toggle-btn";
 
-    if (state.in1 && !state.in2) {
+    const q1 = !!state.in1;
+    const q2 = !state.in1;
+    const q3 = !!state.in2;
+    const q4 = !state.in2;
+
+    if (q1 && q4) {
         path1Val.textContent = "ON";
         path1Val.style.color = COLORS.accent;
         path2Val.textContent = "OFF";
         path2Val.style.color = COLORS.textSecondary;
         motorStatusVal.textContent = "Spinning CW";
         motorStatusVal.style.color = COLORS.accent;
-        obsText.innerHTML = "<strong>Forward:</strong> Q1 and Q4 are ON. Current flows Left to Right through the motor.";
-    } else if (!state.in1 && state.in2) {
+        obsText.innerHTML = "<strong>Forward:</strong> IN1 is HIGH (Q1 ON), IN2 is LOW (Q4 ON). Current flows Left to Right.";
+    } else if (q2 && q3) {
         path1Val.textContent = "OFF";
         path1Val.style.color = COLORS.textSecondary;
         path2Val.textContent = "ON";
         path2Val.style.color = COLORS.accent;
         motorStatusVal.textContent = "Spinning CCW";
         motorStatusVal.style.color = COLORS.accent;
-        obsText.innerHTML = "<strong>Reverse:</strong> Q3 and Q2 are ON. Current flows Right to Left through the motor.";
-    } else if (state.in1 && state.in2) {
+        obsText.innerHTML = "<strong>Reverse:</strong> IN1 is LOW (Q2 ON), IN2 is HIGH (Q3 ON). Current flows Right to Left.";
+    } else if (q1 && q3) {
         path1Val.textContent = "OFF";
         path2Val.textContent = "OFF";
         path1Val.style.color = COLORS.textSecondary;
         path2Val.style.color = COLORS.textSecondary;
-        motorStatusVal.textContent = "Braking";
+        motorStatusVal.textContent = "Braking (High)";
         motorStatusVal.style.color = COLORS.warn;
-        obsText.innerHTML = "<strong>Brake:</strong> Q2 and Q4 ON — both motor terminals tied to GND. Residual motor EMF circulates through the short and dissipates as heat.";
+        obsText.innerHTML = "<strong>Brake to Vcc:</strong> IN1 and IN2 HIGH. Q1 and Q3 ON. Both motor terminals tied to Vcc.";
     } else {
         path1Val.textContent = "OFF";
         path2Val.textContent = "OFF";
         path1Val.style.color = COLORS.textSecondary;
         path2Val.style.color = COLORS.textSecondary;
         if (Math.abs(state.motorSpeed) > 0.01) {
-            motorStatusVal.textContent = "Coasting / Flyback";
-            motorStatusVal.style.color = COLORS.diodeGlow;
-            obsText.innerHTML = "<strong>Flyback:</strong> Motor inductance keeps current flowing! Diodes channel the spike back through the battery.";
+            motorStatusVal.textContent = "Braking (Low)";
+            motorStatusVal.style.color = COLORS.warn;
+            obsText.innerHTML = "<strong>Brake to GND:</strong> IN1 and IN2 LOW. Q2 and Q4 ON. Motor EMF circulates and dissipates.";
         } else {
-            motorStatusVal.textContent = "Stopped";
+            motorStatusVal.textContent = "Stopped (Brake)";
             motorStatusVal.style.color = COLORS.textSecondary;
-            obsText.innerHTML = "<strong>Experiment:</strong> Toggle IN1 or IN2 to HIGH to turn on the MOSFET pairs and see how electricity flows through the motor!";
+            obsText.innerHTML = "<strong>Experiment:</strong> Toggle IN1 or IN2 to HIGH to create a voltage difference across the motor!";
         }
     }
 }
@@ -88,20 +93,10 @@ function updateUI() {
 function handleInput() {
     const fwd = state.in1 && !state.in2;
     const rev = !state.in1 && state.in2;
-    const goingOff = !state.in1 && !state.in2;
 
     let newTarget = 0;
     if (fwd) newTarget = 0.2;
     else if (rev) newTarget = -0.2;
-
-    const motorWasMoving = Math.abs(state.motorSpeed) > 0.01;
-    if (goingOff && motorWasMoving) {
-        state.flybackTimer = 90;
-        state.lastSpinDir = state.motorSpeed > 0 ? 1 : -1;
-    }
-    if (fwd || rev || (state.in1 && state.in2)) {
-        state.flybackTimer = 0;
-    }
 
     state.targetSpeed = newTarget;
     updateUI();
@@ -361,23 +356,21 @@ function animate() {
     ctx.stroke();
 
     // ===== Logic =====
-    const fwd = !!(state.in1 && !state.in2);
-    const rev = !!(!state.in1 && state.in2);
-    const brake = !!(state.in1 && state.in2);
+    const q1On = !!state.in1;
+    const q2On = !state.in1;
+    const q3On = !!state.in2;
+    const q4On = !state.in2;
 
-    const q1On = fwd;
-    const q4On = fwd || brake;
-    const q3On = rev;
-    const q2On = rev || brake;
-
-    const isFlybackCW = state.flybackTimer > 0 && state.lastSpinDir === 1;
-    const isFlybackCCW = state.flybackTimer > 0 && state.lastSpinDir === -1;
+    const fwd = q1On && q4On;
+    const rev = q2On && q3On;
+    const brakeVcc = q1On && q3On;
+    const brakeGnd = q2On && q4On;
 
     // ===== Diodes =====
-    drawDiode(leftColX - dOff, cy - gh / 2, isFlybackCCW, "D1");
-    drawDiode(leftColX - dOff, cy + gh / 2, isFlybackCW, "D2");
-    drawDiode(rightColX + dOff, cy - gh / 2, isFlybackCW, "D3");
-    drawDiode(rightColX + dOff, cy + gh / 2, isFlybackCCW, "D4");
+    drawDiode(leftColX - dOff, cy - gh / 2, false, "D1");
+    drawDiode(leftColX - dOff, cy + gh / 2, false, "D2");
+    drawDiode(rightColX + dOff, cy - gh / 2, false, "D3");
+    drawDiode(rightColX + dOff, cy + gh / 2, false, "D4");
 
     // ===== MOSFETs =====
     drawComponent(leftColX, cy - gh / 2, "Q1", q1On);
@@ -386,42 +379,34 @@ function animate() {
     drawComponent(rightColX, cy + gh / 2, "Q4", q4On);
 
     // ===== Gate signals =====
-    // IN1 controls Q1 (top-left) and Q4 (bottom-right)
-    drawGateStub(leftColX, cy - gh / 2, 'r', 'IN1', COLORS.in1, state.in1);
-    drawGateStub(rightColX, cy + gh / 2, 'l', 'IN1', COLORS.in1, state.in1);
-    // IN2 controls Q3 (top-right) and Q2 (bottom-left)
-    drawGateStub(rightColX, cy - gh / 2, 'l', 'IN2', COLORS.in2, state.in2);
-    drawGateStub(leftColX, cy + gh / 2, 'r', 'IN2', COLORS.in2, state.in2);
+    // IN1 controls Q1 (top-left) and Q2 (bottom-left)
+    drawGateStub(leftColX, cy - gh / 2, 'r', 'IN1', COLORS.in1, q1On);
+    drawGateStub(leftColX, cy + gh / 2, 'r', 'IN1', COLORS.in1, q2On);
+    // IN2 controls Q3 (top-right) and Q4 (bottom-right)
+    drawGateStub(rightColX, cy - gh / 2, 'l', 'IN2', COLORS.in2, q3On);
+    drawGateStub(rightColX, cy + gh / 2, 'l', 'IN2', COLORS.in2, q4On);
 
     // ===== Battery =====
     drawBattery(batX, batY);
 
     // ===== Motor physics =====
-    const prevFlyback = state.flybackTimer;
     const prevMoving = Math.abs(state.motorSpeed) > 0.01;
 
     state.motorSpeed += (state.targetSpeed - state.motorSpeed) * 0.05;
-    if (brake) state.motorSpeed *= 0.93;
-    if (state.flybackTimer > 0) {
-        state.motorSpeed *= 0.97;
-        state.flybackTimer--;
-    }
+    if (brakeVcc || brakeGnd) state.motorSpeed *= 0.93;
     state.rotation += state.motorSpeed;
     drawMotor(cx, cy, state.rotation);
 
     const nowMoving = Math.abs(state.motorSpeed) > 0.01;
-    if ((prevFlyback > 0 && state.flybackTimer === 0) ||
-        (prevMoving && !nowMoving && !fwd && !rev && !brake)) {
+    if (prevMoving && !nowMoving && !fwd && !rev) {
         updateUI();
     }
 
     // ===== Particle flow phase =====
     if (fwd || rev) {
         state.flowPhase += Math.abs(state.motorSpeed) * 1.5;
-    } else if (brake && Math.abs(state.motorSpeed) > 0.01) {
+    } else if ((brakeVcc || brakeGnd) && Math.abs(state.motorSpeed) > 0.01) {
         state.flowPhase += Math.abs(state.motorSpeed) * 1.5;
-    } else if (state.flybackTimer > 0) {
-        state.flowPhase += 0.012;
     }
     state.flowPhase = ((state.flowPhase % 1) + 1) % 1;
 
@@ -461,8 +446,30 @@ function animate() {
         drawParticlesAlong(revPath, numParticles, state.flowPhase, COLORS.neg);
     }
 
-    // Brake circulation: motor EMF drives current through Q2/Q4 short to GND
-    if (brake && Math.abs(state.motorSpeed) > 0.01) {
+    // Brake circulation: motor EMF drives current through short
+    if (brakeVcc && Math.abs(state.motorSpeed) > 0.01) {
+        const cw = state.motorSpeed > 0;
+        const brakePath = cw ? [
+            { x: rightColX, y: cy },
+            { x: rightColX, y: cy - gh / 2 },
+            { x: rightColX, y: topRailY },
+            { x: leftColX, y: topRailY },
+            { x: leftColX, y: cy - gh / 2 },
+            { x: leftColX, y: cy },
+            { x: rightColX, y: cy }
+        ] : [
+            { x: leftColX, y: cy },
+            { x: leftColX, y: cy - gh / 2 },
+            { x: leftColX, y: topRailY },
+            { x: rightColX, y: topRailY },
+            { x: rightColX, y: cy - gh / 2 },
+            { x: rightColX, y: cy },
+            { x: leftColX, y: cy }
+        ];
+        drawParticlesAlong(brakePath, 8, state.flowPhase, COLORS.warn);
+    }
+
+    if (brakeGnd && Math.abs(state.motorSpeed) > 0.01) {
         const cw = state.motorSpeed > 0;
         const brakePath = cw ? [
             { x: rightColX, y: cy },
@@ -482,59 +489,6 @@ function animate() {
             { x: leftColX, y: cy }
         ];
         drawParticlesAlong(brakePath, 8, state.flowPhase, COLORS.warn);
-    }
-
-    // Flyback CW: motor was spinning CW → inductance pushes current
-    // motor-R → D3 → top rail → Bat+ → Bat− → bottom rail → D2 → motor-L → through motor → motor-R
-    if (isFlybackCW) {
-        const fbPath = [
-            { x: rightColX, y: cy },
-            { x: rightColX, y: cy - 20 },
-            { x: rightColX + dOff, y: cy - 20 },
-            { x: rightColX + dOff, y: cy - gh / 2 },
-            { x: rightColX + dOff, y: cy - gh + 20 },
-            { x: rightColX, y: cy - gh + 20 },
-            { x: rightColX, y: topRailY },
-            { x: batX, y: topRailY },
-            { x: batX, y: batPosY },
-            { x: batX, y: batNegY },
-            { x: batX, y: botRailY },
-            { x: leftColX, y: botRailY },
-            { x: leftColX, y: cy + gh - 20 },
-            { x: leftColX - dOff, y: cy + gh - 20 },
-            { x: leftColX - dOff, y: cy + gh / 2 },
-            { x: leftColX - dOff, y: cy + 20 },
-            { x: leftColX, y: cy + 20 },
-            { x: leftColX, y: cy },
-            { x: rightColX, y: cy }
-        ];
-        drawParticlesAlong(fbPath, numParticles, state.flowPhase, COLORS.diodeGlow);
-    }
-
-    // Flyback CCW: mirror — motor-L → D1 → top rail → battery → bottom rail → D4 → motor-R → through motor → motor-L
-    if (isFlybackCCW) {
-        const fbPath = [
-            { x: leftColX, y: cy },
-            { x: leftColX, y: cy - 20 },
-            { x: leftColX - dOff, y: cy - 20 },
-            { x: leftColX - dOff, y: cy - gh / 2 },
-            { x: leftColX - dOff, y: cy - gh + 20 },
-            { x: leftColX, y: cy - gh + 20 },
-            { x: leftColX, y: topRailY },
-            { x: batX, y: topRailY },
-            { x: batX, y: batPosY },
-            { x: batX, y: batNegY },
-            { x: batX, y: botRailY },
-            { x: rightColX, y: botRailY },
-            { x: rightColX, y: cy + gh - 20 },
-            { x: rightColX + dOff, y: cy + gh - 20 },
-            { x: rightColX + dOff, y: cy + gh / 2 },
-            { x: rightColX + dOff, y: cy + 20 },
-            { x: rightColX, y: cy + 20 },
-            { x: rightColX, y: cy },
-            { x: leftColX, y: cy }
-        ];
-        drawParticlesAlong(fbPath, numParticles, state.flowPhase, COLORS.diodeGlow);
     }
 
     requestAnimationFrame(animate);
