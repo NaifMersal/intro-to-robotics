@@ -24,6 +24,7 @@ execute:
 
 format:
   revealjs:
+    llms-txt: true
     slide-number: c/t
     show-slide-number: all
     embed-resources: false
