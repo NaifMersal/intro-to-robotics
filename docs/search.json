@@ -970,7 +970,7 @@
     "href": "slides/session2.html#agenda",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Agenda",
-    "text": "Agenda\nPhase 1: Getting It Moving\n\nPart 1 — The Danger of Motors\nPart 2 — The Physical Build\nPart 3 — Programming Movement\n\nPhase 2: Adding the Remote (IR)\n\nPart 4 — How Does a TV Remote Work?\nPart 5 — Decoding the Remote\nPart 6 — Mapping Buttons to Directions\nPart 7 — Make It Drive!\nPart 8 — Complete IR Car Code\n\nPhase 3: Upgrading to Bluetooth\n\nPart 9 — The Bluetooth Module\nPart 10 — App Driving\n\nPhase 4: The Challenge\n\nPart 11 — Obstacle Course Challenge\nPart 12 — Problem Patterns (Closing)"
+    "text": "Agenda\nPhase 1: Getting It Moving\n\nPart 1 — The Danger of Motors\nPart 2 — The Physical Build\nPart 3 — Programming Movement\n\nPhase 2: Adding the Remote (IR)\n\nPart 4 — Concept & Decoding the Remote\nPart 5 — Logic & Driving\nPart 6 — Complete IR Car Code\n\nPhase 3: Upgrading to Bluetooth\n\nPart 7 — Bluetooth Control\n\nPhase 4: The Challenge\n\nPart 8 — Obstacle Course Challenge\nPart 9 — Problem Patterns (Closing)"
   },
   {
     "objectID": "slides/session2.html#the-muscle-vs-the-brain",
@@ -1152,7 +1152,7 @@
     "href": "slides/session2.html#activity-scanning-for-codes",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Activity: Scanning for Codes",
-    "text": "Activity: Scanning for Codes\nBefore we control the car, we need to know what “numbers” your buttons send.\n\nOpen Arduino IDE.\nGo to File &gt; Examples &gt; IRremote &gt; SimpleReceiver.\nChange IR_RECEIVE_PIN to 3.\nOpen the Serial Monitor (9600 baud).\nPress buttons and write down the HEX codes for:\n\nUp Arrow (▲)\nDown Arrow (▼)\nLeft Arrow (◄)\nRight Arrow (►)\nOK / Stop"
+    "text": "Activity: Scanning for Codes\nBefore we control the car, we need to know what “numbers” your buttons send.\n\nOpen a new sketch in Arduino IDE and paste this code:\n\n#include &lt;IRremote.hpp&gt;\n\nint RECV_PIN = 3;\n\nvoid setup() {\n    Serial.begin(9600);\n    IrReceiver.begin(RECV_PIN, ENABLE_LED_FEEDBACK); \n}\n\nvoid loop() {\n    if (IrReceiver.decode()) {\n        if (!(IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT)) {\n            Serial.print(\"Command: 0x\");\n            Serial.println(IrReceiver.decodedIRData.command, HEX);\n        }\n        IrReceiver.resume(); \n    }\n}\n\nUpload the code and open the Serial Monitor (9600 baud).\nPress buttons and write down the HEX codes for:\n\nUp Arrow (▲)\nDown Arrow (▼)\nLeft Arrow (◄)\nRight Arrow (►)\nOK / Stop"
   },
   {
     "objectID": "slides/session2.html#the-logic-decoding",
@@ -1768,7 +1768,7 @@
     "href": "slides/session2.html#setup-the-library",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Setup the Library",
-    "text": "Setup the Library\nEvery robot needs a “dictionary” to understand IR. We use the IRremote library.\n\nGo to Tools &gt; Manage Libraries…\nSearch for: IRremote\nInstall the version by Armin Joachimsmeyer (v4.0 or higher).\n\n\n\n\n\n\n\nProtocol Check\n\n\nThe Keyestudio remote uses the NEC Protocol. The library will handle this for us automatically!"
+    "text": "Setup the Library\nEvery robot needs a “dictionary” to understand IR. We use the IRremote library.\n\nDownload the library as a ZIP file from: IRremote-4.7.1.zip\nIn the Arduino IDE, go to Sketch &gt; Include Library &gt; Add .ZIP Library…\nSelect the downloaded ZIP file.\n\n\nAdd Library as ZIP\n\n\n\n\n\nProtocol Check\n\n\nThe Keyestudio remote uses the NEC Protocol. The library will handle this for us automatically!"
   },
   {
     "objectID": "slides/session2.html#what-are-those-codes",
@@ -2055,14 +2055,14 @@
     "href": "slides/session2.html#code-listing",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Code Listing",
-    "text": "Code Listing\n#include &lt;IRremote.hpp&gt; // Use .hpp for version 4.x+\n\nunsigned char start01[] = {0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};\nunsigned char front[] = {0x00,0x00,0x00,0x00,0x00,0x24,0x12,0x09,0x12,0x24,0x00,0x00,0x00,0x00,0x00,0x00};\nunsigned char back[] = {0x00,0x00,0x00,0x00,0x00,0x24,0x48,0x90,0x48,0x24,0x00,0x00,0x00,0x00,0x00,0x00};\nunsigned char left[] = {0x00,0x00,0x00,0x00,0x00,0x00,0x44,0x28,0x10,0x44,0x28,0x10,0x44,0x28,0x10,0x00};\nunsigned char right[] = {0x00,0x10,0x28,0x44,0x10,0x28,0x44,0x10,0x28,0x44,0x00,0x00,0x00,0x00,0x00,0x00};\nunsigned char STOP01[] = {0x2E,0x2A,0x3A,0x00,0x02,0x3E,0x02,0x00,0x3E,0x22,0x3E,0x00,0x3E,0x0A,0x0E,0x00};\nunsigned char clear[] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};\n\n#define SCL_Pin  A5 \n#define SDA_Pin  A4 \n#define ML_Ctrl 4    \n#define ML_PWM 5   \n#define MR_Ctrl 2    \n#define MR_PWM 6   \n\nint RECV_PIN = 3;\nint carSpeed = 100; \n\n// --- NEW VARIABLES FOR TIMEOUT ---\nunsigned long lastSignalTime = 0;   // Stores the time of the last IR signal\nconst int timeoutThreshold = 200;   // Milliseconds to wait before stopping (IR repeats ~110ms)\n\nvoid setup() {\n    pinMode(ML_Ctrl, OUTPUT);\n    pinMode(ML_PWM, OUTPUT);\n    pinMode(MR_Ctrl, OUTPUT);\n    pinMode(MR_PWM, OUTPUT);\n    \n    Serial.begin(9600);\n    IrReceiver.begin(RECV_PIN, ENABLE_LED_FEEDBACK); \n\n    pinMode(SCL_Pin,OUTPUT);\n    pinMode(SDA_Pin,OUTPUT);\n    matrix_display(clear);\n    matrix_display(start01);\n}\n\nvoid loop() {\n    if (IrReceiver.decode()) {\n        // If it's a repeat signal, just update the timer to keep the car moving\n        if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT) {\n            lastSignalTime = millis();\n        } \n        else {\n            // It's a new button press\n            uint16_t command = IrReceiver.decodedIRData.command;\n            lastSignalTime = millis(); // Update timer\n            \n            switch(command) {\n                 case 0x46: car_front(); matrix_display(front); break; \n                 case 0x15: car_back();  matrix_display(back);  break; \n                 case 0x44: car_left();  matrix_display(left);  break; \n                 case 0x43: car_right(); matrix_display(right); break; \n                 case 0x40: car_Stop();  matrix_display(STOP01); break; \n\n                 case 0x16: // Speed Up\n                    carSpeed = min(carSpeed + 20, 255);\n                    break;\n                 case 0x19: // Speed Down\n                    carSpeed = max(carSpeed - 20, 0);\n                    break;\n            }\n        }\n        IrReceiver.resume(); \n    }\n\n    // --- AUTOMATIC STOP LOGIC ---\n    // If current time is 200ms past the last signal, stop the car\n    if (millis() - lastSignalTime &gt; timeoutThreshold) {\n        car_Stop();\n        // Optional: matrix_display(clear); \n    }\n}\n\n// --- Movement Functions ---\nvoid car_front() {\n    digitalWrite(ML_Ctrl, HIGH);\n    analogWrite(ML_PWM, carSpeed);\n    digitalWrite(MR_Ctrl, HIGH);\n    analogWrite(MR_PWM, carSpeed);\n}\n\nvoid car_back() {\n    digitalWrite(ML_Ctrl, LOW);\n    analogWrite(ML_PWM, carSpeed);\n    digitalWrite(MR_Ctrl, LOW);\n    analogWrite(MR_PWM, carSpeed);\n}\n\nvoid car_left() {\n    digitalWrite(ML_Ctrl, LOW);\n    analogWrite(ML_PWM, carSpeed);\n    digitalWrite(MR_Ctrl, HIGH);\n    analogWrite(MR_PWM, carSpeed);\n}\n\nvoid car_right() {\n    digitalWrite(ML_Ctrl, HIGH);\n    analogWrite(ML_PWM, carSpeed);\n    digitalWrite(MR_Ctrl, LOW);\n    analogWrite(MR_PWM, carSpeed);\n}\n\nvoid car_Stop() {\n    analogWrite(ML_PWM, 0);\n    analogWrite(MR_PWM, 0);\n}\n\n// --- Matrix Functions ---\nvoid matrix_display(unsigned char matrix_value[]) {\n    IIC_start();\n    IIC_send(0xc0);\n    for(int i = 0; i &lt; 16; i++) {\n        IIC_send(matrix_value[i]);\n    }\n    IIC_end();\n    IIC_start();\n    IIC_send(0x8A);\n    IIC_end();\n}\n\nvoid IIC_start() {\n    digitalWrite(SCL_Pin, HIGH);\n    delayMicroseconds(3);\n    digitalWrite(SDA_Pin, HIGH);\n    delayMicroseconds(3);\n    digitalWrite(SDA_Pin, LOW);\n    delayMicroseconds(3);\n}\n\nvoid IIC_send(unsigned char send_data) {\n    for(char i = 0; i &lt; 8; i++) {\n        digitalWrite(SCL_Pin, LOW);\n        delayMicroseconds(3);\n        if(send_data & 0x01) digitalWrite(SDA_Pin, HIGH);\n        else digitalWrite(SDA_Pin, LOW);\n        delayMicroseconds(3);\n        digitalWrite(SCL_Pin, HIGH);\n        delayMicroseconds(3);\n        send_data = send_data &gt;&gt; 1;\n    }\n}\n\nvoid IIC_end() {\n    digitalWrite(SCL_Pin, LOW);\n    delayMicroseconds(3);\n    digitalWrite(SDA_Pin, LOW);\n    delayMicroseconds(3);\n    digitalWrite(SCL_Pin, HIGH);\n    delayMicroseconds(3);\n    digitalWrite(SDA_Pin, HIGH);\n    delayMicroseconds(3);\n}"
+    "text": "Code Listing\n#include &lt;IRremote.hpp&gt; // Use .hpp for version 4.x+\n\n#define ML_Ctrl 4    \n#define ML_PWM 5   \n#define MR_Ctrl 2    \n#define MR_PWM 6   \n\nint RECV_PIN = 3;\nint carSpeed = 100; \n\n// --- NEW VARIABLES FOR TIMEOUT ---\nunsigned long lastSignalTime = 0;   // Stores the time of the last IR signal\nconst int timeoutThreshold = 200;   // Milliseconds to wait before stopping (IR repeats ~110ms)\n\nvoid setup() {\n    pinMode(ML_Ctrl, OUTPUT);\n    pinMode(ML_PWM, OUTPUT);\n    pinMode(MR_Ctrl, OUTPUT);\n    pinMode(MR_PWM, OUTPUT);\n    \n    Serial.begin(9600);\n    IrReceiver.begin(RECV_PIN, ENABLE_LED_FEEDBACK); \n\n}\n\nvoid loop() {\n    if (IrReceiver.decode()) {\n        // If it's a repeat signal, just update the timer to keep the car moving\n        if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT) {\n            lastSignalTime = millis();\n        } \n        else {\n            // It's a new button press\n            uint16_t command = IrReceiver.decodedIRData.command;\n            lastSignalTime = millis(); // Update timer\n            \n            switch(command) {\n                 case 0x46: car_front(); break; \n                 case 0x15: car_back();  break; \n                 case 0x44: car_left();  break; \n                 case 0x43: car_right(); break; \n                 case 0x40: car_Stop();  break; \n\n                 case 0x16: // Speed Up\n                    carSpeed = min(carSpeed + 20, 255);\n                    break;\n                 case 0x19: // Speed Down\n                    carSpeed = max(carSpeed - 20, 0);\n                    break;\n            }\n        }\n        IrReceiver.resume(); \n    }\n\n    // --- AUTOMATIC STOP LOGIC ---\n    // If current time is 200ms past the last signal, stop the car\n    if (millis() - lastSignalTime &gt; timeoutThreshold) {\n        car_Stop();\n    }\n}\n\n// --- Movement Functions ---\nvoid car_front() {\n    digitalWrite(ML_Ctrl, HIGH);\n    analogWrite(ML_PWM, carSpeed);\n    digitalWrite(MR_Ctrl, HIGH);\n    analogWrite(MR_PWM, carSpeed);\n}\n\nvoid car_back() {\n    digitalWrite(ML_Ctrl, LOW);\n    analogWrite(ML_PWM, carSpeed);\n    digitalWrite(MR_Ctrl, LOW);\n    analogWrite(MR_PWM, carSpeed);\n}\n\nvoid car_left() {\n    digitalWrite(ML_Ctrl, LOW);\n    analogWrite(ML_PWM, carSpeed);\n    digitalWrite(MR_Ctrl, HIGH);\n    analogWrite(MR_PWM, carSpeed);\n}\n\nvoid car_right() {\n    digitalWrite(ML_Ctrl, HIGH);\n    analogWrite(ML_PWM, carSpeed);\n    digitalWrite(MR_Ctrl, LOW);\n    analogWrite(MR_PWM, carSpeed);\n}\n\nvoid car_Stop() {\n    analogWrite(ML_PWM, 0);\n    analogWrite(MR_PWM, 0);\n}"
   },
   {
     "objectID": "slides/session2.html#a-simpler-way-to-drive-the-motor",
     "href": "slides/session2.html#a-simpler-way-to-drive-the-motor",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "A Simpler Way to Drive the Motor",
-    "text": "A Simpler Way to Drive the Motor\n\n\nStandard L298N\n\n2 Direction pins (IN1, IN2)\n1 Enable pin (Speed)\n\\(\\rightarrow\\) 3 logic wires / motor\n\n\nOur Kit’s Driver\n\nBuilt-in logic inverter\nSignals are always opposite\n\\(\\rightarrow\\) 2 logic wires / motor\n\n\nThe 2-Wire Setup\n\nDirection Pin (Ctrl): HIGH = forward, LOW = backward\nSpeed Pin (PWM): Controls motor speed (0–255)\n\n\n\n\n\n\n\nTrade-off\n\n\nSaves precious Arduino pins for sensors, but removes the H-bridge “brake” mode."
+    "text": "A Simpler Way to Drive the Motor\n\n\nStandard L298N\n\n2 Direction pins (IN1, IN2)\n1 Enable pin (Speed)\n\\(\\rightarrow\\) 3 logic wires / motor\n\n\nOur Kit’s Driver\n\nBuilt-in logic inverter\nSignals are always opposite\n\\(\\rightarrow\\) 2 logic wires / motor\n\n\n\nOfficial Kit Wiring Guide"
   },
   {
     "objectID": "slides/session2.html#under-the-hood-transistors-diodes",
@@ -2077,5 +2077,47 @@
     "title": "Session 2: Make It Move & Remote Control",
     "section": "🔍 BONUS: Under the Hood: Transistors & Diodes",
     "text": "🔍 BONUS: Under the Hood: Transistors & Diodes"
+  },
+  {
+    "objectID": "slides/session2.html#the-2-wire-logic",
+    "href": "slides/session2.html#the-2-wire-logic",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "The 2-Wire Logic",
+    "text": "The 2-Wire Logic\n\n\nHow it works\n\nDirection (Ctrl):\n\nHIGH = Forward\nLOW = Backward\n\nSpeed (PWM):\n\n0 (Stop) to 255 (Full Speed)\n\n\n\n\n\n\n\n\n\nNote\n\n\nTrade-off: Saves Arduino pins for sensors, but removes the H-bridge “brake” mode (it coasts to a stop).\n\n\n\n\n\nCode Example\n// Move Left Motor Forward\ndigitalWrite(ML_Ctrl, HIGH);\nanalogWrite(ML_PWM, 200); \n\n// Move Left Motor Backward\ndigitalWrite(ML_Ctrl, LOW);\nanalogWrite(ML_PWM, 200);"
+  },
+  {
+    "objectID": "slides/session2.html#step-3-4-final-wiring",
+    "href": "slides/session2.html#step-3-4-final-wiring",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Step 3 & 4: Final Wiring",
+    "text": "Step 3 & 4: Final Wiring\n\n\n1. Motor Outputs\nConnect motors to the driver:\n\nLeft: OUT1 & OUT2\nRight: OUT3 & OUT4\n\nTip: Check the wiring of the motor; if it spins backward, swap its two wires (especially if using a custom kit).\n\n2. Logic Inputs\nConnect Arduino to Driver:\n\n\n\nMotor\nDirection (Ctrl)\nSpeed (PWM)\n\n\n\n\nLeft\nPin 4\nPin 5\n\n\nRight\nPin 2\nPin 6\n\n\n\n\n\n\n\n\n\n\nWhy these pins?\n\n\nThe PWM pins (5 and 6) are marked with ~ on your Arduino. These are the only pins that can control speed!"
+  },
+  {
+    "objectID": "slides/session2.html#the-stickiness-problem-solved",
+    "href": "slides/session2.html#the-stickiness-problem-solved",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "The “Stickiness” Problem Solved!",
+    "text": "The “Stickiness” Problem Solved!\n\n\n\n\n\n\nWhy the timer?\n\n\nIf you press “Forward” once, the robot starts moving. But if you let go, it keeps moving! The IR remote only sends a signal when it’s pressed. The Robot doesn’t know you let go.\n\n\n\n\nWe use a timer (lastSignalTime) to track the last received signal.\nThe remote sends a “Repeat” code every ~110ms when held down.\nIf more than 200ms passes without a signal, the robot automatically stops!"
+  },
+  {
+    "objectID": "slides/session2.html#activity-scanning-for-codes-background-color00c9a7-.sdaia-dark-.smaller",
+    "href": "slides/session2.html#activity-scanning-for-codes-background-color00c9a7-.sdaia-dark-.smaller",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Activity: Scanning for Codes {background-color=“#00C9A7” .sdaia-dark} .smaller",
+    "text": "Activity: Scanning for Codes {background-color=“#00C9A7” .sdaia-dark} .smaller\nBefore we control the car, we need to know what “numbers” your buttons send.\n\nOpen a new sketch in Arduino IDE and paste this code:\n\n#include &lt;IRremote.hpp&gt;\n\nint RECV_PIN = 3;\n\nvoid setup() {\n    Serial.begin(9600);\n    IrReceiver.begin(RECV_PIN, ENABLE_LED_FEEDBACK); \n}\n\nvoid loop() {\n    if (IrReceiver.decode()) {\n        if (!(IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT)) {\n            Serial.print(\"Command: 0x\");\n            Serial.println(IrReceiver.decodedIRData.command, HEX);\n        }\n        IrReceiver.resume(); \n    }\n}\n\nUpload the code and open the Serial Monitor (9600 baud).\nPress buttons and write down the HEX codes for:\n\nUp Arrow (▲)\nDown Arrow (▼)\nLeft Arrow (◄)\nRight Arrow (►)\nOK / Stop"
+  },
+  {
+    "objectID": "slides/session2.html#activity-scanning-code",
+    "href": "slides/session2.html#activity-scanning-code",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Activity: Scanning Code",
+    "text": "Activity: Scanning Code\nBefore we control the car, we need to know what “numbers” your buttons send.\n\nOpen a new sketch in Arduino IDE and paste this code:\n\n#include &lt;IRremote.hpp&gt;\n\nint RECV_PIN = 3;\n\nvoid setup() {\n    Serial.begin(9600);\n    IrReceiver.begin(RECV_PIN, ENABLE_LED_FEEDBACK); \n}\n\nvoid loop() {\n    if (IrReceiver.decode()) {\n        if (!(IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT)) {\n            Serial.print(\"Command: 0x\");\n            Serial.println(IrReceiver.decodedIRData.command, HEX);\n        }\n        IrReceiver.resume(); \n    }\n}"
+  },
+  {
+    "objectID": "slides/session2.html#activity-mapping-the-remote",
+    "href": "slides/session2.html#activity-mapping-the-remote",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Activity: Mapping the Remote",
+    "text": "Activity: Mapping the Remote\n\nUpload the code and open the Serial Monitor (9600 baud).\nPress buttons and write down the HEX codes for:\n\nUp Arrow (▲)\nDown Arrow (▼)\nLeft Arrow (◄)\nRight Arrow (►)\nOK / Stop"
   }
 ]

@@ -28,7 +28,7 @@ Read the world — buttons, sensors, signals.
 
 ::::: {.column width="33%"}
 ### 2️⃣ Decide
-Run logic — `if`, `switch`, functions.
+Run logic — `if...else`, functions.
 :::::
 
 ::::: {.column width="33%"}

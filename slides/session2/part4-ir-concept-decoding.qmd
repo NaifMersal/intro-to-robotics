@@ -44,24 +44,48 @@ To receive signals, we use an **IR Receiver Module**.
 
 Every robot needs a "dictionary" to understand IR. We use the **IRremote** library.
 
-1. Go to **Tools > Manage Libraries...**
-2. Search for: **IRremote**
-3. Install the version by **Armin Joachimsmeyer** (v4.0 or higher).
+1. Download the library as a ZIP file from:
+   [IRremote-4.7.1.zip](https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.7.1.zip)
+2. In the Arduino IDE, go to **Sketch > Include Library > Add .ZIP Library...**
+3. Select the downloaded ZIP file.
+
+![Add Library as ZIP](../../assets/add_lib_as_zip.png)
 
 ::: {.callout-important}
 ## Protocol Check
 The Keyestudio remote uses the **NEC Protocol**. The library will handle this for us automatically!
 :::
 
-## Activity: Scanning for Codes {background-color="#00C9A7" .sdaia-dark}
+## Activity: Scanning Code {background-color="#00C9A7" .sdaia-dark .smaller}
 
 Before we control the car, we need to know what "numbers" your buttons send.
 
-1. Open Arduino IDE.
-2. Go to **File > Examples > IRremote > SimpleReceiver**.
-3. Change `IR_RECEIVE_PIN` to **3**.
-4. Open the **Serial Monitor** (9600 baud).
-5. Press buttons and **write down the HEX codes** for:
+1. Open a new sketch in Arduino IDE and paste this code:
+```cpp
+#include <IRremote.hpp>
+
+int RECV_PIN = 3;
+
+void setup() {
+    Serial.begin(9600);
+    IrReceiver.begin(RECV_PIN, ENABLE_LED_FEEDBACK); 
+}
+
+void loop() {
+    if (IrReceiver.decode()) {
+        if (!(IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT)) {
+            Serial.print("Command: 0x");
+            Serial.println(IrReceiver.decodedIRData.command, HEX);
+        }
+        IrReceiver.resume(); 
+    }
+}
+```
+
+## Activity: Mapping the Remote {background-color="#00C9A7" .sdaia-dark}
+
+2. Upload the code and open the **Serial Monitor** (9600 baud).
+3. Press buttons and **write down the HEX codes** for:
    - Up Arrow (▲)
    - Down Arrow (▼)
    - Left Arrow (◄)
