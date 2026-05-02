@@ -1,0 +1,137 @@
+# Part 2 — The Physical Build {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+## Transition to Reality
+
+Now it's time to build the real thing.
+
+::: {.callout-warning}
+## Safety First
+Do not plug in the battery pack until **the instructor inspects your wiring**. A short circuit on the battery pack can cause it to overheat.
+:::
+
+## Step 1: Chassis Assembly
+
+The chassis is the physical body of the robot.
+
+1. Mount the DC motors to the frame using the provided brackets.
+2. Attach the wheels to the motor shafts.
+3. Secure the caster wheel (the tiny front wheel) to the front of the frame.
+4. Mount the Arduino and the L298N Motor Driver to the top deck.
+
+## Step 2: Power Connections
+
+We must route the power carefully.
+
+:::::: {.columns}
+
+::::: {.column width="60%"}
+
+**From the Battery Pack:**
+
+- Red wire (+) $\rightarrow$ Motor Driver `12V`
+- Black wire (-) $\rightarrow$ Motor Driver `GND`
+
+**From the Arduino:**
+
+- Arduino `GND` $\rightarrow$ Motor Driver `GND`
+- *Do not connect Arduino 5V to the motor power!*
+
+:::::
+
+::::: {.column width="40%"}
+
+![Power & Common Ground](assets/Motor_drive_wiring.png)
+
+:::::
+
+::::::
+
+## A Simpler Way to Drive the Motor
+
+:::::: {.columns}
+
+::::: {.column width="50%"}
+### Standard L298N
+- 2 Direction pins (`IN1`, `IN2`)
+- 1 Enable pin (Speed)
+- $\rightarrow$ **3 logic wires / motor**
+:::::
+
+::::: {.column width="50%"}
+### Our Kit's Driver
+- Built-in logic inverter
+- Signals are always opposite
+- $\rightarrow$ **2 logic wires / motor**
+
+[![](assets/motors_wiring.png)](https://docs.keyestudio.com/projects/KS0470/en/latest/docs/4.%20Arduino/Project/Project5.html)
+
+::: {style="font-size: 0.4em; text-align: center;"}
+[Official Kit Wiring Guide](https://docs.keyestudio.com/projects/KS0470/en/latest/docs/4.%20Arduino/Project/Project5.html)
+:::
+:::::
+
+::::::
+
+## The 2-Wire Logic
+
+::::: {.columns}
+
+:::: {.column width="45%"}
+### How it works
+1. **Direction (`Ctrl`):** 
+   - `HIGH` = Forward
+   - `LOW` = Backward
+2. **Speed (`PWM`):** 
+   - `0` (Stop) to `255` (Full Speed)
+
+::: {.callout-note style="font-size: 0.7em;"}
+**Trade-off:** Saves Arduino pins for sensors, but removes the H-bridge "brake" mode (it coasts to a stop).
+:::
+::::
+
+:::: {.column width="55%"}
+### Code Example
+```cpp
+// Move Left Motor Forward
+digitalWrite(ML_Ctrl, HIGH);
+analogWrite(ML_PWM, 200); 
+
+// Move Left Motor Backward
+digitalWrite(ML_Ctrl, LOW);
+analogWrite(ML_PWM, 200);
+```
+::::
+
+:::::
+
+## Step 3 & 4: Final Wiring
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+### 1. Motor Outputs
+Connect motors to the driver:
+
+- **Left:** `OUT1` & `OUT2`
+- **Right:** `OUT3` & `OUT4`
+
+*Tip: Check the wiring of the motor; if it spins backward, swap its two wires (especially if using a custom kit).*
+::::
+
+:::: {.column width="50%"}
+### 2. Logic Inputs
+Connect Arduino to Driver:
+
+| Motor | Direction (`Ctrl`) | Speed (`PWM`) |
+|-------|------------------|-------------|
+| **Left** | Pin 4 | **Pin 5** |
+| **Right** | Pin 2 | **Pin 6** |
+
+::::
+
+::::::
+
+::: {.callout-tip}
+## Why these pins?
+The PWM pins (5 and 6) are marked with `~` on your Arduino. These are the only pins that can control speed!
+:::
