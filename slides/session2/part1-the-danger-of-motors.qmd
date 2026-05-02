@@ -1,5 +1,7 @@
 # Part 1 — The Danger of Motors {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
+[Driver Installation Guide](https://docs.keyestudio.com/projects/KS0470/en/latest/docs/3.%20Driver%20installation/3.%20Driver%20installation.html)
+
 ## The "Muscle" vs The "Brain"
 
 We learned that the Arduino is the **Brain** (it sends 0s and 1s using low-voltage signals). 
