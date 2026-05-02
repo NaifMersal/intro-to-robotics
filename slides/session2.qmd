@@ -23,6 +23,9 @@ Make It Move & Remote Control 🚗🎮
 
 ## Agenda
 
+:::: {.columns}
+
+::: {.column width="50%"}
 **Phase 1: Getting It Moving**
 
 - **Part 1** — The Danger of Motors
@@ -34,7 +37,9 @@ Make It Move & Remote Control 🚗🎮
 - **Part 4** — Concept & Decoding the Remote
 - **Part 5** — Logic & Driving
 - **Part 6** — Complete IR Car Code
+:::
 
+::: {.column width="50%"}
 **Phase 3: Upgrading to Bluetooth**
 
 - **Part 7** — Bluetooth Control
@@ -43,6 +48,9 @@ Make It Move & Remote Control 🚗🎮
 
 - **Part 8** — Obstacle Course Challenge
 - **Part 9** — Problem Patterns (Closing)
+:::
+
+::::
 
 {{< include session2/part1-the-danger-of-motors.qmd >}}
 

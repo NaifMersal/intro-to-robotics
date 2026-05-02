@@ -15,19 +15,18 @@ Here is the trick with communication pins: **TX must talk to RX**.
 ::: {.column width="50%"}
 1. Connect **VCC** to Arduino `5V`.
 2. Connect **GND** to Arduino `GND`.
-3. Connect **TXD** to Arduino **Pin 2**.
-4. Connect **RXD** to Arduino **Pin 3**.
+3. Connect **TXD** to Arduino **RX (Pin 0)**.
+4. Connect **RXD** to Arduino **TX (Pin 1)**.
+
+::: {.callout-important}
+Because we use Pins 0 and 1, you **must disconnect** the TX and RX wires when uploading code!
+:::
 :::
 
 ::: {.column width="50%"}
 ![](assets/Arduino_BT.png)
 :::
 ::::
-
-::: {.callout-warning .simple}
-## The 3.3V Rule
-The RXD pin on the HM-10 expects **3.3V**, but the Arduino sends **5V**. For a perfect build, we use a *voltage divider* (two resistors) to lower the voltage. 
-:::
 
 ## Installing the Dabble Library
 
@@ -38,21 +37,6 @@ Before we can write our code, we need to add the Dabble library to the Arduino I
 In the Arduino IDE, go to **Sketch** → **Include Library** → **Add .ZIP Library...** and select the file you just downloaded.
 
 ![Adding the Library](https://ai.thestempedia.com/wp-content/uploads/2022/08/Library-Installation.png)
-
-## Connecting with Dabble
-
-To make the Arduino talk to the Dabble app, we just need to include the library and start it in our code. Dabble automatically knows to use Pins 2 and 3!
-
-```cpp
-#define CUSTOM_SETTINGS
-#define INCLUDE_GAMEPAD_MODULE
-#include <Dabble.h>
-
-void setup() {
-  Serial.begin(9600); 
-  Dabble.begin(9600); // Start Bluetooth communication
-}
-```
 
 ## Install Dabble in your Smartphone
 
@@ -67,61 +51,83 @@ We will use the **Gamepad Module** in the Dabble app to drive our robot. The Gam
 
 ![Dabble Gamepad Module](https://ai.thestempedia.com/wp-content/uploads/2022/07/Game-Pad.jpg)
 
-## Reading the Gamepad
+## Complete Bluetooth Code
 
-In our `loop()`, we need to continuously check if the Dabble app is sending any button presses:
+:::: {.columns}
 
-```cpp
+::: {.column width="40%"}
+**What's New?**
+
+1. **Include Dabble:** 
+   `#include <Dabble.h>` and `Dabble.begin(Serial)`
+2. **Read Gamepad:** 
+   `Dabble.processInput()` and `GamePad.isUpPressed()`
+
+*The movement functions (`car_front()`, etc.) remain exactly the same as the IR remote!*
+:::
+
+::: {.column width="60%"}
+
+```cpp {code-line-numbers="1-3,18-19,22-38,41"}
+#define CUSTOM_SETTINGS
+#define INCLUDE_GAMEPAD_MODULE
+#include <Dabble.h>
+
+#define ML_Ctrl 4    
+#define ML_PWM 5   
+#define MR_Ctrl 2    
+#define MR_PWM 6   
+
+int carSpeed = 100; 
+
+void setup() {
+    pinMode(ML_Ctrl, OUTPUT);
+    pinMode(ML_PWM, OUTPUT);
+    pinMode(MR_Ctrl, OUTPUT);
+    pinMode(MR_PWM, OUTPUT);
+    
+    Serial.begin(9600);
+    Dabble.begin(Serial); // Start Bluetooth using Hardware Serial
+}
+
+void handleCommand() {
+    if (GamePad.isUpPressed()) {
+        car_front();
+    } 
+    else if (GamePad.isDownPressed()) {
+        car_back();
+    }
+    else if (GamePad.isLeftPressed()) {
+        car_left();
+    }
+    else if (GamePad.isRightPressed()) {
+        car_right();
+    }
+    else {
+        car_Stop();
+    }
+}
+
 void loop() {
-  Dabble.processInput(); // Refresh data from the smartphone
-  
-  if (GamePad.isUpPressed()) {
-    moveForward();
-  } 
-  else if (GamePad.isDownPressed()) {
-    moveBackward(); // Assuming we have this function
-  }
-  else if (GamePad.isLeftPressed()) {
-    moveLeft(); // Assuming we have this function
-  }
-  else if (GamePad.isRightPressed()) {
-    moveRight(); // Assuming we have this function
-  }
-  else {
-    stopCar();
-  }
+    Dabble.processInput(); // Refresh data from the smartphone
+    handleCommand();
 }
+
+// --- Movement Functions ---
+. . .
+
 ```
-
-## Creating the Helper Functions
-
-To keep our code clean, we use custom functions like `moveForward()`.
-
-```cpp
-void moveForward() {
-  // Left Motor Forward
-  digitalWrite(IN1, HIGH);
-  digitalWrite(IN2, LOW);
-  
-  // Right Motor Forward
-  digitalWrite(IN3, HIGH);
-  digitalWrite(IN4, LOW);
-}
-
-void stopCar() {
-  digitalWrite(IN1, LOW);
-  digitalWrite(IN2, LOW);
-  digitalWrite(IN3, LOW);
-  digitalWrite(IN4, LOW);
-}
-```
+:::
+::::
 
 ## The Driving Challenge
 
 Now it's time to test! 
 
-1. Upload the code to your Arduino Uno.
-2. Disconnect the USB cable (very important!).
-3. Turn on the battery pack.
-4. Pair your phone via Bluetooth to your HM-10 (Password is usually `1234` or `000000`).
-5. Open the Dabble app, select Gamepad, and drive!
+1. **Disconnect the Bluetooth TX and RX wires.**
+2. Upload the code to your Arduino Uno.
+3. Reconnect the TX and RX wires.
+4. Disconnect the USB cable (very important!).
+5. Turn on the battery pack.
+6. Pair your phone via Bluetooth to your HM-10 (Password is usually `1234` or `000000`).
+7. Open the Dabble app, select Gamepad, and drive!

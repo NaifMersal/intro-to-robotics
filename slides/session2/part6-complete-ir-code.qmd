@@ -1,6 +1,123 @@
-# Part 8 — Complete IR Car Code {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 6 — Complete IR Car Code {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
-## Code Listing {.scrollable}
+## 1. Basic Code (No Auto-Stop)
+
+First, let's look at the complete code without the auto-stop timer so we can understand the core logic.
+
+```cpp
+#include <IRremote.hpp> // Use .hpp for version 4.x+
+
+#define ML_Ctrl 4    
+#define ML_PWM 5   
+#define MR_Ctrl 2    
+#define MR_PWM 6   
+
+int RECV_PIN = 3;
+int carSpeed = 100; 
+
+void handleCommand(uint16_t command) {
+    if (command == 0x46) { // Replace with YOUR 'UP' code
+        car_front();
+    } else if (command == 0x15) { // Replace with YOUR 'DOWN' code
+        car_back();
+    } else if (command == 0x44) { // Replace with YOUR 'LEFT' code
+        car_left();
+    } else if (command == 0x43) { // Replace with YOUR 'RIGHT' code
+        car_right();
+    } else if (command == 0x40) { // Replace with YOUR 'OK' code
+        car_Stop();
+    } else if (command == 0x16) { // Speed Up
+        carSpeed = min(carSpeed + 20, 255);
+    } else if (command == 0x19) { // Speed Down
+        carSpeed = max(carSpeed - 20, 0);
+    }
+}
+
+void setup() {
+    pinMode(ML_Ctrl, OUTPUT);
+    pinMode(ML_PWM, OUTPUT);
+    pinMode(MR_Ctrl, OUTPUT);
+    pinMode(MR_PWM, OUTPUT);
+    
+    Serial.begin(9600);
+    IrReceiver.begin(RECV_PIN, ENABLE_LED_FEEDBACK); 
+}
+
+void loop() {
+    if (IrReceiver.decode()) {
+        uint16_t command = IrReceiver.decodedIRData.command;
+        handleCommand(command);
+        IrReceiver.resume(); 
+    }
+}
+
+// --- Movement Functions ---
+void car_front() {
+    digitalWrite(ML_Ctrl, HIGH);
+    analogWrite(ML_PWM, carSpeed);
+    digitalWrite(MR_Ctrl, HIGH);
+    analogWrite(MR_PWM, carSpeed);
+}
+
+void car_back() {
+    digitalWrite(ML_Ctrl, LOW);
+    analogWrite(ML_PWM, carSpeed);
+    digitalWrite(MR_Ctrl, LOW);
+    analogWrite(MR_PWM, carSpeed);
+}
+
+void car_left() {
+    digitalWrite(ML_Ctrl, LOW);
+    analogWrite(ML_PWM, carSpeed);
+    digitalWrite(MR_Ctrl, HIGH);
+    analogWrite(MR_PWM, carSpeed);
+}
+
+void car_right() {
+    digitalWrite(ML_Ctrl, HIGH);
+    analogWrite(ML_PWM, carSpeed);
+    digitalWrite(MR_Ctrl, LOW);
+    analogWrite(MR_PWM, carSpeed);
+}
+
+void car_Stop() {
+    analogWrite(ML_PWM, 0);
+    analogWrite(MR_PWM, 0);
+}
+```
+
+## Why Do We Need Auto-Stop?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### The Problem 🏎️💨
+
+If you press a button and let go, **the car keeps moving forever!**
+
+::: {.incremental}
+* The remote only sends signals *while pressed*.
+* It **never** sends a "stop" signal when released.
+:::
+:::
+
+::: {.column width="50%" .fragment}
+### The Solution ⏱️
+
+Use Arduino's built-in stopwatch: `millis()`.
+
+::: {.incremental}
+1. **Save Time:** Record the time of every IR signal.
+2. **Check Time:** If >200ms passes with no new signal, tell the car to **stop**.
+:::
+:::
+
+::::
+
+
+## 2. Advanced Code (With Auto-Stop)
+
+Now let's see how that looks in our code. Pay attention to `lastSignalTime` and the `millis()` function.
 
 ```cpp
 #include <IRremote.hpp> // Use .hpp for version 4.x+
@@ -43,7 +160,6 @@ void setup() {
     
     Serial.begin(9600);
     IrReceiver.begin(RECV_PIN, ENABLE_LED_FEEDBACK); 
-
 }
 
 void loop() {

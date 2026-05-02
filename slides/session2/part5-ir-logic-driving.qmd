@@ -42,19 +42,6 @@ void loop() {
 }
 ```
 
-## Brainstorming: The "Stickiness" Problem
-
-::: {.callout-warning}
-## Problem
-If you press "Forward" once, the robot starts moving. But if you let go, it **keeps moving**! Why?
-:::
-
-- The IR remote only sends a signal when it's pressed.
-- The Robot doesn't know you let go unless you tell it.
-- **Solution Ideas:**
-  1. Add a dedicated "Stop" button.
-  2. Use a timer (if no signal for 0.5s, stop).
-  3. (Advanced) Check for the "Repeat" code (`0x00`).
 
 
 # Part 7 — Make It Drive! {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
@@ -77,9 +64,9 @@ What if you want to go slow for careful turns and fast for the straightaways?
 3. Update your `if...else if` statement:
 
 ```cpp
-} else if (cmd == 0x16) { // Speed Up
+} else if (cmd == 0x16) { // Button 1 Speed Up
   carSpeed = min(carSpeed + 20, 255);
-} else if (cmd == 0x19) { // Speed Down
+} else if (cmd == 0x19) { // Button 2 Speed Down
   carSpeed = max(carSpeed - 20, 0);
 }
 ```
