@@ -1,4 +1,4 @@
-# Part 9 — The Bluetooth Module {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 7 — The Bluetooth Module {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## Cutting the Cord
 
@@ -6,27 +6,7 @@ Instead of an infrared remote, we are going to use **Bluetooth**! This means we 
 
 We will use an **HM-10** Bluetooth module and the **Dabble App**, which transforms your smartphone into a virtual controller.
 
-
-## Wiring the Module
-
-Here is the trick with communication pins: **TX must talk to RX**.
-
-:::: {.columns}
-::: {.column width="50%"}
-1. Connect **VCC** to Arduino `5V`.
-2. Connect **GND** to Arduino `GND`.
-3. Connect **TXD** to Arduino **RX (Pin 0)**.
-4. Connect **RXD** to Arduino **TX (Pin 1)**.
-
-::: {.callout-important}
-Because we use Pins 0 and 1, you **must disconnect** the TX and RX wires when uploading code!
-:::
-:::
-
-::: {.column width="50%"}
-![](assets/Arduino_BT.png)
-:::
-::::
+> 🔗 **Explore:** [Dabble - Your Smartphone as a Controller](https://thestempedia.com/product/dabble/)
 
 ## Installing the Dabble Library
 
@@ -38,12 +18,8 @@ In the Arduino IDE, go to **Sketch** → **Include Library** → **Add .ZIP Libr
 
 ![Adding the Library](https://ai.thestempedia.com/wp-content/uploads/2022/08/Library-Installation.png)
 
-## Install Dabble in your Smartphone
 
-Download the **Dabble App** from your App Store. Once installed, open the app, click the connect icon, and pair it with your HM-10 module (Password is usually `1234` or `000000`).
-
-
-# Part 10 — App Driving {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 7 — App Driving {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## The Dabble Gamepad
 
@@ -120,14 +96,52 @@ void loop() {
 :::
 ::::
 
+## Upload Code Before Wiring!
+
+::: {.callout-important}
+### ⚠️ STOP & UPLOAD! 
+
+Because the Bluetooth module uses **Pins 0 and 1** (TX/RX), it will **block** your computer from uploading code.
+
+1. **Keep the Bluetooth module disconnected.**
+2. **Upload** the code from the previous slide.
+3. **ONLY THEN** proceed to the wiring step.
+
+*If you need to upload again later, you must disconnect TX/RX wires first!*
+:::
+
+**👉 Action Item:** Upload the code to your Arduino Uno right now.
+
+## Wiring the Module
+
+::: {.callout-warning icon=false}
+**⚠️ Caution:** **Do NOT swap VCC and GND!** Reversing these pins can permanently damage your Bluetooth module.
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](assets/BT_connect.png)
+
+1. **VCC** ➔ Arduino `5V`  
+2. **GND** ➔ Arduino `GND`  
+3. **TXD** ➔ Arduino **RX (Pin 0)**  
+4. **RXD** ➔ Arduino **TX (Pin 1)**  
+:::
+
+::: {.column width="50%"}
+![](assets/BT_kit.png){height=50% width=60%}
+
+:::
+
+::::
+
 ## The Driving Challenge
 
 Now it's time to test! 
 
-1. **Disconnect the Bluetooth TX and RX wires.**
-2. Upload the code to your Arduino Uno.
-3. Reconnect the TX and RX wires.
-4. Disconnect the USB cable (very important!).
-5. Turn on the battery pack.
-6. Pair your phone via Bluetooth to your HM-10 (Password is usually `1234` or `000000`).
-7. Open the Dabble app, select Gamepad, and drive!
+1. Disconnect the USB cable from the Arduino (very important!).
+2. Turn on the battery pack.
+3. Open the Dabble app on your smartphone.
+4. Click the connect icon and pair it with your HM-10 module (Password: `1234` or `000000`).
+5. Select the **Gamepad** module and drive!
