@@ -1817,7 +1817,7 @@
     "href": "slides/session2.html#cutting-the-cord",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Cutting the Cord",
-    "text": "Cutting the Cord\nInstead of an infrared remote, we are going to use Bluetooth! This means we can control our robot using a smartphone app, just like a real RC car or a drone.\nWe will use an HM-10 Bluetooth module and the Dabble App, which transforms your smartphone into a virtual controller."
+    "text": "Cutting the Cord\nInstead of an infrared remote, we are going to use Bluetooth! This means we can control our robot using a smartphone app, just like a real RC car or a drone.\nWe will use an HM-10 Bluetooth module and the Dabble App, which transforms your smartphone into a virtual controller.\n\n🔗 Explore: Dabble - Your Smartphone as a Controller"
   },
   {
     "objectID": "slides/session2.html#the-hc-05-module",
@@ -1831,7 +1831,7 @@
     "href": "slides/session2.html#wiring-the-module",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Wiring the Module",
-    "text": "Wiring the Module\nHere is the trick with communication pins: TX must talk to RX.\n\n\n\nConnect VCC to Arduino 5V.\nConnect GND to Arduino GND.\nConnect TXD to Arduino RX (Pin 0).\nConnect RXD to Arduino TX (Pin 1).\n\n\n\n\n\n\n\nImportant\n\n\nBecause we use Pins 0 and 1, you must disconnect the TX and RX wires when uploading code!"
+    "text": "Wiring the Module\n\n\n\nWarning\n\n\n⚠️ Caution: Do NOT swap VCC and GND! Reversing these pins can permanently damage your Bluetooth module.\n\n\n\n\n\n\n\nVCC ➔ Arduino 5V\n\nGND ➔ Arduino GND\n\nTXD ➔ Arduino RX (Pin 0)\n\nRXD ➔ Arduino TX (Pin 1)"
   },
   {
     "objectID": "slides/session2.html#softwareserial-creating-a-second-mouth",
@@ -1866,7 +1866,7 @@
     "href": "slides/session2.html#the-driving-challenge",
     "title": "Session 2: Make It Move & Remote Control",
     "section": "The Driving Challenge",
-    "text": "The Driving Challenge\nNow it’s time to test!\n\nDisconnect the Bluetooth TX and RX wires.\nUpload the code to your Arduino Uno.\nReconnect the TX and RX wires.\nDisconnect the USB cable (very important!).\nTurn on the battery pack.\nPair your phone via Bluetooth to your HM-10 (Password is usually 1234 or 000000).\nOpen the Dabble app, select Gamepad, and drive!"
+    "text": "The Driving Challenge\nNow it’s time to test!\n\nDisconnect the USB cable from the Arduino (very important!).\nTurn on the battery pack.\nOpen the Dabble app on your smartphone.\nClick the connect icon and pair it with your HM-10 module (Password: 1234 or 000000).\nSelect the Gamepad module and drive!"
   },
   {
     "objectID": "slides/session2.html#connecting-with-dabble",
@@ -2154,5 +2154,19 @@
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Complete Bluetooth Code",
     "text": "Complete Bluetooth Code\n\n\nWhat’s New?\n\nInclude Dabble: #include &lt;Dabble.h&gt; and Dabble.begin(Serial)\nRead Gamepad: Dabble.processInput() and GamePad.isUpPressed()\n\nThe movement functions (car_front(), etc.) remain exactly the same as the IR remote!\n\n#define CUSTOM_SETTINGS\n#define INCLUDE_GAMEPAD_MODULE\n#include &lt;Dabble.h&gt;\n\n#define ML_Ctrl 4    \n#define ML_PWM 5   \n#define MR_Ctrl 2    \n#define MR_PWM 6   \n\nint carSpeed = 100; \n\nvoid setup() {\n    pinMode(ML_Ctrl, OUTPUT);\n    pinMode(ML_PWM, OUTPUT);\n    pinMode(MR_Ctrl, OUTPUT);\n    pinMode(MR_PWM, OUTPUT);\n    \n    Serial.begin(9600);\n    Dabble.begin(Serial); // Start Bluetooth using Hardware Serial\n}\n\nvoid handleCommand() {\n    if (GamePad.isUpPressed()) {\n        car_front();\n    } \n    else if (GamePad.isDownPressed()) {\n        car_back();\n    }\n    else if (GamePad.isLeftPressed()) {\n        car_left();\n    }\n    else if (GamePad.isRightPressed()) {\n        car_right();\n    }\n    else {\n        car_Stop();\n    }\n}\n\nvoid loop() {\n    Dabble.processInput(); // Refresh data from the smartphone\n    handleCommand();\n}\n\n// --- Movement Functions ---\n. . ."
+  },
+  {
+    "objectID": "slides/session2.html#connection-precautions",
+    "href": "slides/session2.html#connection-precautions",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Connection Precautions",
+    "text": "Connection Precautions\n\n\n\n\n\n\n\n\nImportant\n\n\nBecause we use Pins 0 and 1, you must disconnect the TX and RX wires when uploading code!\n\n\n\n\n\n\n\nPhysical Wiring"
+  },
+  {
+    "objectID": "slides/session2.html#upload-code-before-wiring",
+    "href": "slides/session2.html#upload-code-before-wiring",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "Upload Code Before Wiring!",
+    "text": "Upload Code Before Wiring!\n\n\n\n\n\n\n⚠️ STOP & UPLOAD!\n\n\nBecause the Bluetooth module uses Pins 0 and 1 (TX/RX), it will block your computer from uploading code.\n\nKeep the Bluetooth module disconnected.\nUpload the code from the previous slide.\nONLY THEN proceed to the wiring step.\n\nIf you need to upload again later, you must disconnect TX/RX wires first!\n\n\n\n👉 Action Item: Upload the code to your Arduino Uno right now."
   }
 ]

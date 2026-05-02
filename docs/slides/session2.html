@@ -304,7 +304,7 @@
 </ul>
 <p><em>Caution: Never close S1 and S3 at the same time (Short Circuit!)</em></p>
 </div><div class="column" style="width:40%;">
-<div id="bbad7f7f" class="cell" data-execution_count="1">
+<div id="17613e15" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -647,8 +647,8 @@
 </blockquote>
 </section></section>
 <section>
-<section id="part-5-decoding-the-remote" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 5 — Decoding the Remote</h1>
+<section id="part-4-decoding-the-remote" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 4 — Decoding the Remote</h1>
 
 </section>
 <section id="setup-the-library" class="slide level2">
@@ -723,8 +723,8 @@
 </ul>
 </section></section>
 <section>
-<section id="part-6-mapping-buttons-to-directions" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 6 — Mapping Buttons to Directions</h1>
+<section id="part-5-mapping-buttons-to-directions" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 5 — Mapping Buttons to Directions</h1>
 
 </section>
 <section id="the-logic-if...else-statements" class="slide level2">
@@ -764,8 +764,8 @@
 <span id="cb8-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
-<section id="part-7-make-it-drive" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 7 — Make It Drive!</h1>
+<section id="part-5-make-it-drive" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 5 — Make It Drive!</h1>
 
 </section>
 <section id="activity-full-control" class="slide level2 sdaia-dark" data-background-color="#00C9A7">
@@ -1005,42 +1005,17 @@
 <span id="cb11-98"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
-<section id="part-9-the-bluetooth-module" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 9 — The Bluetooth Module</h1>
+<section id="part-7-the-bluetooth-module" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 7 — The Bluetooth Module</h1>
 
 </section>
 <section id="cutting-the-cord" class="slide level2">
 <h2>Cutting the Cord</h2>
 <p>Instead of an infrared remote, we are going to use <strong>Bluetooth</strong>! This means we can control our robot using a smartphone app, just like a real RC car or a drone.</p>
 <p>We will use an <strong>HM-10</strong> Bluetooth module and the <strong>Dabble App</strong>, which transforms your smartphone into a virtual controller.</p>
-</section>
-<section id="wiring-the-module" class="slide level2">
-<h2>Wiring the Module</h2>
-<p>Here is the trick with communication pins: <strong>TX must talk to RX</strong>.</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ol type="1">
-<li>Connect <strong>VCC</strong> to Arduino <code>5V</code>.</li>
-<li>Connect <strong>GND</strong> to Arduino <code>GND</code>.</li>
-<li>Connect <strong>TXD</strong> to Arduino <strong>RX (Pin 0)</strong>.</li>
-<li>Connect <strong>RXD</strong> to Arduino <strong>TX (Pin 1)</strong>.</li>
-</ol>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Important</strong></p>
-</div>
-<div class="callout-content">
-<p>Because we use Pins 0 and 1, you <strong>must disconnect</strong> the TX and RX wires when uploading code!</p>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<p><img data-src="assets/Arduino_BT.png"></p>
-</div></div>
+<blockquote>
+<p>🔗 <strong>Explore:</strong> <a href="https://thestempedia.com/product/dabble/">Dabble - Your Smartphone as a Controller</a></p>
+</blockquote>
 </section>
 <section id="installing-the-dabble-library" class="slide level2">
 <h2>Installing the Dabble Library</h2>
@@ -1050,14 +1025,10 @@
 </blockquote>
 <p>In the Arduino IDE, go to <strong>Sketch</strong> → <strong>Include Library</strong> → <strong>Add .ZIP Library…</strong> and select the file you just downloaded.</p>
 
-<img data-src="https://ai.thestempedia.com/wp-content/uploads/2022/08/Library-Installation.png" class="r-stretch quarto-figure-center"><p class="caption">Adding the Library</p></section>
-<section id="install-dabble-in-your-smartphone" class="slide level2">
-<h2>Install Dabble in your Smartphone</h2>
-<p>Download the <strong>Dabble App</strong> from your App Store. Once installed, open the app, click the connect icon, and pair it with your HM-10 module (Password is usually <code>1234</code> or <code>000000</code>).</p>
-</section></section>
+<img data-src="https://ai.thestempedia.com/wp-content/uploads/2022/08/Library-Installation.png" class="r-stretch quarto-figure-center"><p class="caption">Adding the Library</p></section></section>
 <section>
-<section id="part-10-app-driving" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 10 — App Driving</h1>
+<section id="part-7-app-driving" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 7 — App Driving</h1>
 
 </section>
 <section id="the-dabble-gamepad" class="slide level2">
@@ -1124,22 +1095,72 @@
 <span id="cb12-46"><a></a><span class="op">.</span> <span class="op">.</span> <span class="op">.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
+<section id="upload-code-before-wiring" class="slide level2">
+<h2>Upload Code Before Wiring!</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>⚠️ STOP &amp; UPLOAD!</strong></p>
+</div>
+<div class="callout-content">
+<p>Because the Bluetooth module uses <strong>Pins 0 and 1</strong> (TX/RX), it will <strong>block</strong> your computer from uploading code.</p>
+<ol type="1">
+<li><strong>Keep the Bluetooth module disconnected.</strong></li>
+<li><strong>Upload</strong> the code from the previous slide.</li>
+<li><strong>ONLY THEN</strong> proceed to the wiring step.</li>
+</ol>
+<p><em>If you need to upload again later, you must disconnect TX/RX wires first!</em></p>
+</div>
+</div>
+</div>
+<p><strong>👉 Action Item:</strong> Upload the code to your Arduino Uno right now.</p>
+</section>
+<section id="wiring-the-module" class="slide level2">
+<h2>Wiring the Module</h2>
+<div class="callout callout-warning no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>⚠️ Caution:</strong> <strong>Do NOT swap VCC and GND!</strong> Reversing these pins can permanently damage your Bluetooth module.</p>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="assets/BT_connect.png"></p>
+<ol type="1">
+<li><strong>VCC</strong> ➔ Arduino <code>5V</code><br>
+</li>
+<li><strong>GND</strong> ➔ Arduino <code>GND</code><br>
+</li>
+<li><strong>TXD</strong> ➔ Arduino <strong>RX (Pin 0)</strong><br>
+</li>
+<li><strong>RXD</strong> ➔ Arduino <strong>TX (Pin 1)</strong><br>
+</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/BT_kit.png" style="width:60.0%;height:50.0%"></p>
+</div></div>
+</section>
 <section id="the-driving-challenge" class="slide level2">
 <h2>The Driving Challenge</h2>
 <p>Now it’s time to test!</p>
 <ol type="1">
-<li><strong>Disconnect the Bluetooth TX and RX wires.</strong></li>
-<li>Upload the code to your Arduino Uno.</li>
-<li>Reconnect the TX and RX wires.</li>
-<li>Disconnect the USB cable (very important!).</li>
+<li>Disconnect the USB cable from the Arduino (very important!).</li>
 <li>Turn on the battery pack.</li>
-<li>Pair your phone via Bluetooth to your HM-10 (Password is usually <code>1234</code> or <code>000000</code>).</li>
-<li>Open the Dabble app, select Gamepad, and drive!</li>
+<li>Open the Dabble app on your smartphone.</li>
+<li>Click the connect icon and pair it with your HM-10 module (Password: <code>1234</code> or <code>000000</code>).</li>
+<li>Select the <strong>Gamepad</strong> module and drive!</li>
 </ol>
 </section></section>
 <section>
-<section id="part-11-obstacle-course-ai-demo" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 11 — Obstacle Course &amp; AI Demo</h1>
+<section id="part-8-obstacle-course-ai-demo" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 8 — Obstacle Course &amp; AI Demo</h1>
 
 </section>
 <section id="the-obstacle-course-challenge" class="slide level2">
@@ -1201,8 +1222,8 @@
 </div>
 </section></section>
 <section>
-<section id="part-12-problem-patterns" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Part 12 — Problem Patterns</h1>
+<section id="part-9-problem-patterns" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Part 9 — Problem Patterns</h1>
 
 </section>
 <section id="what-can-a-moving-robot-actually-do" class="slide level2">
