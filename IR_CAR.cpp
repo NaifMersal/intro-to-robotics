@@ -22,6 +22,29 @@ int carSpeed = 100;
 unsigned long lastSignalTime = 0;   // Stores the time of the last IR signal
 const int timeoutThreshold = 200;   // Milliseconds to wait before stopping (IR repeats ~110ms)
 
+void handleCommand(uint16_t command) {
+    if (command == 0x46) {
+        car_front();
+        matrix_display(front);
+    } else if (command == 0x15) {
+        car_back();
+        matrix_display(back);
+    } else if (command == 0x44) {
+        car_left();
+        matrix_display(left);
+    } else if (command == 0x43) {
+        car_right();
+        matrix_display(right);
+    } else if (command == 0x40) {
+        car_Stop();
+        matrix_display(STOP01);
+    } else if (command == 0x16) {
+        carSpeed = min(carSpeed + 20, 255);
+    } else if (command == 0x19) {
+        carSpeed = max(carSpeed - 20, 0);
+    }
+}
+
 void setup() {
     pinMode(ML_Ctrl, OUTPUT);
     pinMode(ML_PWM, OUTPUT);
@@ -48,20 +71,7 @@ void loop() {
             uint16_t command = IrReceiver.decodedIRData.command;
             lastSignalTime = millis(); // Update timer
             
-            switch(command) {
-                 case 0x46: car_front(); matrix_display(front); break; 
-                 case 0x15: car_back();  matrix_display(back);  break; 
-                 case 0x44: car_left();  matrix_display(left);  break; 
-                 case 0x43: car_right(); matrix_display(right); break; 
-                 case 0x40: car_Stop();  matrix_display(STOP01); break; 
-
-                 case 0x16: // Speed Up
-                    carSpeed = min(carSpeed + 20, 255);
-                    break;
-                 case 0x19: // Speed Down
-                    carSpeed = max(carSpeed - 20, 0);
-                    break;
-            }
+            handleCommand(command);
         }
         IrReceiver.resume(); 
     }
