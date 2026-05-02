@@ -2070,5 +2070,12 @@
     "title": "Session 2: Make It Move & Remote Control",
     "section": "🔍 Under the Hood: Transistors & Diodes",
     "text": "🔍 Under the Hood: Transistors & Diodes\nBuilding an H-Bridge from simple mechanical switches is helpful for understanding the logic, but real microchips use solid-state electronics.\nInside the L298N (and similar drivers), those simple “switches” are actually MOSFET Transistors. The circuit also includes Flyback Diodes to protect the Arduino and the chip from high-voltage electrical spikes generated when the motor stops."
+  },
+  {
+    "objectID": "slides/session2.html#bonus-under-the-hood-transistors-diodes",
+    "href": "slides/session2.html#bonus-under-the-hood-transistors-diodes",
+    "title": "Session 2: Make It Move & Remote Control",
+    "section": "🔍 BONUS: Under the Hood: Transistors & Diodes",
+    "text": "🔍 BONUS: Under the Hood: Transistors & Diodes"
   }
 ]
