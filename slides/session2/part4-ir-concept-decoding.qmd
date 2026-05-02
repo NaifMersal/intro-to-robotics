@@ -38,7 +38,7 @@ To receive signals, we use an **IR Receiver Module**.
 > **Why?** Digital cameras can "see" slightly more of the spectrum than human eyes.
 
 
-# Part 5 — Decoding the Remote {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 4 — Decoding the Remote {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## Setup the Library
 

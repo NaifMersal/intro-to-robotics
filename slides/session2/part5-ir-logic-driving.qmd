@@ -1,4 +1,4 @@
-# Part 6 — Mapping Buttons to Directions {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 5 — Mapping Buttons to Directions {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## The Logic: `if...else` Statements
 
@@ -44,7 +44,7 @@ void loop() {
 
 
 
-# Part 7 — Make It Drive! {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 5 — Make It Drive! {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## Activity: Full Control {background-color="#00C9A7" .sdaia-dark}
 

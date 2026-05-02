@@ -1,4 +1,4 @@
-# Part 11 — Obstacle Course & AI Demo {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Part 8 — Obstacle Course & AI Demo {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 ## The Obstacle Course Challenge
 
