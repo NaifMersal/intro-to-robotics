@@ -60,22 +60,48 @@ The **Ultrasonic Sensor (HC-SR04)** works like a bat's echolocation.
 
 By measuring **how long** the sound takes to return, we calculate the exact distance!
 
-![](assets/ultrasonic_simple_diagram.png){width="50%"}
+![](assets/ultrasonic_principle_ks.png){width="80%"}
 
-## Wiring the Sensor 🔌
+## Engineering Specs: HC-SR04 📝
 
-The sensor has 4 pins:
+To be a great engineer, you need to know your tool's limits!
 
-- **VCC:** 5V Power
-- **GND:** Ground
-- **Trig:** Connect to digital pin (e.g., `10`) - Sends the sound!
-- **Echo:** Connect to digital pin (e.g., `11`) - Hears the sound!
+- **Working Voltage:** 5V DC
+- **Ranging Distance:** 2cm – 400cm
+- **Measuring Angle:** 15° (Effectual) / 30° (Measuring)
+- **Resolution:** 0.3cm
+- **Trigger Pulse:** 10µs minimum
 
-## Coding Distance: The Logic
+::: {.callout-tip}
+The sensor is most accurate when the object is flat and directly in front. Irregular shapes might scatter the sound!
+:::
+
+## Timing: How it talks ⏱️
+
+The sensor uses a specific pattern of pulses to communicate with the Arduino.
+
+![](assets/ultrasonic_timing_ks.png){width="70%"}
+
+1. **Trigger:** We send a 10µs pulse.
+2. **Sonic Burst:** The sensor automatically sends 8 bursts of 40kHz sound.
+3. **Echo:** The sensor sends back a pulse. The **duration** of this pulse is our travel time!
+
+## Wiring with the V5 Shield 🔌
+
+On your Keyestudio 4WD car, we use the **V5 Sensor Shield**. Look for the pins labeled **S (Signal)**, **V (Voltage)**, and **G (Ground)**.
+
+- **VCC:** Connect to **5V (V)**
+- **Trig:** Connect to **Pin 12 (S)**
+- **Echo:** Connect to **Pin 13 (S)**
+- **GND:** Connect to **GND (G)**
+
+![](assets/ultrasonic_wiring_ks.png){width="60%"}
+
+## Coding Distance: Pins & Setup
 
 ```cpp
-const int trigPin = 10;
-const int echoPin = 11;
+const int trigPin = 12;
+const int echoPin = 13;
 
 void setup() {
   Serial.begin(9600); // Start serial monitor
@@ -88,14 +114,21 @@ void loop() {
 }
 ```
 
-## The Distance Formula 🧮
+## From Time to Distance 📐
 
-Why is the calculation `duration * 0.034 / 2` ?
+3. **Calculation:** Divide the total time by **2** (to find distance *to* the object).
 
-1. **Speed of Sound:** Sound travels at about **343 meters per second** (or **0.034 centimeters per microsecond**).
-2. **Round Trip:** The sound pulse travels to the object AND bounces back. So, we must divide the total time by **2** to find just the distance *to* the object!
+```cpp
+// Method A: Using Speed of Sound (0.034 cm/us)
+int distance = duration * 0.034 / 2;
 
-![](assets/ultrasonic_sensor_logic_2.png){width="60%"}
+// Method B: Using Time Constant (29.1 us/cm)
+int distance = (duration / 2) / 29.1; 
+```
+
+::: {.callout-note}
+Keyestudio documentation often uses **Method B**. Both give the same result!
+:::
 
 ## Coding Distance: The Math
 
@@ -131,9 +164,9 @@ void loop() {
   // ... (Distance Math code here) ...
   
   if (distance < 10) {
-    digitalWrite(13, HIGH); // Turn LED ON
+    digitalWrite(9, HIGH); // Turn LED ON
   } else {
-    digitalWrite(13, LOW);  // Turn LED OFF
+    digitalWrite(9, LOW);  // Turn LED OFF
   }
   delay(100); // Wait a bit before next reading
 }
@@ -210,13 +243,43 @@ Unlike the DC motors that spin continuously round and round, a **Servo Motor** c
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Servo_motor_%28SG90%29.jpg/800px-Servo_motor_%28SG90%29.jpg){width="40%"}
 
+## Engineering Specs: SG90 Servo ⚙️
+
+Small but powerful! Here is what's inside:
+
+- **Working Voltage:** 4.8V – 6V
+- **Rotation Angle:** 0° – 180°
+- **Pulse Width:** 500µs – 2500µs (corresponds to 0-180°)
+- **Torque:** 1.3kg·cm (at 4.8V)
+- **Speed:** 0.12 sec / 60 degrees
+
+::: {.callout-warning}
+The servo requires more current than a simple LED. Always use the external power (batteries) when running motors! But ours is a small servo so we can power it with the 5v pin.
+:::
+
+## PWM: The Language of Servos 📡
+
+The Arduino talks to the servo using **Pulse Width Modulation**. It sends a pulse every 20ms.
+
+::: {.columns}
+::: {.column width="50%"}
+![](assets/servo_pwm_ks.png){width="100%"}
+:::
+
+::: {.column width="50%"}
+![](assets/servo_angles_ks.png){width="90%"}
+:::
+:::
+
 ## Wiring the Servo 🔌
 
-The SG90 micro-servo has 3 wires:
+The SG90 micro-servo has 3 wires. On the Keyestudio shield, plug it into **Pin 10**.
 
-1. **Brown / Black Line:** Ground (GND)
-2. **Red Line:** Power (5V)
-3. **Orange / Yellow Line:** Signal (Connect to a PWM pin like `~9`)
+1. **Brown / Black Line:** Ground (G)
+2. **Red Line:** Power (V)
+3. **Orange / Yellow Line:** Signal (S)
+
+![](assets/servo_wiring_ks.png){width="60%"}
 
 ::: {.callout-warning}
 Always double-check the wire colors! Plugging power into the signal pin might damage the servo.
@@ -232,7 +295,7 @@ Arduino has a built-in library for Servos! We don't have to control the exact el
 Servo myServo;  // Create a servo object
 
 void setup() {
-  myServo.attach(9); // Tell Arduino the servo is on pin 9
+  myServo.attach(10); // Tell Arduino the servo is on pin 10
 }
 
 void loop() {
@@ -257,6 +320,7 @@ void loop() {
   delay(1000);
 }
 ```
+
 **Activity:** Let's wire this up and try making it point in 3 directions!
 
 ## The "Sweep" 🧹
@@ -328,7 +392,7 @@ The Smart Alarm
 
 1. Your radar should continuously sweep back and forth (or check 3 main positions).
 2. If it detects an object closer than **15 cm**, it should "sound the alarm"!
-3. *Simulate the alarm by lighting up an LED on Pin 13 or printing "INTRUDER ALERT" to the Serial Monitor rapidly.*
+3. *Simulate the alarm by lighting up an LED on Pin 9 or printing "INTRUDER ALERT" to the Serial Monitor rapidly.*
 
 ### Bonus (If you finish early)
 - Print where the intruder is! "Intruder detected on the LEFT!"
