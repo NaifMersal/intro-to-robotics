@@ -1922,14 +1922,14 @@
     "href": "slides/session3.html#wiring-the-servo",
     "title": "Session 3: Building the Smart Radar",
     "section": "Wiring the Servo 🔌",
-    "text": "Wiring the Servo 🔌\nThe SG90 micro-servo has 3 wires:\n\nBrown / Black Line: Ground (GND)\nRed Line: Power (5V)\nOrange / Yellow Line: Signal (Connect to a PWM pin like ~9)\n\n\n\n\n\n\n\nWarning\n\n\nAlways double-check the wire colors! Plugging power into the signal pin might damage the servo."
+    "text": "Wiring the Servo 🔌\nThe SG90 micro-servo has 3 wires. On the Keyestudio shield, plug it into Pin 10.\n\nBrown / Black Line: Ground (G)\nRed Line: Power (V)\nOrange / Yellow Line: Signal (S)\n\n\n\n\n\n\n\n\nWarning\n\n\nAlways double-check the wire colors! Plugging power into the signal pin might damage the servo."
   },
   {
     "objectID": "slides/session3.html#coding-the-servo-setup",
     "href": "slides/session3.html#coding-the-servo-setup",
     "title": "Session 3: Building the Smart Radar",
     "section": "Coding the Servo: Setup",
-    "text": "Coding the Servo: Setup\nArduino has a built-in library for Servos! We don’t have to control the exact electrical pulses manually.\n#include &lt;Servo.h&gt;  // Include the library\n\nServo myServo;  // Create a servo object\n\nvoid setup() {\n  myServo.attach(9); // Tell Arduino the servo is on pin 9\n}\n\nvoid loop() {\n  // We'll add angles here\n}"
+    "text": "Coding the Servo: Setup\nArduino has a built-in library for Servos! We don’t have to control the exact electrical pulses manually.\n#include &lt;Servo.h&gt;  // Include the library\n\nServo myServo;  // Create a servo object\n\nvoid setup() {\n  myServo.attach(10); // Tell Arduino the servo is on pin 10\n}\n\nvoid loop() {\n  // We'll add angles here\n}"
   },
   {
     "objectID": "slides/session3.html#pointing-at-angles",
@@ -1964,7 +1964,7 @@
     "href": "slides/session3.html#coding-distance-the-logic",
     "title": "Session 3: Building the Smart Radar",
     "section": "Coding Distance: The Logic",
-    "text": "Coding Distance: The Logic\nconst int trigPin = 10;\nconst int echoPin = 11;\n\nvoid setup() {\n  Serial.begin(9600); // Start serial monitor\n  pinMode(trigPin, OUTPUT);\n  pinMode(echoPin, INPUT);\n}\n\nvoid loop() {\n  // We will add the logic here!\n}"
+    "text": "Coding Distance: The Logic\nconst int trigPin = 12;\nconst int echoPin = 13;\n\nvoid setup() {\n  Serial.begin(9600); // Start serial monitor\n  pinMode(trigPin, OUTPUT);\n  pinMode(echoPin, INPUT);\n}\n\nvoid loop() {\n  // We will add the logic here!\n}\n\nCalculation: Divide the total time by 2 (to find distance to the object).\n\n// Method A: Using Speed of Sound (0.034 cm/us)\nint distance = duration * 0.034 / 2;\n\n// Method B: Using Time Constant (29.1 us/cm)\nint distance = (duration / 2) / 29.1; \n\n\n\n\n\n\nNote\n\n\nKeyestudio documentation often uses Method B. Both give the same result!"
   },
   {
     "objectID": "slides/session3.html#coding-distance-the-math",
@@ -1999,14 +1999,14 @@
     "href": "slides/session3.html#the-smart-radar-challenge",
     "title": "Session 3: Building the Smart Radar",
     "section": "The Smart Radar Challenge 🚨",
-    "text": "The Smart Radar Challenge 🚨\nGoal: Create a security scanner!\n\nYour radar should continuously sweep back and forth (or check 3 main positions).\nIf it detects an object closer than 15 cm, it should “sound the alarm”!\nSimulate the alarm by lighting up an LED on Pin 13 or printing “INTRUDER ALERT” to the Serial Monitor rapidly.\n\nBonus (If you finish early)\n\nPrint where the intruder is! “Intruder detected on the LEFT!”"
+    "text": "The Smart Radar Challenge 🚨\nGoal: Create a security scanner!\n\nYour radar should continuously sweep back and forth (or check 3 main positions).\nIf it detects an object closer than 15 cm, it should “sound the alarm”!\nSimulate the alarm by lighting up an LED on Pin 9 or printing “INTRUDER ALERT” to the Serial Monitor rapidly.\n\nBonus (If you finish early)\n\nPrint where the intruder is! “Intruder detected on the LEFT!”"
   },
   {
     "objectID": "slides/session3.html#reacting-to-distance",
     "href": "slides/session3.html#reacting-to-distance",
     "title": "Session 3: Building the Smart Radar",
     "section": "Reacting to Distance 💡",
-    "text": "Reacting to Distance 💡\nLet’s add an LED to Pin 13 and turn it ON if an object gets closer than 10 cm!\nvoid loop() {\n  // ... (Distance Math code here) ...\n  \n  if (distance &lt; 10) {\n    digitalWrite(13, HIGH); // Turn LED ON\n  } else {\n    digitalWrite(13, LOW);  // Turn LED OFF\n  }\n  delay(100); // Wait a bit before next reading\n}"
+    "text": "Reacting to Distance 💡\nLet’s add an LED to Pin 13 and turn it ON if an object gets closer than 10 cm!\nvoid loop() {\n  // ... (Distance Math code here) ...\n  \n  if (distance &lt; 10) {\n    digitalWrite(9, HIGH); // Turn LED ON\n  } else {\n    digitalWrite(9, LOW);  // Turn LED OFF\n  }\n  delay(100); // Wait a bit before next reading\n}"
   },
   {
     "objectID": "slides/session3.html#the-3-led-distance-indicator",
@@ -2168,5 +2168,54 @@
     "title": "Session 2: Make It Move & Remote Control",
     "section": "Upload Code Before Wiring!",
     "text": "Upload Code Before Wiring!\n\n\n\n\n\n\n⚠️ STOP & UPLOAD!\n\n\nBecause the Bluetooth module uses Pins 0 and 1 (TX/RX), it will block your computer from uploading code.\n\nKeep the Bluetooth module disconnected.\nUpload the code from the previous slide.\nONLY THEN proceed to the wiring step.\n\nIf you need to upload again later, you must disconnect TX/RX wires first!\n\n\n\n👉 Action Item: Upload the code to your Arduino Uno right now."
+  },
+  {
+    "objectID": "slides/session3.html#engineering-specs-hc-sr04",
+    "href": "slides/session3.html#engineering-specs-hc-sr04",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Engineering Specs: HC-SR04 📝",
+    "text": "Engineering Specs: HC-SR04 📝\nTo be a great engineer, you need to know your tool’s limits!\n\nWorking Voltage: 5V DC\nRanging Distance: 2cm – 400cm\nMeasuring Angle: 15° (Effectual) / 30° (Measuring)\nResolution: 0.3cm\nTrigger Pulse: 10µs minimum\n\n\n\n\n\n\n\nTip\n\n\nThe sensor is most accurate when the object is flat and directly in front. Irregular shapes might scatter the sound!"
+  },
+  {
+    "objectID": "slides/session3.html#timing-how-it-talks",
+    "href": "slides/session3.html#timing-how-it-talks",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Timing: How it talks ⏱️",
+    "text": "Timing: How it talks ⏱️\nThe sensor uses a specific pattern of pulses to communicate with the Arduino.\n\n\nTrigger: We send a 10µs pulse.\nSonic Burst: The sensor automatically sends 8 bursts of 40kHz sound.\nEcho: The sensor sends back a pulse. The duration of this pulse is our travel time!"
+  },
+  {
+    "objectID": "slides/session3.html#wiring-with-the-v5-shield",
+    "href": "slides/session3.html#wiring-with-the-v5-shield",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Wiring with the V5 Shield 🔌",
+    "text": "Wiring with the V5 Shield 🔌\nOn your Keyestudio 4WD car, we use the V5 Sensor Shield. Look for the pins labeled S (Signal), V (Voltage), and G (Ground).\n\nVCC: Connect to 5V (V)\nTrig: Connect to Pin 12 (S)\nEcho: Connect to Pin 13 (S)\nGND: Connect to GND (G)"
+  },
+  {
+    "objectID": "slides/session3.html#engineering-specs-sg90-servo",
+    "href": "slides/session3.html#engineering-specs-sg90-servo",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Engineering Specs: SG90 Servo ⚙️",
+    "text": "Engineering Specs: SG90 Servo ⚙️\nSmall but powerful! Here is what’s inside:\n\nWorking Voltage: 4.8V – 6V\nRotation Angle: 0° – 180°\nPulse Width: 500µs – 2500µs (corresponds to 0-180°)\nTorque: 1.3kg·cm (at 4.8V)\nSpeed: 0.12 sec / 60 degrees\n\n\n\n\n\n\n\nWarning\n\n\nThe servo requires more current than a simple LED. Always use the external power (batteries) when running motors! But ours is a small servo so we can power it with the 5v pin."
+  },
+  {
+    "objectID": "slides/session3.html#pwm-the-language-of-servos",
+    "href": "slides/session3.html#pwm-the-language-of-servos",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "PWM: The Language of Servos 📡",
+    "text": "PWM: The Language of Servos 📡\nThe Arduino talks to the servo using Pulse Width Modulation. It sends a pulse every 20ms."
+  },
+  {
+    "objectID": "slides/session3.html#coding-distance-pins-setup",
+    "href": "slides/session3.html#coding-distance-pins-setup",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "Coding Distance: Pins & Setup",
+    "text": "Coding Distance: Pins & Setup\nconst int trigPin = 12;\nconst int echoPin = 13;\n\nvoid setup() {\n  Serial.begin(9600); // Start serial monitor\n  pinMode(trigPin, OUTPUT);\n  pinMode(echoPin, INPUT);\n}\n\nvoid loop() {\n  // We will add the logic here!\n}"
+  },
+  {
+    "objectID": "slides/session3.html#from-time-to-distance",
+    "href": "slides/session3.html#from-time-to-distance",
+    "title": "Session 3: Building the Smart Radar",
+    "section": "From Time to Distance 📐",
+    "text": "From Time to Distance 📐\n\nCalculation: Divide the total time by 2 (to find distance to the object).\n\n// Method A: Using Speed of Sound (0.034 cm/us)\nint distance = duration * 0.034 / 2;\n\n// Method B: Using Time Constant (29.1 us/cm)\nint distance = (duration / 2) / 29.1; \n\n\n\n\n\n\nNote\n\n\nKeyestudio documentation often uses Method B. Both give the same result!"
   }
 ]

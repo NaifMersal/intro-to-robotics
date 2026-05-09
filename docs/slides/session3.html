@@ -9,7 +9,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <meta name="dcterms.date" content="2026-04-18">
+  <meta name="dcterms.date" content="2026-05-09">
   <title>Session 3: Building the Smart Radar</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -201,7 +201,7 @@
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-04-18</p>
+  <p class="date">2026-05-09</p>
 </section>
 <section>
 <section id="session-3" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -232,21 +232,56 @@
 </ol>
 <p>By measuring <strong>how long</strong> the sound takes to return, we calculate the exact distance!</p>
 
-<img data-src="assets/ultrasonic_simple_diagram.png" style="width:50.0%" class="r-stretch"></section>
-<section id="wiring-the-sensor" class="slide level2">
-<h2>Wiring the Sensor 🔌</h2>
-<p>The sensor has 4 pins:</p>
+<img data-src="assets/ultrasonic_principle_ks.png" style="width:80.0%" class="r-stretch"></section>
+<section id="engineering-specs-hc-sr04" class="slide level2">
+<h2>Engineering Specs: HC-SR04 📝</h2>
+<p>To be a great engineer, you need to know your tool’s limits!</p>
 <ul>
-<li><strong>VCC:</strong> 5V Power</li>
-<li><strong>GND:</strong> Ground</li>
-<li><strong>Trig:</strong> Connect to digital pin (e.g., <code>10</code>) - Sends the sound!</li>
-<li><strong>Echo:</strong> Connect to digital pin (e.g., <code>11</code>) - Hears the sound!</li>
+<li><strong>Working Voltage:</strong> 5V DC</li>
+<li><strong>Ranging Distance:</strong> 2cm – 400cm</li>
+<li><strong>Measuring Angle:</strong> 15° (Effectual) / 30° (Measuring)</li>
+<li><strong>Resolution:</strong> 0.3cm</li>
+<li><strong>Trigger Pulse:</strong> 10µs minimum</li>
 </ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>The sensor is most accurate when the object is flat and directly in front. Irregular shapes might scatter the sound!</p>
+</div>
+</div>
+</div>
 </section>
-<section id="coding-distance-the-logic" class="slide level2">
-<h2>Coding Distance: The Logic</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="at">const</span> <span class="dt">int</span> trigPin <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
-<span id="cb1-2"><a></a><span class="at">const</span> <span class="dt">int</span> echoPin <span class="op">=</span> <span class="dv">11</span><span class="op">;</span></span>
+<section id="timing-how-it-talks" class="slide level2">
+<h2>Timing: How it talks ⏱️</h2>
+<p>The sensor uses a specific pattern of pulses to communicate with the Arduino.</p>
+
+<img data-src="assets/ultrasonic_timing_ks.png" style="width:70.0%" class="r-stretch"><ol type="1">
+<li><strong>Trigger:</strong> We send a 10µs pulse.</li>
+<li><strong>Sonic Burst:</strong> The sensor automatically sends 8 bursts of 40kHz sound.</li>
+<li><strong>Echo:</strong> The sensor sends back a pulse. The <strong>duration</strong> of this pulse is our travel time!</li>
+</ol>
+</section>
+<section id="wiring-with-the-v5-shield" class="slide level2">
+<h2>Wiring with the V5 Shield 🔌</h2>
+<p>On your Keyestudio 4WD car, we use the <strong>V5 Sensor Shield</strong>. Look for the pins labeled <strong>S (Signal)</strong>, <strong>V (Voltage)</strong>, and <strong>G (Ground)</strong>.</p>
+<ul>
+<li><strong>VCC:</strong> Connect to <strong>5V (V)</strong></li>
+<li><strong>Trig:</strong> Connect to <strong>Pin 12 (S)</strong></li>
+<li><strong>Echo:</strong> Connect to <strong>Pin 13 (S)</strong></li>
+<li><strong>GND:</strong> Connect to <strong>GND (G)</strong></li>
+</ul>
+
+<img data-src="assets/ultrasonic_wiring_ks.png" style="width:60.0%" class="r-stretch"></section>
+<section id="coding-distance-pins-setup" class="slide level2">
+<h2>Coding Distance: Pins &amp; Setup</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="at">const</span> <span class="dt">int</span> trigPin <span class="op">=</span> <span class="dv">12</span><span class="op">;</span></span>
+<span id="cb1-2"><a></a><span class="at">const</span> <span class="dt">int</span> echoPin <span class="op">=</span> <span class="dv">13</span><span class="op">;</span></span>
 <span id="cb1-3"><a></a></span>
 <span id="cb1-4"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
 <span id="cb1-5"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> <span class="co">// Start serial monitor</span></span>
@@ -258,51 +293,66 @@
 <span id="cb1-11"><a></a>  <span class="co">// We will add the logic here!</span></span>
 <span id="cb1-12"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="the-distance-formula" class="slide level2">
-<h2>The Distance Formula 🧮</h2>
-<p>Why is the calculation <code>duration * 0.034 / 2</code> ?</p>
-<ol type="1">
-<li><strong>Speed of Sound:</strong> Sound travels at about <strong>343 meters per second</strong> (or <strong>0.034 centimeters per microsecond</strong>).</li>
-<li><strong>Round Trip:</strong> The sound pulse travels to the object AND bounces back. So, we must divide the total time by <strong>2</strong> to find just the distance <em>to</em> the object!</li>
+<section id="from-time-to-distance" class="slide level2">
+<h2>From Time to Distance 📐</h2>
+<ol start="3" type="1">
+<li><strong>Calculation:</strong> Divide the total time by <strong>2</strong> (to find distance <em>to</em> the object).</li>
 </ol>
-
-<img data-src="assets/ultrasonic_sensor_logic.png" style="width:60.0%" class="r-stretch"></section>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="co">// Method A: Using Speed of Sound (0.034 cm/us)</span></span>
+<span id="cb2-2"><a></a><span class="dt">int</span> distance <span class="op">=</span> duration <span class="op">*</span> <span class="fl">0.034</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-3"><a></a></span>
+<span id="cb2-4"><a></a><span class="co">// Method B: Using Time Constant (29.1 us/cm)</span></span>
+<span id="cb2-5"><a></a><span class="dt">int</span> distance <span class="op">=</span> <span class="op">(</span>duration <span class="op">/</span> <span class="dv">2</span><span class="op">)</span> <span class="op">/</span> <span class="fl">29.1</span><span class="op">;</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Keyestudio documentation often uses <strong>Method B</strong>. Both give the same result!</p>
+</div>
+</div>
+</div>
+</section>
 <section id="coding-distance-the-math" class="slide level2">
 <h2>Coding Distance: The Math</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-2"><a></a>  <span class="co">// Send a 10 microsecond pulse</span></span>
-<span id="cb2-3"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-4"><a></a>  delayMicroseconds<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
-<span id="cb2-5"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb2-6"><a></a>  delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
-<span id="cb2-7"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb2-8"><a></a></span>
-<span id="cb2-9"><a></a>  <span class="co">// Measure how long the Echo pin stays HIGH</span></span>
-<span id="cb2-10"><a></a>  <span class="dt">long</span> duration <span class="op">=</span> pulseIn<span class="op">(</span>echoPin<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb2-11"><a></a></span>
-<span id="cb2-12"><a></a>  <span class="co">// Calculate distance in cm (Speed of sound)</span></span>
-<span id="cb2-13"><a></a>  <span class="dt">int</span> distance <span class="op">=</span> duration <span class="op">*</span> <span class="fl">0.034</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb2-14"><a></a>  </span>
-<span id="cb2-15"><a></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Distance: "</span><span class="op">);</span></span>
-<span id="cb2-16"><a></a>  Serial<span class="op">.</span>print<span class="op">(</span>distance<span class="op">);</span></span>
-<span id="cb2-17"><a></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">" cm"</span><span class="op">);</span></span>
-<span id="cb2-18"><a></a>  </span>
-<span id="cb2-19"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb2-20"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-2"><a></a>  <span class="co">// Send a 10 microsecond pulse</span></span>
+<span id="cb3-3"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb3-4"><a></a>  delayMicroseconds<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb3-5"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb3-6"><a></a>  delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb3-7"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb3-8"><a></a></span>
+<span id="cb3-9"><a></a>  <span class="co">// Measure how long the Echo pin stays HIGH</span></span>
+<span id="cb3-10"><a></a>  <span class="dt">long</span> duration <span class="op">=</span> pulseIn<span class="op">(</span>echoPin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb3-11"><a></a></span>
+<span id="cb3-12"><a></a>  <span class="co">// Calculate distance in cm (Speed of sound)</span></span>
+<span id="cb3-13"><a></a>  <span class="dt">int</span> distance <span class="op">=</span> duration <span class="op">*</span> <span class="fl">0.034</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb3-14"><a></a>  </span>
+<span id="cb3-15"><a></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Distance: "</span><span class="op">);</span></span>
+<span id="cb3-16"><a></a>  Serial<span class="op">.</span>print<span class="op">(</span>distance<span class="op">);</span></span>
+<span id="cb3-17"><a></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">" cm"</span><span class="op">);</span></span>
+<span id="cb3-18"><a></a>  </span>
+<span id="cb3-19"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb3-20"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="reacting-to-distance" class="slide level2">
 <h2>Reacting to Distance 💡</h2>
 <p>Let’s add an LED to Pin <code>13</code> and turn it ON if an object gets closer than 10 cm!</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-2"><a></a>  <span class="co">// ... (Distance Math code here) ...</span></span>
-<span id="cb3-3"><a></a>  </span>
-<span id="cb3-4"><a></a>  <span class="cf">if</span> <span class="op">(</span>distance <span class="op">&lt;</span> <span class="dv">10</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-5"><a></a>    digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Turn LED ON</span></span>
-<span id="cb3-6"><a></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb3-7"><a></a>    digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> LOW<span class="op">);</span>  <span class="co">// Turn LED OFF</span></span>
-<span id="cb3-8"><a></a>  <span class="op">}</span></span>
-<span id="cb3-9"><a></a>  delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span> <span class="co">// Wait a bit before next reading</span></span>
-<span id="cb3-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-2"><a></a>  <span class="co">// ... (Distance Math code here) ...</span></span>
+<span id="cb4-3"><a></a>  </span>
+<span id="cb4-4"><a></a>  <span class="cf">if</span> <span class="op">(</span>distance <span class="op">&lt;</span> <span class="dv">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-5"><a></a>    digitalWrite<span class="op">(</span><span class="dv">9</span><span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Turn LED ON</span></span>
+<span id="cb4-6"><a></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb4-7"><a></a>    digitalWrite<span class="op">(</span><span class="dv">9</span><span class="op">,</span> LOW<span class="op">);</span>  <span class="co">// Turn LED OFF</span></span>
+<span id="cb4-8"><a></a>  <span class="op">}</span></span>
+<span id="cb4-9"><a></a>  delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span> <span class="co">// Wait a bit before next reading</span></span>
+<span id="cb4-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="phase-2-challenge-1" class="title-slide slide level1 sdaia-dark center" data-background-color="#E84A5F">
@@ -345,16 +395,16 @@
 </section>
 <section id="reading-the-position" class="slide level2">
 <h2>Reading the Position 👩‍💻</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb4-2"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> <span class="co">// Start the serial monitor</span></span>
-<span id="cb4-3"><a></a><span class="op">}</span></span>
-<span id="cb4-4"><a></a></span>
-<span id="cb4-5"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb4-6"><a></a>  <span class="dt">int</span> position <span class="op">=</span> analogRead<span class="op">(</span>A0<span class="op">);</span> <span class="co">// Read the pin</span></span>
-<span id="cb4-7"><a></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Dial Position: "</span><span class="op">);</span></span>
-<span id="cb4-8"><a></a>  Serial<span class="op">.</span>println<span class="op">(</span>position<span class="op">);</span>      <span class="co">// Will show a number from 0 to 1023</span></span>
-<span id="cb4-9"><a></a>  delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
-<span id="cb4-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-2"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> <span class="co">// Start the serial monitor</span></span>
+<span id="cb5-3"><a></a><span class="op">}</span></span>
+<span id="cb5-4"><a></a></span>
+<span id="cb5-5"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-6"><a></a>  <span class="dt">int</span> position <span class="op">=</span> analogRead<span class="op">(</span>A0<span class="op">);</span> <span class="co">// Read the pin</span></span>
+<span id="cb5-7"><a></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Dial Position: "</span><span class="op">);</span></span>
+<span id="cb5-8"><a></a>  Serial<span class="op">.</span>println<span class="op">(</span>position<span class="op">);</span>      <span class="co">// Will show a number from 0 to 1023</span></span>
+<span id="cb5-9"><a></a>  delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
+<span id="cb5-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This <em>exact</em> mechanism is hidden inside our next component…</p>
 </section></section>
 <section>
@@ -371,15 +421,50 @@
 </ul>
 
 <img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Servo_motor_%28SG90%29.jpg/800px-Servo_motor_%28SG90%29.jpg" style="width:40.0%" class="r-stretch"></section>
+<section id="engineering-specs-sg90-servo" class="slide level2">
+<h2>Engineering Specs: SG90 Servo ⚙️</h2>
+<p>Small but powerful! Here is what’s inside:</p>
+<ul>
+<li><strong>Working Voltage:</strong> 4.8V – 6V</li>
+<li><strong>Rotation Angle:</strong> 0° – 180°</li>
+<li><strong>Pulse Width:</strong> 500µs – 2500µs (corresponds to 0-180°)</li>
+<li><strong>Torque:</strong> 1.3kg·cm (at 4.8V)</li>
+<li><strong>Speed:</strong> 0.12 sec / 60 degrees</li>
+</ul>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>The servo requires more current than a simple LED. Always use the external power (batteries) when running motors! But ours is a small servo so we can power it with the 5v pin.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="pwm-the-language-of-servos" class="slide level2">
+<h2>PWM: The Language of Servos 📡</h2>
+<p>The Arduino talks to the servo using <strong>Pulse Width Modulation</strong>. It sends a pulse every 20ms.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="assets/servo_pwm_ks.png" style="width:100.0%"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/servo_angles_ks.png" style="width:90.0%"></p>
+</div></div>
+</section>
 <section id="wiring-the-servo" class="slide level2">
 <h2>Wiring the Servo 🔌</h2>
-<p>The SG90 micro-servo has 3 wires:</p>
+<p>The SG90 micro-servo has 3 wires. On the Keyestudio shield, plug it into <strong>Pin 10</strong>.</p>
 <ol type="1">
-<li><strong>Brown / Black Line:</strong> Ground (GND)</li>
-<li><strong>Red Line:</strong> Power (5V)</li>
-<li><strong>Orange / Yellow Line:</strong> Signal (Connect to a PWM pin like <code>~9</code>)</li>
+<li><strong>Brown / Black Line:</strong> Ground (G)</li>
+<li><strong>Red Line:</strong> Power (V)</li>
+<li><strong>Orange / Yellow Line:</strong> Signal (S)</li>
 </ol>
-<div class="callout callout-warning callout-titled callout-style-default">
+
+<img data-src="assets/servo_wiring_ks.png" style="width:60.0%" class="r-stretch"><div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
@@ -396,43 +481,43 @@
 <section id="coding-the-servo-setup" class="slide level2">
 <h2>Coding the Servo: Setup</h2>
 <p>Arduino has a built-in library for Servos! We don’t have to control the exact electrical pulses manually.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a></a><span class="pp">#include </span><span class="im">&lt;Servo.h&gt;</span><span class="pp">  </span><span class="co">// Include the library</span></span>
-<span id="cb5-2"><a></a></span>
-<span id="cb5-3"><a></a>Servo myServo<span class="op">;</span>  <span class="co">// Create a servo object</span></span>
-<span id="cb5-4"><a></a></span>
-<span id="cb5-5"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-6"><a></a>  myServo<span class="op">.</span>attach<span class="op">(</span><span class="dv">9</span><span class="op">);</span> <span class="co">// Tell Arduino the servo is on pin 9</span></span>
-<span id="cb5-7"><a></a><span class="op">}</span></span>
-<span id="cb5-8"><a></a></span>
-<span id="cb5-9"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-10"><a></a>  <span class="co">// We'll add angles here</span></span>
-<span id="cb5-11"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a></a><span class="pp">#include </span><span class="im">&lt;Servo.h&gt;</span><span class="pp">  </span><span class="co">// Include the library</span></span>
+<span id="cb6-2"><a></a></span>
+<span id="cb6-3"><a></a>Servo myServo<span class="op">;</span>  <span class="co">// Create a servo object</span></span>
+<span id="cb6-4"><a></a></span>
+<span id="cb6-5"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-6"><a></a>  myServo<span class="op">.</span>attach<span class="op">(</span><span class="dv">10</span><span class="op">);</span> <span class="co">// Tell Arduino the servo is on pin 10</span></span>
+<span id="cb6-7"><a></a><span class="op">}</span></span>
+<span id="cb6-8"><a></a></span>
+<span id="cb6-9"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-10"><a></a>  <span class="co">// We'll add angles here</span></span>
+<span id="cb6-11"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="pointing-at-angles" class="slide level2">
 <h2>Pointing at Angles 📐</h2>
 <p>To make it point, we use <code>myServo.write(angle)</code>. The angle is between 0 and 180.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb6-2"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">0</span><span class="op">);</span>      <span class="co">// Turn all the way right</span></span>
-<span id="cb6-3"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span>           <span class="co">// Wait 1 second</span></span>
-<span id="cb6-4"><a></a>  </span>
-<span id="cb6-5"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">90</span><span class="op">);</span>     <span class="co">// Turn to the middle</span></span>
-<span id="cb6-6"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
-<span id="cb6-7"><a></a>  </span>
-<span id="cb6-8"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">180</span><span class="op">);</span>    <span class="co">// Turn all the way left</span></span>
-<span id="cb6-9"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
-<span id="cb6-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-2"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">0</span><span class="op">);</span>      <span class="co">// Turn all the way right</span></span>
+<span id="cb7-3"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span>           <span class="co">// Wait 1 second</span></span>
+<span id="cb7-4"><a></a>  </span>
+<span id="cb7-5"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">90</span><span class="op">);</span>     <span class="co">// Turn to the middle</span></span>
+<span id="cb7-6"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb7-7"><a></a>  </span>
+<span id="cb7-8"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">180</span><span class="op">);</span>    <span class="co">// Turn all the way left</span></span>
+<span id="cb7-9"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb7-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Activity:</strong> Let’s wire this up and try making it point in 3 directions!</p>
 </section>
 <section id="the-sweep" class="slide level2">
 <h2>The “Sweep” 🧹</h2>
 <p>What if we want it to move smoothly from 0 to 180? We use a <strong><code>for</code> loop</strong> to increase the angle slowly.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-2"><a></a>  <span class="co">// Sweep from 0 to 180 degrees</span></span>
-<span id="cb7-3"><a></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> pos <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> pos <span class="op">&lt;=</span> <span class="dv">180</span><span class="op">;</span> pos <span class="op">+=</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span> </span>
-<span id="cb7-4"><a></a>    myServo<span class="op">.</span>write<span class="op">(</span>pos<span class="op">);</span>              </span>
-<span id="cb7-5"><a></a>    delay<span class="op">(</span><span class="dv">15</span><span class="op">);</span> <span class="co">// Wait 15ms for servo to reach position                      </span></span>
-<span id="cb7-6"><a></a>  <span class="op">}</span></span>
-<span id="cb7-7"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-2"><a></a>  <span class="co">// Sweep from 0 to 180 degrees</span></span>
+<span id="cb8-3"><a></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> pos <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> pos <span class="op">&lt;=</span> <span class="dv">180</span><span class="op">;</span> pos <span class="op">+=</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span> </span>
+<span id="cb8-4"><a></a>    myServo<span class="op">.</span>write<span class="op">(</span>pos<span class="op">);</span>              </span>
+<span id="cb8-5"><a></a>    delay<span class="op">(</span><span class="dv">15</span><span class="op">);</span> <span class="co">// Wait 15ms for servo to reach position                      </span></span>
+<span id="cb8-6"><a></a>  <span class="op">}</span></span>
+<span id="cb8-7"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="phase-5-sensor-servo-fusion" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
@@ -458,22 +543,22 @@
 </section>
 <section id="taking-readings-in-3-directions" class="slide level2">
 <h2>Taking Readings in 3 Directions</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb8-2"><a></a>  <span class="co">// Look Left</span></span>
-<span id="cb8-3"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">150</span><span class="op">);</span> </span>
-<span id="cb8-4"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb8-5"><a></a>  <span class="co">// int leftDist = measureDistance(); ...</span></span>
-<span id="cb8-6"><a></a>  </span>
-<span id="cb8-7"><a></a>  <span class="co">// Look Center</span></span>
-<span id="cb8-8"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">90</span><span class="op">);</span> </span>
-<span id="cb8-9"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb8-10"><a></a>  <span class="co">// int centerDist = measureDistance(); ...</span></span>
-<span id="cb8-11"><a></a>  </span>
-<span id="cb8-12"><a></a>  <span class="co">// Look Right</span></span>
-<span id="cb8-13"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">30</span><span class="op">);</span> </span>
-<span id="cb8-14"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb8-15"><a></a>  <span class="co">// int rightDist = measureDistance(); ...</span></span>
-<span id="cb8-16"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb9-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-2"><a></a>  <span class="co">// Look Left</span></span>
+<span id="cb9-3"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">150</span><span class="op">);</span> </span>
+<span id="cb9-4"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb9-5"><a></a>  <span class="co">// int leftDist = measureDistance(); ...</span></span>
+<span id="cb9-6"><a></a>  </span>
+<span id="cb9-7"><a></a>  <span class="co">// Look Center</span></span>
+<span id="cb9-8"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">90</span><span class="op">);</span> </span>
+<span id="cb9-9"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb9-10"><a></a>  <span class="co">// int centerDist = measureDistance(); ...</span></span>
+<span id="cb9-11"><a></a>  </span>
+<span id="cb9-12"><a></a>  <span class="co">// Look Right</span></span>
+<span id="cb9-13"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">30</span><span class="op">);</span> </span>
+<span id="cb9-14"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb9-15"><a></a>  <span class="co">// int rightDist = measureDistance(); ...</span></span>
+<span id="cb9-16"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><em>(Hint: Make the distance math a separate Helper Function!)</em></p>
 </section></section>
 <section>
@@ -487,7 +572,7 @@
 <ol type="1">
 <li>Your radar should continuously sweep back and forth (or check 3 main positions).</li>
 <li>If it detects an object closer than <strong>15 cm</strong>, it should “sound the alarm”!</li>
-<li><em>Simulate the alarm by lighting up an LED on Pin 13 or printing “INTRUDER ALERT” to the Serial Monitor rapidly.</em></li>
+<li><em>Simulate the alarm by lighting up an LED on Pin 9 or printing “INTRUDER ALERT” to the Serial Monitor rapidly.</em></li>
 </ol>
 <h3 id="bonus-if-you-finish-early">Bonus (If you finish early)</h3>
 <ul>
