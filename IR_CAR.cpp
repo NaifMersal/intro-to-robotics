@@ -14,6 +14,7 @@ unsigned char clear[] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 #define ML_PWM 5   
 #define MR_Ctrl 2    
 #define MR_PWM 6   
+#define BUZZER_PIN 10
 
 int RECV_PIN = 3;
 int carSpeed = 100; 
@@ -21,6 +22,22 @@ int carSpeed = 100;
 // --- NEW VARIABLES FOR TIMEOUT ---
 unsigned long lastSignalTime = 0;   // Stores the time of the last IR signal
 const int timeoutThreshold = 200;   // Milliseconds to wait before stopping (IR repeats ~110ms)
+
+
+void playStopSonnet() {
+  tone(BUZZER_PIN, 784, 100); // G5
+  delay(120);
+  tone(BUZZER_PIN, 659, 100); // E5
+  delay(120);
+  tone(BUZZER_PIN, 523, 200); // C5
+  
+  // FIX 1: Add a delay so the final 200ms note has time to finish playing.
+  // If you don't do this, the next line will instantly cut off the last note.
+  delay(200); 
+
+  // FIX 2: Re-initialize the IR receiver to take the timer back from the tone() function.
+  IrReceiver.begin(RECV_PIN, ENABLE_LED_FEEDBACK);
+}
 
 void handleCommand(uint16_t command) {
     if (command == 0x46) {
@@ -35,9 +52,10 @@ void handleCommand(uint16_t command) {
     } else if (command == 0x43) {
         car_right();
         matrix_display(right);
-    } else if (command == 0x40) {
-        car_Stop();
-        matrix_display(STOP01);
+    }    
+    else if (command == 0x40) { // OK 
+        playStopSonnet(); // Only plays when button is pressed
+
     } else if (command == 0x16) {
         carSpeed = min(carSpeed + 20, 255);
     } else if (command == 0x19) {
@@ -50,6 +68,7 @@ void setup() {
     pinMode(ML_PWM, OUTPUT);
     pinMode(MR_Ctrl, OUTPUT);
     pinMode(MR_PWM, OUTPUT);
+    pinMode(BUZZER_PIN, OUTPUT); 
     
     Serial.begin(9600);
     IrReceiver.begin(RECV_PIN, ENABLE_LED_FEEDBACK); 
