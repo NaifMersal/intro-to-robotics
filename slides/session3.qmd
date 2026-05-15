@@ -83,8 +83,14 @@ The sensor uses a specific pattern of pulses to communicate with the Arduino.
 ![](assets/ultrasonic_timing_ks.png){width="70%"}
 
 1. **Trigger:** We send a 10µs pulse.
-2. **Sonic Burst:** The sensor automatically sends 8 bursts of 40kHz sound.
-3. **Echo:** The sensor sends back a pulse. The **duration** of this pulse is our travel time!
+2. **Sonic Burst:** The sensor automatically sends an 8-cycle burst of 40kHz sound.
+3. **Echo:** The sensor sends an electrical pulse back to the Arduino. The **duration** of this electrical pulse is the sound's total round-trip travel time!
+
+::: {.callout-tip}
+**Think of it like a Speaker and a Microphone!**
+- **Trig (Trigger) = Speaker:** The Arduino OUTPUTS a command here to tell the sensor to shout.
+- **Echo = Microphone:** The Arduino INPUTS the data from here, listening for the sensor to reply.
+:::
 
 ## Wiring with the V5 Shield 🔌
 
@@ -379,6 +385,27 @@ void loop() {
 }
 ```
 *(Hint: Make the distance math a separate Helper Function!)*
+
+## The Helper Function 🛠️
+
+Instead of repeating the pinging code multiple times, we put it in a function!
+
+```cpp
+int measureDistance() {
+  // Send the pulse
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Measure and calculate
+  long duration = pulseIn(echoPin, HIGH);
+  int distance = duration * 0.034 / 2;
+  
+  return distance; // Send the result back!
+}
+```
 
 
 
