@@ -78,19 +78,27 @@ The sensor is most accurate when the object is flat and directly in front. Irreg
 
 ## Timing: How it talks ⏱️
 
-The sensor uses a specific pattern of pulses to communicate with the Arduino.
+::: {.columns}
+::: {.column width="50%"}
+**The Pulse Pattern**
 
-![](assets/ultrasonic_timing_ks.png){width="70%"}
+1. **Trigger:** Arduino sends a 10µs pulse.
+2. **Sonic Burst:** Sensor sends an 8-cycle burst of 40kHz sound.
+3. **Echo:** Sensor returns an electrical pulse to Arduino.
+   - *Pulse duration = round-trip travel time!*
 
-1. **Trigger:** We send a 10µs pulse.
-2. **Sonic Burst:** The sensor automatically sends an 8-cycle burst of 40kHz sound.
-3. **Echo:** The sensor sends an electrical pulse back to the Arduino. The **duration** of this electrical pulse is the sound's total round-trip travel time!
-
-::: {.callout-tip}
-**Think of it like a Speaker and a Microphone!**
-- **Trig (Trigger) = Speaker:** The Arduino OUTPUTS a command here to tell the sensor to shout.
-- **Echo = Microphone:** The Arduino INPUTS the data from here, listening for the sensor to reply.
 :::
+
+::: {.column width="50%"}
+::: {.callout-tip}
+**Speaker & Microphone Analogy**
+
+- **Trig (Speaker):** Arduino OUTPUTS a command.
+- **Echo (Mic):** Arduino INPUTS the reply.
+:::
+:::
+:::
+
 
 ## Wiring with the V5 Shield 🔌
 
