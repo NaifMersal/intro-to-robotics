@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Polarity Simulation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="simCanvas"></canvas>
+    <div id="ui-layer">
+        <div class="glass-panel">
+            <h2>Motor Logic</h2>
+            <p>Polarity = Direction</p>
+            
+            <div class="control-group">
+                <button id="swapBtn" class="action-btn">Swap Wires</button>
+            </div>
+
+            <div class="metrics">
+                <div class="metric">
+                    <span class="label">Battery Pin A</span>
+                    <span class="val" id="pinA">Positive (+)</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Battery Pin B</span>
+                    <span class="val" id="pinB">Negative (-)</span>
+                </div>
+                <div class="metric highlight">
+                    <span class="label">Motor Rotation</span>
+                    <span class="val" id="direction">Clockwise</span>
+                </div>
+            </div>
+
+            <div class="observation">
+                <strong>Experiment:</strong> Click "Swap Wires" to flip the battery connection. Notice how the flow of energy reverses, forcing the motor to spin the opposite way.
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>

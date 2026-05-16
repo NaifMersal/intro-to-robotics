@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H-Bridge Logic Simulation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="simCanvas"></canvas>
+    <div id="ui-layer">
+        <div class="glass-panel">
+            <h2>H-Bridge Logic</h2>
+            <p>Control the MOSFETs</p>
+            
+            <div class="control-group dual-btn-group">
+                <button id="in1Btn" class="toggle-btn">IN1: LOW</button>
+                <button id="in2Btn" class="toggle-btn">IN2: LOW</button>
+            </div>
+
+            <div class="metrics">
+                <div class="metric">
+                    <span class="label">Q1 & Q4 (Left-Right)</span>
+                    <span class="val" id="path1State">OFF</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Q3 & Q2 (Right-Left)</span>
+                    <span class="val" id="path2State">OFF</span>
+                </div>
+                <div class="metric highlight">
+                    <span class="label">Motor Status</span>
+                    <span class="val" id="motorStatus">Stopped</span>
+                </div>
+            </div>
+
+            <div class="observation" id="obsText">
+                <strong>Experiment:</strong> Toggle IN1 or IN2 to HIGH to turn on the MOSFET pairs and see how electricity flows through the motor!
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron Repulsion Micro-Simulation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+        canvas { position: absolute; top: 0; left: 0; width: 100%; height: 90vh; z-index: 1; }
+        #ui-layer { z-index: 10; }
+        .view-btn.active { background: rgba(56,189,248,0.35) !important; color: var(--text-main) !important; border-color: var(--accent-blue) !important; box-shadow: 0 0 12px rgba(56,189,248,0.3); }
+
+        #repulsionPanel {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: auto !important;
+            top: auto !important;
+            transform: none !important;
+            width: 100% !important;
+            max-width: none !important;
+            height: 10vh;
+            border-radius: 0 !important;
+            display: flex;
+            align-items: center;
+            padding: 0 16px !important;
+            overflow: hidden;
+        }
+
+        .ctrl-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+        .ctrl-section {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .ctrl-section.buttons { gap: 5px; }
+        .ctrl-section.sliders { flex: 0 1 auto; }
+        .ctrl-section.metrics { gap: 12px; }
+        .ctrl-section.status {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .view-btn {
+            display: inline-flex !important;
+            padding: 5px 10px;
+            border-radius: 14px;
+            border: 1px solid var(--panel-border);
+            background: rgba(56,189,248,0.1);
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            min-height: 28px;
+            align-items: center;
+        }
+        .view-btn.active { background: rgba(56,189,248,0.35) !important; color: var(--text-main) !important; border-color: var(--accent-blue) !important; box-shadow: 0 0 12px rgba(56,189,248,0.3); }
+
+        .control-group { margin: 0; }
+        .control-group label { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
+        .slider-wrapper { display: flex; align-items: center; gap: 6px; }
+        input[type=range] { width: 80px; }
+        .value-readout { font-size: 0.7rem; min-width: 30px; text-align: right; color: var(--water-color); font-weight: 600; }
+
+        .metric-item { text-align: center; }
+        .metric-item .label { font-size: 0.6rem; color: var(--text-muted); }
+        .metric-item .val { font-size: 0.85rem; font-weight: 800; color: var(--text-main); }
+
+        .explanation-box {
+            margin: 0;
+            padding: 6px 10px;
+            background: rgba(56,189,248,0.08);
+            border-left: 2px solid var(--accent-blue);
+            border-radius: 3px;
+            font-size: 0.68rem;
+            line-height: 1.35;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .legend-row { display: none !important; }
+        .metrics-dashboard { display: none !important; }
+    </style>
+</head>
+<body>
+    <canvas id="simulationCanvas"></canvas>
+    <div id="ui-layer">
+        <div id="controls-placeholder"></div>
+    </div>
+
+    <script>
+const canvas = document.getElementById('simulationCanvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight * 0.9;
+}
+window.addEventListener('resize', () => { resize(); buildAtoms(); });
+
+let playing = true, slowmo = false, tracking = false, batteryOn = false, showForces = false;
+let enteredCount = 0, exitedCount = 0, spawnTimer = 0, statsFrame = 0;
+let powerEl, zoomEl, pOut, zOut, sIn, sOut, sCount, statusText;
+let atoms = [];
+let electrons = [];
+const GRID_SIZE = 70;
+const ATOM_DIST_THRESH = 100;
+const ATOM_DIST_THRESH2 = ATOM_DIST_THRESH * ATOM_DIST_THRESH;
+let grid = {};
+
+function W() { return canvas.width; }
+function H() { return canvas.height; }
+function WIRE_L() { return 50; }
+function WIRE_R() { return W() - 50; }
+function WIRE_B() { return H() - 80; }
+
+function makeE(x, y, isNew) {
+    return { x, y, vx: (Math.random() - 0.5) * 1.2, vy: (Math.random() - 0.5) * 1.2, trail: [], isNew, age: 0, tracked: false };
+}
+
+function buildAtoms() {
+    atoms.length = 0;
+    const cols = 5, rows = 4;
+    const spX = (WIRE_R() - WIRE_L()) / (cols + 1);
+    const spY = (H() - 80) / (rows + 1);
+    for (let r = 1; r <= rows; r++) {
+        for (let c = 1; c <= cols; c++) {
+            atoms.push({
+                x: WIRE_L() + c * spX,
+                y: 40 + r * spY,
+                shellR: 38,
+                protonCount: 3 + Math.floor(Math.random() * 2),
+                boundE: [
+                    { angle: Math.random() * Math.PI * 2, speed: 0.018 + Math.random() * 0.008 },
+                    { angle: Math.random() * Math.PI * 2, speed: 0.015 + Math.random() * 0.01 }
+                ]
+            });
+        }
+    }
+}
+
+function buildElectrons() {
+    electrons = [];
+    for (let i = 0; i < 20; i++) {
+        electrons.push(makeE(WIRE_L() + 20 + Math.random() * (WIRE_R() - WIRE_L() - 40), 50 + Math.random() * (WIRE_B() - 100), false));
+    }
+}
+
+function assignTracked() {
+    electrons.forEach(e => e.tracked = false);
+    if (tracking && electrons.length > 0) {
+        let best = 0, bestD = Infinity;
+        electrons.forEach((e, i) => {
+            const d = Math.abs(e.x - W() / 2) + Math.abs(e.y - H() / 2);
+            if (d < bestD) { bestD = d; best = i; }
+        });
+        electrons[best].tracked = true;
+    }
+}
+
+function gridKey(cx, cy) { return cx + ',' + cy; }
+function buildGrid() {
+    grid = {};
+    for (let i = 0; i < electrons.length; i++) {
+        const e = electrons[i];
+        const cx = Math.floor(e.x / GRID_SIZE);
+        const cy = Math.floor(e.y / GRID_SIZE);
+        const k = gridKey(cx, cy);
+        if (!grid[k]) grid[k] = [];
+        grid[k].push(i);
+    }
+}
+function getNeighborIndices(i) {
+    const e = electrons[i];
+    const cx = Math.floor(e.x / GRID_SIZE);
+    const cy = Math.floor(e.y / GRID_SIZE);
+    const result = [];
+    for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+            const k = gridKey(cx + dx, cy + dy);
+            if (grid[k]) {
+                for (const j of grid[k]) {
+                    if (i !== j) result.push(j);
+                }
+            }
+        }
+    }
+    return result;
+}
+
+function spawnFromLeft() {
+    const pw = parseInt(powerEl.value);
+    const y = 40 + Math.random() * (H() - 120);
+    const e = makeE(WIRE_L() - 5, y, true);
+    e.vx = 1.5 + pw * 0.3;
+    e.vy = (Math.random() - 0.5) * 0.8;
+    electrons.push(e);
+    enteredCount++;
+}
+
+function updateStatus() {
+    if (!statusText) return;
+    if (batteryOn && tracking) statusText.textContent = 'Zoom in and follow the gold electron — watch incoming purple electrons push it forward through repulsion.';
+    else if (batteryOn) statusText.textContent = 'Battery connected! Electrons enter from the left (-), push existing ones forward, and exit right (+).';
+    else if (showForces) statusText.textContent = 'Red = electron repulsion. Blue = nuclear attraction. All forces act at a distance — never contact.';
+    else if (tracking) statusText.textContent = 'Follow the gold electron. Zoom in to see it weave between atoms — pushed by neighbors, pulled by nuclei.';
+    else statusText.textContent = 'No battery connected. Electrons drift randomly due to thermal energy — no net flow.';
+}
+
+function update() {
+    if (!playing) { draw(); requestAnimationFrame(update); return; }
+    const dt = slowmo ? 0.35 : 0.75;
+    const pw = parseInt(powerEl.value);
+
+    atoms.forEach(a => a.boundE.forEach(be => { be.angle += be.speed * dt; }));
+
+    if (batteryOn) {
+        spawnTimer += dt;
+        const interval = Math.max(8, 30 - pw * 2.5);
+        if (spawnTimer > interval) { spawnFromLeft(); spawnTimer = 0; }
+    }
+
+    buildGrid();
+
+    for (let i = 0; i < electrons.length; i++) {
+        const e = electrons[i];
+        e.age += dt;
+        let fx = 0, fy = 0;
+        const neighbors = getNeighborIndices(i);
+        for (const j of neighbors) {
+            const dx = e.x - electrons[j].x, dy = e.y - electrons[j].y;
+            const d2 = dx * dx + dy * dy + 60;
+            const d = Math.sqrt(d2);
+            fx += (dx / d) * 500 / d2;
+            fy += (dy / d) * 500 / d2;
+        }
+        for (const a of atoms) {
+            const dx = a.x - e.x, dy = a.y - e.y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 > ATOM_DIST_THRESH2) continue;
+            const d2p = d2 + 150;
+            const d = Math.sqrt(d2p);
+            if (d > 22) { fx += dx * 120 / (d2p * d); fy += dy * 120 / (d2p * d); }
+            else { const dp = d2p + 80; fx -= dx * 350 / (dp * d); fy -= dy * 350 / (dp * d); }
+        }
+        fx += (Math.random() - 0.5) * 0.3;
+        fy += (Math.random() - 0.5) * 0.3;
+        e.vx = (e.vx + fx * dt) * 0.965;
+        e.vy = (e.vy + fy * dt) * 0.965;
+        const maxSpd = slowmo ? 2.5 : 4;
+        const spd = Math.sqrt(e.vx * e.vx + e.vy * e.vy);
+        if (spd > maxSpd) { e.vx = (e.vx / spd) * maxSpd; e.vy = (e.vy / spd) * maxSpd; }
+        e.x += e.vx * dt; e.y += e.vy * dt;
+        if (e.y < 25) { e.y = 25; e.vy = Math.abs(e.vy) * 0.5; }
+        if (e.y > WIRE_B() - 10) { e.y = WIRE_B() - 10; e.vy = -Math.abs(e.vy) * 0.5; }
+        if (!batteryOn) {
+            if (e.x < WIRE_L() + 10) { e.x = WIRE_L() + 10; e.vx = Math.abs(e.vx) * 0.5; }
+            if (e.x > WIRE_R() - 10) { e.x = WIRE_R() - 10; e.vx = -Math.abs(e.vx) * 0.5; }
+        } else {
+            if (e.x < WIRE_L() - 10) { e.x = WIRE_L() - 10; e.vx = Math.abs(e.vx) * 0.3; }
+        }
+        if (e.isNew && e.age > 20) e.isNew = false;
+        e.trail.push({ x: e.x, y: e.y });
+        if (e.trail.length > (slowmo ? 28 : 14)) e.trail.shift();
+    }
+
+    const exited = electrons.filter(e => e.x > WIRE_R() + 15);
+    exitedCount += exited.length;
+    const lostTracked = exited.some(e => e.tracked);
+    electrons = electrons.filter(e => e.x <= WIRE_R() + 15);
+
+    if (lostTracked && tracking) {
+        tracking = false;
+        const btnTrack = document.getElementById('btnTrack');
+        if (btnTrack) btnTrack.classList.remove('active');
+        
+        if (zoomEl) {
+            zoomEl.value = 1;
+            if (zOut) zOut.textContent = '1.0x';
+        }
+        
+        assignTracked();
+        updateStatus();
+    }
+    if (tracking && !electrons.some(e => e.tracked) && electrons.length > 0) assignTracked();
+
+    statsFrame++;
+    if (statsFrame % 15 === 0) {
+        if (sIn) sIn.textContent = enteredCount;
+        if (sOut) sOut.textContent = exitedCount;
+        if (sCount) sCount.textContent = electrons.length;
+    }
+
+    draw();
+    requestAnimationFrame(update);
+}
+
+function draw() {
+    const z = parseFloat(zoomEl.value);
+    let cx = W() / 2, cy = H() / 2;
+    const te = electrons.find(e => e.tracked);
+    if (tracking && te && z > 1) { cx = te.x; cy = te.y; }
+
+    ctx.save();
+    ctx.clearRect(0, 0, W(), H());
+    ctx.fillStyle = '#080c18';
+    ctx.fillRect(0, 0, W(), H());
+    ctx.translate(W() / 2, H() / 2);
+    ctx.scale(z, z);
+    ctx.translate(-cx, -cy);
+
+    const wb = WIRE_B();
+    ctx.fillStyle = 'rgba(255,255,255,0.03)';
+    ctx.fillRect(WIRE_L(), 15, WIRE_R() - WIRE_L(), wb - 15);
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 1 / z;
+    ctx.strokeRect(WIRE_L(), 15, WIRE_R() - WIRE_L(), wb - 15);
+
+    ctx.fillStyle = 'rgba(240,149,149,0.15)';
+    ctx.fillRect(WIRE_R(), 15, 50, wb - 15);
+    ctx.fillStyle = 'rgba(175,169,236,0.15)';
+    ctx.fillRect(0, 15, WIRE_L(), wb - 15);
+
+    ctx.font = `${12 / z}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'rgba(175,169,236,0.7)';
+    ctx.save(); ctx.translate(25, WIRE_B() / 2); ctx.rotate(-Math.PI / 2);
+    ctx.fillText('- terminal', 0, 0); ctx.restore();
+    ctx.fillStyle = 'rgba(240,149,149,0.7)';
+    ctx.save(); ctx.translate(W() - 25, WIRE_B() / 2); ctx.rotate(-Math.PI / 2);
+    ctx.fillText('+ terminal', 0, 0); ctx.restore();
+
+    if (batteryOn) {
+        const pw = parseInt(powerEl.value);
+        const n = 3 + Math.floor(pw / 3);
+        // Wire vertical bounds
+        const wireTop = 40;
+        const wireBot = WIRE_B();
+        const wireHeight = wireBot - wireTop;
+        // Arrow positioned just inside WIRE_L(), pointing right into the conductor
+        const ax0 = WIRE_L() + 4;   // tail x
+        const ax1 = WIRE_L() + 22;  // head x
+        const headSize = 5 / z;
+        for (let i = 0; i < n; i++) {
+            const t = n > 1 ? i / (n - 1) : 0.5;
+            const ay = wireTop + wireHeight * 0.1 + t * wireHeight * 0.8;
+            // Shaft
+            ctx.beginPath(); ctx.moveTo(ax0, ay); ctx.lineTo(ax1 - headSize, ay);
+            ctx.strokeStyle = 'rgba(175,169,236,0.5)'; ctx.lineWidth = 1.5 / z; ctx.stroke();
+            // Arrowhead (filled triangle)
+            ctx.beginPath();
+            ctx.moveTo(ax1, ay);
+            ctx.lineTo(ax1 - headSize * 2, ay - headSize);
+            ctx.lineTo(ax1 - headSize * 2, ay + headSize);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(175,169,236,0.6)'; ctx.fill();
+        }
+    }
+
+    for (const a of atoms) {
+        ctx.beginPath(); ctx.arc(a.x, a.y, a.shellR, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(240,149,149,0.12)'; ctx.lineWidth = 0.8 / z;
+        ctx.setLineDash([4, 4]); ctx.stroke(); ctx.setLineDash([]);
+
+        if (z > 1.4) {
+            ctx.beginPath(); ctx.arc(a.x, a.y, a.shellR * 0.6, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(240,149,149,0.07)'; ctx.lineWidth = 0.5 / z;
+            ctx.setLineDash([3, 5]); ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        ctx.beginPath(); ctx.arc(a.x, a.y, 10, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(240,149,149,0.18)'; ctx.fill();
+        ctx.beginPath(); ctx.arc(a.x, a.y, 7, 0, Math.PI * 2);
+        ctx.fillStyle = '#F09595'; ctx.fill();
+
+        if (z > 1.3) {
+            for (let p = 0; p < a.protonCount; p++) {
+                const pa = (p / a.protonCount) * Math.PI * 2;
+                ctx.beginPath(); ctx.arc(a.x + Math.cos(pa) * 3.5, a.y + Math.sin(pa) * 3.5, 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#E24B4A'; ctx.fill();
+            }
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 6px sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('+', a.x, a.y + 0.5);
+        } else {
+            ctx.fillStyle = '#501313'; ctx.font = 'bold 9px sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('+', a.x, a.y + 0.5);
+        }
+
+        a.boundE.forEach(be => {
+            const bx = a.x + Math.cos(be.angle) * a.shellR;
+            const by = a.y + Math.sin(be.angle) * a.shellR;
+            ctx.beginPath(); ctx.arc(bx, by, 3, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(93,202,165,0.35)'; ctx.fill();
+        });
+    }
+
+    if (showForces) {
+        for (let i = 0; i < electrons.length; i++) {
+            const e = electrons[i];
+            for (let j = i + 1; j < electrons.length; j++) {
+                const o = electrons[j];
+                const dx = e.x - o.x, dy = e.y - o.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < 70) {
+                    const alpha = 0.3 * (1 - d / 70);
+                    ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(o.x, o.y);
+                    ctx.strokeStyle = `rgba(226,75,74,${alpha})`; ctx.lineWidth = 0.8 / z;
+                    ctx.setLineDash([2, 3]); ctx.stroke(); ctx.setLineDash([]);
+                    const mx = (e.x + o.x) / 2, my = (e.y + o.y) / 2;
+                    const nx = dx / d, ny = dy / d, aL = 7 * (1 - d / 70);
+                    ctx.strokeStyle = `rgba(226,75,74,${alpha + 0.15})`; ctx.lineWidth = 1.5 / z;
+                    ctx.beginPath(); ctx.moveTo(mx - nx * 2, my - ny * 2); ctx.lineTo(mx + nx * aL, my + ny * aL); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(mx + nx * 2, my + ny * 2); ctx.lineTo(mx - nx * aL, my - ny * aL); ctx.stroke();
+                }
+            }
+            for (const a of atoms) {
+                const dx = a.x - e.x, dy = a.y - e.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < 80 && d > 18) {
+                    ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(a.x, a.y);
+                    ctx.strokeStyle = `rgba(55,138,221,${0.15 * (1 - d / 80)})`; ctx.lineWidth = 0.6 / z;
+                    ctx.setLineDash([2, 4]); ctx.stroke(); ctx.setLineDash([]);
+                }
+            }
+        }
+    }
+
+    for (const e of electrons) {
+        let col, colDark, colGlow, trailCol;
+        if (e.tracked) { col = '#FAC775'; colDark = '#633806'; colGlow = 'rgba(250,199,117,0.1)'; trailCol = 'rgba(250,199,117,'; }
+        else if (e.isNew) { col = '#AFA9EC'; colDark = '#26215C'; colGlow = 'rgba(175,169,236,0.1)'; trailCol = 'rgba(175,169,236,'; }
+        else { col = '#5DCAA5'; colDark = '#04342C'; colGlow = 'rgba(93,202,165,0.06)'; trailCol = 'rgba(93,202,165,'; }
+
+        if (e.trail.length > 1) {
+            ctx.beginPath(); ctx.moveTo(e.trail[0].x, e.trail[0].y);
+            for (let t = 1; t < e.trail.length; t++) ctx.lineTo(e.trail[t].x, e.trail[t].y);
+            const ta = e.tracked ? 0.35 : (e.isNew ? 0.25 : 0.1);
+            ctx.strokeStyle = trailCol + ta + ')';
+            ctx.lineWidth = (e.tracked ? 2 : 1.2) / z; ctx.stroke();
+        }
+
+        ctx.beginPath(); ctx.arc(e.x, e.y, e.tracked ? 18 : 14, 0, Math.PI * 2);
+        ctx.fillStyle = colGlow; ctx.fill();
+
+        if (e.tracked) {
+            ctx.beginPath(); ctx.arc(e.x, e.y, 12, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(250,199,117,0.2)'; ctx.lineWidth = 1 / z;
+            ctx.setLineDash([3, 3]); ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        const r = e.tracked ? 5.5 : (e.isNew ? 5 : 4.5);
+        ctx.beginPath(); ctx.arc(e.x, e.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = col; ctx.fill();
+        ctx.fillStyle = colDark; ctx.font = `bold ${(e.tracked ? 9 : 7)}px sans-serif`;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('-', e.x, e.y + 0.5);
+    }
+
+    if (tracking && te) {
+        const closest = electrons.reduce((best, o) => {
+            if (o.tracked) return best;
+            const d = Math.sqrt((te.x - o.x) ** 2 + (te.y - o.y) ** 2);
+            return d < best.d ? { d, o } : best;
+        }, { d: Infinity, o: null });
+        if (closest.d < 55) {
+            const ratio = 1 - closest.d / 55;
+            ctx.beginPath(); ctx.arc(te.x, te.y, 16 + ratio * 6, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(226,75,74,${0.2 + ratio * 0.3})`; ctx.lineWidth = 1.5 / z;
+            ctx.setLineDash([3, 3]); ctx.stroke(); ctx.setLineDash([]);
+            if (z > 1.2) {
+                ctx.fillStyle = 'rgba(226,75,74,0.6)'; ctx.font = `${11}px sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.fillText('repelled!', (te.x + closest.o.x) / 2, (te.y + closest.o.y) / 2 - 12);
+            }
+        }
+        const closestAtom = atoms.reduce((best, a) => {
+            const d = Math.sqrt((te.x - a.x) ** 2 + (te.y - a.y) ** 2);
+            return d < best.d ? { d, a } : best;
+        }, { d: Infinity, a: null });
+        if (closestAtom.d < 50 && closestAtom.d > 18 && z > 1.2) {
+            ctx.fillStyle = 'rgba(55,138,221,0.5)'; ctx.font = '11px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('attracted', (te.x + closestAtom.a.x) / 2, (te.y + closestAtom.a.y) / 2 - 10);
+        }
+    }
+
+    ctx.restore();
+}
+
+function buildControlPanel() {
+    const container = document.getElementById('controls-placeholder');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="glass-panel control-panel" id="repulsionPanel">
+            <div class="ctrl-bar">
+                <div class="ctrl-section buttons">
+                    <button id="btnPlay" class="view-btn active">Play</button>
+                    <button id="btnSlow" class="view-btn">Slow mo</button>
+                    <button id="btnTrack" class="view-btn">Track e⁻</button>
+                    <button id="btnVoltage" class="view-btn">Battery</button>
+                    <button id="btnForces" class="view-btn">Forces</button>
+                </div>
+                <div class="ctrl-section sliders">
+                    <div class="control-group">
+                        <label for="powerSlider">Power</label>
+                        <div class="slider-wrapper">
+                            <input type="range" id="powerSlider" min="1" max="10" value="5" step="1">
+                            <span id="pOut" class="value-readout">5</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="zoomSlider">Zoom</label>
+                        <div class="slider-wrapper">
+                            <input type="range" id="zoomSlider" min="1" max="3" value="1" step="0.1">
+                            <span id="zOut" class="value-readout">1.0x</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ctrl-section metrics">
+                    <div class="metric-item"><div class="label">Entered</div><div id="sIn" class="val">0</div></div>
+                    <div class="metric-item"><div class="label">Exited</div><div id="sOut" class="val">0</div></div>
+                    <div class="metric-item"><div class="label">Inside</div><div id="sCount" class="val">0</div></div>
+                </div>
+                <div class="ctrl-section status">
+                    <div class="explanation-box" id="statusText">No battery connected. Electrons drift randomly due to thermal energy — no net flow.</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const btnPlay = document.getElementById('btnPlay');
+    const btnSlow = document.getElementById('btnSlow');
+    const btnTrack = document.getElementById('btnTrack');
+    const btnVoltage = document.getElementById('btnVoltage');
+    const btnForces = document.getElementById('btnForces');
+
+    function tog(btn, key) {
+        btn.addEventListener('click', () => {
+            if (key === 'play') { playing = !playing; btn.textContent = playing ? 'Play' : 'Paused'; }
+            if (key === 'slow') slowmo = !slowmo;
+            if (key === 'track') { tracking = !tracking; assignTracked(); }
+            if (key === 'battery') { batteryOn = !batteryOn; if (!batteryOn) { enteredCount = 0; exitedCount = 0; } }
+            if (key === 'forces') showForces = !showForces;
+            btn.classList.toggle('active');
+            updateStatus();
+        });
+    }
+    tog(btnPlay, 'play'); tog(btnSlow, 'slow'); tog(btnTrack, 'track'); tog(btnVoltage, 'battery'); tog(btnForces, 'forces');
+
+    powerEl = document.getElementById('powerSlider');
+    zoomEl = document.getElementById('zoomSlider');
+    pOut = document.getElementById('pOut');
+    zOut = document.getElementById('zOut');
+    sIn = document.getElementById('sIn');
+    sOut = document.getElementById('sOut');
+    sCount = document.getElementById('sCount');
+    statusText = document.getElementById('statusText');
+
+    powerEl.oninput = () => pOut.textContent = powerEl.value;
+    zoomEl.oninput = () => zOut.textContent = parseFloat(zoomEl.value).toFixed(1) + 'x';
+}
+
+function init() {
+    resize();
+    buildAtoms();
+    buildElectrons();
+    buildControlPanel();
+    requestAnimationFrame(update);
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+    </script>
+</body>
+</html>

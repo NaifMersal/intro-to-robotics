@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Resistors Simulation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="simCanvas"></canvas>
+    <button class="toggle-ui" id="uiToggle" title="Toggle Controls">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+
+    <div id="mode-selector">
+        <button class="mode-btn active" data-mode="water">Water Mode</button>
+        <button class="mode-btn" data-mode="electric">Electric Mode</button>
+    </div>
+
+    <div id="probe-tooltip" class="glass-tooltip" style="display: none;">
+        <div class="probe-header">PROBE</div>
+        <div class="probe-row">
+            <span class="p-label" id="p-v-label">Pressure:</span>
+            <span class="p-val" id="p-v-val">-</span>
+        </div>
+        <div class="probe-row" id="p-i-row">
+            <span class="p-label" id="p-i-label">Flow:</span>
+            <span class="p-val" id="p-i-val">-</span>
+        </div>
+    </div>
+
+    <div id="ui-layer">
+        <div class="glass-panel">
+            <div class="tabs">
+                <button class="tab-btn" data-topo="series">Series</button>
+                <button class="tab-btn active" data-topo="parallel">Parallel</button>
+            </div>
+
+            <div class="controls-wrapper">
+                <div class="control-group">
+                    <label id="pumpLabel">Pump (psi)</label>
+                    <input type="range" id="pumpSlider" min="0" max="100" value="50">
+                </div>
+
+                <div class="control-group">
+                    <label id="v1Label">Valve 1 (R)</label>
+                    <input type="range" id="v1Slider" min="1" max="100" value="50">
+                </div>
+
+                <div class="control-group" id="v2Group">
+                    <label id="v2Label">Valve 2 (R)</label>
+                    <input type="range" id="v2Slider" min="1" max="100" value="50">
+                </div>
+            </div>
+
+            <div class="metrics">
+                <div class="metric full">
+                    <span class="label" id="rTotalLabel">Total Resistance</span>
+                    <span class="val" id="rTotal">-</span>
+                </div>
+                <div class="metric highlight">
+                    <span class="label" id="iTotalLabel">Total Flow (Q)</span>
+                    <span class="val" id="iTotal">-</span>
+                </div>
+                <div class="metric highlight">
+                    <span class="label" id="i1Label">B1 Flow</span>
+                    <span class="val" id="i1">-</span>
+                </div>
+                <div class="metric highlight" id="i2Metric">
+                    <span class="label" id="i2Label">B2 Flow</span>
+                    <span class="val" id="i2">-</span>
+                </div>
+            </div>
+            
+            <div class="observation">
+                <span id="observationText">In Parallel, adding branches increases paths, reducing friction.</span>
+            </div>
+        </div>
+    </div>
+    <script src="js/renderer.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

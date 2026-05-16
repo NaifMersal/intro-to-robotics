@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron Motor Micro-Simulation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+        canvas { position: absolute; top: 0; left: 0; width: 100%; height: 90vh; z-index: 1; }
+        #ui-layer { z-index: 10; }
+        .view-btn.active { background: rgba(56,189,248,0.35) !important; color: var(--text-main) !important; border-color: var(--accent-blue) !important; box-shadow: 0 0 12px rgba(56,189,248,0.3); }
+
+        #motorPanel {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: auto !important;
+            top: auto !important;
+            transform: none !important;
+            width: 100% !important;
+            max-width: none !important;
+            height: 10vh;
+            border-radius: 0 !important;
+            display: flex;
+            align-items: center;
+            padding: 0 16px !important;
+            overflow: hidden;
+        }
+
+        .ctrl-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+        .ctrl-section {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .ctrl-section.buttons { gap: 5px; }
+        .ctrl-section.sliders { flex: 0 1 auto; gap: 10px; }
+        .ctrl-section.status { flex: 1; min-width: 0; }
+
+        .view-btn {
+            display: inline-flex !important;
+            padding: 5px 10px;
+            border-radius: 14px;
+            border: 1px solid var(--panel-border);
+            background: rgba(56,189,248,0.1);
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            min-height: 28px;
+            align-items: center;
+        }
+        .view-btn.active { background: rgba(56,189,248,0.35) !important; color: var(--text-main) !important; border-color: var(--accent-blue) !important; box-shadow: 0 0 12px rgba(56,189,248,0.3); }
+
+        .control-group { margin: 0; }
+        .control-group label { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
+        .slider-wrapper { display: flex; align-items: center; gap: 6px; }
+        input[type=range] { width: 80px; }
+        .value-readout { font-size: 0.7rem; min-width: 32px; text-align: right; color: var(--water-color); font-weight: 600; }
+
+        .explanation-box {
+            margin: 0;
+            padding: 6px 10px;
+            background: rgba(56,189,248,0.08);
+            border-left: 2px solid var(--accent-blue);
+            border-radius: 3px;
+            font-size: 0.68rem;
+            line-height: 1.35;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .legend-row { display: none !important; }
+        .metrics-dashboard { display: none !important; }
+    </style>
+</head>
+<body>
+    <canvas id="simulationCanvas"></canvas>
+    <div id="ui-layer">
+        <div id="controls-placeholder"></div>
+    </div>
+
+    <script>
+const canvas = document.getElementById('simulationCanvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight * 0.9;
+}
+window.addEventListener('resize', () => { resize(); buildAtoms(); });
+
+let playing = true, slowmo = false, tracking = false, batteryOn = false, showForces = false;
+let enteredCount = 0, exitedCount = 0, spawnTimer = 0, statsFrame = 0;
+let voltageEl, loadEl, zoomEl, vOut, lOut, zOut, sIn, sOut, sCount, statusText;
+let atoms = [];
+let electrons = [];
+const GRID_SIZE = 70;
+const ATOM_DIST_THRESH = 100;
+const ATOM_DIST_THRESH2 = ATOM_DIST_THRESH * ATOM_DIST_THRESH;
+let grid = {};
+
+// ── Armature (motor rotor) ───────────────────────────
+let poleAngle = 0, poleAngVel = 0;
+const POLE_INERTIA = 150;
+const POLE_DAMPING = 0.08;
+const POLE_ARM_LENGTH = 58;   // axle to tip
+const POLE_ARM_WIDTH = 28;
+const R_MAG = 115;             // interaction radius
+const R_MAG2 = R_MAG * R_MAG;
+const K_N_ATTRACT = 2200;      // per-particle pull toward N tip (visual stirring)
+const K_S_REPEL = 2200;        // per-particle push from S tip
+const K_MOTOR_AGG = 0.006;     // aggregate motor torque from current
+const K_BACK_FORCE = 0.45;     // backward push on electrons per unit |ω|
+const LOAD_TORQUE_SCALE = 0.10;
+let loadPct = 30;
+
+// ── Measured quantities ─────────────────────────────
+let smoothedRpm = 0;
+let smoothedCurrent = 0;
+let currentWindow = [];       // rolling crossing-events
+let crossingsThisFrame = 0;
+let voltageVal = 5;
+
+function W() { return canvas.width; }
+function H() { return canvas.height; }
+function WIRE_L() { return 50; }
+function WIRE_R() { return W() - 50; }
+function WIRE_B() { return H() - 80; }
+function POLE_X() { return W() / 2; }
+function POLE_Y() { return (15 + WIRE_B()) / 2; }
+
+function makeE(x, y, isNew) {
+    return { x, y, vx: (Math.random() - 0.5) * 1.2, vy: (Math.random() - 0.5) * 1.2, px: x, trail: [], isNew, age: 0, tracked: false };
+}
+
+function buildAtoms() {
+    atoms.length = 0;
+    const cols = 5, rows = 4;
+    const spX = (WIRE_R() - WIRE_L()) / (cols + 1);
+    const spY = (H() - 80) / (rows + 1);
+    const poleClearR2 = (R_MAG + 20) * (R_MAG + 20);
+    const pcx = POLE_X(), pcy = POLE_Y();
+    for (let r = 1; r <= rows; r++) {
+        for (let c = 1; c <= cols; c++) {
+            const ax = WIRE_L() + c * spX;
+            const ay = 40 + r * spY;
+            if ((ax - pcx) * (ax - pcx) + (ay - pcy) * (ay - pcy) < poleClearR2) continue;
+            atoms.push({
+                x: ax, y: ay,
+                shellR: 38,
+                protonCount: 3 + Math.floor(Math.random() * 2),
+                boundE: [
+                    { angle: Math.random() * Math.PI * 2, speed: 0.018 + Math.random() * 0.008 },
+                    { angle: Math.random() * Math.PI * 2, speed: 0.015 + Math.random() * 0.01 }
+                ]
+            });
+        }
+    }
+}
+
+function buildElectrons() {
+    electrons = [];
+    for (let i = 0; i < 22; i++) {
+        const x = WIRE_L() + 20 + Math.random() * (WIRE_R() - WIRE_L() - 40);
+        const y = 50 + Math.random() * (WIRE_B() - 100);
+        // Skip if inside pole core
+        const dx = x - POLE_X(), dy = y - POLE_Y();
+        if (dx * dx + dy * dy < 40 * 40) continue;
+        const e = makeE(x, y, false);
+        electrons.push(e);
+    }
+}
+
+function assignTracked() {
+    electrons.forEach(e => e.tracked = false);
+    if (tracking && electrons.length > 0) {
+        let best = 0, bestD = Infinity;
+        electrons.forEach((e, i) => {
+            const d = Math.abs(e.x - W() / 2) + Math.abs(e.y - H() / 2);
+            if (d < bestD) { bestD = d; best = i; }
+        });
+        electrons[best].tracked = true;
+    }
+}
+
+function gridKey(cx, cy) { return cx + ',' + cy; }
+function buildGrid() {
+    grid = {};
+    for (let i = 0; i < electrons.length; i++) {
+        const e = electrons[i];
+        const cx = Math.floor(e.x / GRID_SIZE);
+        const cy = Math.floor(e.y / GRID_SIZE);
+        const k = gridKey(cx, cy);
+        if (!grid[k]) grid[k] = [];
+        grid[k].push(i);
+    }
+}
+function getNeighborIndices(i) {
+    const e = electrons[i];
+    const cx = Math.floor(e.x / GRID_SIZE);
+    const cy = Math.floor(e.y / GRID_SIZE);
+    const result = [];
+    for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+            const k = gridKey(cx + dx, cy + dy);
+            if (grid[k]) {
+                for (const j of grid[k]) {
+                    if (i !== j) result.push(j);
+                }
+            }
+        }
+    }
+    return result;
+}
+
+function spawnFromLeft() {
+    const y = 40 + Math.random() * (H() - 120);
+    const e = makeE(WIRE_L() - 5, y, true);
+    e.vx = 1.5 + voltageVal * 0.3;
+    e.vy = (Math.random() - 0.5) * 0.8;
+    electrons.push(e);
+    enteredCount++;
+}
+
+function updateStatus() {
+    if (!statusText) return;
+    if (batteryOn && loadPct >= 99) {
+        statusText.innerHTML = '<b>STALL.</b> Pole is frozen — no rotation, no back-EMF. Electrons flow through unimpeded → <b>maximum current</b>.';
+    } else if (batteryOn && tracking) {
+        statusText.textContent = 'Follow the gold electron — watch the rotating pole push it backward (back-EMF) whenever the armature spins.';
+    } else if (batteryOn && loadPct > 65) {
+        statusText.textContent = 'Heavy load: pole struggles to turn. Weak back-push → many electrons cross → high current.';
+    } else if (batteryOn) {
+        statusText.textContent = 'Pole spins freely. Its rotating field pushes electrons backward — back-EMF limits the current.';
+    } else if (showForces) {
+        statusText.textContent = 'Red = e⁻ repulsion · Blue = nucleus pull · Gold = pole↔electron magnetic coupling.';
+    } else if (tracking) {
+        statusText.textContent = 'Follow the gold electron. Zoom in to see it drift between atoms — no battery yet, so no net current.';
+    } else {
+        statusText.textContent = 'No battery connected. Electrons drift thermally — no net flow, no torque on pole.';
+    }
+}
+
+function updatePole(dt) {
+    if (loadPct >= 99) {
+        // Hard stall: pole pinned motionless
+        poleAngVel = 0;
+        return;
+    }
+    const damp = POLE_DAMPING * poleAngVel;
+    // Load opposes rotation (only if pole is trying to move)
+    const loadTorque = (loadPct / 100) * LOAD_TORQUE_SCALE * Math.sign(poleAngVel || 0.001);
+    const net = poleTorqueAccum - damp - loadTorque;
+    poleAngVel += (net / POLE_INERTIA) * dt;
+    poleAngle += poleAngVel * dt;
+    poleTorqueAccum = 0;
+}
+
+let poleTorqueAccum = 0;
+
+function update() {
+    if (!playing) { draw(); requestAnimationFrame(update); return; }
+    const dt = slowmo ? 0.35 : 0.75;
+    voltageVal = parseInt(voltageEl.value);
+
+    atoms.forEach(a => a.boundE.forEach(be => { be.angle += be.speed * dt; }));
+
+    if (batteryOn) {
+        spawnTimer += dt;
+        const interval = Math.max(8, 30 - voltageVal * 2.5);
+        if (spawnTimer > interval) { spawnFromLeft(); spawnTimer = 0; }
+    }
+
+    buildGrid();
+
+    // Pole tip positions (N at +axis, S at -axis)
+    const nx = POLE_X() + Math.cos(poleAngle) * POLE_ARM_LENGTH;
+    const ny = POLE_Y() + Math.sin(poleAngle) * POLE_ARM_LENGTH;
+    const sx = POLE_X() - Math.cos(poleAngle) * POLE_ARM_LENGTH;
+    const sy = POLE_Y() - Math.sin(poleAngle) * POLE_ARM_LENGTH;
+
+    // Count electrons currently inside R_MAG for back-EMF distribution
+    let inZoneCount = 0;
+    let avgVxInZone = 0;
+    for (let i = 0; i < electrons.length; i++) {
+        const e = electrons[i];
+        const rdx = e.x - POLE_X(), rdy = e.y - POLE_Y();
+        if (rdx * rdx + rdy * rdy < R_MAG2) { inZoneCount++; avgVxInZone += e.vx; }
+    }
+    if (inZoneCount > 0) avgVxInZone /= inZoneCount;
+
+    // Aggregate motor torque from current (current = avg rightward drift × count)
+    const currentProxy = avgVxInZone * inZoneCount;
+    poleTorqueAccum += K_MOTOR_AGG * currentProxy;
+
+    crossingsThisFrame = 0;
+    const probeX = POLE_X() + 30;
+
+    for (let i = 0; i < electrons.length; i++) {
+        const e = electrons[i];
+        e.age += dt;
+        e.px = e.x;
+        let fx = 0, fy = 0;
+
+        // Electron-electron repulsion
+        const neighbors = getNeighborIndices(i);
+        for (const j of neighbors) {
+            const dx = e.x - electrons[j].x, dy = e.y - electrons[j].y;
+            const d2 = dx * dx + dy * dy + 60;
+            const d = Math.sqrt(d2);
+            fx += (dx / d) * 500 / d2;
+            fy += (dy / d) * 500 / d2;
+        }
+
+        // Nucleus interactions
+        for (const a of atoms) {
+            const dx = a.x - e.x, dy = a.y - e.y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 > ATOM_DIST_THRESH2) continue;
+            const d2p = d2 + 150;
+            const d = Math.sqrt(d2p);
+            if (d > 22) { fx += dx * 120 / (d2p * d); fy += dy * 120 / (d2p * d); }
+            else { const dp = d2p + 80; fx -= dx * 350 / (dp * d); fy -= dy * 350 / (dp * d); }
+        }
+
+        // ── Pole coupling ────────────────────────────
+        const rx = e.x - POLE_X(), ry = e.y - POLE_Y();
+        const rd2 = rx * rx + ry * ry;
+        if (rd2 < R_MAG2) {
+            // N-pole ATTRACTS electrons
+            {
+                const dx = nx - e.x, dy = ny - e.y;
+                const d2 = dx * dx + dy * dy + 200;
+                const d = Math.sqrt(d2);
+                const mag = K_N_ATTRACT / (d2 * d);
+                const fxN = dx * mag, fyN = dy * mag;
+                fx += fxN;
+                fy += fyN;
+                // Reaction on pole N tip: -(fxN, fyN). Torque arm = (nx-POLE_X, ny-POLE_Y).
+                const arx = nx - POLE_X(), ary = ny - POLE_Y();
+                poleTorqueAccum += (arx * (-fyN) - ary * (-fxN)) * 0.15;
+            }
+            // S-pole REPELS electrons
+            {
+                const dx = e.x - sx, dy = e.y - sy;
+                const d2 = dx * dx + dy * dy + 200;
+                const d = Math.sqrt(d2);
+                const mag = K_S_REPEL / (d2 * d);
+                const fxS = dx * mag, fyS = dy * mag;
+                fx += fxS;
+                fy += fyS;
+                const arx = sx - POLE_X(), ary = sy - POLE_Y();
+                poleTorqueAccum += (arx * (-fyS) - ary * (-fxS)) * 0.15;
+            }
+
+            // Aggregate back-EMF: push electron backward proportional to |ω|
+            // (rotating field induces EMF opposing flow — Lenz's law)
+            const backMag = K_BACK_FORCE * Math.abs(poleAngVel);
+            fx -= backMag;
+
+            // Keep electrons out of pole core
+            if (rd2 < 32 * 32) {
+                const rd = Math.sqrt(rd2) + 0.01;
+                fx += (rx / rd) * 6;
+                fy += (ry / rd) * 6;
+            }
+        }
+
+        // Thermal jitter
+        fx += (Math.random() - 0.5) * 0.3;
+        fy += (Math.random() - 0.5) * 0.3;
+
+        e.vx = (e.vx + fx * dt) * 0.965;
+        e.vy = (e.vy + fy * dt) * 0.965;
+        const maxSpd = slowmo ? 2.5 : 4;
+        const spd = Math.sqrt(e.vx * e.vx + e.vy * e.vy);
+        if (spd > maxSpd) { e.vx = (e.vx / spd) * maxSpd; e.vy = (e.vy / spd) * maxSpd; }
+        e.x += e.vx * dt; e.y += e.vy * dt;
+
+        // Count current probe crossings (rightward through probeX)
+        if (e.px < probeX && e.x >= probeX) crossingsThisFrame++;
+
+        if (e.y < 25) { e.y = 25; e.vy = Math.abs(e.vy) * 0.5; }
+        if (e.y > WIRE_B() - 10) { e.y = WIRE_B() - 10; e.vy = -Math.abs(e.vy) * 0.5; }
+        if (!batteryOn) {
+            if (e.x < WIRE_L() + 10) { e.x = WIRE_L() + 10; e.vx = Math.abs(e.vx) * 0.5; }
+            if (e.x > WIRE_R() - 10) { e.x = WIRE_R() - 10; e.vx = -Math.abs(e.vx) * 0.5; }
+        } else {
+            if (e.x < WIRE_L() - 10) { e.x = WIRE_L() - 10; e.vx = Math.abs(e.vx) * 0.3; }
+        }
+        if (e.isNew && e.age > 20) e.isNew = false;
+        e.trail.push({ x: e.x, y: e.y });
+        if (e.trail.length > (slowmo ? 28 : 14)) e.trail.shift();
+    }
+
+    const exited = electrons.filter(e => e.x > WIRE_R() + 15);
+    exitedCount += exited.length;
+    const lostTracked = exited.some(e => e.tracked);
+    electrons = electrons.filter(e => e.x <= WIRE_R() + 15);
+
+    if (lostTracked && tracking) {
+        tracking = false;
+        const btnTrack = document.getElementById('btnTrack');
+        if (btnTrack) btnTrack.classList.remove('active');
+        if (zoomEl) { zoomEl.value = 1; if (zOut) zOut.textContent = '1.0x'; }
+        assignTracked();
+        updateStatus();
+    }
+    if (tracking && !electrons.some(e => e.tracked) && electrons.length > 0) assignTracked();
+
+    // Pole dynamics
+    updatePole(dt);
+
+    // Rolling current window (last ~60 frames = ~1 sec at 60fps)
+    currentWindow.push(crossingsThisFrame);
+    if (currentWindow.length > 60) currentWindow.shift();
+    const sumCross = currentWindow.reduce((a, b) => a + b, 0);
+    smoothedCurrent = smoothedCurrent * 0.85 + sumCross * 0.15;
+
+    const instRpm = Math.abs(poleAngVel) * 60 * 60 / (2 * Math.PI);
+    smoothedRpm = smoothedRpm * 0.9 + instRpm * 0.1;
+
+    statsFrame++;
+    if (statsFrame % 15 === 0) {
+        if (sIn) sIn.textContent = enteredCount;
+        if (sOut) sOut.textContent = exitedCount;
+        if (sCount) sCount.textContent = electrons.length;
+    }
+
+    draw();
+    requestAnimationFrame(update);
+}
+
+function draw() {
+    const z = parseFloat(zoomEl.value);
+    let cx = W() / 2, cy = H() / 2;
+    const te = electrons.find(e => e.tracked);
+    if (tracking && te && z > 1) { cx = te.x; cy = te.y; }
+
+    ctx.save();
+    ctx.clearRect(0, 0, W(), H());
+    ctx.fillStyle = '#080c18';
+    ctx.fillRect(0, 0, W(), H());
+    ctx.translate(W() / 2, H() / 2);
+    ctx.scale(z, z);
+    ctx.translate(-cx, -cy);
+
+    const wb = WIRE_B();
+    ctx.fillStyle = 'rgba(255,255,255,0.03)';
+    ctx.fillRect(WIRE_L(), 15, WIRE_R() - WIRE_L(), wb - 15);
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 1 / z;
+    ctx.strokeRect(WIRE_L(), 15, WIRE_R() - WIRE_L(), wb - 15);
+
+    ctx.fillStyle = 'rgba(240,149,149,0.15)';
+    ctx.fillRect(WIRE_R(), 15, 50, wb - 15);
+    ctx.fillStyle = 'rgba(175,169,236,0.15)';
+    ctx.fillRect(0, 15, WIRE_L(), wb - 15);
+
+    ctx.font = `${12 / z}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'rgba(175,169,236,0.7)';
+    ctx.save(); ctx.translate(25, WIRE_B() / 2); ctx.rotate(-Math.PI / 2);
+    ctx.fillText('- terminal', 0, 0); ctx.restore();
+    ctx.fillStyle = 'rgba(240,149,149,0.7)';
+    ctx.save(); ctx.translate(W() - 25, WIRE_B() / 2); ctx.rotate(-Math.PI / 2);
+    ctx.fillText('+ terminal', 0, 0); ctx.restore();
+
+    if (batteryOn) {
+        const n = 3 + Math.floor(voltageVal / 3);
+        const wireTop = 40;
+        const wireBot = WIRE_B();
+        const wireHeight = wireBot - wireTop;
+        const ax0 = WIRE_L() + 4;
+        const ax1 = WIRE_L() + 22;
+        const headSize = 5 / z;
+        for (let i = 0; i < n; i++) {
+            const t = n > 1 ? i / (n - 1) : 0.5;
+            const ay = wireTop + wireHeight * 0.1 + t * wireHeight * 0.8;
+            ctx.beginPath(); ctx.moveTo(ax0, ay); ctx.lineTo(ax1 - headSize, ay);
+            ctx.strokeStyle = 'rgba(175,169,236,0.5)'; ctx.lineWidth = 1.5 / z; ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(ax1, ay);
+            ctx.lineTo(ax1 - headSize * 2, ay - headSize);
+            ctx.lineTo(ax1 - headSize * 2, ay + headSize);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(175,169,236,0.6)'; ctx.fill();
+        }
+    }
+
+    // Atoms
+    for (const a of atoms) {
+        ctx.beginPath(); ctx.arc(a.x, a.y, a.shellR, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(240,149,149,0.12)'; ctx.lineWidth = 0.8 / z;
+        ctx.setLineDash([4, 4]); ctx.stroke(); ctx.setLineDash([]);
+
+        if (z > 1.4) {
+            ctx.beginPath(); ctx.arc(a.x, a.y, a.shellR * 0.6, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(240,149,149,0.07)'; ctx.lineWidth = 0.5 / z;
+            ctx.setLineDash([3, 5]); ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        ctx.beginPath(); ctx.arc(a.x, a.y, 10, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(240,149,149,0.18)'; ctx.fill();
+        ctx.beginPath(); ctx.arc(a.x, a.y, 7, 0, Math.PI * 2);
+        ctx.fillStyle = '#F09595'; ctx.fill();
+
+        if (z > 1.3) {
+            for (let p = 0; p < a.protonCount; p++) {
+                const pa = (p / a.protonCount) * Math.PI * 2;
+                ctx.beginPath(); ctx.arc(a.x + Math.cos(pa) * 3.5, a.y + Math.sin(pa) * 3.5, 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#E24B4A'; ctx.fill();
+            }
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 6px sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('+', a.x, a.y + 0.5);
+        } else {
+            ctx.fillStyle = '#501313'; ctx.font = 'bold 9px sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('+', a.x, a.y + 0.5);
+        }
+
+        a.boundE.forEach(be => {
+            const bx = a.x + Math.cos(be.angle) * a.shellR;
+            const by = a.y + Math.sin(be.angle) * a.shellR;
+            ctx.beginPath(); ctx.arc(bx, by, 3, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(93,202,165,0.35)'; ctx.fill();
+        });
+    }
+
+    // Pole interaction-radius halo
+    {
+        const pulse = 0.4 + 0.6 * Math.min(1, Math.abs(poleAngVel) * 4);
+        const grad = ctx.createRadialGradient(POLE_X(), POLE_Y(), 40, POLE_X(), POLE_Y(), R_MAG);
+        grad.addColorStop(0, `rgba(251, 191, 36, ${0.08 * pulse})`);
+        grad.addColorStop(1, 'rgba(251, 191, 36, 0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(POLE_X(), POLE_Y(), R_MAG, 0, Math.PI * 2); ctx.fill();
+
+        ctx.beginPath(); ctx.arc(POLE_X(), POLE_Y(), R_MAG, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(251, 191, 36, 0.15)';
+        ctx.lineWidth = 0.8 / z;
+        ctx.setLineDash([4, 6]); ctx.stroke(); ctx.setLineDash([]);
+    }
+
+    // Force arrows
+    if (showForces) {
+        for (let i = 0; i < electrons.length; i++) {
+            const e = electrons[i];
+            for (let j = i + 1; j < electrons.length; j++) {
+                const o = electrons[j];
+                const dx = e.x - o.x, dy = e.y - o.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < 70) {
+                    const alpha = 0.3 * (1 - d / 70);
+                    ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(o.x, o.y);
+                    ctx.strokeStyle = `rgba(226,75,74,${alpha})`; ctx.lineWidth = 0.8 / z;
+                    ctx.setLineDash([2, 3]); ctx.stroke(); ctx.setLineDash([]);
+                }
+            }
+            for (const a of atoms) {
+                const dx = a.x - e.x, dy = a.y - e.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < 80 && d > 18) {
+                    ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(a.x, a.y);
+                    ctx.strokeStyle = `rgba(55,138,221,${0.15 * (1 - d / 80)})`; ctx.lineWidth = 0.6 / z;
+                    ctx.setLineDash([2, 4]); ctx.stroke(); ctx.setLineDash([]);
+                }
+            }
+            // Pole lines
+            const rx = e.x - POLE_X(), ry = e.y - POLE_Y();
+            if (rx * rx + ry * ry < R_MAG2) {
+                const nxT = POLE_X() + Math.cos(poleAngle) * POLE_ARM_LENGTH;
+                const nyT = POLE_Y() + Math.sin(poleAngle) * POLE_ARM_LENGTH;
+                const sxT = POLE_X() - Math.cos(poleAngle) * POLE_ARM_LENGTH;
+                const syT = POLE_Y() - Math.sin(poleAngle) * POLE_ARM_LENGTH;
+                ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(nxT, nyT);
+                ctx.strokeStyle = 'rgba(251,191,36,0.35)'; ctx.lineWidth = 0.8 / z;
+                ctx.setLineDash([3, 4]); ctx.stroke(); ctx.setLineDash([]);
+                ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(sxT, syT);
+                ctx.strokeStyle = 'rgba(59,130,246,0.35)'; ctx.lineWidth = 0.8 / z;
+                ctx.setLineDash([3, 4]); ctx.stroke(); ctx.setLineDash([]);
+            }
+        }
+    }
+
+    // Armature (on top of lattice, under electrons)
+    drawArmature(ctx, POLE_X(), POLE_Y(), z);
+
+    // Electrons
+    for (const e of electrons) {
+        let col, colDark, colGlow, trailCol;
+        if (e.tracked) { col = '#FAC775'; colDark = '#633806'; colGlow = 'rgba(250,199,117,0.1)'; trailCol = 'rgba(250,199,117,'; }
+        else if (e.isNew) { col = '#AFA9EC'; colDark = '#26215C'; colGlow = 'rgba(175,169,236,0.1)'; trailCol = 'rgba(175,169,236,'; }
+        else { col = '#5DCAA5'; colDark = '#04342C'; colGlow = 'rgba(93,202,165,0.06)'; trailCol = 'rgba(93,202,165,'; }
+
+        if (e.trail.length > 1) {
+            ctx.beginPath(); ctx.moveTo(e.trail[0].x, e.trail[0].y);
+            for (let t = 1; t < e.trail.length; t++) ctx.lineTo(e.trail[t].x, e.trail[t].y);
+            const ta = e.tracked ? 0.35 : (e.isNew ? 0.25 : 0.1);
+            ctx.strokeStyle = trailCol + ta + ')';
+            ctx.lineWidth = (e.tracked ? 2 : 1.2) / z; ctx.stroke();
+        }
+
+        ctx.beginPath(); ctx.arc(e.x, e.y, e.tracked ? 18 : 14, 0, Math.PI * 2);
+        ctx.fillStyle = colGlow; ctx.fill();
+
+        if (e.tracked) {
+            ctx.beginPath(); ctx.arc(e.x, e.y, 12, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(250,199,117,0.2)'; ctx.lineWidth = 1 / z;
+            ctx.setLineDash([3, 3]); ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        const r = e.tracked ? 5.5 : (e.isNew ? 5 : 4.5);
+        ctx.beginPath(); ctx.arc(e.x, e.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = col; ctx.fill();
+        ctx.fillStyle = colDark; ctx.font = `bold ${(e.tracked ? 9 : 7)}px sans-serif`;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('-', e.x, e.y + 0.5);
+    }
+
+    ctx.restore();
+
+    // HUD on top (screen-space, no zoom transform)
+    drawHUD(ctx);
+}
+
+function drawArmature(ctx, x, y, z) {
+    const ARM_LENGTH = POLE_ARM_LENGTH;
+    const ARM_WIDTH = POLE_ARM_WIDTH;
+
+    // Stator halo
+    const statorGlow = ctx.createRadialGradient(x, y, 30, x, y, 120);
+    statorGlow.addColorStop(0, 'rgba(56, 189, 248, 0.12)');
+    statorGlow.addColorStop(1, 'rgba(56, 189, 248, 0)');
+    ctx.fillStyle = statorGlow;
+    ctx.beginPath(); ctx.arc(x, y, 120, 0, Math.PI * 2); ctx.fill();
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(poleAngle);
+
+    // Motion blur sweep
+    const speed = Math.abs(poleAngVel);
+    if (speed > 0.005) {
+        const sweepAlpha = Math.min(0.35, speed * 6);
+        ctx.beginPath();
+        ctx.arc(0, 0, ARM_LENGTH + 4, -Math.PI / 2 - speed * 12, -Math.PI / 2);
+        ctx.strokeStyle = `rgba(239, 68, 68, ${sweepAlpha})`;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(0, 0, ARM_LENGTH + 4, Math.PI / 2, Math.PI / 2 + speed * 12);
+        ctx.strokeStyle = `rgba(59, 130, 246, ${sweepAlpha})`;
+        ctx.stroke();
+    }
+
+    // N pole (red, at +axis, which is "right" in pole frame → use roundRect along x)
+    const nGrad = ctx.createLinearGradient(0, 0, ARM_LENGTH, 0);
+    nGrad.addColorStop(0, '#991b1b');
+    nGrad.addColorStop(1, '#ef4444');
+    ctx.fillStyle = nGrad;
+    ctx.beginPath();
+    ctx.roundRect(0, -ARM_WIDTH / 2, ARM_LENGTH, ARM_WIDTH, [4, 10, 10, 4]);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // S pole (blue, at -axis)
+    const sGrad = ctx.createLinearGradient(0, 0, -ARM_LENGTH, 0);
+    sGrad.addColorStop(0, '#1e40af');
+    sGrad.addColorStop(1, '#3b82f6');
+    ctx.fillStyle = sGrad;
+    ctx.beginPath();
+    ctx.roundRect(-ARM_LENGTH, -ARM_WIDTH / 2, ARM_LENGTH, ARM_WIDTH, [10, 4, 4, 10]);
+    ctx.fill();
+    ctx.stroke();
+
+    // Labels (counter-rotate so they read upright)
+    ctx.save();
+    ctx.rotate(-poleAngle);
+    ctx.fillStyle = '#fff';
+    ctx.font = '800 13px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const nLab = { x: Math.cos(poleAngle) * (ARM_LENGTH - 14), y: Math.sin(poleAngle) * (ARM_LENGTH - 14) };
+    const sLab = { x: -Math.cos(poleAngle) * (ARM_LENGTH - 14), y: -Math.sin(poleAngle) * (ARM_LENGTH - 14) };
+    ctx.fillText('N', nLab.x, nLab.y);
+    ctx.fillText('S', sLab.x, sLab.y);
+    ctx.restore();
+
+    // Axle
+    ctx.beginPath(); ctx.arc(0, 0, 11, 0, Math.PI * 2);
+    ctx.fillStyle = '#334155'; ctx.fill();
+    ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(0, 0, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#f8fafc'; ctx.fill();
+
+    ctx.restore();
+}
+
+function drawHUD(ctx) {
+    const supplyV = voltageVal * 10; // display as 10V..100V
+    const rpm = Math.round(smoothedRpm);
+    const bemf = Math.min(supplyV * 0.99, smoothedRpm * 0.045);
+    const netV = Math.max(0, supplyV - bemf);
+    const current = smoothedCurrent.toFixed(1);
+
+    const panelW = 180;
+    const panelH = 168;
+    const pad = 14;
+    const x = W() - panelW - pad;
+    const y = 16;
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(x, y, panelW, panelH, 10);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '10px Inter, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText('MOTOR · BACK-EMF', x + 10, y + 16);
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.3)';
+    ctx.beginPath(); ctx.moveTo(x + 10, y + 22); ctx.lineTo(x + panelW - 10, y + 22); ctx.stroke();
+
+    ctx.font = 'bold 20px Inter, monospace';
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillText(`${rpm} RPM`, x + 10, y + 46);
+
+    const rows = [
+        { label: 'V supply',   value: supplyV.toFixed(0), color: '#4ade80' },
+        { label: 'V back-EMF', value: bemf.toFixed(1),    color: '#f87171' },
+        { label: 'V net',      value: netV.toFixed(1),    color: '#fbbf24' },
+        { label: 'Current I',  value: current,            color: '#38bdf8' },
+        { label: 'Load',       value: `${loadPct}%`,      color: '#a78bfa' },
+    ];
+
+    let rowY = y + 64;
+    for (const row of rows) {
+        ctx.font = '10px Inter, sans-serif';
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText(row.label, x + 10, rowY);
+        ctx.fillStyle = row.color;
+        ctx.font = 'bold 11px Inter, monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText(row.value, x + panelW - 10, rowY);
+        ctx.textAlign = 'left';
+        rowY += 16;
+    }
+
+    // Gradient bar: V_backEMF / V_supply
+    const barY = y + panelH - 14;
+    const barW = panelW - 20;
+    const fillRatio = Math.min(1, bemf / Math.max(1, supplyV));
+    ctx.fillStyle = '#1e293b';
+    ctx.beginPath(); ctx.roundRect(x + 10, barY, barW, 6, 3); ctx.fill();
+
+    const barGrad = ctx.createLinearGradient(x + 10, 0, x + 10 + barW, 0);
+    barGrad.addColorStop(0, '#4ade80');
+    barGrad.addColorStop(0.5, '#fbbf24');
+    barGrad.addColorStop(1, '#f87171');
+    ctx.fillStyle = barGrad;
+    ctx.beginPath(); ctx.roundRect(x + 10, barY, barW * fillRatio, 6, 3); ctx.fill();
+
+    ctx.restore();
+}
+
+function buildControlPanel() {
+    const container = document.getElementById('controls-placeholder');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="glass-panel control-panel" id="motorPanel">
+            <div class="ctrl-bar">
+                <div class="ctrl-section buttons">
+                    <button id="btnPlay" class="view-btn active">Play</button>
+                    <button id="btnSlow" class="view-btn">Slow mo</button>
+                    <button id="btnTrack" class="view-btn">Track e⁻</button>
+                    <button id="btnVoltage" class="view-btn">Battery</button>
+                    <button id="btnForces" class="view-btn">Forces</button>
+                </div>
+                <div class="ctrl-section sliders">
+                    <div class="control-group">
+                        <label for="voltageSlider">Voltage</label>
+                        <div class="slider-wrapper">
+                            <input type="range" id="voltageSlider" min="1" max="10" value="5" step="1">
+                            <span id="vOut" class="value-readout">5</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="loadSlider">Load</label>
+                        <div class="slider-wrapper">
+                            <input type="range" id="loadSlider" min="0" max="100" value="30" step="1">
+                            <span id="lOut" class="value-readout">30%</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="zoomSlider">Zoom</label>
+                        <div class="slider-wrapper">
+                            <input type="range" id="zoomSlider" min="1" max="3" value="1" step="0.1">
+                            <span id="zOut" class="value-readout">1.0x</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ctrl-section status">
+                    <div class="explanation-box" id="statusText">No battery connected. Electrons drift thermally — no net flow, no torque on pole.</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const btnPlay = document.getElementById('btnPlay');
+    const btnSlow = document.getElementById('btnSlow');
+    const btnTrack = document.getElementById('btnTrack');
+    const btnVoltage = document.getElementById('btnVoltage');
+    const btnForces = document.getElementById('btnForces');
+
+    function tog(btn, key) {
+        btn.addEventListener('click', () => {
+            if (key === 'play') { playing = !playing; btn.textContent = playing ? 'Play' : 'Paused'; }
+            if (key === 'slow') slowmo = !slowmo;
+            if (key === 'track') { tracking = !tracking; assignTracked(); }
+            if (key === 'battery') { batteryOn = !batteryOn; if (!batteryOn) { enteredCount = 0; exitedCount = 0; } }
+            if (key === 'forces') showForces = !showForces;
+            btn.classList.toggle('active');
+            updateStatus();
+        });
+    }
+    tog(btnPlay, 'play'); tog(btnSlow, 'slow'); tog(btnTrack, 'track'); tog(btnVoltage, 'battery'); tog(btnForces, 'forces');
+
+    voltageEl = document.getElementById('voltageSlider');
+    loadEl = document.getElementById('loadSlider');
+    zoomEl = document.getElementById('zoomSlider');
+    vOut = document.getElementById('vOut');
+    lOut = document.getElementById('lOut');
+    zOut = document.getElementById('zOut');
+    sIn = document.getElementById('sIn');
+    sOut = document.getElementById('sOut');
+    sCount = document.getElementById('sCount');
+    statusText = document.getElementById('statusText');
+
+    voltageEl.oninput = () => vOut.textContent = voltageEl.value;
+    loadEl.oninput = () => { loadPct = parseInt(loadEl.value); lOut.textContent = loadPct + '%'; updateStatus(); };
+    zoomEl.oninput = () => zOut.textContent = parseFloat(zoomEl.value).toFixed(1) + 'x';
+}
+
+function init() {
+    resize();
+    buildAtoms();
+    buildElectrons();
+    buildControlPanel();
+    requestAnimationFrame(update);
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+    </script>
+</body>
+</html>
