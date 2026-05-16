@@ -52,6 +52,26 @@ Giving your project eyes and movement. Building a radar system using an ultrason
 :::
 :::
 
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100 .slide-card}
+::: {.card-body}
+### [Session 4: The Autonomous Explorer](slides/session4.qmd)
+Building an Obstacle Avoiding Robot. Putting it all together to create a robot that thinks and navigates on its own.
+[View Slides →](slides/session4.qmd){.btn .btn-outline-primary .btn-sm}
+:::
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100 .slide-card}
+::: {.card-body}
+### [Session 5: Recap & Ultimate Challenge](slides/session5.qmd)
+Mastering the core concepts from sessions 1 to 4 and tackling the ultimate "Smart Remote" rover project.
+[View Slides →](slides/session5.qmd){.btn .btn-outline-primary .btn-sm}
+:::
+:::
+:::
+
 :::
 
 ## 🚀 Interactive Simulations
