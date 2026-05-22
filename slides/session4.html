@@ -9,7 +9,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <meta name="dcterms.date" content="2026-05-16">
+  <meta name="dcterms.date" content="2026-05-22">
   <title>Session 4: The Autonomous Explorer</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -201,20 +201,21 @@
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-05-16</p>
+  <p class="date">2026-05-22</p>
 </section>
 <section>
 <section id="session-4" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
 <h1>Session 4</h1>
 <p>The Autonomous Explorer: Putting it all together 🤖🚗</p>
 </section>
-<section id="todays-agenda" class="slide level2">
+<section id="todays-agenda" class="slide level2 smaller">
 <h2>Today’s Agenda</h2>
-<p><strong>Phase 1: The Concept of Obstacle Avoidance</strong> - How do autonomous cars drive? - The basic flow chart of logic.</p>
-<p><strong>Phase 2: Motor Control Recap</strong> - Moving forward, stopping, and turning. - Using simple motor functions.</p>
-<p><strong>Phase 3: The Decision Making Logic</strong> - Looking left vs looking right. - Making choices with <code>if / else</code>.</p>
-<p><strong>Phase 4: Writing the Avoidance Code</strong> - Combining the Radar (Sensor + Servo) with Motors.</p>
-<p><strong>Phase 5: Final Challenge</strong> - Tuning the robot for a maze.</p>
+<p><strong>Phase 1: The Concept</strong> - Sense → Think → Act - How autonomous robots make decisions</p>
+<p><strong>Phase 2: Motor Helpers (Recap)</strong> - Reusing <code>car_front</code>, <code>car_back</code>, <code>car_left</code>, <code>car_right</code>, <code>car_Stop</code> from Session 2</p>
+<p><strong>Phase 3: Complete Setup</strong> - Pins, libraries, Serial — one block that combines Sessions 2 &amp; 3</p>
+<p><strong>Phase 4: Decision Making</strong> - The <code>lookAt(angle)</code> helper - Reading left vs right with one line</p>
+<p><strong>Phase 5: The Main Loop</strong> - Combining radar + motors into a clean <code>loop()</code></p>
+<p><strong>Phase 6: Challenges</strong> - Fine-tuning, backwards escape, and the <strong>Smart Remote</strong> override</p>
 </section></section>
 <section>
 <section id="phase-1-the-concept" class="title-slide slide level1 sdaia-dark center" data-background-color="#00C9A7">
@@ -223,7 +224,7 @@
 </section>
 <section id="the-avoidance-logic" class="slide level2">
 <h2>The Avoidance Logic 🧠</h2>
-<p>To make a robot avoid obstacles, we need to program a continuous loop of <strong>Sense -&gt; Think -&gt; Act</strong>.</p>
+<p>To make a robot avoid obstacles, we run a continuous loop of <strong>Sense → Think → Act</strong>.</p>
 <ol type="1">
 <li><strong>Sense:</strong> Use the ultrasonic sensor to check if the path ahead is clear.</li>
 <li><strong>Think:</strong> Is there an obstacle within 20 cm?
@@ -236,161 +237,284 @@
 </section>
 <section id="the-flow-chart" class="slide level2">
 <h2>The Flow Chart</h2>
-
-<img data-src="../slides/assets/ultrasonic_principle_ks.png" style="width:60.0%" class="r-stretch"><p><em>(Imagine the robot scanning the room like a security guard before deciding where to walk!)</em></p>
+<p>Our <code>loop()</code> runs this every cycle:</p>
+<p><strong>1. SENSE</strong> → read forward distance with <code>measureDistance()</code></p>
+<p><strong>2. THINK</strong> → is <code>distance &lt; 20 cm</code>?</p>
+<ul>
+<li><strong>Path clear</strong> → keep driving forward, servo stays centred at 90°</li>
+<li><strong>Obstacle!</strong> → stop, scan left (180°), scan right (0°), pick the larger gap</li>
+</ul>
+<p><strong>3. ACT</strong> → turn ~300 ms toward the larger gap, then loop back to SENSE</p>
+<p><em>Like a security guard scanning the room before deciding where to walk.</em></p>
 </section></section>
 <section>
-<section id="phase-2-motor-control" class="title-slide slide level1 sdaia-dark center" data-background-color="#1C355E">
-<h1>Phase 2: Motor Control</h1>
-<p>Making the robot move.</p>
+<section id="phase-2-motor-helpers" class="title-slide slide level1 sdaia-dark center" data-background-color="#1C355E">
+<h1>Phase 2: Motor Helpers</h1>
+<p>You already built these in Session 2.</p>
 </section>
-<section id="wiring-the-motors" class="slide level2">
-<h2>Wiring the Motors 🔌</h2>
-<p>Our Keyestudio shield has dedicated pins for the motors:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="co">// Motor A (Right)</span></span>
-<span id="cb1-2"><a></a><span class="at">const</span> <span class="dt">int</span> MR_Ctrl <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> <span class="co">// Direction pin</span></span>
-<span id="cb1-3"><a></a><span class="at">const</span> <span class="dt">int</span> MR_PWM <span class="op">=</span> <span class="dv">6</span><span class="op">;</span>  <span class="co">// Speed pin</span></span>
-<span id="cb1-4"><a></a></span>
-<span id="cb1-5"><a></a><span class="co">// Motor B (Left)</span></span>
-<span id="cb1-6"><a></a><span class="at">const</span> <span class="dt">int</span> ML_Ctrl <span class="op">=</span> <span class="dv">4</span><span class="op">;</span> <span class="co">// Direction pin</span></span>
-<span id="cb1-7"><a></a><span class="at">const</span> <span class="dt">int</span> ML_PWM <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>  <span class="co">// Speed pin</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We need to set these as <code>OUTPUT</code> in our <code>setup()</code>!</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-2"><a></a>  pinMode<span class="op">(</span>ML_Ctrl<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb2-3"><a></a>  pinMode<span class="op">(</span>ML_PWM<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb2-4"><a></a>  pinMode<span class="op">(</span>MR_Ctrl<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb2-5"><a></a>  pinMode<span class="op">(</span>MR_PWM<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb2-6"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="basic-movements" class="slide level2">
-<h2>Basic Movements 🚗</h2>
-<p>Let’s write simple <strong>Helper Functions</strong> to make driving easier.</p>
-<p>To go forward, both motors spin in the same direction at a steady speed (e.g., 150 out of 255).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a></a><span class="dt">void</span> car_front<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-2"><a></a>  digitalWrite<span class="op">(</span>ML_Ctrl<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Left motor forward</span></span>
-<span id="cb3-3"><a></a>  analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> <span class="dv">150</span><span class="op">);</span>    <span class="co">// Speed: 150</span></span>
-<span id="cb3-4"><a></a>  digitalWrite<span class="op">(</span>MR_Ctrl<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Right motor forward</span></span>
-<span id="cb3-5"><a></a>  analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> <span class="dv">150</span><span class="op">);</span>    <span class="co">// Speed: 150</span></span>
-<span id="cb3-6"><a></a><span class="op">}</span></span>
-<span id="cb3-7"><a></a></span>
-<span id="cb3-8"><a></a><span class="dt">void</span> car_Stop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-9"><a></a>  analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span> <span class="co">// Speed: 0</span></span>
-<span id="cb3-10"><a></a>  analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span> <span class="co">// Speed: 0</span></span>
-<span id="cb3-11"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="turning-the-robot" class="slide level2">
-<h2>Turning the Robot 🔄</h2>
-<p>To turn <strong>Left</strong>, we spin the left motor backward and the right motor forward (like a tank).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">void</span> car_left<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb4-2"><a></a>  digitalWrite<span class="op">(</span>ML_Ctrl<span class="op">,</span> LOW<span class="op">);</span>  <span class="co">// Left motor BACKWARD</span></span>
-<span id="cb4-3"><a></a>  analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> <span class="dv">200</span><span class="op">);</span>    <span class="co">// Turn quickly (Speed: 200)</span></span>
-<span id="cb4-4"><a></a>  digitalWrite<span class="op">(</span>MR_Ctrl<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Right motor FORWARD</span></span>
-<span id="cb4-5"><a></a>  analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> <span class="dv">200</span><span class="op">);</span></span>
-<span id="cb4-6"><a></a><span class="op">}</span></span>
-<span id="cb4-7"><a></a></span>
-<span id="cb4-8"><a></a><span class="dt">void</span> car_right<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb4-9"><a></a>  digitalWrite<span class="op">(</span>ML_Ctrl<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Left motor FORWARD</span></span>
-<span id="cb4-10"><a></a>  analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> <span class="dv">200</span><span class="op">);</span></span>
-<span id="cb4-11"><a></a>  digitalWrite<span class="op">(</span>MR_Ctrl<span class="op">,</span> LOW<span class="op">);</span>  <span class="co">// Right motor BACKWARD</span></span>
-<span id="cb4-12"><a></a>  analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> <span class="dv">200</span><span class="op">);</span></span>
-<span id="cb4-13"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="the-helpers-you-have" class="slide level2">
+<h2>The Helpers You Have 🚗</h2>
+<p>From <strong>Session 2 — Part 3 &amp; Part 6</strong>, you already wrote these movement helpers (and the matching <code>pinMode</code> calls and pin defines). You will <strong>call them</strong> in Session 4, not rewrite them.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Helper</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>car_front()</code></td>
+<td>Both motors forward</td>
+</tr>
+<tr class="even">
+<td><code>car_back()</code></td>
+<td>Both motors backward</td>
+</tr>
+<tr class="odd">
+<td><code>car_left()</code></td>
+<td>Left wheel back, right wheel forward (tank turn)</td>
+</tr>
+<tr class="even">
+<td><code>car_right()</code></td>
+<td>Left wheel forward, right wheel back</td>
+</tr>
+<tr class="odd">
+<td><code>car_Stop()</code></td>
+<td>Speed = 0 on both motors</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Don’t have these in your sketch yet? Copy them from <strong>Session 2 → Part 6 — Complete IR Car Code</strong> before continuing. Same pin defines (<code>ML_Ctrl</code>, <code>ML_PWM</code>, <code>MR_Ctrl</code>, <code>MR_PWM</code>) work here.</p>
+</div>
+</div>
+</div>
 </section></section>
 <section>
-<section id="phase-3-decision-making" class="title-slide slide level1 sdaia-dark center" data-background-color="#E84A5F">
-<h1>Phase 3: Decision Making</h1>
+<section id="phase-3-complete-setup" class="title-slide slide level1 sdaia-dark center" data-background-color="#1C355E">
+<h1>Phase 3: Complete Setup</h1>
+<p>Pins, libraries, Serial.</p>
+</section>
+<section id="the-full-setup-block" class="slide level2 smaller">
+<h2>The Full Setup Block 🔧</h2>
+<p>Session 4 brings together motors, ultrasonic, and servo. Here is the complete top of your sketch:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="pp">#include </span><span class="im">&lt;Servo.h&gt;</span></span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a><span class="co">// Motors (from Session 2)</span></span>
+<span id="cb1-4"><a></a><span class="pp">#define ML_Ctrl </span><span class="dv">4</span></span>
+<span id="cb1-5"><a></a><span class="pp">#define ML_PWM  </span><span class="dv">5</span></span>
+<span id="cb1-6"><a></a><span class="pp">#define MR_Ctrl </span><span class="dv">2</span></span>
+<span id="cb1-7"><a></a><span class="pp">#define MR_PWM  </span><span class="dv">6</span></span>
+<span id="cb1-8"><a></a></span>
+<span id="cb1-9"><a></a><span class="co">// Ultrasonic (from Session 3)</span></span>
+<span id="cb1-10"><a></a><span class="at">const</span> <span class="dt">int</span> trigPin <span class="op">=</span> <span class="dv">12</span><span class="op">;</span></span>
+<span id="cb1-11"><a></a><span class="at">const</span> <span class="dt">int</span> echoPin <span class="op">=</span> <span class="dv">13</span><span class="op">;</span></span>
+<span id="cb1-12"><a></a></span>
+<span id="cb1-13"><a></a><span class="co">// Servo (from Session 3) — plugged into pin 10</span></span>
+<span id="cb1-14"><a></a>Servo myServo<span class="op">;</span></span>
+<span id="cb1-15"><a></a></span>
+<span id="cb1-16"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-17"><a></a>  pinMode<span class="op">(</span>ML_Ctrl<span class="op">,</span> OUTPUT<span class="op">);</span> pinMode<span class="op">(</span>ML_PWM<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb1-18"><a></a>  pinMode<span class="op">(</span>MR_Ctrl<span class="op">,</span> OUTPUT<span class="op">);</span> pinMode<span class="op">(</span>MR_PWM<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb1-19"><a></a></span>
+<span id="cb1-20"><a></a>  pinMode<span class="op">(</span>trigPin<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb1-21"><a></a>  pinMode<span class="op">(</span>echoPin<span class="op">,</span> INPUT<span class="op">);</span></span>
+<span id="cb1-22"><a></a></span>
+<span id="cb1-23"><a></a>  myServo<span class="op">.</span>attach<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb1-24"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">90</span><span class="op">);</span> <span class="co">// Look forward</span></span>
+<span id="cb1-25"><a></a></span>
+<span id="cb1-26"><a></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span></span>
+<span id="cb1-27"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="the-measuredistance-helper" class="slide level2">
+<h2>The <code>measureDistance()</code> Helper 📡</h2>
+<p>You wrote this in Session 3 — drop it into your sketch unchanged:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="dt">int</span> measureDistance<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-2"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb2-3"><a></a>  delayMicroseconds<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb2-4"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb2-5"><a></a>  delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb2-6"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb2-7"><a></a></span>
+<span id="cb2-8"><a></a>  <span class="dt">long</span> duration <span class="op">=</span> pulseIn<span class="op">(</span>echoPin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb2-9"><a></a>  <span class="cf">return</span> duration <span class="op">*</span> <span class="fl">0.034</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section>
+<section>
+<section id="phase-4-decision-making" class="title-slide slide level1 sdaia-dark center" data-background-color="#E84A5F">
+<h1>Phase 4: Decision Making</h1>
 <p>Teaching the robot to choose a path.</p>
 </section>
-<section id="the-radar-system-recap" class="slide level2">
-<h2>The Radar System (Recap) 📡</h2>
-<p>Remember our <code>measureDistance()</code> function from Session 3? We will use it to check our surroundings!</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a></a><span class="dt">int</span> measureDistance<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-2"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb5-3"><a></a>  delayMicroseconds<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
-<span id="cb5-4"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb5-5"><a></a>  delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
-<span id="cb5-6"><a></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb5-7"><a></a></span>
-<span id="cb5-8"><a></a>  <span class="dt">long</span> duration <span class="op">=</span> pulseIn<span class="op">(</span>echoPin<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb5-9"><a></a>  <span class="cf">return</span> duration <span class="op">*</span> <span class="fl">0.034</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb5-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="looking-around" class="slide level2">
-<h2>Looking Around 👀</h2>
-<p>When an obstacle is detected, the robot stops and uses its servo motor to look around.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a></a><span class="co">// 1. Stop the car</span></span>
-<span id="cb6-2"><a></a>car_Stop<span class="op">();</span></span>
-<span id="cb6-3"><a></a>delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
-<span id="cb6-4"><a></a></span>
-<span id="cb6-5"><a></a><span class="co">// 2. Look Left</span></span>
-<span id="cb6-6"><a></a>myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">180</span><span class="op">);</span></span>
-<span id="cb6-7"><a></a>delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb6-8"><a></a><span class="dt">int</span> leftDistance <span class="op">=</span> measureDistance<span class="op">();</span></span>
-<span id="cb6-9"><a></a></span>
-<span id="cb6-10"><a></a><span class="co">// 3. Look Right</span></span>
-<span id="cb6-11"><a></a>myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
-<span id="cb6-12"><a></a>delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb6-13"><a></a><span class="dt">int</span> rightDistance <span class="op">=</span> measureDistance<span class="op">();</span></span>
-<span id="cb6-14"><a></a></span>
-<span id="cb6-15"><a></a><span class="co">// 4. Look Forward again</span></span>
-<span id="cb6-16"><a></a>myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">90</span><span class="op">);</span></span>
-<span id="cb6-17"><a></a>delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="the-lookat-helper" class="slide level2">
+<h2>The <code>lookAt()</code> Helper 👀</h2>
+<p>When an obstacle is detected, the robot needs to look in different directions. Instead of repeating <em>“write angle, delay, measure”</em> every time, we package it into one helper:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a></a><span class="dt">int</span> lookAt<span class="op">(</span><span class="dt">int</span> angle<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a></a>  myServo<span class="op">.</span>write<span class="op">(</span>angle<span class="op">);</span></span>
+<span id="cb3-3"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span>              <span class="co">// Give the servo time to turn</span></span>
+<span id="cb3-4"><a></a>  <span class="cf">return</span> measureDistance<span class="op">();</span></span>
+<span id="cb3-5"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now “look left and report the distance” is just <strong>one line</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">int</span> leftDistance  <span class="op">=</span> lookAt<span class="op">(</span><span class="dv">180</span><span class="op">);</span> <span class="co">// Look left</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Every time you write the same 3+ lines twice, ask: <em>should this be a helper?</em> Helper functions keep <code>loop()</code> short and readable.</p>
+</div>
+</div>
+</div>
 </section></section>
 <section>
-<section id="phase-4-the-final-code" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Phase 4: The Final Code</h1>
+<section id="phase-5-the-main-loop" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Phase 5: The Main Loop</h1>
 <p>Putting it all together.</p>
 </section>
-<section id="the-main-loop" class="slide level2">
-<h2>The Main Loop 🔄</h2>
-<p>This goes inside your <code>loop()</code> function. This is the “brain” of our robot!</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-2"><a></a>  <span class="dt">int</span> distance <span class="op">=</span> measureDistance<span class="op">();</span></span>
-<span id="cb7-3"><a></a></span>
-<span id="cb7-4"><a></a>  <span class="cf">if</span> <span class="op">(</span>distance <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> distance <span class="op">&lt;</span> <span class="dv">20</span><span class="op">)</span> <span class="op">{</span> <span class="co">// Obstacle detected!</span></span>
-<span id="cb7-5"><a></a>    car_Stop<span class="op">();</span></span>
-<span id="cb7-6"><a></a>    delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
-<span id="cb7-7"><a></a>    </span>
-<span id="cb7-8"><a></a>    <span class="co">// Look around</span></span>
-<span id="cb7-9"><a></a>    myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">180</span><span class="op">);</span> <span class="co">// Look left</span></span>
-<span id="cb7-10"><a></a>    delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb7-11"><a></a>    <span class="dt">int</span> distLeft <span class="op">=</span> measureDistance<span class="op">();</span></span>
-<span id="cb7-12"><a></a>    </span>
-<span id="cb7-13"><a></a>    myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">0</span><span class="op">);</span>   <span class="co">// Look right</span></span>
-<span id="cb7-14"><a></a>    delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb7-15"><a></a>    <span class="dt">int</span> distRight <span class="op">=</span> measureDistance<span class="op">();</span></span>
-<span id="cb7-16"><a></a>    </span>
-<span id="cb7-17"><a></a>    <span class="co">// Decide where to turn</span></span>
-<span id="cb7-18"><a></a>    <span class="cf">if</span> <span class="op">(</span>distLeft <span class="op">&gt;</span> distRight<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-19"><a></a>      car_left<span class="op">();</span></span>
-<span id="cb7-20"><a></a>      delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span> <span class="co">// Turn for 300ms</span></span>
-<span id="cb7-21"><a></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb7-22"><a></a>      car_right<span class="op">();</span></span>
-<span id="cb7-23"><a></a>      delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span> <span class="co">// Turn for 300ms</span></span>
-<span id="cb7-24"><a></a>    <span class="op">}</span></span>
-<span id="cb7-25"><a></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span> <span class="co">// Path is clear!</span></span>
-<span id="cb7-26"><a></a>    car_front<span class="op">();</span></span>
-<span id="cb7-27"><a></a>    myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">90</span><span class="op">);</span> <span class="co">// Keep looking forward</span></span>
-<span id="cb7-28"><a></a>  <span class="op">}</span></span>
-<span id="cb7-29"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="the-brain" class="slide level2 smaller">
+<h2>The Brain 🧠</h2>
+<p>This is the heart of the autonomous explorer:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-2"><a></a>  <span class="co">// 1. SENSE — servo is already at 90° from last iteration</span></span>
+<span id="cb5-3"><a></a>  <span class="dt">int</span> distance <span class="op">=</span> measureDistance<span class="op">();</span></span>
+<span id="cb5-4"><a></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Forward: "</span><span class="op">);</span> Serial<span class="op">.</span>println<span class="op">(</span>distance<span class="op">);</span></span>
+<span id="cb5-5"><a></a></span>
+<span id="cb5-6"><a></a>  <span class="cf">if</span> <span class="op">(</span>distance <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> distance <span class="op">&lt;</span> <span class="dv">20</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-7"><a></a>    <span class="co">// 2. THINK — obstacle! stop and scan</span></span>
+<span id="cb5-8"><a></a>    car_Stop<span class="op">();</span></span>
+<span id="cb5-9"><a></a>    delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span></span>
+<span id="cb5-10"><a></a></span>
+<span id="cb5-11"><a></a>    <span class="dt">int</span> distLeft  <span class="op">=</span> lookAt<span class="op">(</span><span class="dv">180</span><span class="op">);</span></span>
+<span id="cb5-12"><a></a>    <span class="dt">int</span> distRight <span class="op">=</span> lookAt<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb5-13"><a></a></span>
+<span id="cb5-14"><a></a>    myServo<span class="op">.</span>write<span class="op">(</span><span class="dv">90</span><span class="op">);</span> <span class="co">// Re-centre BEFORE turning</span></span>
+<span id="cb5-15"><a></a>    delay<span class="op">(</span><span class="dv">200</span><span class="op">);</span></span>
+<span id="cb5-16"><a></a></span>
+<span id="cb5-17"><a></a>    <span class="co">// 3. ACT — turn toward the larger gap</span></span>
+<span id="cb5-18"><a></a>    <span class="cf">if</span> <span class="op">(</span>distLeft <span class="op">&gt;</span> distRight<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-19"><a></a>      car_left<span class="op">();</span></span>
+<span id="cb5-20"><a></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb5-21"><a></a>      car_right<span class="op">();</span></span>
+<span id="cb5-22"><a></a>    <span class="op">}</span></span>
+<span id="cb5-23"><a></a>    delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span></span>
+<span id="cb5-24"><a></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb5-25"><a></a>    <span class="co">// Path clear — keep going</span></span>
+<span id="cb5-26"><a></a>    car_front<span class="op">();</span></span>
+<span id="cb5-27"><a></a>  <span class="op">}</span></span>
+<span id="cb5-28"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>We <strong>re-centre the servo to 90° after scanning</strong>. Without this, the next forward measurement reads sideways and the robot crashes blindly into whatever it stopped looking at.</p>
+</div>
+</div>
+</div>
 </section></section>
 <section>
-<section id="phase-5-final-challenge" class="title-slide slide level1 sdaia-dark center" data-background-color="#E84A5F">
-<h1>Phase 5: Final Challenge</h1>
-<p>The Maze Runner!</p>
+<section id="phase-6-challenges" class="title-slide slide level1 sdaia-dark center" data-background-color="#E84A5F">
+<h1>Phase 6: Challenges</h1>
+<p>Tune it, escape it, override it.</p>
 </section>
 <section id="challenge-1-fine-tuning" class="slide level2">
 <h2>Challenge 1: Fine-Tuning 🛠️</h2>
-<p>Run your robot on the floor. You might notice it behaves strangely!</p>
+<p>Run your robot. You will notice it behaves strangely!</p>
 <ol type="1">
-<li><strong>Turning Time:</strong> Is <code>delay(300)</code> when turning left/right enough time for the robot to actually turn 90 degrees? Try changing it to <code>delay(500)</code> or <code>delay(200)</code> until it makes sharp turns.</li>
-<li><strong>Detection Distance:</strong> Is <code>20</code> cm too close? Does it crash before it can stop? Try changing the threshold to <code>30</code> cm.</li>
+<li><strong>Open the Serial Monitor</strong> (Tools → Serial Monitor, 9600 baud). Watch the live distance readings — are they what you expect when you put your hand in front?</li>
+<li><strong>Turning time:</strong> Is <code>delay(300)</code> enough to turn ~90°? Try <code>delay(200)</code> or <code>delay(500)</code> until turns are sharp.</li>
+<li><strong>Detection distance:</strong> Does it crash before stopping? Try raising the threshold from <code>20</code> to <code>30</code> cm.</li>
+</ol>
+<p><em>Engineering is iteration — observe, adjust, observe again.</em></p>
+</section>
+<section id="challenge-2-the-backwards-escape" class="slide level2 smaller">
+<h2>Challenge 2: The Backwards Escape 🔙</h2>
+<p>What if the robot is <strong>trapped</strong> — both left AND right distances are tiny (&lt; 10 cm)?</p>
+<p><strong>Your task:</strong> modify the obstacle branch so that if <code>distLeft &lt; 10</code> <strong>AND</strong> <code>distRight &lt; 10</code>, the robot drives <strong>backwards</strong> for 1 second before re-scanning.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a></a><span class="cf">if</span> <span class="op">(</span>distLeft <span class="op">&lt;</span> <span class="dv">10</span> <span class="op">&amp;&amp;</span> distRight <span class="op">&lt;</span> <span class="dv">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-2"><a></a>  car_back<span class="op">();</span>      <span class="co">// Reuse from Session 2 Part 6</span></span>
+<span id="cb6-3"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb6-4"><a></a><span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>distLeft <span class="op">&gt;</span> distRight<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-5"><a></a>  car_left<span class="op">();</span></span>
+<span id="cb6-6"><a></a>  delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span></span>
+<span id="cb6-7"><a></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb6-8"><a></a>  car_right<span class="op">();</span></span>
+<span id="cb6-9"><a></a>  delay<span class="op">(</span><span class="dv">300</span><span class="op">);</span></span>
+<span id="cb6-10"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><code>car_back()</code> is already in your <strong>Session 2 → Part 6 — Complete IR Car Code</strong>. Reuse it; don’t rewrite it.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="challenge-3-smart-remote-override" class="slide level2">
+<h2>Challenge 3: Smart Remote Override 🎮</h2>
+<p><strong>Goal:</strong> combine Session 2’s IR remote with Session 4’s distance check.</p>
+<p>You drive the robot with your remote — but if you try to drive it <strong>into a wall</strong>, the robot refuses the FORWARD command and stops itself.</p>
+<p><strong>The Logic inside <code>loop()</code>:</strong></p>
+<ol type="1">
+<li>Read the forward distance.</li>
+<li>Read the IR remote (<code>IrReceiver.decode()</code>).</li>
+<li>If <code>distance &lt; 15</code> <strong>AND</strong> the command is FORWARD → call <code>car_Stop()</code> and ignore it.</li>
+<li>Otherwise → run the command normally (turning and reversing stay allowed — still safe).</li>
 </ol>
 </section>
-<section id="challenge-2-the-backwards-escape" class="slide level2">
-<h2>Challenge 2: The Backwards Escape 🔙</h2>
-<p>What if the robot gets completely stuck in a corner where both left AND right distances are smaller than 10 cm?</p>
-<p><strong>Your Task:</strong> Modify the code so that if <code>distLeft &lt; 10</code> AND <code>distRight &lt; 10</code>, the robot drives <strong>BACKWARDS</strong> for 1 second before trying to turn again!</p>
-<p><em>Hint: You will need to write a <code>car_back()</code> helper function!</em></p>
+<section id="challenge-3-the-scaffold" class="slide level2 smaller">
+<h2>Challenge 3: The Scaffold 🛠️</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-2"><a></a>  <span class="dt">int</span> distance <span class="op">=</span> measureDistance<span class="op">();</span></span>
+<span id="cb7-3"><a></a></span>
+<span id="cb7-4"><a></a>  <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decode<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb7-5"><a></a>    <span class="dt">uint16_t</span> cmd <span class="op">=</span> IrReceiver<span class="op">.</span>decodedIRData<span class="op">.</span>command<span class="op">;</span></span>
+<span id="cb7-6"><a></a></span>
+<span id="cb7-7"><a></a>    <span class="cf">if</span> <span class="op">(</span>cmd <span class="op">==</span> <span class="bn">0x46</span> <span class="op">&amp;&amp;</span> distance <span class="op">&lt;</span> <span class="dv">15</span><span class="op">)</span> <span class="op">{</span>  <span class="co">// 0x46 = FORWARD + wall ahead</span></span>
+<span id="cb7-8"><a></a>      car_Stop<span class="op">();</span>                        <span class="co">// Override: refuse the command</span></span>
+<span id="cb7-9"><a></a>      Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Wall! Forward blocked."</span><span class="op">);</span></span>
+<span id="cb7-10"><a></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb7-11"><a></a>      handleCommand<span class="op">(</span>cmd<span class="op">);</span>                <span class="co">// From Session 2 Part 5</span></span>
+<span id="cb7-12"><a></a>    <span class="op">}</span></span>
+<span id="cb7-13"><a></a></span>
+<span id="cb7-14"><a></a>    IrReceiver<span class="op">.</span>resume<span class="op">();</span></span>
+<span id="cb7-15"><a></a>  <span class="op">}</span></span>
+<span id="cb7-16"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Reuse <code>handleCommand()</code> from <strong>Session 2 Part 5</strong>. Replace <code>0x46</code> with whatever code your remote’s UP button actually sends.</p>
+</div>
+</div>
+</div>
+<p><strong>Good luck, Master Coders!</strong></p>
 
 
 </section></section>

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://NaifMersal.github.io/intro-to-robotics/slides/session5.html</loc>
-    <lastmod>2026-05-16T16:09:16.031Z</lastmod>
+    <lastmod>2026-05-22T20:24:52.324Z</lastmod>
   </url>
   <url>
     <loc>https://NaifMersal.github.io/intro-to-robotics/slides/session3.html</loc>
@@ -33,8 +33,16 @@
     <lastmod>2026-05-16T16:09:16.018Z</lastmod>
   </url>
   <url>
+    <loc>https://NaifMersal.github.io/intro-to-robotics/slides/further-reading.html</loc>
+    <lastmod>2026-05-22T18:47:17.970Z</lastmod>
+  </url>
+  <url>
     <loc>https://NaifMersal.github.io/intro-to-robotics/index.html</loc>
-    <lastmod>2026-05-16T16:11:59.584Z</lastmod>
+    <lastmod>2026-05-22T20:24:26.020Z</lastmod>
+  </url>
+  <url>
+    <loc>https://NaifMersal.github.io/intro-to-robotics/slides/final-quiz.html</loc>
+    <lastmod>2026-05-22T19:07:01.814Z</lastmod>
   </url>
   <url>
     <loc>https://NaifMersal.github.io/intro-to-robotics/slides/session1.html</loc>
@@ -50,7 +58,7 @@
   </url>
   <url>
     <loc>https://NaifMersal.github.io/intro-to-robotics/slides/session2/part4-ir-concept-decoding.html</loc>
-    <lastmod>2026-05-16T16:09:16.024Z</lastmod>
+    <lastmod>2026-05-22T18:30:48.829Z</lastmod>
   </url>
   <url>
     <loc>https://NaifMersal.github.io/intro-to-robotics/slides/session2/part5-worksheet.html</loc>
@@ -58,7 +66,7 @@
   </url>
   <url>
     <loc>https://NaifMersal.github.io/intro-to-robotics/slides/session2/part7-bluetooth-control.html</loc>
-    <lastmod>2026-05-16T16:09:16.026Z</lastmod>
+    <lastmod>2026-05-22T18:30:54.100Z</lastmod>
   </url>
   <url>
     <loc>https://NaifMersal.github.io/intro-to-robotics/slides/session2/part9-problem-patterns.html</loc>
@@ -66,6 +74,6 @@
   </url>
   <url>
     <loc>https://NaifMersal.github.io/intro-to-robotics/slides/session4.html</loc>
-    <lastmod>2026-05-16T16:09:16.030Z</lastmod>
+    <lastmod>2026-05-22T20:23:51.298Z</lastmod>
   </url>
 </urlset>

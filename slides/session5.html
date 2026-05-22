@@ -9,7 +9,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <meta name="dcterms.date" content="2026-05-16">
+  <meta name="dcterms.date" content="2026-05-22">
   <title>Session 5: Code Mastery</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -196,17 +196,17 @@
 
 <section id="title-slide" data-background-image="../slides_template/assets/anim.svg" data-background-opacity="0.08" data-background-size="cover" class="quarto-title-block center">
   <h1 class="title">Session 5: Code Mastery</h1>
-  <p class="subtitle">Programming Recap &amp; The Ultimate Challenge</p>
+  <p class="subtitle">Programming Recap — A Quick Tour of Sessions 1 to 4</p>
 
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-05-16</p>
+  <p class="date">2026-05-22</p>
 </section>
 <section>
 <section id="session-5" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
 <h1>Session 5</h1>
-<p>The Grand Integration: Sessions 1 to 4 🚀</p>
+<p>A Quick Tour of Sessions 1 to 4 🚀</p>
 </section>
 <section id="todays-agenda" class="slide level2">
 <h2>Today’s Agenda</h2>
@@ -214,7 +214,6 @@
 <p><strong>Phase 2: Functions &amp; Movement (Session 2)</strong> - Writing our own functions. - Commanding the motors.</p>
 <p><strong>Phase 3: The Senses (Session 3)</strong> - Ultrasonic distance math. - Servo sweeping logic.</p>
 <p><strong>Phase 4: The Autonomous Brain (Session 4)</strong> - <code>if / else</code> decision trees. - Putting it all together.</p>
-<p><strong>Phase 5: The Ultimate Challenge</strong> - The “Smart Remote” Rover.</p>
 </section></section>
 <section>
 <section id="phase-1-core-syntax" class="title-slide slide level1 sdaia-dark center" data-background-color="#00C9A7">
@@ -270,7 +269,7 @@
 <span id="cb3-5"><a></a>analogWrite<span class="op">(</span>MR_PWM<span class="op">,</span> <span class="dv">150</span><span class="op">);</span>   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="fragment column" style="width:50%;">
 <p><strong>We write it ONCE:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">void</span> moveForward<span class="op">()</span> <span class="op">{</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a></a><span class="dt">void</span> car_front<span class="op">()</span> <span class="op">{</span></span>
 <span id="cb4-2"><a></a>  digitalWrite<span class="op">(</span>ML_Ctrl<span class="op">,</span> HIGH<span class="op">);</span> </span>
 <span id="cb4-3"><a></a>  analogWrite<span class="op">(</span>ML_PWM<span class="op">,</span> <span class="dv">150</span><span class="op">);</span>    </span>
 <span id="cb4-4"><a></a>  digitalWrite<span class="op">(</span>MR_Ctrl<span class="op">,</span> HIGH<span class="op">);</span> </span>
@@ -278,7 +277,7 @@
 <span id="cb4-6"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 <div class="fragment">
-<p>And then just call <code>moveForward();</code> in our loop!</p>
+<p>And then just call <code>car_front();</code> in our loop!</p>
 </div>
 </section>
 <section id="motor-setup-recap" class="slide level2">
@@ -360,39 +359,28 @@
 <span id="cb8-2"><a></a></span>
 <span id="cb8-3"><a></a><span class="cf">if</span> <span class="op">(</span>distance <span class="op">&lt;</span> <span class="dv">20</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb8-4"><a></a>  <span class="co">// Danger! Path blocked!</span></span>
-<span id="cb8-5"><a></a>  moveBackward<span class="op">();</span></span>
+<span id="cb8-5"><a></a>  car_back<span class="op">();</span></span>
 <span id="cb8-6"><a></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
-<span id="cb8-7"><a></a>  stopMotors<span class="op">();</span></span>
+<span id="cb8-7"><a></a>  car_Stop<span class="op">();</span></span>
 <span id="cb8-8"><a></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
 <span id="cb8-9"><a></a>  <span class="co">// All clear!</span></span>
-<span id="cb8-10"><a></a>  moveForward<span class="op">();</span></span>
+<span id="cb8-10"><a></a>  car_front<span class="op">();</span></span>
 <span id="cb8-11"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This single block of code is what turns a remote-controlled toy into an <strong>Autonomous Explorer</strong>.</p>
 </section></section>
 <section>
-<section id="phase-5-the-ultimate-challenge" class="title-slide slide level1 sdaia-dark center" data-background-color="#E84A5F">
-<h1>Phase 5: The Ultimate Challenge</h1>
-<p>The “Smart Remote” Rover</p>
+<section id="whats-next" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>What’s Next?</h1>
+<p>You’ve mastered the core skills. Ready to test yourself?</p>
 </section>
-<section id="the-challenge" class="slide level2">
-<h2>The Challenge 🏆</h2>
-<p><strong>Goal:</strong> Combine Session 2 (IR Remote) and Session 4 (Obstacle Avoidance)!</p>
-<p>Write a program where you control the robot with your IR remote (Forward, Back, Left, Right). <strong>BUT</strong>, the robot is also constantly running its <code>measureDistance()</code> function.</p>
-<p>If you try to drive the robot into a wall, the robot must refuse the command and stop automatically!</p>
-</section>
-<section id="the-logic-flow" class="slide level2">
-<h2>The Logic Flow</h2>
-<p>Inside your <code>loop()</code>:</p>
-<ol type="1">
-<li>Check the ultrasonic sensor (<code>measureDistance()</code>).</li>
-<li>Read the IR Remote signal.</li>
-<li>Is distance &lt; 15 cm?
+<section id="where-to-go-from-here" class="slide level2">
+<h2>Where to Go From Here 🚀</h2>
+<p>You now know enough to build a real autonomous robot. Two final stops on the journey:</p>
 <ul>
-<li><strong>Yes:</strong> If the remote says “FORWARD”, ignore it and <code>stopMotors()</code>. (But allow turning or reversing!).</li>
-<li><strong>No:</strong> Follow the remote’s commands normally.</li>
-</ul></li>
-</ol>
-<p><strong>Good luck, Master Coders!</strong></p>
+<li>🧠 <strong><a href="../slides/final-quiz.html">Final Quiz</a></strong> — 11 questions across everything you’ve learned: circuits, motors, ultrasonic, servos, and autonomous logic.</li>
+<li>🗺️ <strong><a href="../slides/further-reading.html">Robotics Adventure Roadmap</a></strong> — your guide to what comes next: PID control, ESP32 phone control, AI vision, and competition prep.</li>
+</ul>
+<p><strong>Well done, Engineers — you’ve built a robot from a pile of wires. 🛠️</strong></p>
 
 
 </section></section>

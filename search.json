@@ -4,7 +4,7 @@
     "href": "slides/session5.html#todays-agenda",
     "title": "Session 5: Code Mastery",
     "section": "Today’s Agenda",
-    "text": "Today’s Agenda\nPhase 1: The Core Syntax (Session 1) - setup(), loop(), and Pin Modes. - Blinking LEDs and basic logic.\nPhase 2: Functions & Movement (Session 2) - Writing our own functions. - Commanding the motors.\nPhase 3: The Senses (Session 3) - Ultrasonic distance math. - Servo sweeping logic.\nPhase 4: The Autonomous Brain (Session 4) - if / else decision trees. - Putting it all together.\nPhase 5: The Ultimate Challenge - The “Smart Remote” Rover."
+    "text": "Today’s Agenda\nPhase 1: The Core Syntax (Session 1) - setup(), loop(), and Pin Modes. - Blinking LEDs and basic logic.\nPhase 2: Functions & Movement (Session 2) - Writing our own functions. - Commanding the motors.\nPhase 3: The Senses (Session 3) - Ultrasonic distance math. - Servo sweeping logic.\nPhase 4: The Autonomous Brain (Session 4) - if / else decision trees. - Putting it all together."
   },
   {
     "objectID": "slides/session5.html#the-arduino-skeleton",
@@ -25,7 +25,7 @@
     "href": "slides/session5.html#why-functions",
     "title": "Session 5: Code Mastery",
     "section": "Why Functions? 🛠️",
-    "text": "Why Functions? 🛠️\nIn Session 2, we learned that writing the same motor code over and over makes our program messy. Function let us ‘package’ code into a single command!\n\n\nInstead of this:\n\ndigitalWrite(ML_Ctrl, HIGH); \nanalogWrite(ML_PWM, 150);    \ndigitalWrite(MR_Ctrl, HIGH); \nanalogWrite(MR_PWM, 150);   \n\nWe write it ONCE:\nvoid moveForward() {\n  digitalWrite(ML_Ctrl, HIGH); \n  analogWrite(ML_PWM, 150);    \n  digitalWrite(MR_Ctrl, HIGH); \n  analogWrite(MR_PWM, 150); \n}\n\n\nAnd then just call moveForward(); in our loop!"
+    "text": "Why Functions? 🛠️\nIn Session 2, we learned that writing the same motor code over and over makes our program messy. Function let us ‘package’ code into a single command!\n\n\nInstead of this:\n\ndigitalWrite(ML_Ctrl, HIGH); \nanalogWrite(ML_PWM, 150);    \ndigitalWrite(MR_Ctrl, HIGH); \nanalogWrite(MR_PWM, 150);   \n\nWe write it ONCE:\nvoid car_front() {\n  digitalWrite(ML_Ctrl, HIGH); \n  analogWrite(ML_PWM, 150);    \n  digitalWrite(MR_Ctrl, HIGH); \n  analogWrite(MR_PWM, 150); \n}\n\n\nAnd then just call car_front(); in our loop!"
   },
   {
     "objectID": "slides/session5.html#motor-setup-recap",
@@ -53,21 +53,14 @@
     "href": "slides/session5.html#if-else-logic",
     "title": "Session 5: Code Mastery",
     "section": "If / Else Logic ⚖️",
-    "text": "If / Else Logic ⚖️\nThe core of Artificial Intelligence (and our robot) is making decisions based on data.\nint distance = measureDistance();\n\nif (distance &lt; 20) {\n  // Danger! Path blocked!\n  moveBackward();\n  delay(500);\n  stopMotors();\n} else {\n  // All clear!\n  moveForward();\n}\nThis single block of code is what turns a remote-controlled toy into an Autonomous Explorer."
+    "text": "If / Else Logic ⚖️\nThe core of Artificial Intelligence (and our robot) is making decisions based on data.\nint distance = measureDistance();\n\nif (distance &lt; 20) {\n  // Danger! Path blocked!\n  car_back();\n  delay(500);\n  car_Stop();\n} else {\n  // All clear!\n  car_front();\n}\nThis single block of code is what turns a remote-controlled toy into an Autonomous Explorer."
   },
   {
-    "objectID": "slides/session5.html#the-challenge",
-    "href": "slides/session5.html#the-challenge",
+    "objectID": "slides/session5.html#where-to-go-from-here",
+    "href": "slides/session5.html#where-to-go-from-here",
     "title": "Session 5: Code Mastery",
-    "section": "The Challenge 🏆",
-    "text": "The Challenge 🏆\nGoal: Combine Session 2 (IR Remote) and Session 4 (Obstacle Avoidance)!\nWrite a program where you control the robot with your IR remote (Forward, Back, Left, Right). BUT, the robot is also constantly running its measureDistance() function.\nIf you try to drive the robot into a wall, the robot must refuse the command and stop automatically!"
-  },
-  {
-    "objectID": "slides/session5.html#the-logic-flow",
-    "href": "slides/session5.html#the-logic-flow",
-    "title": "Session 5: Code Mastery",
-    "section": "The Logic Flow",
-    "text": "The Logic Flow\nInside your loop():\n\nCheck the ultrasonic sensor (measureDistance()).\nRead the IR Remote signal.\nIs distance &lt; 15 cm?\n\nYes: If the remote says “FORWARD”, ignore it and stopMotors(). (But allow turning or reversing!).\nNo: Follow the remote’s commands normally.\n\n\nGood luck, Master Coders!"
+    "section": "Where to Go From Here 🚀",
+    "text": "Where to Go From Here 🚀\nYou now know enough to build a real autonomous robot. Two final stops on the journey:\n\n🧠 Final Quiz — 11 questions across everything you’ve learned: circuits, motors, ultrasonic, servos, and autonomous logic.\n🗺️ Robotics Adventure Roadmap — your guide to what comes next: PID control, ESP32 phone control, AI vision, and competition prep.\n\nWell done, Engineers — you’ve built a robot from a pile of wires. 🛠️"
   },
   {
     "objectID": "slides/session3.html#todays-agenda",
@@ -707,6 +700,27 @@
     "text": "What’s Coming Next?\n\nSession 3: The Smarter Car — Sensors 🧠\nGive your car “eyes” using Ultrasonic Sound (like a bat!).\nMake the car drive itself and dodge obstacles automatically.\nStart brainstorming ideas for the WRO Future Innovators project!\n\n\nSee you next time! 🚗💨"
   },
   {
+    "objectID": "slides/further-reading.html",
+    "href": "slides/further-reading.html",
+    "title": "Your Robotics Adventure Roadmap",
+    "section": "",
+    "text": "Keep Building, Simulating, and Preparing for WRO 2026!"
+  },
+  {
+    "objectID": "slides/further-reading.html#keyestudio-ks0470-v4.0-smart-car-manual",
+    "href": "slides/further-reading.html#keyestudio-ks0470-v4.0-smart-car-manual",
+    "title": "Your Robotics Adventure Roadmap",
+    "section": "🛠️ Keyestudio KS0470 V4.0 Smart Car Manual",
+    "text": "🛠️ Keyestudio KS0470 V4.0 Smart Car Manual\nLearn how to build, wire, and control every single sensor and motor on your robot!\nOpen the Kit Manual Here 🚀"
+  },
+  {
+    "objectID": "slides/further-reading.html#next-quests-to-explore",
+    "href": "slides/further-reading.html#next-quests-to-explore",
+    "title": "Your Robotics Adventure Roadmap",
+    "section": "🗺️ Next Quests to Explore",
+    "text": "🗺️ Next Quests to Explore\nChoose your next robotics quest below! Each card has a direct, fun, and working link to explore.\n\n\n\n\n🧠 Quest 1: Pro Coding (Modular Programs)\nAs your robot code gets bigger, putting everything in one file becomes a mess. Learn how to write neat, professional programs using C++ classes and custom libraries!\n\nAdafruit: Multi-Tasking the Arduino ⭐⭐ Stretch — best read with a mentor\n\nWhat it is: A famous tutorial showing how to replace slow, blocking delay() statements with state-machine timers so your robot can do multiple things at once. It assumes you’re already comfortable with basic Arduino sketches.\n\nArduino Docs: Writing Custom Libraries\n\nWhat it is: The official guide to bundling your motor controls, line sensors, or radar code into your own custom, reusable library.\n\n\n\n\n\n\n\n\n📈 Quest 2: Drive in a Perfect Straight Line (PID)\nHave you noticed your robot wobbles when it drives, or doesn’t go completely straight? Proportional-Integral-Derivative (PID) is the secret math formula used in real self-driving cars to keep motion perfectly smooth!\n\nMATLAB Tech Talk: PID Control Video\n\nWhat it is: A super fun, animated video that shows exactly how PID controllers work using clear visuals and examples.\n\nMATLAB Tech Talks: “Understanding PID Control” Playlist\n\nWhat it is: The full animated series — short follow-up videos that build on the intro one piece at a time. Great for binge-watching when you want to really get PID.\n\n\n\n\n\n\n\n\n📶 Quest 3: Control from Your Phone (ESP32 & IoT)\nUpgrade your Arduino Uno to the dual-core ESP32 chip to get built-in Wi-Fi and Bluetooth. You can build beautiful mobile dashboards to steer your car remotely!\n\nArduino Cloud (free tier + School plan)\n\nWhat it is: The official Arduino IoT platform. Drag-and-drop dashboards in your browser, plus a phone app (“IoT Remote”) to control your robot from anywhere. Has a free tier and a School plan with Google Classroom integration.\n\nDroneBot Workshop: ESP32 Introduction ⭐⭐ Best with a mentor for setup\n\nWhat it is: A visual, video-led tour of what the ESP32 can do and how to start using it. An adult can help with the one-time Arduino IDE setup, then you’re off building.\n\n\n\n\n\n\n\n\n👁️ Quest 4: Give Your Robot AI Eyes (Computer Vision)\nWant your robot to recognize your face, follow a colored ball, or scan QR codes? It’s easier than you think using plug-and-play AI camera modules!\n\nHuskyLens: Plug-and-Play AI Camera (DFRobot)\n\nWhat it is: An easy AI camera with a screen that learns objects and colors at the press of a button. The product page links to 40+ tutorials and AI Fundamentals courses for Grades 6–10 — no complex AI coding required!\n\nGoogle Teachable Machine\n\nWhat it is: Train your own machine learning model in seconds using your webcam right in the browser, then export it to run on a Raspberry Pi!\n\n\n\n\n\n\n\n\n🛠️ Quest 5: Prototyping & Design Playgrounds\nDesign your own physical parts for 3D printing and test your circuits in virtual sandboxes.\n\nWokwi: Arduino Browser Simulator\n\nWhat it is: A super accurate circuit simulator where you can wire up components and write code without any physical boards!\n\nAutodesk Tinkercad 3D Design\n\nWhat it is: A simple, block-based 3D modeling tool. Perfect for designing custom chassis parts and mechanical gear!\n\n\n\n\n\n\n\n← Back to Curriculum Index"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Intro to Robotics",
@@ -718,7 +732,7 @@
     "href": "index.html#curriculum-slides",
     "title": "Intro to Robotics",
     "section": "📚 Curriculum Slides",
-    "text": "📚 Curriculum Slides\nExplore the core concepts through our interactive slide decks.\n\n\n\n\nSession 1: Circuits Basics\nFrom Water Pipes to Computer Logic. Covering voltage, current, resistance, and the bridge to electronics. View Slides →\n\n\n\n\n\n\nSession 2: Movement + Problem Patterns\nFrom physical assembly to autonomous movement. Mastering the basics of robot locomotion and problem identification. View Slides →\n\n\n\n\n\n\nSession 3: Building the Smart Radar\nGiving your project eyes and movement. Building a radar system using an ultrasonic sensor and a servo motor. View Slides →\n\n\n\n\n\n\nSession 4: The Autonomous Explorer\nBuilding an Obstacle Avoiding Robot. Putting it all together to create a robot that thinks and navigates on its own. View Slides →\n\n\n\n\n\n\nSession 5: Recap & Ultimate Challenge\nMastering the core concepts from sessions 1 to 4 and tackling the ultimate “Smart Remote” rover project. View Slides →"
+    "text": "📚 Curriculum Slides\nExplore the core concepts through our interactive slide decks.\n\n\n\n\nSession 1: Circuits Basics\nFrom Water Pipes to Computer Logic. Covering voltage, current, resistance, and the bridge to electronics. View Slides →\n\n\n\n\n\n\nSession 2: Movement + Problem Patterns\nFrom physical assembly to autonomous movement. Mastering the basics of robot locomotion and problem identification. View Slides →\n\n\n\n\n\n\nSession 3: Building the Smart Radar\nGiving your project eyes and movement. Building a radar system using an ultrasonic sensor and a servo motor. View Slides →\n\n\n\n\n\n\nSession 4: The Autonomous Explorer\nBuilding an Obstacle Avoiding Robot. Putting it all together to create a robot that thinks and navigates on its own. View Slides →\n\n\n\n\n\n\nSession 5: Code Mastery Recap\nA quick tour of the core concepts from sessions 1 to 4 — syntax, functions, sensors, and autonomous logic. View Slides →\n\n\n\n\n\n\nFinal Quiz: Test Your Skills\nAn interactive 11-question challenge testing your engineering knowledge on circuit physics, motor PWM speeds, ultrasonic calculation math, servo sweeping loops, autonomous path logic, and remote override priority. Take Quiz →\n\n\n\n\n\n\nRobotics Adventure Roadmap\nYour ultimate guide for next steps! Learn about advanced coding, driving straight with PID, ESP32 phone control, AI vision cameras, and prototyping playgrounds. Explore Roadmap →"
   },
   {
     "objectID": "index.html#interactive-simulations",
@@ -726,6 +740,111 @@
     "title": "Intro to Robotics",
     "section": "🚀 Interactive Simulations",
     "text": "🚀 Interactive Simulations\nVisualize complex concepts through real-time web-based simulations.\n\n\n\n\nWater Circuit Sim\nInteractive visualization of voltage (pressure), current (flow), and resistance (valves) using a water pipe analogy. Launch Sim →\n\n\n\n\n\n\nWater Resistors Sim\nA deeper dive into resistor networks. Visualize how series and parallel connections affect water flow and pressure. Launch Sim →"
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-1-led-resistors",
+    "href": "slides/final-quiz.html#question-1-led-resistors",
+    "title": "Final Assessment",
+    "section": "Question 1: LED Resistors 🛡️",
+    "text": "Question 1: LED Resistors 🛡️\nWhy is it mandatory to place a resistor in series with an LED when connecting it to power?\n\nTo convert the power from Alternating Current (AC) to Direct Current (DC).\nTo limit the electrical current so the LED doesn’t burn out.\nTo store electrical energy like a tiny battery.\nTo change the color of the LED’s light."
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-2-wokwi-debugging",
+    "href": "slides/final-quiz.html#question-2-wokwi-debugging",
+    "title": "Final Assessment",
+    "section": "Question 2: Wokwi Debugging 🔌",
+    "text": "Question 2: Wokwi Debugging 🔌\nWe wired up a traffic light LED to Pin 13 in Wokwi, but when we run this code, the LED stays completely OFF in the simulation:\nvoid setup() {\n  // Setup runs once\n}\n\nvoid loop() {\n  digitalWrite(13, HIGH); // Turn LED on\n}\nWhy is the LED not turning on?\n\nWe used HIGH instead of ON or 1 which causes a compilation crash.\nArduino pins can only be turned on by using analogWrite(13, 255);.\nWokwi doesn’t support Pin 13 because it is reserved for the USB programmer.\nWe forgot to configure Pin 13 as an output in setup using pinMode(13, OUTPUT);."
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-3-heavy-dc-motors",
+    "href": "slides/final-quiz.html#question-3-heavy-dc-motors",
+    "title": "Final Assessment",
+    "section": "Question 3: Heavy DC Motors ⚙️",
+    "text": "Question 3: Heavy DC Motors ⚙️\nWhy can’t we connect our heavy DC drive motors directly to the Arduino’s digital output pins?\n\nMotors draw far more current than the Arduino pins can supply, which would destroy the chip.\nBecause DC motors only run on alternating current (AC) power.\nArduino pins can only output 0V, never 5V.\nThe motor will spin backwards if connected directly."
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-4-actuation-speeds",
+    "href": "slides/final-quiz.html#question-4-actuation-speeds",
+    "title": "Final Assessment",
+    "section": "Question 4: Actuation & Speeds 🚗",
+    "text": "Question 4: Actuation & Speeds 🚗\nWe want our 4WD smart car to drive forward at a medium speed (roughly half power). Which Arduino command should we use?\n\ndigitalWrite(ML_PWM, HIGH);\nanalogWrite(ML_PWM, 127);\nanalogWrite(ML_PWM, 50);\nanalogRead(ML_PWM);"
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-5-servo-wiring-colors",
+    "href": "slides/final-quiz.html#question-5-servo-wiring-colors",
+    "title": "Final Assessment",
+    "section": "Question 5: Servo Wiring Colors 🌈",
+    "text": "Question 5: Servo Wiring Colors 🌈\nWhen wiring your SG90 Servo Motor to the Keyestudio Sensor Shield, which wire color corresponds to Ground (GND)?\n\nRed\nBrown or Black\nOrange or Yellow\nGreen"
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-6-sensor-math",
+    "href": "slides/final-quiz.html#question-6-sensor-math",
+    "title": "Final Assessment",
+    "section": "Question 6: Sensor Math 🦇",
+    "text": "Question 6: Sensor Math 🦇\nWhen calculating distance using the Ultrasonic Sensor, our code divides the Echo duration by 2 (distance = duration * 0.034 / 2). Why do we do this?\n\nTo account for the two sensor cylinders (Trig and Echo)\nThe sound wave travels to the object AND back, so we divide by 2 to get the one-way distance.\nTo convert the speed of sound from meters to centimeters\nBecause Arduino runs at 5V but the sensor runs at 2.5V"
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-7-sweeping-the-radar",
+    "href": "slides/final-quiz.html#question-7-sweeping-the-radar",
+    "title": "Final Assessment",
+    "section": "Question 7: Sweeping the Radar 🧹",
+    "text": "Question 7: Sweeping the Radar 🧹\nWe want to sweep our servo motor smoothly from 0° to 180° in 1-degree increments, waiting 15ms at each step. Which Arduino code structure is correct?\n\nfor (int pos = 0; pos &lt;= 180; pos += 1) { myServo.write(pos); delay(15); }\nif (pos &lt;= 180) { myServo.write(pos); delay(15); }\nmyServo.write(0); delay(15); myServo.write(180);\nwhile (pos == 180) { myServo.write(pos); }"
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-8-tank-steering-turn",
+    "href": "slides/final-quiz.html#question-8-tank-steering-turn",
+    "title": "Final Assessment",
+    "section": "Question 8: Tank Steering Turn 🔄",
+    "text": "Question 8: Tank Steering Turn 🔄\nTo perform a sharp tank turn to the LEFT in place, how should the left and right motors spin?\n\nLeft motor FORWARD and Right motor BACKWARD.\nBoth motors FORWARD, but the left motor at a slower speed.\nBoth motors BACKWARD.\nLeft motor BACKWARD and Right motor FORWARD."
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-9-autonomous-logic",
+    "href": "slides/final-quiz.html#question-9-autonomous-logic",
+    "title": "Final Assessment",
+    "section": "Question 9: Autonomous Logic ⚖️",
+    "text": "Question 9: Autonomous Logic ⚖️\nLook at this decision block. When will the robot decide to stop and reverse?\nint distance = measureDistance();\nif (distance &lt; 20 && distance &gt; 2) {\n  stopAndReverse();\n} else {\n  driveForward();\n}\n\nWhen the distance is between 2 cm and 20 cm.\nOnly when the distance is exactly 20 cm or exactly 2 cm.\nWhen the distance is either less than 20 cm OR greater than 2 cm.\nWhen there are no obstacles in front."
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-10-the-backwards-escape",
+    "href": "slides/final-quiz.html#question-10-the-backwards-escape",
+    "title": "Final Assessment",
+    "section": "Question 10: The Backwards Escape 🔙",
+    "text": "Question 10: The Backwards Escape 🔙\nOur robot gets stuck in a narrow corner where both distLeft and distRight are smaller than 10 cm. Which conditional check correctly detects this double-stuck condition to trigger a reverse escape?\n\nif (distLeft &lt; 10 && distRight &lt; 10) { car_back(); }\nif (distLeft &lt; 10 || distRight &lt; 10) { car_back(); }\nif (distLeft &lt; 10 + distRight &lt; 10) { car_back(); }\nif (distLeft == distRight) { car_back(); }"
+  },
+  {
+    "objectID": "slides/final-quiz.html#question-11-rover-integration",
+    "href": "slides/final-quiz.html#question-11-rover-integration",
+    "title": "Final Assessment",
+    "section": "Question 11: Rover Integration 🛰️",
+    "text": "Question 11: Rover Integration 🛰️\nIn the “Smart Remote” Rover challenge, our robot receives an IR remote command to drive FORWARD, but the ultrasonic sensor detects a wall just 10 cm away. What is the correct priority logic?\n\nThe remote is king! Ignore the sensor and drive forward.\nIgnore the remote’s ‘FORWARD’ button, stop the motors, but still allow ‘BACKWARD’ or ‘TURN’ commands.\nShutdown the entire Arduino board automatically.\nDrive forward anyway, but sound a beep sound."
+  },
+  {
+    "objectID": "slides/final-quiz.html#you-finished",
+    "href": "slides/final-quiz.html#you-finished",
+    "title": "Final Assessment",
+    "section": "You Finished! 🎉",
+    "text": "You Finished! 🎉\nCongratulations, Master Robotics Engineer! 🎓🚀\nYou have mastered circuits, coding logic, sensor math, and autonomous navigation.\nLet’s see how we can take our robots to the next level!"
+  },
+  {
+    "objectID": "slides/final-quiz.html#your-ultimate-companion-the-kit-wiki",
+    "href": "slides/final-quiz.html#your-ultimate-companion-the-kit-wiki",
+    "title": "Final Assessment",
+    "section": "Your Ultimate Companion: The Kit Wiki 📖",
+    "text": "Your Ultimate Companion: The Kit Wiki 📖\nTo build and program every project on your physical robot, use your official kit manual:\n\n🔗 Official Keyestudio V4.0 Smart Car Manual:\ndocs.keyestudio.com/projects/KS0470\n\nWhat’s inside?\n\n🛠️ Assembly: Step-by-step physical build instructions.\n🔌 Wiring: Clear, color-coded sensor connection diagrams.\n💻 Code: Sample programs for Bluetooth, IR control, and line tracking!"
+  },
+  {
+    "objectID": "slides/final-quiz.html#exciting-future-topics",
+    "href": "slides/final-quiz.html#exciting-future-topics",
+    "title": "Final Assessment",
+    "section": "Exciting Future Topics! ⚡",
+    "text": "Exciting Future Topics! ⚡\n\n\n🧠 Modular C++ Coding\nGroup your code into neat C++ “classes” instead of one huge, messy file. Keep it clean like a pro!\n📈 PID Precision Control\nUse mathematics to make your robot drive in a perfect straight line without any wobbling!\n\n📶 ESP32 & Wireless IoT\nUpgrade your brain to an ESP32 chip to control your robot from a phone dashboard over Wi-Fi!\n👁️ AI Cameras & Vision\nPlug in a HuskyLens AI camera so your robot can recognize faces, colors, and objects!"
+  },
+  {
+    "objectID": "slides/final-quiz.html#the-ultimate-arena-wro-2026",
+    "href": "slides/final-quiz.html#the-ultimate-arena-wro-2026",
+    "title": "Final Assessment",
+    "section": "The Ultimate Arena: WRO 2026 🏆",
+    "text": "The Ultimate Arena: WRO 2026 🏆\nReady to show your skills to the world?\n\n\n\n\n\n\nWorld Robot Olympiad (WRO) 2026\n\n\nJoin the Future Innovators competition under the theme “Robots Meet Culture”!\n\n\n\n\n🏛️ Create a smart robot that preserves heritage, makes art, or creates immersive cultural tours.\n🤖 Upgrade your Keyestudio Smart Car into a custom-designed cultural explorer.\n🌍 Share your invention with teams from all around the globe!"
   },
   {
     "objectID": "slides/session1.html#agenda",
@@ -1705,76 +1824,83 @@
     "href": "slides/session4.html#todays-agenda",
     "title": "Session 4: The Autonomous Explorer",
     "section": "Today’s Agenda",
-    "text": "Today’s Agenda\nPhase 1: The Concept of Obstacle Avoidance - How do autonomous cars drive? - The basic flow chart of logic.\nPhase 2: Motor Control Recap - Moving forward, stopping, and turning. - Using simple motor functions.\nPhase 3: The Decision Making Logic - Looking left vs looking right. - Making choices with if / else.\nPhase 4: Writing the Avoidance Code - Combining the Radar (Sensor + Servo) with Motors.\nPhase 5: Final Challenge - Tuning the robot for a maze."
+    "text": "Today’s Agenda\nPhase 1: The Concept - Sense → Think → Act - How autonomous robots make decisions\nPhase 2: Motor Helpers (Recap) - Reusing car_front, car_back, car_left, car_right, car_Stop from Session 2\nPhase 3: Complete Setup - Pins, libraries, Serial — one block that combines Sessions 2 & 3\nPhase 4: Decision Making - The lookAt(angle) helper - Reading left vs right with one line\nPhase 5: The Main Loop - Combining radar + motors into a clean loop()\nPhase 6: Challenges - Fine-tuning, backwards escape, and the Smart Remote override"
   },
   {
     "objectID": "slides/session4.html#the-avoidance-logic",
     "href": "slides/session4.html#the-avoidance-logic",
     "title": "Session 4: The Autonomous Explorer",
     "section": "The Avoidance Logic 🧠",
-    "text": "The Avoidance Logic 🧠\nTo make a robot avoid obstacles, we need to program a continuous loop of Sense -&gt; Think -&gt; Act.\n\nSense: Use the ultrasonic sensor to check if the path ahead is clear.\nThink: Is there an obstacle within 20 cm?\n\nNo: Keep going forward.\nYes: Stop! Look left and right to find the best alternative path.\n\nAct: Turn towards the direction with more space, then resume driving."
+    "text": "The Avoidance Logic 🧠\nTo make a robot avoid obstacles, we run a continuous loop of Sense → Think → Act.\n\nSense: Use the ultrasonic sensor to check if the path ahead is clear.\nThink: Is there an obstacle within 20 cm?\n\nNo: Keep going forward.\nYes: Stop! Look left and right to find the best alternative path.\n\nAct: Turn towards the direction with more space, then resume driving."
   },
   {
     "objectID": "slides/session4.html#the-flow-chart",
     "href": "slides/session4.html#the-flow-chart",
     "title": "Session 4: The Autonomous Explorer",
     "section": "The Flow Chart",
-    "text": "The Flow Chart\n\n(Imagine the robot scanning the room like a security guard before deciding where to walk!)"
+    "text": "The Flow Chart\nOur loop() runs this every cycle:\n1. SENSE → read forward distance with measureDistance()\n2. THINK → is distance &lt; 20 cm?\n\nPath clear → keep driving forward, servo stays centred at 90°\nObstacle! → stop, scan left (180°), scan right (0°), pick the larger gap\n\n3. ACT → turn ~300 ms toward the larger gap, then loop back to SENSE\nLike a security guard scanning the room before deciding where to walk."
   },
   {
-    "objectID": "slides/session4.html#wiring-the-motors",
-    "href": "slides/session4.html#wiring-the-motors",
+    "objectID": "slides/session4.html#the-helpers-you-have",
+    "href": "slides/session4.html#the-helpers-you-have",
     "title": "Session 4: The Autonomous Explorer",
-    "section": "Wiring the Motors 🔌",
-    "text": "Wiring the Motors 🔌\nOur Keyestudio shield has dedicated pins for the motors:\n// Motor A (Right)\nconst int MR_Ctrl = 2; // Direction pin\nconst int MR_PWM = 6;  // Speed pin\n\n// Motor B (Left)\nconst int ML_Ctrl = 4; // Direction pin\nconst int ML_PWM = 5;  // Speed pin\nWe need to set these as OUTPUT in our setup()!\nvoid setup() {\n  pinMode(ML_Ctrl, OUTPUT);\n  pinMode(ML_PWM, OUTPUT);\n  pinMode(MR_Ctrl, OUTPUT);\n  pinMode(MR_PWM, OUTPUT);\n}"
+    "section": "The Helpers You Have 🚗",
+    "text": "The Helpers You Have 🚗\nFrom Session 2 — Part 3 & Part 6, you already wrote these movement helpers (and the matching pinMode calls and pin defines). You will call them in Session 4, not rewrite them.\n\n\n\nHelper\nWhat it does\n\n\n\n\ncar_front()\nBoth motors forward\n\n\ncar_back()\nBoth motors backward\n\n\ncar_left()\nLeft wheel back, right wheel forward (tank turn)\n\n\ncar_right()\nLeft wheel forward, right wheel back\n\n\ncar_Stop()\nSpeed = 0 on both motors\n\n\n\n\n\n\n\n\n\nTip\n\n\nDon’t have these in your sketch yet? Copy them from Session 2 → Part 6 — Complete IR Car Code before continuing. Same pin defines (ML_Ctrl, ML_PWM, MR_Ctrl, MR_PWM) work here."
   },
   {
-    "objectID": "slides/session4.html#basic-movements",
-    "href": "slides/session4.html#basic-movements",
+    "objectID": "slides/session4.html#the-full-setup-block",
+    "href": "slides/session4.html#the-full-setup-block",
     "title": "Session 4: The Autonomous Explorer",
-    "section": "Basic Movements 🚗",
-    "text": "Basic Movements 🚗\nLet’s write simple Helper Functions to make driving easier.\nTo go forward, both motors spin in the same direction at a steady speed (e.g., 150 out of 255).\nvoid car_front() {\n  digitalWrite(ML_Ctrl, HIGH); // Left motor forward\n  analogWrite(ML_PWM, 150);    // Speed: 150\n  digitalWrite(MR_Ctrl, HIGH); // Right motor forward\n  analogWrite(MR_PWM, 150);    // Speed: 150\n}\n\nvoid car_Stop() {\n  analogWrite(ML_PWM, 0); // Speed: 0\n  analogWrite(MR_PWM, 0); // Speed: 0\n}"
+    "section": "The Full Setup Block 🔧",
+    "text": "The Full Setup Block 🔧\nSession 4 brings together motors, ultrasonic, and servo. Here is the complete top of your sketch:\n#include &lt;Servo.h&gt;\n\n// Motors (from Session 2)\n#define ML_Ctrl 4\n#define ML_PWM  5\n#define MR_Ctrl 2\n#define MR_PWM  6\n\n// Ultrasonic (from Session 3)\nconst int trigPin = 12;\nconst int echoPin = 13;\n\n// Servo (from Session 3) — plugged into pin 10\nServo myServo;\n\nvoid setup() {\n  pinMode(ML_Ctrl, OUTPUT); pinMode(ML_PWM, OUTPUT);\n  pinMode(MR_Ctrl, OUTPUT); pinMode(MR_PWM, OUTPUT);\n\n  pinMode(trigPin, OUTPUT);\n  pinMode(echoPin, INPUT);\n\n  myServo.attach(10);\n  myServo.write(90); // Look forward\n\n  Serial.begin(9600);\n}"
   },
   {
-    "objectID": "slides/session4.html#turning-the-robot",
-    "href": "slides/session4.html#turning-the-robot",
+    "objectID": "slides/session4.html#the-measuredistance-helper",
+    "href": "slides/session4.html#the-measuredistance-helper",
     "title": "Session 4: The Autonomous Explorer",
-    "section": "Turning the Robot 🔄",
-    "text": "Turning the Robot 🔄\nTo turn Left, we spin the left motor backward and the right motor forward (like a tank).\nvoid car_left() {\n  digitalWrite(ML_Ctrl, LOW);  // Left motor BACKWARD\n  analogWrite(ML_PWM, 200);    // Turn quickly (Speed: 200)\n  digitalWrite(MR_Ctrl, HIGH); // Right motor FORWARD\n  analogWrite(MR_PWM, 200);\n}\n\nvoid car_right() {\n  digitalWrite(ML_Ctrl, HIGH); // Left motor FORWARD\n  analogWrite(ML_PWM, 200);\n  digitalWrite(MR_Ctrl, LOW);  // Right motor BACKWARD\n  analogWrite(MR_PWM, 200);\n}"
+    "section": "The measureDistance() Helper 📡",
+    "text": "The measureDistance() Helper 📡\nYou wrote this in Session 3 — drop it into your sketch unchanged:\nint measureDistance() {\n  digitalWrite(trigPin, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trigPin, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trigPin, LOW);\n\n  long duration = pulseIn(echoPin, HIGH);\n  return duration * 0.034 / 2;\n}"
   },
   {
-    "objectID": "slides/session4.html#the-radar-system-recap",
-    "href": "slides/session4.html#the-radar-system-recap",
+    "objectID": "slides/session4.html#the-lookat-helper",
+    "href": "slides/session4.html#the-lookat-helper",
     "title": "Session 4: The Autonomous Explorer",
-    "section": "The Radar System (Recap) 📡",
-    "text": "The Radar System (Recap) 📡\nRemember our measureDistance() function from Session 3? We will use it to check our surroundings!\nint measureDistance() {\n  digitalWrite(trigPin, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trigPin, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trigPin, LOW);\n\n  long duration = pulseIn(echoPin, HIGH);\n  return duration * 0.034 / 2;\n}"
+    "section": "The lookAt() Helper 👀",
+    "text": "The lookAt() Helper 👀\nWhen an obstacle is detected, the robot needs to look in different directions. Instead of repeating “write angle, delay, measure” every time, we package it into one helper:\nint lookAt(int angle) {\n  myServo.write(angle);\n  delay(500);              // Give the servo time to turn\n  return measureDistance();\n}\nNow “look left and report the distance” is just one line:\nint leftDistance  = lookAt(180); // Look left\n\n\n\n\n\n\nTip\n\n\nEvery time you write the same 3+ lines twice, ask: should this be a helper? Helper functions keep loop() short and readable."
   },
   {
-    "objectID": "slides/session4.html#looking-around",
-    "href": "slides/session4.html#looking-around",
+    "objectID": "slides/session4.html#the-brain",
+    "href": "slides/session4.html#the-brain",
     "title": "Session 4: The Autonomous Explorer",
-    "section": "Looking Around 👀",
-    "text": "Looking Around 👀\nWhen an obstacle is detected, the robot stops and uses its servo motor to look around.\n// 1. Stop the car\ncar_Stop();\ndelay(100);\n\n// 2. Look Left\nmyServo.write(180);\ndelay(500);\nint leftDistance = measureDistance();\n\n// 3. Look Right\nmyServo.write(0);\ndelay(500);\nint rightDistance = measureDistance();\n\n// 4. Look Forward again\nmyServo.write(90);\ndelay(300);"
-  },
-  {
-    "objectID": "slides/session4.html#the-main-loop",
-    "href": "slides/session4.html#the-main-loop",
-    "title": "Session 4: The Autonomous Explorer",
-    "section": "The Main Loop 🔄",
-    "text": "The Main Loop 🔄\nThis goes inside your loop() function. This is the “brain” of our robot!\nvoid loop() {\n  int distance = measureDistance();\n\n  if (distance &gt; 0 && distance &lt; 20) { // Obstacle detected!\n    car_Stop();\n    delay(100);\n    \n    // Look around\n    myServo.write(180); // Look left\n    delay(500);\n    int distLeft = measureDistance();\n    \n    myServo.write(0);   // Look right\n    delay(500);\n    int distRight = measureDistance();\n    \n    // Decide where to turn\n    if (distLeft &gt; distRight) {\n      car_left();\n      delay(300); // Turn for 300ms\n    } else {\n      car_right();\n      delay(300); // Turn for 300ms\n    }\n  } else { // Path is clear!\n    car_front();\n    myServo.write(90); // Keep looking forward\n  }\n}"
+    "section": "The Brain 🧠",
+    "text": "The Brain 🧠\nThis is the heart of the autonomous explorer:\nvoid loop() {\n  // 1. SENSE — servo is already at 90° from last iteration\n  int distance = measureDistance();\n  Serial.print(\"Forward: \"); Serial.println(distance);\n\n  if (distance &gt; 0 && distance &lt; 20) {\n    // 2. THINK — obstacle! stop and scan\n    car_Stop();\n    delay(100);\n\n    int distLeft  = lookAt(180);\n    int distRight = lookAt(0);\n\n    myServo.write(90); // Re-centre BEFORE turning\n    delay(200);\n\n    // 3. ACT — turn toward the larger gap\n    if (distLeft &gt; distRight) {\n      car_left();\n    } else {\n      car_right();\n    }\n    delay(300);\n  } else {\n    // Path clear — keep going\n    car_front();\n  }\n}\n\n\n\n\n\n\nImportant\n\n\nWe re-centre the servo to 90° after scanning. Without this, the next forward measurement reads sideways and the robot crashes blindly into whatever it stopped looking at."
   },
   {
     "objectID": "slides/session4.html#challenge-1-fine-tuning",
     "href": "slides/session4.html#challenge-1-fine-tuning",
     "title": "Session 4: The Autonomous Explorer",
     "section": "Challenge 1: Fine-Tuning 🛠️",
-    "text": "Challenge 1: Fine-Tuning 🛠️\nRun your robot on the floor. You might notice it behaves strangely!\n\nTurning Time: Is delay(300) when turning left/right enough time for the robot to actually turn 90 degrees? Try changing it to delay(500) or delay(200) until it makes sharp turns.\nDetection Distance: Is 20 cm too close? Does it crash before it can stop? Try changing the threshold to 30 cm."
+    "text": "Challenge 1: Fine-Tuning 🛠️\nRun your robot. You will notice it behaves strangely!\n\nOpen the Serial Monitor (Tools → Serial Monitor, 9600 baud). Watch the live distance readings — are they what you expect when you put your hand in front?\nTurning time: Is delay(300) enough to turn ~90°? Try delay(200) or delay(500) until turns are sharp.\nDetection distance: Does it crash before stopping? Try raising the threshold from 20 to 30 cm.\n\nEngineering is iteration — observe, adjust, observe again."
   },
   {
     "objectID": "slides/session4.html#challenge-2-the-backwards-escape",
     "href": "slides/session4.html#challenge-2-the-backwards-escape",
     "title": "Session 4: The Autonomous Explorer",
     "section": "Challenge 2: The Backwards Escape 🔙",
-    "text": "Challenge 2: The Backwards Escape 🔙\nWhat if the robot gets completely stuck in a corner where both left AND right distances are smaller than 10 cm?\nYour Task: Modify the code so that if distLeft &lt; 10 AND distRight &lt; 10, the robot drives BACKWARDS for 1 second before trying to turn again!\nHint: You will need to write a car_back() helper function!"
+    "text": "Challenge 2: The Backwards Escape 🔙\nWhat if the robot is trapped — both left AND right distances are tiny (&lt; 10 cm)?\nYour task: modify the obstacle branch so that if distLeft &lt; 10 AND distRight &lt; 10, the robot drives backwards for 1 second before re-scanning.\nif (distLeft &lt; 10 && distRight &lt; 10) {\n  car_back();      // Reuse from Session 2 Part 6\n  delay(1000);\n} else if (distLeft &gt; distRight) {\n  car_left();\n  delay(300);\n} else {\n  car_right();\n  delay(300);\n}\n\n\n\n\n\n\nTip\n\n\ncar_back() is already in your Session 2 → Part 6 — Complete IR Car Code. Reuse it; don’t rewrite it."
+  },
+  {
+    "objectID": "slides/session4.html#challenge-3-smart-remote-override",
+    "href": "slides/session4.html#challenge-3-smart-remote-override",
+    "title": "Session 4: The Autonomous Explorer",
+    "section": "Challenge 3: Smart Remote Override 🎮",
+    "text": "Challenge 3: Smart Remote Override 🎮\nGoal: combine Session 2’s IR remote with Session 4’s distance check.\nYou drive the robot with your remote — but if you try to drive it into a wall, the robot refuses the FORWARD command and stops itself.\nThe Logic inside loop():\n\nRead the forward distance.\nRead the IR remote (IrReceiver.decode()).\nIf distance &lt; 15 AND the command is FORWARD → call car_Stop() and ignore it.\nOtherwise → run the command normally (turning and reversing stay allowed — still safe)."
+  },
+  {
+    "objectID": "slides/session4.html#challenge-3-the-scaffold",
+    "href": "slides/session4.html#challenge-3-the-scaffold",
+    "title": "Session 4: The Autonomous Explorer",
+    "section": "Challenge 3: The Scaffold 🛠️",
+    "text": "Challenge 3: The Scaffold 🛠️\nvoid loop() {\n  int distance = measureDistance();\n\n  if (IrReceiver.decode()) {\n    uint16_t cmd = IrReceiver.decodedIRData.command;\n\n    if (cmd == 0x46 && distance &lt; 15) {  // 0x46 = FORWARD + wall ahead\n      car_Stop();                        // Override: refuse the command\n      Serial.println(\"Wall! Forward blocked.\");\n    } else {\n      handleCommand(cmd);                // From Session 2 Part 5\n    }\n\n    IrReceiver.resume();\n  }\n}\n\n\n\n\n\n\nTip\n\n\nReuse handleCommand() from Session 2 Part 5. Replace 0x46 with whatever code your remote’s UP button actually sends.\n\n\n\nGood luck, Master Coders!"
   }
 ]

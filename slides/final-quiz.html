@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-html/tabby.min.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <title>part2-tinkercad-simulation</title>
+  <meta name="dcterms.date" content="2026-05-22">
+  <title>Final Assessment</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -94,11 +95,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-5d15484fdef58f96baaf08c5b3aaad75.css">
-  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-5d15484fdef58f96baaf08c5b3aaad75.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-quiz/quiz.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -193,134 +195,226 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="../../slides_template/assets/anim.svg" data-background-opacity="0.15" data-background-size="cover" class="quarto-title-block center">
-  <h1 class="title">Part 2 — Tinkercad Simulation</h1>
+<section id="title-slide" data-background-image="../slides_template/assets/anim.svg" data-background-opacity="0.08" data-background-size="cover" class="quarto-title-block center">
+  <h1 class="title">Final Assessment</h1>
+  <p class="subtitle">Interactive Course Quiz &amp; Knowledge Check</p>
 
 <div class="quarto-title-authors">
 </div>
 
+  <p class="date">2026-05-22</p>
 </section>
-<section id="why-we-simulate-before-we-build" class="slide level2">
-<h2>Why we simulate before we build</h2>
-<p>Wiring a motor driver wrong can short-circuit the battery or blow up components. We will use <strong>Tinkercad</strong> to wire our first virtual motor driver. If we make a mistake, we only blow up pixels!</p>
+<section>
+<section id="test-your-superpowers" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Test Your Superpowers!</h1>
+<p>Are you ready to prove you are a Master Robotics Engineer? 🧠⚡</p>
+</section>
+<section id="question-1-led-resistors" class="slide level2 quiz-question smaller">
+<h2>Question 1: LED Resistors 🛡️</h2>
+<p>Why is it <strong>mandatory</strong> to place a resistor in series with an LED when connecting it to power?</p>
+<ul>
+<li><span data-explanation="Incorrect. A resistor only opposes current flow; it does not convert electrical formats.">To convert the power from Alternating Current (AC) to Direct Current (DC).</span></li>
+<li><span class="correct" data-explanation="Exactly! LEDs have very little resistance. Without a resistor, they draw too much current and burn out almost instantly.">To limit the electrical current so the LED doesn’t burn out.</span></li>
+<li><span data-explanation="No, that is a capacitor's job. Resistors do not store energy; they dissipate excess voltage as heat.">To store electrical energy like a tiny battery.</span></li>
+<li><span data-explanation="No. LED color is determined by the physical semiconductor materials, not the resistor value.">To change the color of the LED’s light.</span></li>
+</ul>
+</section>
+<section id="question-2-wokwi-debugging" class="slide level2 quiz-question smaller">
+<h2>Question 2: Wokwi Debugging 🔌</h2>
+<p>We wired up a traffic light LED to <strong>Pin 13</strong> in Wokwi, but when we run this code, the LED stays completely <strong>OFF</strong> in the simulation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-2"><a></a>  <span class="co">// Setup runs once</span></span>
+<span id="cb1-3"><a></a><span class="op">}</span></span>
+<span id="cb1-4"><a></a></span>
+<span id="cb1-5"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-6"><a></a>  digitalWrite<span class="op">(</span><span class="dv">13</span><span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Turn LED on</span></span>
+<span id="cb1-7"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Why is the LED not turning on?</p>
+<ul>
+<li><span data-explanation="No! HIGH is the standard Arduino keyword representing 5V/logic 1.">We used HIGH instead of ON or 1 which causes a compilation crash.</span></li>
+<li><span data-explanation="No! digitalWrite works perfectly for turning an output pin ON, provided it has been initialized.">Arduino pins can only be turned on by using analogWrite(13, 255);.</span></li>
+<li><span data-explanation="Incorrect! Pin 13 is a standard GPIO pin and is fully simulated in Wokwi (it even connects to the built-in 'L' LED).">Wokwi doesn’t support Pin 13 because it is reserved for the USB programmer.</span></li>
+<li><span class="correct" data-explanation="Brilliant! Arduino pins default to INPUT mode for safety. If you don't configure the pin as an OUTPUT, it acts as a high-impedance listener and cannot supply enough current to light the LED.">We forgot to configure Pin 13 as an output in setup using <code>pinMode(13, OUTPUT);</code>.</span></li>
+</ul>
+</section>
+<section id="question-3-heavy-dc-motors" class="slide level2 quiz-question smaller">
+<h2>Question 3: Heavy DC Motors ⚙️</h2>
+<p>Why can’t we connect our heavy DC drive motors <strong>directly</strong> to the Arduino’s digital output pins?</p>
+<ul>
+<li><span class="correct" data-explanation="Spot on! Arduino pins can safely output about 20-40 mA. DC motors can draw hundreds of milliamps (or more when stalled), so we must use an H-bridge driver circuit as a power mediator.">Motors draw far more current than the Arduino pins can supply, which would destroy the chip.</span></li>
+<li><span data-explanation="No, these are DC motors and run perfectly on Direct Current (DC).">Because DC motors only run on alternating current (AC) power.</span></li>
+<li><span data-explanation="Incorrect. Arduino digital pins output 5V in HIGH state, which is the correct voltage, but they lack the current capacity.">Arduino pins can only output 0V, never 5V.</span></li>
+<li><span data-explanation="No, spin direction depends on polarity, but the direct connection will burn the pin before the motor spins reliably anyway.">The motor will spin backwards if connected directly.</span></li>
+</ul>
+</section>
+<section id="question-4-actuation-speeds" class="slide level2 quiz-question smaller">
+<h2>Question 4: Actuation &amp; Speeds 🚗</h2>
+<p>We want our 4WD smart car to drive forward at a <strong>medium speed</strong> (roughly half power). Which Arduino command should we use?</p>
+<ul>
+<li><span data-explanation="No! digitalWrite only outputs fully ON (5V/255 speed) or fully OFF (0V/0 speed)."><code>digitalWrite(ML_PWM, HIGH);</code></span></li>
+<li><span class="correct" data-explanation="Correct! analogWrite uses Pulse Width Modulation (PWM) from 0 to 255. A value of 127 is roughly 50% speed!"><code>analogWrite(ML_PWM, 127);</code></span></li>
+<li><span data-explanation="Not quite. While this controls speed, 50 out of 255 is only ~20% power, which is too low to reliably turn the motors."><code>analogWrite(ML_PWM, 50);</code></span></li>
+<li><span data-explanation="No! analogRead is used to READ signals from sensors, not to send power outputs to motors."><code>analogRead(ML_PWM);</code></span></li>
+</ul>
+</section>
+<section id="question-5-servo-wiring-colors" class="slide level2 quiz-question smaller">
+<h2>Question 5: Servo Wiring Colors 🌈</h2>
+<p>When wiring your <strong>SG90 Servo Motor</strong> to the Keyestudio Sensor Shield, which wire color corresponds to <strong>Ground (GND)</strong>?</p>
+<ul>
+<li><span data-explanation="Danger! Red is VCC/Power (5V). Connecting power to GND or Signal pins can destroy your sensor or servo.">Red</span></li>
+<li><span class="correct" data-explanation="Perfect! Standard SG90 servo wiring uses Brown (or Black) for Ground, Red for Power (VCC), and Orange (or Yellow) for the Signal.">Brown or Black</span></li>
+<li><span data-explanation="Incorrect. Orange or Yellow is the PWM control Signal line, not Ground.">Orange or Yellow</span></li>
+<li><span data-explanation="No. Standard SG90 servos do not have a green wire.">Green</span></li>
+</ul>
+</section>
+<section id="question-6-sensor-math" class="slide level2 quiz-question smaller">
+<h2>Question 6: Sensor Math 🦇</h2>
+<p>When calculating distance using the Ultrasonic Sensor, our code divides the Echo duration by <strong>2</strong> (<code>distance = duration * 0.034 / 2</code>). Why do we do this?</p>
+<ul>
+<li><span data-explanation="No! The number of cylinders doesn't change the speed of sound or travel physics.">To account for the two sensor cylinders (Trig and Echo)</span></li>
+<li><span class="correct" data-explanation="Spot on! The sensor measures the total round-trip time. We only want the distance from the robot to the wall, which is half of the total trip.">The sound wave travels to the object AND back, so we divide by 2 to get the one-way distance.</span></li>
+<li><span data-explanation="Incorrect. The multiplication by 0.034 (speed of sound in cm/µs) handles the unit conversion, not the division by 2.">To convert the speed of sound from meters to centimeters</span></li>
+<li><span data-explanation="No! The sensor runs at 5V and this has absolutely nothing to do with voltage.">Because Arduino runs at 5V but the sensor runs at 2.5V</span></li>
+</ul>
+</section>
+<section id="question-7-sweeping-the-radar" class="slide level2 quiz-question smaller">
+<h2>Question 7: Sweeping the Radar 🧹</h2>
+<p>We want to sweep our servo motor smoothly from <strong>0° to 180°</strong> in 1-degree increments, waiting 15ms at each step. Which Arduino code structure is correct?</p>
+<ul>
+<li><span class="correct" data-explanation="Perfect! The for-loop increments the 'pos' variable, writes it to the servo, and waits for it to physically arrive."><code>for (int pos = 0; pos &lt;= 180; pos += 1) { myServo.write(pos); delay(15); }</code></span></li>
+<li><span data-explanation="No. An 'if' statement only runs once per loop execution. It will not sweep smoothly in a single action."><code>if (pos &lt;= 180) { myServo.write(pos); delay(15); }</code></span></li>
+<li><span data-explanation="No! This will make the servo jump violently from 0 to 180 directly, rather than sweeping smoothly."><code>myServo.write(0); delay(15); myServo.write(180);</code></span></li>
+<li><span data-explanation="No. This creates an infinite loop or won't run at all because pos must start at 0 and move up."><code>while (pos == 180) { myServo.write(pos); }</code></span></li>
+</ul>
+</section>
+<section id="question-8-tank-steering-turn" class="slide level2 quiz-question smaller">
+<h2>Question 8: Tank Steering Turn 🔄</h2>
+<p>To perform a sharp <strong>tank turn to the LEFT</strong> in place, how should the left and right motors spin?</p>
+<ul>
+<li><span data-explanation="No, that would steer the car to the RIGHT, not the left.">Left motor FORWARD and Right motor BACKWARD.</span></li>
+<li><span data-explanation="No, that is a sweeping turn, not a sharp 'tank turn' in place.">Both motors FORWARD, but the left motor at a slower speed.</span></li>
+<li><span data-explanation="Incorrect. That will make the car drive straight backwards.">Both motors BACKWARD.</span></li>
+<li><span class="correct" data-explanation="Exactly! By spinning the left wheels backward (ML_Ctrl = LOW) and the right wheels forward (MR_Ctrl = HIGH), the car spins quickly on its center axis.">Left motor BACKWARD and Right motor FORWARD.</span></li>
+</ul>
+</section>
+<section id="question-9-autonomous-logic" class="slide level2 quiz-question smaller">
+<h2>Question 9: Autonomous Logic ⚖️</h2>
+<p>Look at this decision block. When will the robot decide to <strong>stop and reverse</strong>?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a></a><span class="dt">int</span> distance <span class="op">=</span> measureDistance<span class="op">();</span></span>
+<span id="cb2-2"><a></a><span class="cf">if</span> <span class="op">(</span>distance <span class="op">&lt;</span> <span class="dv">20</span> <span class="op">&amp;&amp;</span> distance <span class="op">&gt;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a></a>  stopAndReverse<span class="op">();</span></span>
+<span id="cb2-4"><a></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb2-5"><a></a>  driveForward<span class="op">();</span></span>
+<span id="cb2-6"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><span class="correct" data-explanation="Exactly! The '&amp;&amp;' operator means BOTH conditions must be true: the object must be closer than 20cm, but greater than 2cm (to ignore error/0 readings).">When the distance is between 2 cm and 20 cm.</span></li>
+<li><span data-explanation="No, '<' and '>' represent ranges (less than and greater than), not exact equality ('==').">Only when the distance is exactly 20 cm or exactly 2 cm.</span></li>
+<li><span data-explanation="No! That would be the '||' (OR) operator. The '&amp;&amp;' (AND) operator requires both to be true.">When the distance is either less than 20 cm OR greater than 2 cm.</span></li>
+<li><span data-explanation="Incorrect! When the distance is large (e.g. 50cm), it goes to the 'else' block and drives forward.">When there are no obstacles in front.</span></li>
+</ul>
+</section>
+<section id="question-10-the-backwards-escape" class="slide level2 quiz-question smaller">
+<h2>Question 10: The Backwards Escape 🔙</h2>
+<p>Our robot gets stuck in a narrow corner where both <code>distLeft</code> and <code>distRight</code> are smaller than 10 cm. Which conditional check correctly detects this double-stuck condition to trigger a reverse escape?</p>
+<ul>
+<li><span class="correct" data-explanation="Spot on! The '&amp;&amp;' (AND) operator ensures the reverse action is triggered only when BOTH the left AND right sides are blocked."><code>if (distLeft &lt; 10 &amp;&amp; distRight &lt; 10) { car_back(); }</code></span></li>
+<li><span data-explanation="No! The '||' (OR) operator would make the robot reverse if *either* side is blocked, which makes it back up too early even if one side is completely open."><code>if (distLeft &lt; 10 || distRight &lt; 10) { car_back(); }</code></span></li>
+<li><span data-explanation="No, the '+' operator performs addition, which is invalid syntax here for logical checks."><code>if (distLeft &lt; 10 + distRight &lt; 10) { car_back(); }</code></span></li>
+<li><span data-explanation="No, this only checks if the distances are exactly equal, not if they are blocked."><code>if (distLeft == distRight) { car_back(); }</code></span></li>
+</ul>
+</section>
+<section id="question-11-rover-integration" class="slide level2 quiz-question smaller">
+<h2>Question 11: Rover Integration 🛰️</h2>
+<p>In the <strong>“Smart Remote” Rover challenge</strong>, our robot receives an IR remote command to drive <strong>FORWARD</strong>, but the ultrasonic sensor detects a wall just <strong>10 cm</strong> away. What is the correct priority logic?</p>
+<ul>
+<li><span data-explanation="Danger! This will crash your robot directly into the wall, causing physical damage.">The remote is king! Ignore the sensor and drive forward.</span></li>
+<li><span class="correct" data-explanation="Brilliant! Safety override! You block dangerous commands (Forward) but keep the robot responsive so the driver can back away or steer clear.">Ignore the remote’s ‘FORWARD’ button, stop the motors, but still allow ‘BACKWARD’ or ‘TURN’ commands.</span></li>
+<li><span data-explanation="No, shutting down means the robot becomes completely unresponsive and you cannot control it anymore.">Shutdown the entire Arduino board automatically.</span></li>
+<li><span data-explanation="No, a beep doesn't stop the physical impact. Safety must be absolute.">Drive forward anyway, but sound a beep sound.</span></li>
+</ul>
+</section>
+<section id="you-finished" class="slide level2 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #9B8EC0)">
+<h2>You Finished! 🎉</h2>
+<h3 id="congratulations-master-robotics-engineer">Congratulations, Master Robotics Engineer! 🎓🚀</h3>
+<p>You have mastered circuits, coding logic, sensor math, and autonomous navigation.</p>
+<p><em>Let’s see how we can take our robots to the next level!</em></p>
+</section>
+<section id="your-ultimate-companion-the-kit-wiki" class="slide level2 smaller">
+<h2>Your Ultimate Companion: The Kit Wiki 📖</h2>
+<p>To build and program every project on your physical robot, use your official kit manual:</p>
+<div style="background: #1C355E; padding: 1.2em; border-radius: 12px; border-left: 5px solid #00C9A7; margin-top: 1em; text-align: center;">
+<p>🔗 <strong>Official Keyestudio V4.0 Smart Car Manual:</strong></p>
+<p><a href="https://docs.keyestudio.com/projects/KS0470/en/latest/" target="_blank" style="color: #00C9A7; font-weight: bold; font-size: 1.1em;">docs.keyestudio.com/projects/KS0470</a></p>
+</div>
+<h3 id="whats-inside">What’s inside?</h3>
+<ul>
+<li>🛠️ <strong>Assembly:</strong> Step-by-step physical build instructions.</li>
+<li>🔌 <strong>Wiring:</strong> Clear, color-coded sensor connection diagrams.</li>
+<li>💻 <strong>Code:</strong> Sample programs for Bluetooth, IR control, and line tracking!</li>
+</ul>
+</section>
+<section id="exciting-future-topics" class="slide level2 smaller">
+<h2>Exciting Future Topics! ⚡</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="modular-c-coding">🧠 Modular C++ Coding</h3>
+<p>Group your code into neat C++ “classes” instead of one huge, messy file. Keep it clean like a pro!</p>
+<h3 id="pid-precision-control">📈 PID Precision Control</h3>
+<p>Use mathematics to make your robot drive in a <em>perfect</em> straight line without any wobbling!</p>
+</div><div class="column" style="width:50%;">
+<h3 id="esp32-wireless-iot">📶 ESP32 &amp; Wireless IoT</h3>
+<p>Upgrade your brain to an ESP32 chip to control your robot from a phone dashboard over Wi-Fi!</p>
+<h3 id="ai-cameras-vision">👁️ AI Cameras &amp; Vision</h3>
+<p>Plug in a HuskyLens AI camera so your robot can recognize faces, colors, and objects!</p>
+</div></div>
+</section>
+<section id="the-ultimate-arena-wro-2026" class="slide level2 smaller">
+<h2>The Ultimate Arena: WRO 2026 🏆</h2>
+<p>Ready to show your skills to the world?</p>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Your Task</strong></p>
+<p><strong>World Robot Olympiad (WRO) 2026</strong></p>
 </div>
 <div class="callout-content">
-<p>Go to <code>tinkercad.com/circuits</code> and start a new project.</p>
+<p>Join the <strong>Future Innovators</strong> competition under the theme <strong>“Robots Meet Culture”</strong>!</p>
 </div>
 </div>
 </div>
-</section>
-<section id="wiring-the-l298n-motor-driver" class="slide level2">
-<h2>Wiring the L298N Motor Driver</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>We need to connect 3 types of wires:</p>
-<ol type="1">
-<li><strong>Power In</strong>: Battery <code>+</code> to <code>12V</code>, Battery <code>-</code> to <code>GND</code>.</li>
-<li><strong>Motor Out</strong>: Motor wires to <code>OUT1</code> and <code>OUT2</code>.</li>
-<li><strong>Logic In</strong>: <code>IN1</code> (Pin 9), <code>IN2</code> (Pin 10), and <strong><code>ENA</code> (Pin 11)</strong>.</li>
-</ol>
-<p><em>And crucially, Arduino <code>GND</code> must connect to the Battery <code>GND</code> so they share the same 0V reference!</em></p>
-</div><div class="column" style="width:50%;">
-<div id="a0d69743" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="part2-tinkercad-simulation_files/figure-revealjs/cell-2-output-1.svg" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Wait, what is 12V vs 5V?</strong></p>
-</div>
-<div class="callout-content">
-<p>The driver takes the strong battery power (up to 12V) on one side, and the safe 5V logic signals from the Arduino on the other side.</p>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="writing-the-tinkercad-code" class="slide level2">
-<h2>Writing the Tinkercad Code</h2>
-<p>Once wired, let’s write the code to spin the motor. We use the exact same <code>digitalWrite</code> commands we learned for LEDs.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-2"><a></a>  pinMode<span class="op">(</span><span class="dv">9</span><span class="op">,</span> OUTPUT<span class="op">);</span>  <span class="co">// IN1</span></span>
-<span id="cb1-3"><a></a>  pinMode<span class="op">(</span><span class="dv">10</span><span class="op">,</span> OUTPUT<span class="op">);</span> <span class="co">// IN2</span></span>
-<span id="cb1-4"><a></a>  pinMode<span class="op">(</span><span class="dv">11</span><span class="op">,</span> OUTPUT<span class="op">);</span> <span class="co">// ENA (Speed)</span></span>
-<span id="cb1-5"><a></a><span class="op">}</span></span>
-<span id="cb1-6"><a></a></span>
-<span id="cb1-7"><a></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-8"><a></a>  <span class="co">// Spin Forward at half speed</span></span>
-<span id="cb1-9"><a></a>  digitalWrite<span class="op">(</span><span class="dv">9</span><span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb1-10"><a></a>  digitalWrite<span class="op">(</span><span class="dv">10</span><span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb1-11"><a></a>  analogWrite<span class="op">(</span><span class="dv">11</span><span class="op">,</span> <span class="dv">150</span><span class="op">);</span> </span>
-<span id="cb1-12"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
-<span id="cb1-13"><a></a></span>
-<span id="cb1-14"><a></a>  <span class="co">// Stop completely</span></span>
-<span id="cb1-15"><a></a>  digitalWrite<span class="op">(</span><span class="dv">9</span><span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb1-16"><a></a>  digitalWrite<span class="op">(</span><span class="dv">10</span><span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb1-17"><a></a>  analogWrite<span class="op">(</span><span class="dv">11</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
-<span id="cb1-18"><a></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
-<span id="cb1-19"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="testing-the-simulation" class="slide level2">
-<h2>Testing the Simulation</h2>
-<p>Click <strong>“Start Simulation”</strong> in Tinkercad.</p>
-<p>Observe the virtual motor: 1. Does it spin? What RPM is indicated? 2. <strong>Change the Code:</strong> Make <code>IN1</code> LOW and <code>IN2</code> HIGH. What happens to the spin direction?</p>
-<div class="fragment">
-<p>We reverse the direction of a DC motor by swapping the <code>HIGH</code> and <code>LOW</code> signals!</p>
-</div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>From Simulation to Hardware</strong></p>
-</div>
-<div class="callout-content">
-<p>The car kit you’ll build with next uses a motor driver with a <strong>simplified interface</strong>: only one direction pin and one PWM (speed) pin per motor — no separate <code>IN1</code>/<code>IN2</code>. The concept is identical (one pin sets direction, one pin sets speed); only the pin numbers change. You’ll see the kit’s real pinout in the next part.</p>
-</div>
-</div>
-</div>
+<ul>
+<li>🏛️ <strong>Create</strong> a smart robot that preserves heritage, makes art, or creates immersive cultural tours.</li>
+<li>🤖 <strong>Upgrade</strong> your Keyestudio Smart Car into a custom-designed cultural explorer.</li>
+<li>🌍 <strong>Share</strong> your invention with teams from all around the globe!</li>
+</ul>
 
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="../../slides_template/assets/sdaia.svg" class="slide-logo"></p>
+<p><img src="../slides_template/assets/sdaia.svg" class="slide-logo"></p>
 <div class="footer footer-default">
 
 </div>
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-quiz/quiz.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -328,7 +422,7 @@
       // Full list of configuration options available at:
       // https://revealjs.com/config/
       Reveal.initialize({
-'controlsAuto': true,
+'controlsAuto': false,
 'previewLinksAuto': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
@@ -336,10 +430,11 @@
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"},{"title":"Index","icon":"<svg width='1.8rem' viewBox='0 0 24 24'><path d='M5 7h14M5 12h14M5 17h7' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>","src":"../../index.html"}],"openButton":true},
+'quiz': {"checkKey":"c","resetKey":"q","shuffleKey":"t","allowNumberKeys":true,"disableOnCheck":false,"shuffleOptions":true,"defaultCorrect":"🎉 Correct! Superb engineering brain!","defaultIncorrect":"❌ Not quite! Let's think about that again.","includeScore":true,"disableReset":false},
 'smaller': false,
  
         // Display controls in the bottom right corner
-        controls: false,
+        controls: true,
 
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
@@ -506,7 +601,7 @@
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealQuiz, QuartoSupport,
 
           RevealMath,
           RevealNotes,
