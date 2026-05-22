@@ -1,0 +1,153 @@
+.reveal .quiz-question ul {
+    display: block;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.reveal .quiz-question li {
+    margin-bottom: 6px;
+}
+
+.option-button {
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    margin-bottom: 6px;
+    background-color: #2c3e50;
+    border: none;
+    color: white;
+    text-align: left;
+    font-size: 0.85em !important;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 8px;
+}
+
+.option-button:hover {
+    background-color: #34495e;
+}
+
+.option-button.selected {
+    background-color: #3498db;
+}
+
+.option-button.correct {
+    background-color: #27ae60;
+}
+
+.option-button.incorrect {
+    background-color: #c0392b;
+}
+
+.action-buttons {
+    margin-top: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    top: 0%;
+    border-radius: 8px;
+}
+
+.check-button,
+.prev-button,
+.next-button,
+.reset-button {
+    padding: 6px 12px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    margin-right: 8px;
+}
+
+.check-button {
+    background-color: #2980b9;
+}
+
+.prev-button {
+    background-color: #e5a43c;
+}
+
+.next-button {
+    background-color: #27ae60;
+}
+
+.reset-button {
+    background-color: #e74c3c;
+}
+
+.check-button:disabled,
+.prev-button:disabled,
+.next-button:disabled,
+.reset-button:disabled {
+    background-color: #7f8c8d;
+    cursor: not-allowed;
+}
+
+.feedback {
+    font-weight: bold;
+    margin-top: 8px;
+    font-size: 16px;
+    /* center feedback */
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.score {
+    position: absolute;
+    color: #238636;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001;
+}
+
+/* Multiple choice questions styling */
+.quiz-multiple .option-button.selected {
+    background-color: #3498db;
+    border: 3px solid #2980b9;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.quiz-multiple .option-button.selected:hover {
+    background-color: #2980b9;
+}
+
+.quiz-multiple .option-button.selected::after {
+    content: " ✓";
+    color: white;
+    font-weight: bold;
+    float: right;
+}
+
+/* Ensure inline code inside quiz buttons has high contrast and readability */
+.reveal .quiz-question .option-button code {
+    color: #e2f1ff !important;
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
+}
+
+.reveal .quiz-question .option-button:hover code {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.reveal .quiz-question .option-button.selected code {
+    color: #ffffff !important;
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.reveal .quiz-question .option-button.correct code {
+    color: #ffffff !important;
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.reveal .quiz-question .option-button.incorrect code {
+    color: #ffffff !important;
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
