@@ -1,0 +1,208 @@
+---
+title: "Final Assessment"
+subtitle: "Interactive Course Quiz & Knowledge Check"
+date: today
+format:
+  revealjs:
+    theme: [default, ../slides_template/assets/sdaia.scss]
+    transition: slide
+    background-transition: fade
+    slide-number: true
+    controls: true
+    progress: true
+    center-title-slide: true
+    title-slide-attributes:
+      data-background-image: "../slides_template/assets/anim.svg"
+      data-background-opacity: "0.08"
+      data-background-size: "cover"
+    revealjs-plugins:
+      - quiz
+    quiz:
+      shuffleOptions: true
+      defaultCorrect: "🎉 Correct! Superb engineering brain!"
+      defaultIncorrect: "❌ Not quite! Let's think about that again."
+      includeScore: true
+      allowNumberKeys: true
+      disableOnCheck: false
+---
+
+# Test Your Superpowers! {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+
+Are you ready to prove you are a Master Robotics Engineer? 🧠⚡
+
+## Question 1: LED Resistors 🛡️ {.quiz-question .smaller}
+
+Why is it **mandatory** to place a resistor in series with an LED when connecting it to power?
+
+- [To convert the power from Alternating Current (AC) to Direct Current (DC).]{data-explanation="Incorrect. A resistor only opposes current flow; it does not convert electrical formats."}
+- [To limit the electrical current so the LED doesn't burn out.]{.correct data-explanation="Exactly! LEDs have very little resistance. Without a resistor, they draw too much current and burn out almost instantly."}
+- [To store electrical energy like a tiny battery.]{data-explanation="No, that is a capacitor's job. Resistors do not store energy; they dissipate excess voltage as heat."}
+- [To change the color of the LED's light.]{data-explanation="No. LED color is determined by the physical semiconductor materials, not the resistor value."}
+
+## Question 2: Wokwi Debugging 🔌 {.quiz-question .smaller}
+
+We wired up a traffic light LED to **Pin 13** in Wokwi, but when we run this code, the LED stays completely **OFF** in the simulation:
+
+```cpp
+void setup() {
+  // Setup runs once
+}
+
+void loop() {
+  digitalWrite(13, HIGH); // Turn LED on
+}
+```
+
+Why is the LED not turning on?
+
+- [We used HIGH instead of ON or 1 which causes a compilation crash.]{data-explanation="No! HIGH is the standard Arduino keyword representing 5V/logic 1."}
+- [Arduino pins can only be turned on by using analogWrite(13, 255);.]{data-explanation="No! digitalWrite works perfectly for turning an output pin ON, provided it has been initialized."}
+- [Wokwi doesn't support Pin 13 because it is reserved for the USB programmer.]{data-explanation="Incorrect! Pin 13 is a standard GPIO pin and is fully simulated in Wokwi (it even connects to the built-in 'L' LED)."}
+- [We forgot to configure Pin 13 as an output in setup using `pinMode(13, OUTPUT);`.]{.correct data-explanation="Brilliant! Arduino pins default to INPUT mode for safety. If you don't configure the pin as an OUTPUT, it acts as a high-impedance listener and cannot supply enough current to light the LED."}
+
+## Question 3: Heavy DC Motors ⚙️ {.quiz-question .smaller}
+
+Why can't we connect our heavy DC drive motors **directly** to the Arduino's digital output pins?
+
+- [Motors draw far more current than the Arduino pins can supply, which would destroy the chip.]{.correct data-explanation="Spot on! Arduino pins can safely output about 20-40 mA. DC motors can draw hundreds of milliamps (or more when stalled), so we must use an H-bridge driver circuit as a power mediator."}
+- [Because DC motors only run on alternating current (AC) power.]{data-explanation="No, these are DC motors and run perfectly on Direct Current (DC)."}
+- [Arduino pins can only output 0V, never 5V.]{data-explanation="Incorrect. Arduino digital pins output 5V in HIGH state, which is the correct voltage, but they lack the current capacity."}
+- [The motor will spin backwards if connected directly.]{data-explanation="No, spin direction depends on polarity, but the direct connection will burn the pin before the motor spins reliably anyway."}
+
+## Question 4: Actuation & Speeds 🚗 {.quiz-question .smaller}
+
+We want our 4WD smart car to drive forward at a **medium speed** (roughly half power). Which Arduino command should we use?
+
+- [`digitalWrite(ML_PWM, HIGH);`]{data-explanation="No! digitalWrite only outputs fully ON (5V/255 speed) or fully OFF (0V/0 speed)."}
+- [`analogWrite(ML_PWM, 127);`]{.correct data-explanation="Correct! analogWrite uses Pulse Width Modulation (PWM) from 0 to 255. A value of 127 is roughly 50% speed!"}
+- [`analogWrite(ML_PWM, 50);`]{data-explanation="Not quite. While this controls speed, 50 out of 255 is only ~20% power, which is too low to reliably turn the motors."}
+- [`analogRead(ML_PWM);`]{data-explanation="No! analogRead is used to READ signals from sensors, not to send power outputs to motors."}
+
+## Question 5: Servo Wiring Colors 🌈 {.quiz-question .smaller}
+
+When wiring your **SG90 Servo Motor** to the Keyestudio Sensor Shield, which wire color corresponds to **Ground (GND)**?
+
+- [Red]{data-explanation="Danger! Red is VCC/Power (5V). Connecting power to GND or Signal pins can destroy your sensor or servo."}
+- [Brown or Black]{.correct data-explanation="Perfect! Standard SG90 servo wiring uses Brown (or Black) for Ground, Red for Power (VCC), and Orange (or Yellow) for the Signal."}
+- [Orange or Yellow]{data-explanation="Incorrect. Orange or Yellow is the PWM control Signal line, not Ground."}
+- [Green]{data-explanation="No. Standard SG90 servos do not have a green wire."}
+
+## Question 6: Sensor Math 🦇 {.quiz-question .smaller}
+
+When calculating distance using the Ultrasonic Sensor, our code divides the Echo duration by **2** (`distance = duration * 0.034 / 2`). Why do we do this?
+
+- [To account for the two sensor cylinders (Trig and Echo)]{data-explanation="No! The number of cylinders doesn't change the speed of sound or travel physics."}
+- [The sound wave travels to the object AND back, so we divide by 2 to get the one-way distance.]{.correct data-explanation="Spot on! The sensor measures the total round-trip time. We only want the distance from the robot to the wall, which is half of the total trip."}
+- [To convert the speed of sound from meters to centimeters]{data-explanation="Incorrect. The multiplication by 0.034 (speed of sound in cm/µs) handles the unit conversion, not the division by 2."}
+- [Because Arduino runs at 5V but the sensor runs at 2.5V]{data-explanation="No! The sensor runs at 5V and this has absolutely nothing to do with voltage."}
+
+## Question 7: Sweeping the Radar 🧹 {.quiz-question .smaller}
+
+We want to sweep our servo motor smoothly from **0° to 180°** in 1-degree increments, waiting 15ms at each step. Which Arduino code structure is correct?
+
+- [`for (int pos = 0; pos <= 180; pos += 1) { myServo.write(pos); delay(15); }`]{.correct data-explanation="Perfect! The for-loop increments the 'pos' variable, writes it to the servo, and waits for it to physically arrive."}
+- [`if (pos <= 180) { myServo.write(pos); delay(15); }`]{data-explanation="No. An 'if' statement only runs once per loop execution. It will not sweep smoothly in a single action."}
+- [`myServo.write(0); delay(15); myServo.write(180);`]{data-explanation="No! This will make the servo jump violently from 0 to 180 directly, rather than sweeping smoothly."}
+- [`while (pos == 180) { myServo.write(pos); }`]{data-explanation="No. This creates an infinite loop or won't run at all because pos must start at 0 and move up."}
+
+## Question 8: Tank Steering Turn 🔄 {.quiz-question .smaller}
+
+To perform a sharp **tank turn to the LEFT** in place, how should the left and right motors spin?
+
+- [Left motor FORWARD and Right motor BACKWARD.]{data-explanation="No, that would steer the car to the RIGHT, not the left."}
+- [Both motors FORWARD, but the left motor at a slower speed.]{data-explanation="No, that is a sweeping turn, not a sharp 'tank turn' in place."}
+- [Both motors BACKWARD.]{data-explanation="Incorrect. That will make the car drive straight backwards."}
+- [Left motor BACKWARD and Right motor FORWARD.]{.correct data-explanation="Exactly! By spinning the left wheels backward (ML_Ctrl = LOW) and the right wheels forward (MR_Ctrl = HIGH), the car spins quickly on its center axis."}
+
+## Question 9: Autonomous Logic ⚖️ {.quiz-question .smaller}
+
+Look at this decision block. When will the robot decide to **stop and reverse**?
+
+```cpp
+int distance = measureDistance();
+if (distance < 20 && distance > 2) {
+  stopAndReverse();
+} else {
+  driveForward();
+}
+```
+
+- [When the distance is between 2 cm and 20 cm.]{.correct data-explanation="Exactly! The '&&' operator means BOTH conditions must be true: the object must be closer than 20cm, but greater than 2cm (to ignore error/0 readings)."}
+- [Only when the distance is exactly 20 cm or exactly 2 cm.]{data-explanation="No, '<' and '>' represent ranges (less than and greater than), not exact equality ('==')."}
+- [When the distance is either less than 20 cm OR greater than 2 cm.]{data-explanation="No! That would be the '||' (OR) operator. The '&&' (AND) operator requires both to be true."}
+- [When there are no obstacles in front.]{data-explanation="Incorrect! When the distance is large (e.g. 50cm), it goes to the 'else' block and drives forward."}
+
+## Question 10: The Backwards Escape 🔙 {.quiz-question .smaller}
+
+Our robot gets stuck in a narrow corner where both `distLeft` and `distRight` are smaller than 10 cm. Which conditional check correctly detects this double-stuck condition to trigger a reverse escape?
+
+- [`if (distLeft < 10 && distRight < 10) { car_back(); }`]{.correct data-explanation="Spot on! The '&&' (AND) operator ensures the reverse action is triggered only when BOTH the left AND right sides are blocked."}
+- [`if (distLeft < 10 || distRight < 10) { car_back(); }`]{data-explanation="No! The '||' (OR) operator would make the robot reverse if *either* side is blocked, which makes it back up too early even if one side is completely open."}
+- [`if (distLeft < 10 + distRight < 10) { car_back(); }`]{data-explanation="No, the '+' operator performs addition, which is invalid syntax here for logical checks."}
+- [`if (distLeft == distRight) { car_back(); }`]{data-explanation="No, this only checks if the distances are exactly equal, not if they are blocked."}
+
+## Question 11: Rover Integration 🛰️ {.quiz-question .smaller}
+
+In the **"Smart Remote" Rover challenge**, our robot receives an IR remote command to drive **FORWARD**, but the ultrasonic sensor detects a wall just **10 cm** away. What is the correct priority logic?
+
+- [The remote is king! Ignore the sensor and drive forward.]{data-explanation="Danger! This will crash your robot directly into the wall, causing physical damage."}
+- [Ignore the remote's 'FORWARD' button, stop the motors, but still allow 'BACKWARD' or 'TURN' commands.]{.correct data-explanation="Brilliant! Safety override! You block dangerous commands (Forward) but keep the robot responsive so the driver can back away or steer clear."}
+- [Shutdown the entire Arduino board automatically.]{data-explanation="No, shutting down means the robot becomes completely unresponsive and you cannot control it anymore."}
+- [Drive forward anyway, but sound a beep sound.]{data-explanation="No, a beep doesn't stop the physical impact. Safety must be absolute."}
+
+## You Finished! 🎉 {.sdaia-dark .center background-gradient="linear-gradient(135deg, #1C355E, #9B8EC0)"}
+
+### Congratulations, Master Robotics Engineer! 🎓🚀
+
+You have mastered circuits, coding logic, sensor math, and autonomous navigation. 
+
+*Let's see how we can take our robots to the next level!*
+
+## Your Ultimate Companion: The Kit Wiki 📖 {.smaller}
+
+To build and program every project on your physical robot, use your official kit manual:
+
+::: {style="background: #1C355E; padding: 1.2em; border-radius: 12px; border-left: 5px solid #00C9A7; margin-top: 1em; text-align: center;"}
+🔗 **Official Keyestudio V4.0 Smart Car Manual:**
+
+[docs.keyestudio.com/projects/KS0470](https://docs.keyestudio.com/projects/KS0470/en/latest/){target="_blank" style="color: #00C9A7; font-weight: bold; font-size: 1.1em;"}
+:::
+
+### What's inside?
+- 🛠️ **Assembly:** Step-by-step physical build instructions.
+- 🔌 **Wiring:** Clear, color-coded sensor connection diagrams.
+- 💻 **Code:** Sample programs for Bluetooth, IR control, and line tracking!
+
+## Exciting Future Topics! ⚡ {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+### 🧠 Modular C++ Coding
+Group your code into neat C++ "classes" instead of one huge, messy file. Keep it clean like a pro!
+
+### 📈 PID Precision Control
+Use mathematics to make your robot drive in a *perfect* straight line without any wobbling!
+:::
+
+::: {.column width="50%"}
+### 📶 ESP32 & Wireless IoT
+Upgrade your brain to an ESP32 chip to control your robot from a phone dashboard over Wi-Fi!
+
+### 👁️ AI Cameras & Vision
+Plug in a HuskyLens AI camera so your robot can recognize faces, colors, and objects!
+:::
+::::
+
+## The Ultimate Arena: WRO 2026 🏆 {.smaller}
+
+Ready to show your skills to the world?
+
+::: {.callout-tip}
+## World Robot Olympiad (WRO) 2026
+Join the **Future Innovators** competition under the theme **"Robots Meet Culture"**!
+:::
+
+- 🏛️ **Create** a smart robot that preserves heritage, makes art, or creates immersive cultural tours.
+- 🤖 **Upgrade** your Keyestudio Smart Car into a custom-designed cultural explorer.
+- 🌍 **Share** your invention with teams from all around the globe!
+
