@@ -21,25 +21,27 @@ format:
 
 The Autonomous Explorer: Putting it all together 🤖🚗
 
-## Today's Agenda
+## Today's Agenda {.smaller}
 
-**Phase 1: The Concept of Obstacle Avoidance**
-- How do autonomous cars drive?
-- The basic flow chart of logic.
+**Phase 1: The Concept**
+- Sense → Think → Act
+- How autonomous robots make decisions
 
-**Phase 2: Motor Control Recap**
-- Moving forward, stopping, and turning.
-- Using simple motor functions.
+**Phase 2: Motor Helpers (Recap)**
+- Reusing `car_front`, `car_back`, `car_left`, `car_right`, `car_Stop` from Session 2
 
-**Phase 3: The Decision Making Logic**
-- Looking left vs looking right.
-- Making choices with `if / else`.
+**Phase 3: Complete Setup**
+- Pins, libraries, Serial — one block that combines Sessions 2 & 3
 
-**Phase 4: Writing the Avoidance Code**
-- Combining the Radar (Sensor + Servo) with Motors.
+**Phase 4: Decision Making**
+- The `lookAt(angle)` helper
+- Reading left vs right with one line
 
-**Phase 5: Final Challenge**
-- Tuning the robot for a maze.
+**Phase 5: The Main Loop**
+- Combining radar + motors into a clean `loop()`
+
+**Phase 6: Challenges**
+- Fine-tuning, backwards escape, and the **Smart Remote** override
 
 
 # Phase 1: The Concept {.sdaia-dark background-color="#00C9A7"}
@@ -48,7 +50,7 @@ How do robots think?
 
 ## The Avoidance Logic 🧠
 
-To make a robot avoid obstacles, we need to program a continuous loop of **Sense -> Think -> Act**.
+To make a robot avoid obstacles, we run a continuous loop of **Sense → Think → Act**.
 
 1. **Sense:** Use the ultrasonic sensor to check if the path ahead is clear.
 2. **Think:** Is there an obstacle within 20 cm?
@@ -58,88 +60,82 @@ To make a robot avoid obstacles, we need to program a continuous loop of **Sense
 
 ## The Flow Chart
 
-![](../slides/assets/ultrasonic_principle_ks.png){width="60%"}
+Our `loop()` runs this every cycle:
 
-*(Imagine the robot scanning the room like a security guard before deciding where to walk!)*
+**1. SENSE** → read forward distance with `measureDistance()`
+
+**2. THINK** → is `distance < 20 cm`?
+
+- **Path clear** → keep driving forward, servo stays centred at 90°
+- **Obstacle!** → stop, scan left (180°), scan right (0°), pick the larger gap
+
+**3. ACT** → turn ~300 ms toward the larger gap, then loop back to SENSE
+
+*Like a security guard scanning the room before deciding where to walk.*
 
 
-# Phase 2: Motor Control {.sdaia-dark background-color="#1C355E"}
+# Phase 2: Motor Helpers {.sdaia-dark background-color="#1C355E"}
 
-Making the robot move.
+You already built these in Session 2.
 
-## Wiring the Motors 🔌
+## The Helpers You Have 🚗
 
-Our Keyestudio shield has dedicated pins for the motors:
+From **Session 2 — Part 3 & Part 6**, you already wrote these movement helpers (and the matching `pinMode` calls and pin defines). You will **call them** in Session 4, not rewrite them.
+
+| Helper          | What it does                                   |
+|-----------------|------------------------------------------------|
+| `car_front()`   | Both motors forward                            |
+| `car_back()`    | Both motors backward                           |
+| `car_left()`    | Left wheel back, right wheel forward (tank turn) |
+| `car_right()`   | Left wheel forward, right wheel back            |
+| `car_Stop()`    | Speed = 0 on both motors                       |
+
+::: {.callout-tip}
+Don't have these in your sketch yet? Copy them from **Session 2 → Part 6 — Complete IR Car Code** before continuing. Same pin defines (`ML_Ctrl`, `ML_PWM`, `MR_Ctrl`, `MR_PWM`) work here.
+:::
+
+
+# Phase 3: Complete Setup {.sdaia-dark background-color="#1C355E"}
+
+Pins, libraries, Serial.
+
+## The Full Setup Block 🔧 {.smaller}
+
+Session 4 brings together motors, ultrasonic, and servo. Here is the complete top of your sketch:
 
 ```cpp
-// Motor A (Right)
-const int MR_Ctrl = 2; // Direction pin
-const int MR_PWM = 6;  // Speed pin
+#include <Servo.h>
 
-// Motor B (Left)
-const int ML_Ctrl = 4; // Direction pin
-const int ML_PWM = 5;  // Speed pin
-```
+// Motors (from Session 2)
+#define ML_Ctrl 4
+#define ML_PWM  5
+#define MR_Ctrl 2
+#define MR_PWM  6
 
-We need to set these as `OUTPUT` in our `setup()`!
+// Ultrasonic (from Session 3)
+const int trigPin = 12;
+const int echoPin = 13;
 
-```cpp
+// Servo (from Session 3) — plugged into pin 10
+Servo myServo;
+
 void setup() {
-  pinMode(ML_Ctrl, OUTPUT);
-  pinMode(ML_PWM, OUTPUT);
-  pinMode(MR_Ctrl, OUTPUT);
-  pinMode(MR_PWM, OUTPUT);
+  pinMode(ML_Ctrl, OUTPUT); pinMode(ML_PWM, OUTPUT);
+  pinMode(MR_Ctrl, OUTPUT); pinMode(MR_PWM, OUTPUT);
+
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  myServo.attach(10);
+  myServo.write(90); // Look forward
+
+  Serial.begin(9600);
 }
 ```
 
-## Basic Movements 🚗
+## The `measureDistance()` Helper 📡
 
-Let's write simple **Helper Functions** to make driving easier. 
-
-To go forward, both motors spin in the same direction at a steady speed (e.g., 150 out of 255).
-
-```cpp
-void car_front() {
-  digitalWrite(ML_Ctrl, HIGH); // Left motor forward
-  analogWrite(ML_PWM, 150);    // Speed: 150
-  digitalWrite(MR_Ctrl, HIGH); // Right motor forward
-  analogWrite(MR_PWM, 150);    // Speed: 150
-}
-
-void car_Stop() {
-  analogWrite(ML_PWM, 0); // Speed: 0
-  analogWrite(MR_PWM, 0); // Speed: 0
-}
-```
-
-## Turning the Robot 🔄
-
-To turn **Left**, we spin the left motor backward and the right motor forward (like a tank).
-
-```cpp
-void car_left() {
-  digitalWrite(ML_Ctrl, LOW);  // Left motor BACKWARD
-  analogWrite(ML_PWM, 200);    // Turn quickly (Speed: 200)
-  digitalWrite(MR_Ctrl, HIGH); // Right motor FORWARD
-  analogWrite(MR_PWM, 200);
-}
-
-void car_right() {
-  digitalWrite(ML_Ctrl, HIGH); // Left motor FORWARD
-  analogWrite(ML_PWM, 200);
-  digitalWrite(MR_Ctrl, LOW);  // Right motor BACKWARD
-  analogWrite(MR_PWM, 200);
-}
-```
-
-
-# Phase 3: Decision Making {.sdaia-dark background-color="#E84A5F"}
-
-Teaching the robot to choose a path.
-
-## The Radar System (Recap) 📡
-
-Remember our `measureDistance()` function from Session 3? We will use it to check our surroundings!
+You wrote this in Session 3 — drop it into your sketch unchanged:
 
 ```cpp
 int measureDistance() {
@@ -154,88 +150,151 @@ int measureDistance() {
 }
 ```
 
-## Looking Around 👀
 
-When an obstacle is detected, the robot stops and uses its servo motor to look around.
+# Phase 4: Decision Making {.sdaia-dark background-color="#E84A5F"}
+
+Teaching the robot to choose a path.
+
+## The `lookAt()` Helper 👀
+
+When an obstacle is detected, the robot needs to look in different directions. Instead of repeating *"write angle, delay, measure"* every time, we package it into one helper:
 
 ```cpp
-// 1. Stop the car
-car_Stop();
-delay(100);
-
-// 2. Look Left
-myServo.write(180);
-delay(500);
-int leftDistance = measureDistance();
-
-// 3. Look Right
-myServo.write(0);
-delay(500);
-int rightDistance = measureDistance();
-
-// 4. Look Forward again
-myServo.write(90);
-delay(300);
+int lookAt(int angle) {
+  myServo.write(angle);
+  delay(500);              // Give the servo time to turn
+  return measureDistance();
+}
 ```
 
+Now "look left and report the distance" is just **one line**:
 
-# Phase 4: The Final Code {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+```cpp
+int leftDistance  = lookAt(180); // Look left
+```
+
+::: {.callout-tip}
+Every time you write the same 3+ lines twice, ask: *should this be a helper?* Helper functions keep `loop()` short and readable.
+:::
+
+
+# Phase 5: The Main Loop {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 Putting it all together.
 
-## The Main Loop 🔄
+## The Brain 🧠 {.smaller}
 
-This goes inside your `loop()` function. This is the "brain" of our robot!
+This is the heart of the autonomous explorer:
+
+```cpp
+void loop() {
+  // 1. SENSE — servo is already at 90° from last iteration
+  int distance = measureDistance();
+  Serial.print("Forward: "); Serial.println(distance);
+
+  if (distance > 0 && distance < 20) {
+    // 2. THINK — obstacle! stop and scan
+    car_Stop();
+    delay(100);
+
+    int distLeft  = lookAt(180);
+    int distRight = lookAt(0);
+
+    myServo.write(90); // Re-centre BEFORE turning
+    delay(200);
+
+    // 3. ACT — turn toward the larger gap
+    if (distLeft > distRight) {
+      car_left();
+    } else {
+      car_right();
+    }
+    delay(300);
+  } else {
+    // Path clear — keep going
+    car_front();
+  }
+}
+```
+
+::: {.callout-important}
+We **re-centre the servo to 90° after scanning**. Without this, the next forward measurement reads sideways and the robot crashes blindly into whatever it stopped looking at.
+:::
+
+
+# Phase 6: Challenges {.sdaia-dark background-color="#E84A5F"}
+
+Tune it, escape it, override it.
+
+## Challenge 1: Fine-Tuning 🛠️
+
+Run your robot. You will notice it behaves strangely!
+
+1. **Open the Serial Monitor** (Tools → Serial Monitor, 9600 baud). Watch the live distance readings — are they what you expect when you put your hand in front?
+2. **Turning time:** Is `delay(300)` enough to turn ~90°? Try `delay(200)` or `delay(500)` until turns are sharp.
+3. **Detection distance:** Does it crash before stopping? Try raising the threshold from `20` to `30` cm.
+
+*Engineering is iteration — observe, adjust, observe again.*
+
+## Challenge 2: The Backwards Escape 🔙 {.smaller}
+
+What if the robot is **trapped** — both left AND right distances are tiny (< 10 cm)?
+
+**Your task:** modify the obstacle branch so that if `distLeft < 10` **AND** `distRight < 10`, the robot drives **backwards** for 1 second before re-scanning.
+
+```cpp
+if (distLeft < 10 && distRight < 10) {
+  car_back();      // Reuse from Session 2 Part 6
+  delay(1000);
+} else if (distLeft > distRight) {
+  car_left();
+  delay(300);
+} else {
+  car_right();
+  delay(300);
+}
+```
+
+::: {.callout-tip}
+`car_back()` is already in your **Session 2 → Part 6 — Complete IR Car Code**. Reuse it; don't rewrite it.
+:::
+
+## Challenge 3: Smart Remote Override 🎮
+
+**Goal:** combine Session 2's IR remote with Session 4's distance check.
+
+You drive the robot with your remote — but if you try to drive it **into a wall**, the robot refuses the FORWARD command and stops itself.
+
+**The Logic inside `loop()`:**
+
+1. Read the forward distance.
+2. Read the IR remote (`IrReceiver.decode()`).
+3. If `distance < 15` **AND** the command is FORWARD → call `car_Stop()` and ignore it.
+4. Otherwise → run the command normally (turning and reversing stay allowed — still safe).
+
+## Challenge 3: The Scaffold 🛠️ {.smaller}
 
 ```cpp
 void loop() {
   int distance = measureDistance();
 
-  if (distance > 0 && distance < 20) { // Obstacle detected!
-    car_Stop();
-    delay(100);
-    
-    // Look around
-    myServo.write(180); // Look left
-    delay(500);
-    int distLeft = measureDistance();
-    
-    myServo.write(0);   // Look right
-    delay(500);
-    int distRight = measureDistance();
-    
-    // Decide where to turn
-    if (distLeft > distRight) {
-      car_left();
-      delay(300); // Turn for 300ms
+  if (IrReceiver.decode()) {
+    uint16_t cmd = IrReceiver.decodedIRData.command;
+
+    if (cmd == 0x46 && distance < 15) {  // 0x46 = FORWARD + wall ahead
+      car_Stop();                        // Override: refuse the command
+      Serial.println("Wall! Forward blocked.");
     } else {
-      car_right();
-      delay(300); // Turn for 300ms
+      handleCommand(cmd);                // From Session 2 Part 5
     }
-  } else { // Path is clear!
-    car_front();
-    myServo.write(90); // Keep looking forward
+
+    IrReceiver.resume();
   }
 }
 ```
 
+::: {.callout-tip}
+Reuse `handleCommand()` from **Session 2 Part 5**. Replace `0x46` with whatever code your remote's UP button actually sends.
+:::
 
-# Phase 5: Final Challenge {.sdaia-dark background-color="#E84A5F"}
-
-The Maze Runner!
-
-## Challenge 1: Fine-Tuning 🛠️
-
-Run your robot on the floor. You might notice it behaves strangely! 
-
-1. **Turning Time:** Is `delay(300)` when turning left/right enough time for the robot to actually turn 90 degrees? Try changing it to `delay(500)` or `delay(200)` until it makes sharp turns.
-2. **Detection Distance:** Is `20` cm too close? Does it crash before it can stop? Try changing the threshold to `30` cm.
-
-## Challenge 2: The Backwards Escape 🔙
-
-What if the robot gets completely stuck in a corner where both left AND right distances are smaller than 10 cm?
-
-**Your Task:**
-Modify the code so that if `distLeft < 10` AND `distRight < 10`, the robot drives **BACKWARDS** for 1 second before trying to turn again!
-
-*Hint: You will need to write a `car_back()` helper function!*
+**Good luck, Master Coders!**
