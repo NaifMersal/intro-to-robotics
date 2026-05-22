@@ -1,0 +1,122 @@
+---
+title: "Your Robotics Adventure Roadmap"
+subtitle: "Keep Building, Simulating, and Preparing for WRO 2026!"
+date: today
+format:
+  html:
+    theme: [cosmo, ../slides_template/assets/sdaia.scss]
+    css: ../index_style.css
+    toc: true
+    toc-depth: 3
+    page-layout: full
+---
+
+::: {.hero-section}
+# Your Robotics Adventure Roadmap 🚀 {.main-title}
+Keep Building, Simulating, and Preparing for WRO 2026!
+:::
+
+::: {.container}
+
+Congratulations on completing the Phase 1 Skills Bootcamp! 🎉 You are now a certified Robotics Explorer. But this is just the beginning of your journey! 
+
+To help you take your physical V4.0 Smart Car to the next level and prepare for the **World Robot Olympiad (WRO) 2026** competition under the theme *"Robots Meet Culture"*, use this interactive roadmap to plan your next creation.
+
+---
+
+### 📖 Your Ultimate Companion: The Smart Car Manual
+
+This is the official wiki/manual for your physical Keyestudio V4.0 Smart Car kit. It has everything you need to wire, program, and play!
+
+::: {style="background: linear-gradient(135deg, #1C355E, #00C9A7); padding: 2.2em; border-radius: 16px; color: white; text-align: center; margin-bottom: 2.5em; box-shadow: 0 4px 15px rgba(0,0,0,0.15);"}
+## 🛠️ Keyestudio KS0470 V4.0 Smart Car Manual
+Learn how to build, wire, and control every single sensor and motor on your robot!
+
+[Open the Kit Manual Here 🚀](https://docs.keyestudio.com/projects/KS0470/en/latest/){.btn .btn-light .btn-lg target="_blank" style="margin-top: 1em; font-weight: bold; border-radius: 8px; color: #1C355E; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"}
+:::
+
+---
+
+## 🗺️ Next Quests to Explore
+
+Choose your next robotics quest below! Each card has a direct, fun, and working link to explore.
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🧠 Quest 1: Pro Coding (Modular Programs)
+As your robot code gets bigger, putting everything in one file becomes a mess. Learn how to write neat, professional programs using C++ classes and custom libraries!
+
+*   **[Adafruit: Multi-Tasking the Arduino](https://learn.adafruit.com/multi-tasking-the-arduino-part-1){target="_blank"}** ⭐⭐ *Stretch — best read with a mentor*
+    *   *What it is:* A famous tutorial showing how to replace slow, blocking `delay()` statements with state-machine timers so your robot can do multiple things at once. It assumes you're already comfortable with basic Arduino sketches.
+*   **[Arduino Docs: Writing Custom Libraries](https://docs.arduino.cc/learn/contributions/arduino-creating-library-guide){target="_blank"}**
+    *   *What it is:* The official guide to bundling your motor controls, line sensors, or radar code into your own custom, reusable library.
+:::
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 📈 Quest 2: Drive in a Perfect Straight Line (PID)
+Have you noticed your robot wobbles when it drives, or doesn't go completely straight? Proportional-Integral-Derivative (PID) is the secret math formula used in real self-driving cars to keep motion perfectly smooth!
+
+*   **[MATLAB Tech Talk: PID Control Video](https://www.youtube.com/watch?v=UR0hOmjaHp0){target="_blank"}**
+    *   *What it is:* A super fun, animated video that shows exactly how PID controllers work using clear visuals and examples.
+*   **[MATLAB Tech Talks: "Understanding PID Control" Playlist](https://www.youtube.com/playlist?list=PLn8PRpmsu08pQBgjxYFXSsODEF3Jqmm-y){target="_blank"}**
+    *   *What it is:* The full animated series — short follow-up videos that build on the intro one piece at a time. Great for binge-watching when you want to really get PID.
+:::
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 📶 Quest 3: Control from Your Phone (ESP32 & IoT)
+Upgrade your Arduino Uno to the dual-core **ESP32** chip to get built-in Wi-Fi and Bluetooth. You can build beautiful mobile dashboards to steer your car remotely!
+
+*   **[Arduino Cloud (free tier + School plan)](https://cloud.arduino.cc/){target="_blank"}**
+    *   *What it is:* The official Arduino IoT platform. Drag-and-drop dashboards in your browser, plus a phone app ("IoT Remote") to control your robot from anywhere. Has a free tier and a School plan with Google Classroom integration.
+*   **[DroneBot Workshop: ESP32 Introduction](https://dronebotworkshop.com/esp32-intro/){target="_blank"}** ⭐⭐ *Best with a mentor for setup*
+    *   *What it is:* A visual, video-led tour of what the ESP32 can do and how to start using it. An adult can help with the one-time Arduino IDE setup, then you're off building.
+:::
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 👁️ Quest 4: Give Your Robot AI Eyes (Computer Vision)
+Want your robot to recognize your face, follow a colored ball, or scan QR codes? It's easier than you think using plug-and-play AI camera modules!
+
+*   **[HuskyLens: Plug-and-Play AI Camera (DFRobot)](https://www.dfrobot.com/product-1922.html){target="_blank"}**
+    *   *What it is:* An easy AI camera with a screen that learns objects and colors at the press of a button. The product page links to 40+ tutorials and AI Fundamentals courses for Grades 6–10 — no complex AI coding required!
+*   **[Google Teachable Machine](https://teachablemachine.withgoogle.com/){target="_blank"}**
+    *   *What it is:* Train your own machine learning model in seconds using your webcam right in the browser, then export it to run on a Raspberry Pi!
+:::
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🛠️ Quest 5: Prototyping & Design Playgrounds
+Design your own physical parts for 3D printing and test your circuits in virtual sandboxes.
+
+*   **[Wokwi: Arduino Browser Simulator](https://wokwi.com/){target="_blank"}**
+    *   *What it is:* A super accurate circuit simulator where you can wire up components and write code without any physical boards!
+*   **[Autodesk Tinkercad 3D Design](https://www.tinkercad.com/){target="_blank"}**
+    *   *What it is:* A simple, block-based 3D modeling tool. Perfect for designing custom chassis parts and mechanical gear!
+:::
+:::
+:::
+
+:::
+
+::: {.text-center .mt-5 .mb-4}
+[← Back to Curriculum Index](../index.qmd){.btn .btn-outline-primary .btn-lg}
+:::
+
+:::
