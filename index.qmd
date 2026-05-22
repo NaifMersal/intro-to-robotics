@@ -72,7 +72,28 @@ Mastering the core concepts from sessions 1 to 4 and tackling the ultimate "Smar
 :::
 :::
 
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100 .slide-card}
+::: {.card-body}
+### [Final Quiz: Test Your Skills](slides/final-quiz.qmd)
+An interactive 11-question challenge testing your engineering knowledge on circuit physics, motor PWM speeds, ultrasonic calculation math, servo sweeping loops, autonomous path logic, and remote override priority.
+[Take Quiz →](slides/final-quiz.qmd){.btn .btn-outline-primary .btn-sm}
 :::
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .h-100 .slide-card}
+::: {.card-body}
+### [Robotics Adventure Roadmap](slides/further-reading.qmd)
+Your ultimate guide for next steps! Learn about advanced coding, driving straight with PID, ESP32 phone control, AI vision cameras, and prototyping playgrounds.
+[Explore Roadmap →](slides/further-reading.qmd){.btn .btn-outline-primary .btn-sm}
+:::
+:::
+:::
+
+:::
+
 
 ## 🚀 Interactive Simulations
 Visualize complex concepts through real-time web-based simulations.
