@@ -39,6 +39,8 @@ Learn how to build, wire, and control every single sensor and motor on your robo
 
 ## 🗺️ Next Quests to Explore
 
+> **Note:** Most quests are better taken with a mentor.
+
 Choose your next robotics quest below! Each card has a direct, fun, and working link to explore.
 
 ::: {.grid}
@@ -49,7 +51,7 @@ Choose your next robotics quest below! Each card has a direct, fun, and working 
 ### 🧠 Quest 1: Pro Coding (Modular Programs)
 As your robot code gets bigger, putting everything in one file becomes a mess. Learn how to write neat, professional programs using C++ classes and custom libraries!
 
-*   **[Adafruit: Multi-Tasking the Arduino](https://learn.adafruit.com/multi-tasking-the-arduino-part-1){target="_blank"}** ⭐⭐ *Stretch — best read with a mentor*
+*   **[Adafruit: Multi-Tasking the Arduino](https://learn.adafruit.com/multi-tasking-the-arduino-part-1){target="_blank"}**
     *   *What it is:* A famous tutorial showing how to replace slow, blocking `delay()` statements with state-machine timers so your robot can do multiple things at once. It assumes you're already comfortable with basic Arduino sketches.
 *   **[Arduino Docs: Writing Custom Libraries](https://docs.arduino.cc/learn/contributions/arduino-creating-library-guide){target="_blank"}**
     *   *What it is:* The official guide to bundling your motor controls, line sensors, or radar code into your own custom, reusable library.
@@ -79,7 +81,7 @@ Upgrade your Arduino Uno to the dual-core **ESP32** chip to get built-in Wi-Fi a
 
 *   **[Arduino Cloud (free tier + School plan)](https://cloud.arduino.cc/){target="_blank"}**
     *   *What it is:* The official Arduino IoT platform. Drag-and-drop dashboards in your browser, plus a phone app ("IoT Remote") to control your robot from anywhere. Has a free tier and a School plan with Google Classroom integration.
-*   **[DroneBot Workshop: ESP32 Introduction](https://dronebotworkshop.com/esp32-intro/){target="_blank"}** ⭐⭐ *Best with a mentor for setup*
+*   **[DroneBot Workshop: ESP32 Introduction](https://dronebotworkshop.com/esp32-intro/){target="_blank"}**
     *   *What it is:* A visual, video-led tour of what the ESP32 can do and how to start using it. An adult can help with the one-time Arduino IDE setup, then you're off building.
 :::
 :::
