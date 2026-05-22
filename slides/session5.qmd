@@ -1,6 +1,6 @@
 ---
 title: "Session 5: Code Mastery"
-subtitle: "Programming Recap & The Ultimate Challenge"
+subtitle: "Programming Recap — A Quick Tour of Sessions 1 to 4"
 date: today
 format:
   revealjs:
@@ -19,7 +19,7 @@ format:
 
 # Session 5 {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
-The Grand Integration: Sessions 1 to 4 🚀
+A Quick Tour of Sessions 1 to 4 🚀
 
 ## Today's Agenda
 
@@ -38,9 +38,6 @@ The Grand Integration: Sessions 1 to 4 🚀
 **Phase 4: The Autonomous Brain (Session 4)**
 - `if / else` decision trees.
 - Putting it all together.
-
-**Phase 5: The Ultimate Challenge**
-- The "Smart Remote" Rover.
 
 # Phase 1: Core Syntax {.sdaia-dark background-color="#00C9A7"}
 
@@ -108,7 +105,7 @@ analogWrite(MR_PWM, 150);
 ::: {.fragment .column width="50%"}
 **We write it ONCE:**
 ```cpp
-void moveForward() {
+void car_front() {
   digitalWrite(ML_Ctrl, HIGH); 
   analogWrite(ML_PWM, 150);    
   digitalWrite(MR_Ctrl, HIGH); 
@@ -120,7 +117,7 @@ void moveForward() {
 
 . . .
 
-And then just call `moveForward();` in our loop!
+And then just call `car_front();` in our loop!
 
 ## Motor Setup Recap 🚗
 
@@ -204,38 +201,26 @@ int distance = measureDistance();
 
 if (distance < 20) {
   // Danger! Path blocked!
-  moveBackward();
+  car_back();
   delay(500);
-  stopMotors();
+  car_Stop();
 } else {
   // All clear!
-  moveForward();
+  car_front();
 }
 ```
 This single block of code is what turns a remote-controlled toy into an **Autonomous Explorer**.
 
 
-# Phase 5: The Ultimate Challenge {.sdaia-dark background-color="#E84A5F"}
+# What's Next? {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
-The "Smart Remote" Rover
+You've mastered the core skills. Ready to test yourself?
 
-## The Challenge 🏆
+## Where to Go From Here 🚀
 
-**Goal:** Combine Session 2 (IR Remote) and Session 4 (Obstacle Avoidance)!
+You now know enough to build a real autonomous robot. Two final stops on the journey:
 
-Write a program where you control the robot with your IR remote (Forward, Back, Left, Right). 
-**BUT**, the robot is also constantly running its `measureDistance()` function.
+- 🧠 **[Final Quiz](final-quiz.qmd)** — 11 questions across everything you've learned: circuits, motors, ultrasonic, servos, and autonomous logic.
+- 🗺️ **[Robotics Adventure Roadmap](further-reading.qmd)** — your guide to what comes next: PID control, ESP32 phone control, AI vision, and competition prep.
 
-If you try to drive the robot into a wall, the robot must refuse the command and stop automatically!
-
-## The Logic Flow
-
-Inside your `loop()`:
-
-1. Check the ultrasonic sensor (`measureDistance()`).
-2. Read the IR Remote signal.
-3. Is distance < 15 cm? 
-   - **Yes:** If the remote says "FORWARD", ignore it and `stopMotors()`. (But allow turning or reversing!).
-   - **No:** Follow the remote's commands normally.
-
-**Good luck, Master Coders!**
+**Well done, Engineers — you've built a robot from a pile of wires. 🛠️**

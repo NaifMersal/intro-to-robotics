@@ -65,8 +65,8 @@ Building an Obstacle Avoiding Robot. Putting it all together to create a robot t
 ::: {.g-col-12 .g-col-md-6}
 ::: {.card .h-100 .slide-card}
 ::: {.card-body}
-### [Session 5: Recap & Ultimate Challenge](slides/session5.qmd)
-Mastering the core concepts from sessions 1 to 4 and tackling the ultimate "Smart Remote" rover project.
+### [Session 5: Code Mastery Recap](slides/session5.qmd)
+A quick tour of the core concepts from sessions 1 to 4 — syntax, functions, sensors, and autonomous logic.
 [View Slides →](slides/session5.qmd){.btn .btn-outline-primary .btn-sm}
 :::
 :::
