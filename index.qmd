@@ -55,9 +55,9 @@ Giving your project eyes and movement. Building a radar system using an ultrason
 ::: {.g-col-12 .g-col-md-6}
 ::: {.card .h-100 .slide-card}
 ::: {.card-body}
-### [Session 4: The Autonomous Explorer](slides/session4.qmd)
-Building an Obstacle Avoiding Robot. Putting it all together to create a robot that thinks and navigates on its own.
-[View Slides →](slides/session4.qmd){.btn .btn-outline-primary .btn-sm}
+### [Session 4: The Autonomous Explorer](slides/session4.qmd) (Take-Home Homework)
+Building an Obstacle Avoiding Robot. A take-home assignment to build a robot that thinks and navigates, to be reviewed on Sunday, 14 Jul.
+[View Homework →](slides/session4.qmd){.btn .btn-outline-primary .btn-sm}
 :::
 :::
 :::

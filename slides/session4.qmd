@@ -1,7 +1,7 @@
 ---
 title: "Session 4: The Autonomous Explorer"
-subtitle: "Building an Obstacle Avoiding Robot"
-date: today
+subtitle: "Take-Home Homework (Review: Sunday 14 Jul)"
+date: "July 14, 2026"
 format:
   revealjs:
     theme: [default, ../slides_template/assets/sdaia.scss]
@@ -17,11 +17,16 @@ format:
       data-background-size: "cover"
 ---
 
-# Session 4 {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
+# Session 4: Take-Home Homework {.sdaia-dark background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)"}
 
 The Autonomous Explorer: Putting it all together 🤖🚗
 
-## Today's Agenda {.smaller}
+::: {.callout-important}
+## Take-Home Assignment
+This session is a take-home homework assignment. Please work through the phases, build the code, and complete the challenges. Your work will be reviewed on **Sunday, 14 Jul**.
+:::
+
+## Homework Tasks {.smaller}
 
 **Phase 1: The Concept**
 - Sense → Think → Act
@@ -40,7 +45,7 @@ The Autonomous Explorer: Putting it all together 🤖🚗
 **Phase 5: The Main Loop**
 - Combining radar + motors into a clean `loop()`
 
-**Phase 6: Challenges**
+**Phase 6: Homework Challenges**
 - Fine-tuning, backwards escape, and the **Smart Remote** override
 
 
@@ -222,7 +227,7 @@ We **re-centre the servo to 90° after scanning**. Without this, the next forwar
 :::
 
 
-# Phase 6: Challenges {.sdaia-dark background-color="#E84A5F"}
+# Phase 6: Homework Challenges {.sdaia-dark background-color="#E84A5F"}
 
 Tune it, escape it, override it.
 
@@ -296,5 +301,14 @@ void loop() {
 ::: {.callout-tip}
 Reuse `handleCommand()` from **Session 2 Part 5**. Replace `0x46` with whatever code your remote's UP button actually sends.
 :::
+
+## Submission Checklist 📋
+
+Please have the following ready for our review on **Sunday, 14 Jul**:
+
+*   [ ] **Code Implementation:** A complete, compiled sketch combining ultrasonic sensor, servo, IR remote receiver, and motor functions.
+*   [ ] **Tuned Parameters:** Optimized `delay()` times for 90-degree turns and a detection distance threshold that prevents physical collision.
+*   [ ] **Corner Handling:** Working "Backwards Escape" logic when trapped.
+*   [ ] **Safety Override:** Working "Smart Remote Override" which blocks manual forward movement if a wall is detected.
 
 **Good luck, Master Coders!**
