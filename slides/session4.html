@@ -6,10 +6,10 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.26">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
-  <meta name="dcterms.date" content="2026-05-23">
+  <meta name="dcterms.date" content="2026-07-14">
   <title>Session 4: The Autonomous Explorer</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -95,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-5d15484fdef58f96baaf08c5b3aaad75.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-b3a4323cfa11e0018d30e7592e2832b8.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -196,26 +199,39 @@
 
 <section id="title-slide" data-background-image="../slides_template/assets/anim.svg" data-background-opacity="0.08" data-background-size="cover" class="quarto-title-block center">
   <h1 class="title">Session 4: The Autonomous Explorer</h1>
-  <p class="subtitle">Building an Obstacle Avoiding Robot</p>
+  <p class="subtitle">Take-Home Homework (Review: Sunday 14 Jul)</p>
 
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">2026-05-23</p>
+  <p class="date">2026-07-14</p>
 </section>
 <section>
-<section id="session-4" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
-<h1>Session 4</h1>
+<section id="session-4-take-home-homework" class="title-slide slide level1 sdaia-dark center" data-background-gradient="linear-gradient(135deg, #1C355E, #00C9A7)">
+<h1>Session 4: Take-Home Homework</h1>
 <p>The Autonomous Explorer: Putting it all together 🤖🚗</p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Take-Home Assignment</strong></p>
+</div>
+<div class="callout-content">
+<p>This session is a take-home homework assignment. Please work through the phases, build the code, and complete the challenges. Your work will be reviewed on <strong>Sunday, 14 Jul</strong>.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="todays-agenda" class="slide level2 smaller">
-<h2>Today’s Agenda</h2>
+<section id="homework-tasks" class="slide level2 smaller">
+<h2>Homework Tasks</h2>
 <p><strong>Phase 1: The Concept</strong> - Sense → Think → Act - How autonomous robots make decisions</p>
 <p><strong>Phase 2: Motor Helpers (Recap)</strong> - Reusing <code>car_front</code>, <code>car_back</code>, <code>car_left</code>, <code>car_right</code>, <code>car_Stop</code> from Session 2</p>
 <p><strong>Phase 3: Complete Setup</strong> - Pins, libraries, Serial — one block that combines Sessions 2 &amp; 3</p>
 <p><strong>Phase 4: Decision Making</strong> - The <code>lookAt(angle)</code> helper - Reading left vs right with one line</p>
 <p><strong>Phase 5: The Main Loop</strong> - Combining radar + motors into a clean <code>loop()</code></p>
-<p><strong>Phase 6: Challenges</strong> - Fine-tuning, backwards escape, and the <strong>Smart Remote</strong> override</p>
+<p><strong>Phase 6: Homework Challenges</strong> - Fine-tuning, backwards escape, and the <strong>Smart Remote</strong> override</p>
 </section></section>
 <section>
 <section id="phase-1-the-concept" class="title-slide slide level1 sdaia-dark center" data-background-color="#00C9A7">
@@ -429,8 +445,8 @@
 </div>
 </section></section>
 <section>
-<section id="phase-6-challenges" class="title-slide slide level1 sdaia-dark center" data-background-color="#E84A5F">
-<h1>Phase 6: Challenges</h1>
+<section id="phase-6-homework-challenges" class="title-slide slide level1 sdaia-dark center" data-background-color="#E84A5F">
+<h1>Phase 6: Homework Challenges</h1>
 <p>Tune it, escape it, override it.</p>
 </section>
 <section id="challenge-1-fine-tuning" class="slide level2">
@@ -514,6 +530,16 @@
 </div>
 </div>
 </div>
+</section>
+<section id="submission-checklist" class="slide level2">
+<h2>Submission Checklist 📋</h2>
+<p>Please have the following ready for our review on <strong>Sunday, 14 Jul</strong>:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Code Implementation:</strong> A complete, compiled sketch combining ultrasonic sensor, servo, IR remote receiver, and motor functions.</label></li>
+<li><label><input type="checkbox"><strong>Tuned Parameters:</strong> Optimized <code>delay()</code> times for 90-degree turns and a detection distance threshold that prevents physical collision.</label></li>
+<li><label><input type="checkbox"><strong>Corner Handling:</strong> Working “Backwards Escape” logic when trapped.</label></li>
+<li><label><input type="checkbox"><strong>Safety Override:</strong> Working “Smart Remote Override” which blocks manual forward movement if a wall is detected.</label></li>
+</ul>
 <p><strong>Good luck, Master Coders!</strong></p>
 
 

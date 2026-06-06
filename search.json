@@ -732,7 +732,7 @@
     "href": "index.html#curriculum-slides",
     "title": "Intro to Robotics",
     "section": "📚 Curriculum Slides",
-    "text": "📚 Curriculum Slides\nExplore the core concepts through our interactive slide decks.\n\n\n\n\nSession 1: Circuits Basics\nFrom Water Pipes to Computer Logic. Covering voltage, current, resistance, and the bridge to electronics. View Slides →\n\n\n\n\n\n\nSession 2: Movement + Problem Patterns\nFrom physical assembly to autonomous movement. Mastering the basics of robot locomotion and problem identification. View Slides →\n\n\n\n\n\n\nSession 3: Building the Smart Radar\nGiving your project eyes and movement. Building a radar system using an ultrasonic sensor and a servo motor. View Slides →\n\n\n\n\n\n\nSession 4: The Autonomous Explorer\nBuilding an Obstacle Avoiding Robot. Putting it all together to create a robot that thinks and navigates on its own. View Slides →\n\n\n\n\n\n\nSession 5: Code Mastery Recap\nA quick tour of the core concepts from sessions 1 to 4 — syntax, functions, sensors, and autonomous logic. View Slides →\n\n\n\n\n\n\nFinal Quiz: Test Your Skills\nAn interactive 11-question challenge testing your engineering knowledge on circuit physics, motor PWM speeds, ultrasonic calculation math, servo sweeping loops, autonomous path logic, and remote override priority. Take Quiz →\n\n\n\n\n\n\nRobotics Adventure Roadmap\nYour ultimate guide for next steps! Learn about advanced coding, driving straight with PID, ESP32 phone control, AI vision cameras, and prototyping playgrounds. Explore Roadmap →"
+    "text": "📚 Curriculum Slides\nExplore the core concepts through our interactive slide decks.\n\n\n\n\nSession 1: Circuits Basics\nFrom Water Pipes to Computer Logic. Covering voltage, current, resistance, and the bridge to electronics. View Slides →\n\n\n\n\n\n\nSession 2: Movement + Problem Patterns\nFrom physical assembly to autonomous movement. Mastering the basics of robot locomotion and problem identification. View Slides →\n\n\n\n\n\n\nSession 3: Building the Smart Radar\nGiving your project eyes and movement. Building a radar system using an ultrasonic sensor and a servo motor. View Slides →\n\n\n\n\n\n\nSession 4: The Autonomous Explorer (Take-Home Homework)\nBuilding an Obstacle Avoiding Robot. A take-home assignment to build a robot that thinks and navigates, to be reviewed on Sunday, 14 Jul. View Homework →\n\n\n\n\n\n\nSession 5: Code Mastery Recap\nA quick tour of the core concepts from sessions 1 to 4 — syntax, functions, sensors, and autonomous logic. View Slides →\n\n\n\n\n\n\nFinal Quiz: Test Your Skills\nAn interactive 11-question challenge testing your engineering knowledge on circuit physics, motor PWM speeds, ultrasonic calculation math, servo sweeping loops, autonomous path logic, and remote override priority. Take Quiz →\n\n\n\n\n\n\nRobotics Adventure Roadmap\nYour ultimate guide for next steps! Learn about advanced coding, driving straight with PID, ESP32 phone control, AI vision cameras, and prototyping playgrounds. Explore Roadmap →"
   },
   {
     "objectID": "index.html#interactive-simulations",
@@ -1820,11 +1820,11 @@
     "text": "What’s Coming Next?\n\nSession 3: The Smarter Car — Sensors 🧠\nGive your car “eyes” using Ultrasonic Sound (like a bat!).\nMake the car drive itself and dodge obstacles automatically.\nStart brainstorming ideas for the WRO Future Innovators project!\n\n\nSee you next time! 🚗💨"
   },
   {
-    "objectID": "slides/session4.html#todays-agenda",
-    "href": "slides/session4.html#todays-agenda",
+    "objectID": "slides/session4.html#homework-tasks",
+    "href": "slides/session4.html#homework-tasks",
     "title": "Session 4: The Autonomous Explorer",
-    "section": "Today’s Agenda",
-    "text": "Today’s Agenda\nPhase 1: The Concept - Sense → Think → Act - How autonomous robots make decisions\nPhase 2: Motor Helpers (Recap) - Reusing car_front, car_back, car_left, car_right, car_Stop from Session 2\nPhase 3: Complete Setup - Pins, libraries, Serial — one block that combines Sessions 2 & 3\nPhase 4: Decision Making - The lookAt(angle) helper - Reading left vs right with one line\nPhase 5: The Main Loop - Combining radar + motors into a clean loop()\nPhase 6: Challenges - Fine-tuning, backwards escape, and the Smart Remote override"
+    "section": "Homework Tasks",
+    "text": "Homework Tasks\nPhase 1: The Concept - Sense → Think → Act - How autonomous robots make decisions\nPhase 2: Motor Helpers (Recap) - Reusing car_front, car_back, car_left, car_right, car_Stop from Session 2\nPhase 3: Complete Setup - Pins, libraries, Serial — one block that combines Sessions 2 & 3\nPhase 4: Decision Making - The lookAt(angle) helper - Reading left vs right with one line\nPhase 5: The Main Loop - Combining radar + motors into a clean loop()\nPhase 6: Homework Challenges - Fine-tuning, backwards escape, and the Smart Remote override"
   },
   {
     "objectID": "slides/session4.html#the-avoidance-logic",
@@ -1901,6 +1901,13 @@
     "href": "slides/session4.html#challenge-3-the-scaffold",
     "title": "Session 4: The Autonomous Explorer",
     "section": "Challenge 3: The Scaffold 🛠️",
-    "text": "Challenge 3: The Scaffold 🛠️\nvoid loop() {\n  int distance = measureDistance();\n\n  if (IrReceiver.decode()) {\n    uint16_t cmd = IrReceiver.decodedIRData.command;\n\n    if (cmd == 0x46 && distance &lt; 15) {  // 0x46 = FORWARD + wall ahead\n      car_Stop();                        // Override: refuse the command\n      Serial.println(\"Wall! Forward blocked.\");\n    } else {\n      handleCommand(cmd);                // From Session 2 Part 5\n    }\n\n    IrReceiver.resume();\n  }\n}\n\n\n\n\n\n\nTip\n\n\nReuse handleCommand() from Session 2 Part 5. Replace 0x46 with whatever code your remote’s UP button actually sends.\n\n\n\nGood luck, Master Coders!"
+    "text": "Challenge 3: The Scaffold 🛠️\nvoid loop() {\n  int distance = measureDistance();\n\n  if (IrReceiver.decode()) {\n    uint16_t cmd = IrReceiver.decodedIRData.command;\n\n    if (cmd == 0x46 && distance &lt; 15) {  // 0x46 = FORWARD + wall ahead\n      car_Stop();                        // Override: refuse the command\n      Serial.println(\"Wall! Forward blocked.\");\n    } else {\n      handleCommand(cmd);                // From Session 2 Part 5\n    }\n\n    IrReceiver.resume();\n  }\n}\n\n\n\n\n\n\nTip\n\n\nReuse handleCommand() from Session 2 Part 5. Replace 0x46 with whatever code your remote’s UP button actually sends."
+  },
+  {
+    "objectID": "slides/session4.html#submission-checklist",
+    "href": "slides/session4.html#submission-checklist",
+    "title": "Session 4: The Autonomous Explorer",
+    "section": "Submission Checklist 📋",
+    "text": "Submission Checklist 📋\nPlease have the following ready for our review on Sunday, 14 Jul:\n\nCode Implementation: A complete, compiled sketch combining ultrasonic sensor, servo, IR remote receiver, and motor functions.\nTuned Parameters: Optimized delay() times for 90-degree turns and a detection distance threshold that prevents physical collision.\nCorner Handling: Working “Backwards Escape” logic when trapped.\nSafety Override: Working “Smart Remote Override” which blocks manual forward movement if a wall is detected.\n\nGood luck, Master Coders!"
   }
 ]
